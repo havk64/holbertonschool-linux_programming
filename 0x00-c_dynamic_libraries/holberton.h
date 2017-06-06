@@ -1,5 +1,5 @@
-#ifndef _HOLBERTON_H_
-#define _HOLBERTON_H_
+#ifndef HOLBERTON_H
+#define HOLBERTON_H
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -25,4 +25,4 @@ unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(char *s, char *accept);
 char *_strstr(char *haystack, char *needle);
 
-#endif /* _HOLBERTON_H_ */
+#endif /* HOLBERTON_H */
