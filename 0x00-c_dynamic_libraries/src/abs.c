@@ -1,6 +1,9 @@
 #include "holberton.h"
 
-int _abs(__attribute__((unused)) int n)
+int _abs(int n)
 {
-	return(0);
+	if(n < 0) {
+		return -n;
+	}
+	return n;
 }
