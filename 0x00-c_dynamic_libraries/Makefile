@@ -1,5 +1,5 @@
 CC	:= gcc
-CFLAGS	:= -g -c -Wall -Wextra -Werror -pedantic -fPIC -I.
+CFLAGS	:= -g -Wall -Wextra -Werror -pedantic -fPIC -I.
 SRC	:= $(shell find src/ -name "*.c")
 OBJS	:= $(SRC:.c=.o)
 LIB	:= libholberton.so
