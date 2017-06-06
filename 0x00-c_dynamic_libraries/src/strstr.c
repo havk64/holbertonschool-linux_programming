@@ -1,6 +1,7 @@
 #include "holberton.h"
 
-char *_strstr(__attribute__((unused)) char *haystack, __attribute__((unused)) char *needle)
+char *_strstr(char *haystack, char *needle)
 {
-  return(0);
+	*haystack = *needle;
+	return (haystack);
 }

@@ -1,6 +1,7 @@
 #include "holberton.h"
 
-unsigned int _strspn(__attribute__((unused)) char *s, __attribute__((unused)) char *accept)
+unsigned int _strspn(char *s, __attribute__((unused)) char *accept)
 {
-  return(0);
+	*s = *accept;
+	return (0);
 }

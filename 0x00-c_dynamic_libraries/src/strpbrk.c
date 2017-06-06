@@ -1,6 +1,7 @@
 #include "holberton.h"
 
-char *_strpbrk(__attribute__((unused)) char *s, __attribute__((unused)) char *accept)
+char *_strpbrk(char *s, __attribute__((unused)) char *accept)
 {
-  return(0);
+	*s = *accept;
+	return (s);
 }
