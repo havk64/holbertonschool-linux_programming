@@ -3,7 +3,7 @@
 
 cat <<\EOF > Makefile
 CC	:= gcc
-CFLAGS	:= -g -Wall -Wextra -Werror -pedantic -fPIC
+CFLAGS	:= -Wall -Wextra -Werror -pedantic -fPIC
 SRC	:= $(shell find . -name "*.c")
 OBJS	:= $(SRC:.c=.o)
 LIB	:= liball.so
