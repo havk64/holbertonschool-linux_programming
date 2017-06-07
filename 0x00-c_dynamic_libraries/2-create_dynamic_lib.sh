@@ -18,3 +18,4 @@ re: clean $(LIB)
 EOF
 
 make
+exit
