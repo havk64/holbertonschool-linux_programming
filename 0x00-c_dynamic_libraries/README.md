@@ -6,9 +6,9 @@ System programming & Algorithms ― Linux programming
 
 by Julien Barbier, co-founder at Holberton School
 
-- Task 0
+- **Task 0**
 
-  *A library is not a luxury but one of the necessities of life*
+  ***"A library is not a luxury but one of the necessities of life"***
 
   The file [libholberton.so](libholberton.so) is a shared/dynamic library containing all the functions listed below:
 
@@ -33,9 +33,9 @@ by Julien Barbier, co-founder at Holberton School
             char *_strpbrk(char *s, char *accept);
             char *_strstr(char *haystack, char *needle);
 
-- Task 1
+- **Task 1**
 
-  *Without libraries what have we? We have no past and no future*
+  ***"Without libraries what have we? We have no past and no future"***
   
   The script [1-create_dynamic_lib.sh](1-create_dynamic_lib.sh) creates a dynamic library called [liball.so](liball.so)  
   from all the `.c` files that are in the current directory.
