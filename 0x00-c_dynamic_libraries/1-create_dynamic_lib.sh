@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Creates a dynamic library from all the source files in the current directory
 # shellcheck disable=SC2086
 
