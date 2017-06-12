@@ -1,21 +1,14 @@
 #!/bin/bash
 # Creates a dynamic library from all the source files in the current directory
+# shellcheck disable=SC2086
 
-cat <<\EOF > Makefile
-CC	:= gcc
-CFLAGS	:= -Wall -Wextra -Werror -pedantic -fPIC
-SRC	:= $(shell find . -name "*.c")
-OBJS	:= $(SRC:.c=.o)
-LIB	:= liball.so
+SRC=$(find . -name '*.c' -printf '%P\n')
+CFLAGS="-Wall -Wextra -Werror -pedantic -fPIC"
 
-$(LIB): $(OBJS)
-	$(CC) -shared -o $(LIB) $(OBJS)
+while read -r source; do
+    gcc ${CFLAGS} -c "$source"
+done <<< "$SRC"
 
-clean:
-	rm -f $(OBJS) $(LIB)
+OBJS=$(find . -name '*.o' -printf "%P ")
 
-re: clean $(LIB)
-EOF
-
-make
-exit
+gcc -shared -o liball.so ${OBJS}
