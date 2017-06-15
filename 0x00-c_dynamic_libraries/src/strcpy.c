@@ -1,7 +1,12 @@
 #include "holberton.h"
 
-char *_strcpy(__attribute__((unused)) char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
-	*src = 0x0;
-	return (0);
+	char *s;
+
+	s = dest;
+	while ((*dest++ = *src++))
+		;
+	*dest = 0;
+	return (s);
 }
