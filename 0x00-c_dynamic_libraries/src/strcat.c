@@ -2,7 +2,17 @@
 
 char *_strcat(char *dest, char *src)
 {
-	*dest = 0x0;
-	*src = 0x0;
-	return (0);
+	char *s = dest;
+
+	while (*dest)
+	{
+		dest++;
+	}
+	while (*src)
+	{
+		*dest = *src;
+		src++;
+		dest++;
+	}
+	return (s);
 }
