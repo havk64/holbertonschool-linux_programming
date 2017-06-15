@@ -1,7 +1,14 @@
 #include "holberton.h"
 
-int _strlen(__attribute__((unused)) char *s)
+int _strlen(char *s)
 {
-	return (0);
-}
 
+	int len, i;
+
+	len = 0;
+	for (i = 0; *(s + i) != '\0'; i++)
+	{
+		len++;
+	}
+	return (len++);
+}
