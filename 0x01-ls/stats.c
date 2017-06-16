@@ -51,6 +51,7 @@ char *f_perm(mode_t mode)
 	p[6] = (mode & S_IROTH) ? 'r' : '-';
 	p[7] = (mode & S_IWOTH) ? 'w' : '-';
 	p[8] = (mode & S_IXOTH) ? 'x' : '-';
+	p[9] = 0;
 
 	return (p);
 }
