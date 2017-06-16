@@ -33,3 +33,24 @@ char f_type(mode_t mode)
 	}
 	return (c);
 }
+
+char *f_perm(mode_t mode)
+{
+	char *p;
+
+	p = malloc(9 * sizeof(char) + 1);
+	if (p == NULL)
+		return (NULL);
+
+	p[0] = (mode & S_IRUSR) ? 'r' : '-';
+	p[1] = (mode & S_IWUSR) ? 'w' : '-';
+	p[2] = (mode & S_IXUSR) ? 'x' : '-';
+	p[3] = (mode & S_IRGRP) ? 'r' : '-';
+	p[4] = (mode & S_IWGRP) ? 'w' : '-';
+	p[5] = (mode & S_IXGRP) ? 'x' : '-';
+	p[6] = (mode & S_IROTH) ? 'r' : '-';
+	p[7] = (mode & S_IWOTH) ? 'w' : '-';
+	p[8] = (mode & S_IXOTH) ? 'x' : '-';
+
+	return (p);
+}
