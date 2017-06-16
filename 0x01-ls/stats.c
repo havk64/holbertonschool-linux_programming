@@ -4,21 +4,32 @@ char f_type(mode_t mode)
 {
 	char c;
 
-	if (S_ISREG(mode))
-		c = '-';
-	else if (S_ISDIR(mode))
-		c = 'd';
-	else if (S_ISCHR(mode))
-		c = 'c';
-	else if (S_ISBLK(mode))
+	switch (mode & S_IFMT)
+	{
+	case S_IFBLK:
 		c = 'b';
-	else if (S_ISFIFO(mode))
+		break;
+	case S_IFCHR:
+		c = 'c';
+		break;
+	case S_IFDIR:
+		c = 'd';
+		break;
+	case S_IFIFO:
 		c = 'p';
-	else if (S_ISLNK(mode))
+		break;
+	case S_IFLNK:
 		c = 'l';
-	else if (S_ISSOCK(mode))
+		break;
+	case S_IFREG:
+		c = '-';
+		break;
+	case S_IFSOCK:
 		c = 's';
-	else
+		break;
+	default:
 		c = '?';
+		break;
+	}
 	return (c);
 }
