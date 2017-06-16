@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 int _putchar(char c);
 int _strlen(char *s);
-char f_type(mode_t mode);
 char *string_concat(char *s1, char *s2);
+char f_type(mode_t mode);
+char *f_perm(mode_t mode);
 #endif /* LS_HEADER_H */
