@@ -7,7 +7,7 @@ TARGET	:= hls
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
 	rm -rf $(OBJS) $(TARGET)
