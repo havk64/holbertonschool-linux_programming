@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
+#include <pwd.h>
+#include <grp.h>
 int _putchar(char c);
 int _strlen(char *s);
 char *string_concat(char *s1, char *s2);
