@@ -32,7 +32,7 @@ int _putchar(char c)
  * string_concat - concatenates two strings in a newly allocated
  * space in memory
  * @s1: The first string
- * @s3: The second string
+ * @s2: The second string
  *
  * Return: On success: a pointer to the new string
  * On error, NULL
