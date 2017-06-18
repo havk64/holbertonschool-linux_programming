@@ -19,3 +19,14 @@ char **salloc(int size)
 	return (s);
 }
 
+char *strcpalloc(char *src, int size)
+{
+	char *dest;
+
+	dest = malloc(size * sizeof(char));
+	if (dest == NULL)
+		exit(1);
+	_strcpy(dest, src);
+	return (dest);
+}
+
