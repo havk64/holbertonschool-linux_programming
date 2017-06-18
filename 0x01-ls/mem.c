@@ -62,3 +62,20 @@ void parse_opt(int max, char **av)
 		printf("Files: %s\n", flist[i]);
 	freemem(flist, fcount);
 }
+
+int parse_dir(char **src, int fcount, char *av, int len)
+{
+
+	DIR *dirp;
+
+	dirp = opendir(av);
+	if (dirp == NULL)
+	{
+		src[fcount] = strcpalloc(av, len);
+		(void)closedir(dirp);
+		return (1);
+	}
+	printf("%s is a directory\n", av);
+	/* print_dir(dirp); */
+	return (0);
+}
