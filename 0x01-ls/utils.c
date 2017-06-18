@@ -63,3 +63,24 @@ char *string_concat(char *s1, char *s2)
 	}
 	return (NULL);
 }
+
+/**
+ * _strcpy - concatenate two strings into a new one
+ * @dest: the destination string
+ * @src: the source string
+ *
+ * Return: a new string resulting of the concatenation of dest + src
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+	char *s;
+
+	s = dest;
+	i = 0;
+	while ((dest[i] = src[i]))
+		i++;
+
+	dest[i] = 0;
+	return (s);
+}

@@ -14,4 +14,5 @@ int _strlen(char *s);
 char *string_concat(char *s1, char *s2);
 char f_type(mode_t mode);
 char *f_perm(mode_t mode);
+char *_strcpy(char *dest, char *src);
 #endif /* LS_HEADER_H */
