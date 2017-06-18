@@ -18,4 +18,5 @@ char *_strcpy(char *dest, char *src);
 void freemem(char **s, int len);
 char **salloc(int size);
 char *strcpalloc(char *src, int size);
+void parse_opt(int max, char **av);
 #endif /* LS_HEADER_H */

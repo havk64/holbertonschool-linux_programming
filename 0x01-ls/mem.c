@@ -30,3 +30,41 @@ char *strcpalloc(char *src, int size)
 	return (dest);
 }
 
+void parse_opt(int max, char **av)
+{
+	DIR *dirp;
+	int i, opcount, fcount, avlen;
+	char **oplist, **flist;
+
+	oplist = salloc(max);
+	flist = salloc(max);
+	opcount = 0;
+	fcount = 0;
+	for (i = 1; i < max; i++)
+	{
+		avlen = (_strlen(av[i]) + 1);
+		if (av[i][0] == '-')
+		{
+			oplist[opcount] = strcpalloc(av[1], avlen);
+			opcount++;
+		}
+		else
+		{
+			dirp = opendir(av[i]);
+			if (dirp == NULL)
+			{
+				flist[fcount] = strcpalloc(av[1], avlen);
+				fcount++;
+				(void)closedir(dirp);
+			}
+		}
+	}
+	oplist[opcount] = NULL;
+	flist[fcount] = NULL;
+	for (i = 0; i < opcount; i++)
+		printf("Options: %s\n", oplist[i]);
+	freemem(oplist, opcount);
+	for (i = 0; i < fcount; i++)
+		printf("Files: %s\n", flist[i]);
+	freemem(flist, fcount);
+}
