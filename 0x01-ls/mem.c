@@ -32,7 +32,6 @@ char *strcpalloc(char *src, int size)
 
 void parse_opt(int max, char **av)
 {
-	DIR *dirp;
 	int i, opcount, fcount, avlen;
 	char **oplist, **flist;
 
@@ -45,18 +44,13 @@ void parse_opt(int max, char **av)
 		avlen = (_strlen(av[i]) + 1);
 		if (av[i][0] == '-')
 		{
-			oplist[opcount] = strcpalloc(av[1], avlen);
+			oplist[opcount] = strcpalloc(av[i], avlen);
 			opcount++;
 		}
 		else
 		{
-			dirp = opendir(av[i]);
-			if (dirp == NULL)
-			{
-				flist[fcount] = strcpalloc(av[1], avlen);
+			if (parse_dir(flist, fcount, av[i], avlen) == 1)
 				fcount++;
-				(void)closedir(dirp);
-			}
 		}
 	}
 	oplist[opcount] = NULL;
