@@ -25,9 +25,9 @@ This macro defines the number of bytes is read each time we call `read`:
         #include <stdio.h>
         #include <unistd.h>
         #include <stdlib.h>
-        
+
         #include "_getline.h"
-        
+
         /**
          * main - entry point.
          *
