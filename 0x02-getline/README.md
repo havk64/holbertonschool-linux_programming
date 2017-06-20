@@ -2,14 +2,14 @@
 
 System programming & Algorithm ― Linux programming
 
-### Task 0 - .getline
+### Task 0 - _getline
 
-- Create a function that reads an entire line of a `fd`(file descriptor).
+- The function [`_getline`](_getline.c) reads an entire line of a `fd`(file descriptor).
 
-Prototype : char *_getline(const int fd)
+Prototype : `char *_getline(const int fd)`
 
-Features:
--
+#### Features:
+
 - `fd` is the file descriptor to read from
 - If there are no more lines to return, or if there is an error, the function returns NULL
 - The function returns a null-terminated string that does not include the newline character
@@ -18,8 +18,7 @@ This macro defines the number of bytes is read each time we call `read`:
 
         read(fd, buffer, READ_SIZE)
 
-#### Test function:
-
+#### Test file:
 
         #include <fcntl.h>
         #include <stdio.h>
