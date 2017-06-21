@@ -1,11 +1,11 @@
 CC	:= gcc
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic -fPIC -I.
-SRC	:= $(shell find src/ -name "*.c")
+SRC	:= $(wildcard src/*.c)
 OBJS	:= $(SRC:.c=.o)
 LIB	:= libholberton.so
 
 $(LIB): $(OBJS)
-	$(CC) -shared -o $(LIB) $(OBJS)
+	$(CC) -shared -o $@ $^
 
 clean:
 	rm -f $(OBJS) $(LIB)
