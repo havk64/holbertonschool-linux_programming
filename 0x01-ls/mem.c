@@ -39,7 +39,7 @@ char *strcpalloc(char *src, int size)
 
 	dest = malloc(size * sizeof(char));
 	if (dest == NULL)
-		exit(1);
+		perror("malloc error: ");
 	_strcpy(dest, src);
 	return (dest);
 }
