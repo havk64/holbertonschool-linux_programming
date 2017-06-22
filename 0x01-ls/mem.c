@@ -1,5 +1,12 @@
 #include "ls_header.h"
 
+/**
+ * freemem - free an array of strings
+ * @s: the array to be freed
+ * @len: the length of the array
+ *
+ * Return: void
+ */
 void freemem(char **s, int len)
 {
 	int i;
