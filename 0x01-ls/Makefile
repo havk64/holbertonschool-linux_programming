@@ -1,6 +1,6 @@
 CC	:= gcc
 CFLAGS	:= -Wall -Wextra -Werror -pedantic
-SRC	:= $(shell find . -maxdepth 1 -name '*.c')
+SRC	:= $(wildcard *.c)
 OBJS	:= $(SRC:.c=.o)
 TARGET	:= hls
 
