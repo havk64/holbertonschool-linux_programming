@@ -20,4 +20,6 @@ char **salloc(int size);
 char *strcpalloc(char *src, int size);
 void parse_opt(int max, char **av);
 int parse_dir(char **src, int fcount, char *av, int len);
+void print_dir(DIR *dir);
+int open_directory(char *name);
 #endif /* LS_HEADER_H */
