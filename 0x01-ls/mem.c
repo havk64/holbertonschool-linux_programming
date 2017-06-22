@@ -16,13 +16,20 @@ void freemem(char **s, int len)
 	free(s);
 }
 
+/**
+ * salloc - allocate memory to an array of strings
+ * @size: the array's size
+ *
+ * Return: On success: a pointer to the beggining of newly allocated array
+ * On fail: Log the error to stderr
+ */
 char **salloc(int size)
 {
 	char **s;
 
 	s = malloc(size * sizeof(char *));
 	if (s == NULL)
-		exit(1);
+		perror("malloc error: ");
 	return (s);
 }
 
