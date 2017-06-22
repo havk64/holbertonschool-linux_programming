@@ -5,7 +5,7 @@ OBJS	:= $(SRC:.c=.o)
 LIB	:= libholberton.so
 
 $(LIB): $(OBJS)
-	$(CC) -shared -o $@ $^
+	$(CC) -shared -o $(LIB) $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(LIB)
