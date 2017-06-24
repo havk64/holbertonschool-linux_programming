@@ -1,5 +1,11 @@
 #include "ls_header.h"
 
+/**
+ * print_dir - lists a directory
+ * @dir: pointer to a directory stream
+ *
+ * Return: Void
+ */
 void print_dir(DIR *dir)
 {
 	int count;
