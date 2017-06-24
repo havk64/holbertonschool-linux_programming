@@ -33,6 +33,13 @@ char **salloc(int size)
 	return (s);
 }
 
+/**
+ * strcpalloc - allocate memory to a string
+ * @src: the string to be allocated
+ * @size: the size of the string
+ *
+ * Return: string pointer to newly allocated space on memory
+ */
 char *strcpalloc(char *src, int size)
 {
 	char *dest;
