@@ -1,5 +1,11 @@
 #include "ls_header.h"
 
+/**
+ * f_type - Check the type of a file/directory
+ * @mode: stat st_mode field
+ *
+ * Return: a character describing the type of the file/directory
+ */
 char f_type(mode_t mode)
 {
 	char c;
