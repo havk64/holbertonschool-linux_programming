@@ -1,5 +1,12 @@
 #include "ls_header.h"
 
+/**
+ * parse_opt - Parse the options to the command line
+ * @max: max size of options
+ * @av: command line arguments
+ *
+ * Return: void
+ */
 void parse_opt(int max, char **av)
 {
 	int i, opcount, fcount, avlen;
@@ -33,6 +40,14 @@ void parse_opt(int max, char **av)
 	freemem(flist, fcount);
 }
 
+/**
+ * parse_dir - Check if file or directory
+ * @src: pointer to a array of strings
+ * @fcount: counter for files, excluding directories
+ * @len: the length of the file/directory name
+ *
+ * Return: On success 0, On error 1
+ */
 int parse_dir(char **src, int fcount, char *av, int len)
 {
 
