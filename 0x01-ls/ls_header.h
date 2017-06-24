@@ -10,7 +10,7 @@
 #include <pwd.h>
 #include <grp.h>
 int _putchar(char c);
-int _strlen(char *s);
+size_t _strlen(char *s);
 char *string_concat(char *s1, char *s2);
 char f_type(mode_t mode);
 char *f_perm(mode_t mode);
