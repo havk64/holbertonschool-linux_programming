@@ -66,6 +66,13 @@ int parse_dir(char **src, int fcount, char *av, int len)
 	return (0);
 }
 
+/**
+ * open_dir - Open a directory stream
+ * @name: name of the directory
+ *
+ * Return: On success return 0
+ * On error return 1 or 2
+ */
 int open_dir(char *name)
 {
 	DIR *dirp;
