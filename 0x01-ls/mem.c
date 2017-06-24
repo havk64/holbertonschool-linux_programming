@@ -91,5 +91,6 @@ int parse_dir(char **src, int fcount, char *av, int len)
 	}
 	printf("%s is a directory\n", av);
 	print_dir(dirp);
+	(void)(closedir(dirp));
 	return (0);
 }
