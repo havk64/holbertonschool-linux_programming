@@ -4,12 +4,12 @@
  * _strlen - counts the number of characters of a string
  * @s: The string to be counted
  *
- * Return: the length, in bytes, of the string
+ * Return: the length of the string
  */
-int _strlen(char *s)
+size_t _strlen(char *s)
 {
 
-	int i;
+	size_t i;
 
 	for (i = 0; s[i] != '\0'; i++)
 		;
@@ -48,7 +48,7 @@ char *string_concat(char *s1, char *s2)
 	s = malloc(sizeof(char) * (sum + 1));
 	if (s != NULL)
 	{
-		while (i < _strlen(s1))
+		while (i < (int)_strlen(s1))
 		{
 			s[i] = s1[i];
 			i++;
