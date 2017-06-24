@@ -66,3 +66,35 @@ int parse_dir(char **src, int fcount, char *av, int len)
 	return (0);
 }
 
+int open_dir(char *name)
+{
+	DIR *dirp;
+	int count;
+	struct dirent *rdir;
+
+	/* Open directory stream */
+	dirp = opendir(name);
+	if (dirp == NULL)
+		return (2);
+
+	count = 0;
+	/* Read Directory stream */
+	while ((rdir = readdir(dirp)) != NULL)
+	{
+
+		if (count != 0)
+			printf("  ");
+
+		if (rdir->d_name[0] != '.')
+		{
+			printf("%s",
+			       rdir->d_name);
+			count++;
+		}
+
+	}
+	printf("\n");
+
+	return (closedir(dirp));
+}
+
