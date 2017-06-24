@@ -21,7 +21,7 @@ void freemem(char **s, int len)
  * @size: the array's size
  *
  * Return: On success: a pointer to the beggining of newly allocated array
- * On fail: Log the error to stderr
+ * On error: Log the error to stderr
  */
 char **salloc(int size)
 {
