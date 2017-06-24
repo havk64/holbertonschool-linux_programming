@@ -40,6 +40,12 @@ char f_type(mode_t mode)
 	return (c);
 }
 
+/**
+ * f_perm - Check the permissions of a file/directory
+ * @mode: stat st_mode field
+ *
+ * Return: a string describing the permissions of the file/directory
+ */
 char *f_perm(mode_t mode)
 {
 	char *p;
