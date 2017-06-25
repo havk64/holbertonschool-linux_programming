@@ -67,3 +67,28 @@ char *f_perm(mode_t mode)
 
 	return (p);
 }
+int file_check(char *path)
+{
+	struct stat buf;
+
+	if (lstat(path, &buf) < 0)
+	{
+		switch (errno)
+		{
+			case 2:
+				printf("ls: cannot access %s: No such file or directory\n", path);
+				return (2);
+
+			case 13:
+				printf("ls: cannot access %s: Permission denied\n", path);
+				return (1);
+
+			default:
+				printf("Whatever...%d\n", errno);
+		}
+
+		return (1);
+	}
+	return (0);
+}
+

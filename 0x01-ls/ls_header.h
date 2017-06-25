@@ -20,6 +20,7 @@ char **salloc(int size);
 char *strcpalloc(char *src, int size);
 int parse_opt(int max, char **av);
 int parse_dir(char **src, int fcount, char *av, int len);
+int file_check(char *path);
 void print_dir(DIR *dir);
 int open_directory(char *name);
 int open_dir(char *name);
