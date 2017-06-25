@@ -67,6 +67,13 @@ char *f_perm(mode_t mode)
 
 	return (p);
 }
+
+/**
+ * file_check - Check if file exists and is accessible
+ * @path: the name of the file
+ *
+ * Return: On success: 0, On error: 1 or 2
+ */
 int file_check(char *path)
 {
 	struct stat buf;
