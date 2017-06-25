@@ -9,6 +9,7 @@
 #include <time.h>
 #include <pwd.h>
 #include <grp.h>
+#include <errno.h>
 int _putchar(char c);
 size_t _strlen(char *s);
 char *string_concat(char *s1, char *s2);

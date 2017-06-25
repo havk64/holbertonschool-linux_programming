@@ -11,6 +11,7 @@ int parse_opt(int max, char **av)
 {
 	int i, opcount, fcount, avlen;
 	char **oplist, **flist;
+	int EXIT_STATUS = 0;
 
 	oplist = salloc(max);
 	flist = salloc(max);
@@ -32,12 +33,17 @@ int parse_opt(int max, char **av)
 	}
 	oplist[opcount] = NULL;
 	flist[fcount] = NULL;
-	for (i = 0; i < opcount; i++)
-		printf("Options: %s\n", oplist[i]);
-	freemem(oplist, opcount);
 	for (i = 0; i < fcount; i++)
-		printf("Files: %s\n", flist[i]);
+	{
+		if (file_check(flist[i]) != 0)
+		{
+			EXIT_STATUS = 2;
+		}
+	}
+
+	freemem(oplist, opcount);
 	freemem(flist, fcount);
+	return (EXIT_STATUS);
 }
 
 /**
