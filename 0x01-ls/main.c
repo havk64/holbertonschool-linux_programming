@@ -9,11 +9,14 @@
  */
 int main(int ac, char *av[])
 {
+	int EXIT_STATUS;
+
+	EXIT_STATUS = 0;
 	if (ac < 2)
 	{
 		open_dir(".");
 	} else
-		parse_opt(ac, av);
+		EXIT_STATUS = parse_opt(ac, av);
 
-	return (0);
+	return (EXIT_STATUS);
 }

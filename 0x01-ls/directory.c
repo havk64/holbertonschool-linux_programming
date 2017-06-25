@@ -7,7 +7,7 @@
  *
  * Return: void
  */
-void parse_opt(int max, char **av)
+int parse_opt(int max, char **av)
 {
 	int i, opcount, fcount, avlen;
 	char **oplist, **flist;
