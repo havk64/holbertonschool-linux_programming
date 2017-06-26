@@ -29,5 +29,6 @@ int file_check(char *path);
 void print_dir(DIR *dir);
 int open_dir(char *name);
 int add_node(Dlist **list, char *str);
+void print_list(Dlist *list);
 char *alloclist(char *str);
 #endif /* LS_HEADER_H */

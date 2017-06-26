@@ -60,3 +60,24 @@ char *alloclist(char *str)
 
 	return (s);
 }
+
+/**
+ * print_list - prints a linked list
+ * @list: list to be printed
+ *
+ * Return: Void
+ */
+void print_list(Dlist *list)
+{
+	Dlist *node;
+
+	node = list;
+	while (node != NULL)
+	{
+		printf("%s", node->str);
+		if (node->next != NULL)
+			printf("  ");
+		node = node->next;
+	}
+	printf("\n");
+}
