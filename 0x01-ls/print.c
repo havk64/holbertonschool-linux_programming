@@ -23,8 +23,10 @@ void print_dir(DIR *dir, char *path, int mode)
 
 		if (rdir->d_name[0] != '.')
 		{
-			printf("%s",
-			       rdir->d_name);
+			if (mode > 1)
+				print_long(path, rdir->d_name);
+			else
+				printf("%s", rdir->d_name);
 			count++;
 		}
 	}
@@ -84,7 +86,7 @@ void print_long(char *path, char *name)
 	time = ctime(&buf.st_mtime);
 	printf("%c%s %1ld %s %s %*ld %.*s %s",
 	       f_type(buf.st_mode), perm, buf.st_nlink, uid->pw_name,
-	       gid->gr_name, 5, buf.st_size, 12, &time[4], str);
+	       gid->gr_name, 5, buf.st_size, 12, &time[4], name);
 
 	free(perm);
 	free(filename);
