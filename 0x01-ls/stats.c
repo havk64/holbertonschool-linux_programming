@@ -93,9 +93,11 @@ int file_check(char *path)
 			default:
 				printf("Whatever...%d\n", errno);
 		}
-
 		return (1);
 	}
+	if (f_type(buf.st_mode) == 'd')
+		return (4);
+
 	return (0);
 }
 
