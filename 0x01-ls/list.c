@@ -79,7 +79,7 @@ void print_list(Dlist *list, int mode)
 	while (node != NULL)
 	{
 		if (mode > 1)
-			print_long(node->str);
+			print_long(".", node->str);
 		else
 			printf("%s", node->str);
 		if (node->next != NULL)

@@ -62,7 +62,7 @@ int parse_dir(char *av, int mode)
 		(void)closedir(dirp);
 		return (1);
 	}
-	print_dir(dirp, mode);
+	print_dir(dirp, av, mode);
 	(void)(closedir(dirp));
 	return (0);
 }

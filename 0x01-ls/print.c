@@ -72,10 +72,10 @@ void print_long(char *path, char *name)
 	struct stat buf;
 	struct passwd *uid;
 	struct group *gid;
-	char *path, *perm, *time;
+	char *perm, *time, *filename;
 
-	path = string_concat("./", str);
-	if (lstat(path, &buf) < 0)
+	filename = string_concat(path, name);
+	if (lstat(filename, &buf) < 0)
 		perror("lstat error");
 
 	uid = getpwuid(buf.st_uid);
@@ -87,5 +87,5 @@ void print_long(char *path, char *name)
 	       gid->gr_name, 5, buf.st_size, 12, &time[4], str);
 
 	free(perm);
-	free(path);
+	free(filename);
 }
