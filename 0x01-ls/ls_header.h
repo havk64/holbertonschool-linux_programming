@@ -10,6 +10,11 @@
 #include <pwd.h>
 #include <grp.h>
 #include <errno.h>
+typedef struct Dlist
+{
+	char *str;
+	struct Dlist *next;
+} Dlist;
 size_t _strlen(char *s);
 char *string_concat(char *s1, char *s2);
 char f_type(mode_t mode);
