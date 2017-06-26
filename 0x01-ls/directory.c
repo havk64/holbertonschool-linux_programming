@@ -47,16 +47,12 @@ int parse_opt(int max, char **av)
 
 /**
  * parse_dir - Check if file or directory
- * @src: pointer to a array of strings
- * @fcount: counter for files, excluding directories
  * @av: the name of the file/directory
- * @len: the length of the file/directory name
  *
  * Return: On success 0, On error 1
  */
-int parse_dir(char **src, int fcount, char *av, int len)
+int parse_dir(char *av)
 {
-
 	DIR *dirp;
 
 	dirp = opendir(av);

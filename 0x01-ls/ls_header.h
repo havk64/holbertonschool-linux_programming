@@ -19,7 +19,7 @@ void freemem(char **s, int len);
 char **salloc(int size);
 char *strcpalloc(char *src, int size);
 int parse_opt(int max, char **av);
-int parse_dir(char **src, int fcount, char *av, int len);
+int parse_dir(char *av);
 int file_check(char *path);
 void print_dir(DIR *dir);
 int open_dir(char *name);
