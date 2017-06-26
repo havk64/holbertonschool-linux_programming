@@ -39,4 +39,5 @@ char *alloclist(char *str);
 int check_dir(Dlist **dlist, Dlist **flist, char *str);
 void list_dir(Dlist *list, int stat, int mode);
 int list_size(Dlist *list);
+void print_long(char *str);
 #endif /* LS_HEADER_H */

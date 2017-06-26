@@ -107,3 +107,33 @@ int list_size(Dlist *list)
 
 	return (i);
 }
+
+/**
+ * print_long - print more details about a file
+ * @str: the path to file
+ *
+ * Return: Void
+ */
+void print_long(char *str)
+{
+
+	struct stat buf;
+	struct passwd *uid;
+	struct group *gid;
+	char *path, *perm, *time;
+
+	path = string_concat("./", str);
+	if (lstat(path, &buf) < 0)
+		perror("lstat error");
+
+	uid = getpwuid(buf.st_uid);
+	gid = getgrgid(buf.st_gid);
+	perm = f_perm(buf.st_mode);
+	time = ctime(&buf.st_mtime);
+	printf("%c%s %1ld %s %s %*ld %.*s %s",
+	       f_type(buf.st_mode), perm, buf.st_nlink, uid->pw_name,
+	       gid->gr_name, 5, buf.st_size, 12, &time[4], str);
+
+	free(perm);
+	free(path);
+}
