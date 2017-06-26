@@ -5,44 +5,44 @@
  * @max: max size of options
  * @av: command line arguments
  *
- * Return: void
+ * Return: On success: 0, On error, error code
  */
 int parse_opt(int max, char **av)
 {
-	int i, opcount, fcount, avlen;
-	char **oplist, **flist;
-	int EXIT_STATUS = 0;
+	int i, opcount, stat, ft;
+	char **oplist;
+	Dlist *flist, *dlist;
 
+	stat = ft = 0;
+	dlist = flist = NULL;
 	oplist = salloc(max);
-	flist = salloc(max);
 	opcount = 0;
-	fcount = 0;
 	for (i = 1; i < max; i++)
 	{
 		if (av[i][0] == '-')
 		{
 			oplist[opcount] = strcpalloc(av[i]);
 			opcount++;
-		}
-		else
+		} else
 		{
-			if (parse_dir(flist, fcount, av[i], avlen) == 1)
-				fcount++;
+			stat = check_dir(&dlist, &flist, av[i]);
 		}
 	}
 	oplist[opcount] = NULL;
-	flist[fcount] = NULL;
-	for (i = 0; i < fcount; i++)
+	if (flist != NULL)
 	{
-		if (file_check(flist[i]) != 0)
-		{
-			EXIT_STATUS = 2;
-		}
+		print_list(flist);
+		ft = 1;
+		if (dlist != NULL)
+			printf("\n");
 	}
-
+	if (stat != 0)
+		ft = 1;
+	list_dir(dlist, ft);
+	free_list(dlist);
+	free_list(flist);
 	freemem(oplist, opcount);
-	freemem(flist, fcount);
-	return (EXIT_STATUS);
+	return (stat);
 }
 
 /**
@@ -58,11 +58,9 @@ int parse_dir(char *av)
 	dirp = opendir(av);
 	if (dirp == NULL)
 	{
-		src[fcount] = strcpalloc(av, len);
 		(void)closedir(dirp);
 		return (1);
 	}
-	printf("%s:\n", av);
 	print_dir(dirp);
 	(void)(closedir(dirp));
 	return (0);
@@ -106,4 +104,3 @@ int open_dir(char *name)
 
 	return (closedir(dirp));
 }
-
