@@ -9,26 +9,22 @@
  */
 int parse_opt(int max, char **av)
 {
-	int i, opcount, stat, ft;
-	char **oplist;
-	Dlist *flist, *dlist;
+	int i, stat, ft;
+	Dlist *flist, *dlist, *oplist;
 
 	stat = ft = 0;
-	dlist = flist = NULL;
-	oplist = salloc(max);
-	opcount = 0;
+	dlist = flist = oplist = NULL;
 	for (i = 1; i < max; i++)
 	{
 		if (av[i][0] == '-')
 		{
-			oplist[opcount] = strcpalloc(av[i]);
-			opcount++;
+			if (add_node(&oplist, av[i]) == 1)
+				stat = 1;
 		} else
 		{
 			stat = check_dir(&dlist, &flist, av[i]);
 		}
 	}
-	oplist[opcount] = NULL;
 	if (flist != NULL)
 	{
 		print_list(flist);
@@ -41,7 +37,7 @@ int parse_opt(int max, char **av)
 	list_dir(dlist, ft);
 	free_list(dlist);
 	free_list(flist);
-	freemem(oplist, opcount);
+	free_list(oplist);
 	return (stat);
 }
 
