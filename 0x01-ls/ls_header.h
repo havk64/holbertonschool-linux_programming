@@ -30,7 +30,7 @@ char *_strcpy(char *dest, char *src);
 int parse_opt(int max, char **av);
 int parse_dir(char *av, int mode);
 int file_check(char *path);
-void print_dir(DIR *dir, int mode);
+void print_dir(DIR *dir, char *path, int mode);
 int open_dir(char *name);
 int add_node(Dlist **list, char *str);
 void free_list(Dlist *list);

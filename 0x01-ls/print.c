@@ -3,11 +3,12 @@
 /**
  * print_dir - lists a directory
  * @dir: pointer to a directory stream
+ * @path: the path to the directory
  * @mode: number representing the options
  *
  * Return: Void
  */
-void print_dir(DIR *dir, int mode)
+void print_dir(DIR *dir, char *path, int mode)
 {
 	int count;
 	struct dirent *rdir;
@@ -60,11 +61,12 @@ void list_dir(Dlist *list, int stat, int mode)
 
 /**
  * print_long - print more details about a file
- * @str: the path to file
+ * @path: the path to the file
+ * @name: the name of the file
  *
  * Return: Void
  */
-void print_long(char *str)
+void print_long(char *path, char *name)
 {
 
 	struct stat buf;
