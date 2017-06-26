@@ -9,15 +9,17 @@
  */
 int parse_opt(int max, char **av)
 {
-	int i, stat, ft;
+	int i, stat, ft, mode;
 	Dlist *flist, *dlist, *oplist;
 
-	stat = ft = 0;
+	stat = ft = mode = 0;
 	dlist = flist = oplist = NULL;
 	for (i = 1; i < max; i++)
 	{
 		if (av[i][0] == '-')
 		{
+			if (av[i][1] == '1')
+				mode = 1;
 			if (add_node(&oplist, av[i]) == 1)
 				stat = 1;
 		} else
@@ -27,14 +29,14 @@ int parse_opt(int max, char **av)
 	}
 	if (flist != NULL)
 	{
-		print_list(flist);
+		print_list(flist, mode);
 		ft = 1;
 		if (dlist != NULL)
 			printf("\n");
 	}
 	if (stat != 0)
 		ft = 1;
-	list_dir(dlist, ft);
+	list_dir(dlist, ft, mode);
 	free_list(dlist);
 	free_list(flist);
 	free_list(oplist);
@@ -47,7 +49,7 @@ int parse_opt(int max, char **av)
  *
  * Return: On success 0, On error 1
  */
-int parse_dir(char *av)
+int parse_dir(char *av, int mode)
 {
 	DIR *dirp;
 
@@ -57,7 +59,7 @@ int parse_dir(char *av)
 		(void)closedir(dirp);
 		return (1);
 	}
-	print_dir(dirp);
+	print_dir(dirp, mode);
 	(void)(closedir(dirp));
 	return (0);
 }

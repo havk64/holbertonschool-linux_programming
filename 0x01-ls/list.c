@@ -67,16 +67,20 @@ char *alloclist(char *str)
  *
  * Return: Void
  */
-void print_list(Dlist *list)
+void print_list(Dlist *list, int mode)
 {
 	Dlist *node;
+	char *end;
+
+	end = (mode == 1) ? "\n" : "  ";
 
 	node = list;
 	while (node != NULL)
 	{
 		printf("%s", node->str);
 		if (node->next != NULL)
-			printf("  ");
+			printf("%s", end);
+
 		node = node->next;
 	}
 	printf("\n");
