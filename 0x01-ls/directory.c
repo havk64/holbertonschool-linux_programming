@@ -19,7 +19,9 @@ int parse_opt(int max, char **av)
 		if (av[i][0] == '-')
 		{
 			if (av[i][1] == '1')
-				mode = 1;
+				mode = (mode > 1) ? mode : 1;
+			if (av[i][1] == 'l')
+				mode = 2;
 			if (add_node(&oplist, av[i]) == 1)
 				stat = 1;
 		} else

@@ -73,12 +73,15 @@ void print_list(Dlist *list, int mode)
 	Dlist *node;
 	char *end;
 
-	end = (mode == 1) ? "\n" : "  ";
+	end = (mode > 0) ? "\n" : "  ";
 
 	node = list;
 	while (node != NULL)
 	{
-		printf("%s", node->str);
+		if (mode > 1)
+			print_long(node->str);
+		else
+			printf("%s", node->str);
 		if (node->next != NULL)
 			printf("%s", end);
 
