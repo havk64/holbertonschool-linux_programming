@@ -53,7 +53,7 @@ void list_dir(Dlist *list, int stat, int mode)
 		if (size > 1 || stat == 1)
 			printf("%s:\n", node->str);
 		if (parse_dir(node->str, mode) != 0)
-			printf("Ops...\n");
+			printf("hls: cannot open directory %s: Permission denied\n", node->str);
 		if (node->next != NULL)
 			printf("\n");
 		node = node->next;
