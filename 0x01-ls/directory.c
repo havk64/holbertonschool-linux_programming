@@ -19,10 +19,9 @@ int parse_opt(int max, char **av)
 	fcount = 0;
 	for (i = 1; i < max; i++)
 	{
-		avlen = (_strlen(av[i]) + 1);
 		if (av[i][0] == '-')
 		{
-			oplist[opcount] = strcpalloc(av[i], avlen);
+			oplist[opcount] = strcpalloc(av[i]);
 			opcount++;
 		}
 		else

@@ -36,15 +36,16 @@ char **salloc(int size)
 /**
  * strcpalloc - allocate memory to a string
  * @src: the string to be allocated
- * @size: the size of the string
  *
  * Return: string pointer to newly allocated space on memory
  */
-char *strcpalloc(char *src, int size)
+char *strcpalloc(char *src)
 {
 	char *dest;
+	size_t size;
 
-	dest = malloc(size * sizeof(char));
+	size = (_strlen(src) + 1);
+	dest = malloc(size);
 	if (dest == NULL)
 		perror("malloc error: ");
 	_strcpy(dest, src);
