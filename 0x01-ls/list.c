@@ -34,3 +34,29 @@ int add_node(Dlist **list, char *str)
 	}
 	return (0);
 }
+
+/**
+ * alloclist - allocate and copy a string to a str field of a linked list
+ * @str: the string to be copied
+ *
+ * Return: On Success, pointer to the string, On error: NULL
+ */
+char *alloclist(char *str)
+{
+	int i, len;
+	char *s;
+
+	len = 0;
+	while (str[len])
+		len++;
+
+	s = malloc(sizeof(s) * len + 1);
+	if (s == NULL)
+		return (NULL);
+
+	for (i = 0; i < len; i++)
+		s[i] = str[i];
+	s[i] = str[i];
+
+	return (s);
+}
