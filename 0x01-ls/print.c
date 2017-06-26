@@ -6,16 +6,18 @@
  *
  * Return: Void
  */
-void print_dir(DIR *dir)
+void print_dir(DIR *dir, int mode)
 {
 	int count;
 	struct dirent *rdir;
+	char *end;
 
+	end = (mode == 1) ? "\n" : "  ";
 	count = 0;
 	while ((rdir = readdir(dir)) != NULL)
 	{
 		if (count != 0)
-			printf("  ");
+			printf("%s", end);
 
 		if (rdir->d_name[0] != '.')
 		{
@@ -34,7 +36,7 @@ void print_dir(DIR *dir)
  *
  * Return: Void
  */
-void list_dir(Dlist *list, int stat)
+void list_dir(Dlist *list, int stat, int mode)
 {
 	Dlist *node;
 
@@ -43,7 +45,7 @@ void list_dir(Dlist *list, int stat)
 	{
 		if (stat != 0 || node->next != NULL)
 			printf("%s:\n", node->str);
-		if (parse_dir(node->str) != 0)
+		if (parse_dir(node->str, mode) != 0)
 			printf("Ops...\n");
 		if (node->next != NULL)
 			printf("\n");

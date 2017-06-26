@@ -21,14 +21,14 @@ char f_type(mode_t mode);
 char *f_perm(mode_t mode);
 char *_strcpy(char *dest, char *src);
 int parse_opt(int max, char **av);
-int parse_dir(char *av);
+int parse_dir(char *av, int mode);
 int file_check(char *path);
-void print_dir(DIR *dir);
+void print_dir(DIR *dir, int mode);
 int open_dir(char *name);
 int add_node(Dlist **list, char *str);
 void free_list(Dlist *list);
-void print_list(Dlist *list);
+void print_list(Dlist *list, int mode);
 char *alloclist(char *str);
 int check_dir(Dlist **dlist, Dlist **flist, char *str);
-void list_dir(Dlist *list, int stat);
+void list_dir(Dlist *list, int stat, int mode);
 #endif /* LS_HEADER_H */
