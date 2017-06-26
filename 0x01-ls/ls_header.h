@@ -10,6 +10,12 @@
 #include <pwd.h>
 #include <grp.h>
 #include <errno.h>
+
+/**
+ * struct Dlist - Directory linked list
+ * @str: the path to dir/file
+ * @next: pointer to next element
+ */
 typedef struct Dlist
 {
 	char *str;
