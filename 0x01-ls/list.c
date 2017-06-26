@@ -85,3 +85,24 @@ void print_list(Dlist *list, int mode)
 	}
 	printf("\n");
 }
+/**
+ * list_size - Return the size of a linked list
+ * @list: the linked list to be measured
+ *
+ * Return: The size of the linked list
+ */
+int list_size(Dlist *list)
+{
+	int i  = 0;
+
+	if (list == NULL)
+	{
+		return (i);
+	}
+
+	i++;
+	while ((list = list->next))
+		i++;
+
+	return (i);
+}
