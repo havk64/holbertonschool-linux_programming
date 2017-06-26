@@ -3,6 +3,7 @@
 /**
  * print_dir - lists a directory
  * @dir: pointer to a directory stream
+ * @mode: number representing the options
  *
  * Return: Void
  */
@@ -33,6 +34,7 @@ void print_dir(DIR *dir, int mode)
  * list_dir - list directories
  * @list: linked list of directories to list
  * @stat: variable to check previous listing
+ * @mode: number representing the options
  *
  * Return: Void
  */

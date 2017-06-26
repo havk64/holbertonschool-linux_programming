@@ -46,6 +46,7 @@ int parse_opt(int max, char **av)
 /**
  * parse_dir - Check if file or directory
  * @av: the name of the file/directory
+ * @mode: a number representing the options
  *
  * Return: On success 0, On error 1
  */

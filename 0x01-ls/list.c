@@ -64,6 +64,7 @@ char *alloclist(char *str)
 /**
  * print_list - prints a linked list
  * @list: list to be printed
+ * @mode: a number representing the options
  *
  * Return: Void
  */
