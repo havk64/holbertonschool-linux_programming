@@ -36,16 +36,12 @@ char *string_concat(char *s1, char *s2)
 	s = malloc(sizeof(char) * (sum + 1));
 	if (s != NULL)
 	{
-		while (i < (int)_strlen(s1))
-		{
-			s[i] = s1[i];
+		while ((s[i] = s1[i]))
 			i++;
-		}
-		while (i < sum)
-		{
-			s[i] = s2[i - _strlen(s1)];
+
+		while ((s[i] = s2[i - _strlen(s1)]))
 			i++;
-		}
+
 		s[i] = 0;
 		return (s);
 	}
