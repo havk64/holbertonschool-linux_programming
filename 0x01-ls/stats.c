@@ -101,3 +101,32 @@ int file_check(char *path)
 	return (0);
 }
 
+/**
+ * check_dir - Verify if file/dir exist and return information
+ * @dlist: linked list of directories
+ * @flist: linked list of files
+ * @str: path to file/directory
+ *
+ * Return: integer with information about stats
+ */
+int check_dir(Dlist **dlist, Dlist **flist, char *str)
+{
+	int check, status;
+
+	status = 0;
+	check = file_check(str);
+	if (check != 0)
+	{
+		if (check == 4)
+		{
+			if (add_node(dlist, str) == 1)
+				status = 1;
+		} else
+			status = check;
+	} else
+	{
+		if (add_node(flist, str) == 1)
+			status = 1;
+	}
+	return (status);
+}

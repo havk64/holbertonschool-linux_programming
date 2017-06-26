@@ -32,4 +32,5 @@ int add_node(Dlist **list, char *str);
 void free_list(Dlist *list);
 void print_list(Dlist *list);
 char *alloclist(char *str);
+int check_dir(Dlist **dlist, Dlist **flist, char *str);
 #endif /* LS_HEADER_H */
