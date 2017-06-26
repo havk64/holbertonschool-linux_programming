@@ -31,7 +31,7 @@ char *string_concat(char *s1, char *s2)
 	char *s;
 
 	i = 0;
-	sum = _strlen(s1) + _strlen(s2);
+	sum = _strlen(s1) + _strlen(s2) + 1;
 
 	s = malloc(sizeof(char) * (sum + 1));
 	if (s != NULL)
@@ -39,7 +39,10 @@ char *string_concat(char *s1, char *s2)
 		while ((s[i] = s1[i]))
 			i++;
 
-		while ((s[i] = s2[i - _strlen(s1)]))
+		s[i] = '/';
+		i++;
+
+		while ((s[i] = s2[i - _strlen(s1) - 1]))
 			i++;
 
 		s[i] = 0;
