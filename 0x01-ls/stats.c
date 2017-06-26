@@ -83,11 +83,11 @@ int file_check(char *path)
 		switch (errno)
 		{
 			case 2:
-				printf("ls: cannot access %s: No such file or directory\n", path);
+				printf("hls: cannot access %s: No such file or directory\n", path);
 				return (2);
 
 			case 13:
-				printf("ls: cannot access %s: Permission denied\n", path);
+				printf("hls: cannot access %s: Permission denied\n", path);
 				return (1);
 
 			default:
