@@ -14,7 +14,7 @@ void print_dir(DIR *dir, char *path, int mode)
 	struct dirent *rdir;
 	char *end;
 
-	end = (mode == 1) ? "\n" : "  ";
+	end = (mode > 0) ? "\n" : "  ";
 	count = 0;
 	while ((rdir = readdir(dir)) != NULL)
 	{
