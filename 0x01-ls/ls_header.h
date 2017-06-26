@@ -28,4 +28,5 @@ int parse_dir(char *av);
 int file_check(char *path);
 void print_dir(DIR *dir);
 int open_dir(char *name);
+int add_node(Dlist **list, char *str);
 #endif /* LS_HEADER_H */
