@@ -33,4 +33,5 @@ void free_list(Dlist *list);
 void print_list(Dlist *list);
 char *alloclist(char *str);
 int check_dir(Dlist **dlist, Dlist **flist, char *str);
+void list_dir(Dlist *list, int stat);
 #endif /* LS_HEADER_H */
