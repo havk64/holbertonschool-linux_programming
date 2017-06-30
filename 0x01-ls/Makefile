@@ -1,5 +1,5 @@
 CC	:= gcc
-CFLAGS	:= -Wall -Wextra -Werror -pedantic
+CFLAGS	:= -g3 -O0 -Wall -Wextra -Werror -pedantic
 SRC	:= $(wildcard *.c)
 OBJS	:= $(SRC:.c=.o)
 TARGET	:= hls
