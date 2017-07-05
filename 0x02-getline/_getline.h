@@ -6,4 +6,5 @@
 #include "_getline.h"
 #define BUF_SIZE 256
 char *_getline(const int fd);
+int read_fd(int fd, char *buf);
 #endif /* GETLINE_H */
