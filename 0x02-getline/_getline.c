@@ -8,10 +8,11 @@ void *_realloc(char *str, size_t size)
 	new = malloc(sizeof(char) * size);
 	if (new)
 	{
-	}
-	return (new);
 		memcpy(new, str, (size - BUF_SIZE));
 		free(str);
+		return (new);
+	} else
+		return (NULL);
 }
 
 /**
@@ -42,6 +43,8 @@ int read_fd(int fd, char **buf)
 		{
 			size += BUF_SIZE;
 			*buf = _realloc(*buf, size);
+			if (*buf == NULL)
+				return (1);
 		}
 		(*buf)[i] = c;
 	}
