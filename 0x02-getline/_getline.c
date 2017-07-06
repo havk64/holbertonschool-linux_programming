@@ -1,6 +1,13 @@
 #include "_getline.h"
 
-void *_realloc(char *ptr, size_t size)
+/**
+ * _realloc - Extends a heap memory block
+ * @str: the original memory block to be extended
+ * @size: the requested new size
+ *
+ * Return: On success, a new extended heap memory block
+ * On error, return NULL
+ */
 void *_realloc(char *str, size_t size)
 {
 	char *new;
