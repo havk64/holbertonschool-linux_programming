@@ -1,16 +1,17 @@
 #include "_getline.h"
 
 void *_realloc(char *ptr, size_t size)
+void *_realloc(char *str, size_t size)
 {
 	char *new;
 
 	new = malloc(sizeof(char) * size);
 	if (new)
 	{
-		memcpy(new, ptr, (size - BUF_SIZE));
-		free(ptr);
 	}
 	return (new);
+		memcpy(new, str, (size - BUF_SIZE));
+		free(str);
 }
 
 /**
