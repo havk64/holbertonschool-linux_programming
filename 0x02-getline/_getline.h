@@ -7,4 +7,5 @@
 #include <string.h>
 char *_getline(const int fd);
 int read_fd(int fd, char **buf);
+void *_realloc(char *ptr, size_t size);
 #endif /* GETLINE_H */

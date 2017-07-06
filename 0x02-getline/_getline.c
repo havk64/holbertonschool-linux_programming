@@ -1,5 +1,18 @@
 #include "_getline.h"
 
+void *_realloc(char *ptr, size_t size)
+{
+	char *new;
+
+	new = malloc(sizeof(char) * size);
+	if (new)
+	{
+		memcpy(new, ptr, (size - BUF_SIZE));
+		free(ptr);
+	}
+	return (new);
+}
+
 /**
  * read_fd - Reads a file descriptor and writes to a string
  * @fd: the file descriptor
