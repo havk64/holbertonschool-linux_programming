@@ -37,11 +37,7 @@ char *_getline(int fd)
 {
 	char *buf;
 
-	buf = malloc((BUF_SIZE) * sizeof(char));
-	if (buf == NULL)
-		return (NULL);
-
-	if (read_fd(fd, buf) != 0)
+	if (read_fd(fd, &buf) != 0)
 		return (NULL);
 
 	return (buf);
