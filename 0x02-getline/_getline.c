@@ -36,7 +36,7 @@ int read_fd(int fd, char **buf)
 	size_t size = BUF_SIZE;
 
 	*buf = malloc(sizeof(char) * size);
-	if (buf == NULL)
+	if (*buf == NULL)
 		return (1);
 	c = 0;
 	for (i = 0; c != '\n'; i++)
