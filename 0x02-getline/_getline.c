@@ -18,8 +18,8 @@ void *_realloc(char *str, size_t size)
 		memcpy(new, str, (size - BUF_SIZE));
 		free(str);
 		return (new);
-	} else
-		return (NULL);
+	}
+	return (NULL);
 }
 
 /**
