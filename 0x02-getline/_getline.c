@@ -31,7 +31,7 @@ void *_realloc(char *str, size_t size)
  */
 int read_fd(int fd, char **buf)
 {
-	int i;
+	int i, read_status;
 	char c;
 	size_t size = BUF_SIZE;
 
@@ -41,7 +41,14 @@ int read_fd(int fd, char **buf)
 	c = 0;
 	for (i = 0; c != '\n'; i++)
 	{
-		if (read(fd, &c, READ_SIZE) == 0)
+		read_status = read(fd, &c, READ_SIZE);
+		if (read_status == -1)
+		{
+			write(1, "Nothing was read\n", 17);
+			return (1);
+		}
+
+		if (read_status == 0)
 		{
 			if (i > 0)
 			{
