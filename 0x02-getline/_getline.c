@@ -43,6 +43,11 @@ int read_fd(int fd, char **buf)
 	{
 		if (read(fd, &c, READ_SIZE) == 0)
 		{
+			if (i > 0)
+			{
+				i++;
+				break;
+			}
 			free(*buf);
 			return (1);
 		}
