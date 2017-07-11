@@ -45,7 +45,7 @@ int read_fd(int fd, char **buf)
 		if (read_status == -1)
 		{
 			write(1, "Nothing was read\n", 17);
-			return (1);
+			exit(1);
 		}
 
 		if (read_status == 0)
