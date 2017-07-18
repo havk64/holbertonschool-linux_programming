@@ -46,4 +46,3 @@ This macro defines the number of bytes is read each time we call `read`:
             close(fd);
             return (0);
         }
-
