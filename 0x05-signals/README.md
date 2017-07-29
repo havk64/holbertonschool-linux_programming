@@ -9,7 +9,7 @@ a `SIGINT` signal usually triggered by a <kbd>Ctrl-C</kbd> command on most
 Unix systems.
 
 It will print the message `Gotcha! [<signum>]` every time the SIGINT command
-is received.
+is received, where `signum` will be replaced by the signal caught.
 
 Example:
 
