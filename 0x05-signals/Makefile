@@ -8,7 +8,7 @@ all: $(T0) $(T1)
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T1): 1-main.o 1-current_handler_signal.o print_hello.o set_print_hello.o
+$(T1): 1-main.o 1-current_handler_signal.o print_hello.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
