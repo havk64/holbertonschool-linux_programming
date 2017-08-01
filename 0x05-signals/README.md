@@ -11,6 +11,8 @@ Unix systems.
 It will print the message `Gotcha! [<signum>]` every time the SIGINT command
 is received, where `signum` will be replaced by the signal caught.
 
+Note: The `sigaction` function was not allowed
+
 Example:
 
     alex@~/0x05-signals$ make
@@ -41,6 +43,7 @@ that retrieves the current handler of the signal SIGINT
 - Prototype: `void (*current_handler_signal(void))(int);`
 - The function returns a pointer to the current handler of SIGINT, or NULL on failure
 - The handler remains unchanged after calling your function
+- The `sigaction` function was not allowed 
 
 Example:
 
