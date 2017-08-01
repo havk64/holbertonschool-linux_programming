@@ -11,6 +11,11 @@ void _sa_handler(int signum)
 	printf("Gotcha! [%d]\n", signum);
 }
 
+/**
+ * handle_sigaction - set a handler for the signal SIGINT (using sigaction)
+ *
+ * Return: On Success 0, On Error -1
+ */
 int handle_sigaction(void)
 {
 	struct sigaction act, oldact;
