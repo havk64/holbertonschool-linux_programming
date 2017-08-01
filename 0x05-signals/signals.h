@@ -8,4 +8,6 @@ void handler(int signum);
 void (*current_handler_signal(void))(int);
 void print_hello(int);
 void set_print_hello(void);
+int handle_sigaction(void);
+void _sa_handler(int signum);
 #endif /* SIGNALS_H */
