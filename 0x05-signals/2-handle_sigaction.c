@@ -1,7 +1,7 @@
 #include "signals.h"
 
 /**
- * handler - Prints a message when a signal is received
+ * _sa_handler - Prints a message when a signal is received
  * @signum: the signal to be handled
  *
  * Return: always void
