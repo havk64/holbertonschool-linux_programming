@@ -4,10 +4,6 @@
 
 #include "signals.h"
 
-/* Our functions */
-void print_hello(int);
-void set_print_hello(void);
-
 /**
  * main - Entry point
  *
@@ -25,7 +21,8 @@ int main(void)
 	set_print_hello();
 
 	handler = current_handler_signal();
-	printf("Address of the 'print_hello' function: %#lx\n", (unsigned long int)&print_hello);
+	printf("Address of the 'print_hello' function: %#lx\n",
+	       (unsigned long int)&print_hello);
 	printf("Address of the current handler: %#lx\n", (unsigned long int)handler);
 
 	for (i = 0; ; i++)
