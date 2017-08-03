@@ -64,3 +64,37 @@ Example:
     [5] Wait for it ...
     ^\Quit (core dumped)
     alex@~/0x05-signals$
+
+### Task 2: Gotta catch them all
+
+The file [2-handle_sigaction.c](2-handle_sigaction.c) has a function that set a
+handler for the signal `SIGINT`
+
+- Prototype: `int handle_sigaction(void);`
+- The program print `Gotcha! [<signum>]` followed by a new line, every time
+Control-C is pressed  where `<signum>` is replaced with the signal number that
+was caught
+- `signal(2)` is not allowed
+
+Example:
+
+    alex@~/0x05-signals$ make
+
+    alex@~/0x05-signals$ ./2-handle_sigaction 
+    [0] Wait for it ...
+    [1] Wait for it ...
+    ^CGotcha! [2]
+    [2] Wait for it ...
+    [3] Wait for it ...
+    ^CGotcha! [2]
+    [4] Wait for it ...
+    ^CGotcha! [2]
+    [5] Wait for it ...
+    ^CGotcha! [2]
+    [6] Wait for it ...
+    [7] Wait for it ...
+    ^CGotcha! [2]
+    [8] Wait for it ...
+    ^\Quit (core dumped)
+    alex@~/0x05-signals$
+ 
