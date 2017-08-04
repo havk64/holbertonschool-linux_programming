@@ -98,3 +98,34 @@ Example:
     ^\Quit (core dumped)
     alex@~/0x05-signals$
  
+### Task 3: Current handler - sigaction
+
+The file [3-current_handler_sigaction.c](3-current_handler_sigaction.c) has a
+function that retrieves the current handler of the signal `SIGINT`
+
+- Prototype: `void (*current_handler_sigaction(void))(int);`
+- It returns a pointer to the current handler of SIGINT, or NULL on failure
+- We used the function sigaction (signal was not allowed)
+- The handler is unchanged after calling your function
+
+Example:
+
+    alex@~/0x05-signals$ make
+	
+    alex@~/0x05-signals$ ./3-current_handler_sigaction 
+    Address of the current handler: 0
+    Address of the 'print_hello' function: 0x4006ea
+    Address of the current handler: 0x4006ea
+    [0] Wait for it ...
+    [1] Wait for it ...
+    ^CHello :)
+    [2] Wait for it ...
+    ^CHello :)
+    [3] Wait for it ...
+    [4] Wait for it ...
+    ^CHello :)
+    [5] Wait for it ...
+    ^CHello :)
+    [6] Wait for it ...
+    ^\Quit (core dumped)
+    alex@~/0x05-signals$
