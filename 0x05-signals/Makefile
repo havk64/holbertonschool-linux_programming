@@ -5,8 +5,9 @@ T1	:= 1-current_handler_signal
 T2	:= 2-handle_sigaction
 T3	:= 3-current_handler_sigaction
 T4	:= 4-trace_signal_sender
+T5	:= 5-signal_describe
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5)
 
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -21,6 +22,9 @@ $(T3): 3-current_handler_sigaction.o 3-main.o print_hello.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(T4): 4-trace_signal_sender.o 4-main.o
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(T5): 5-signal_describe.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
