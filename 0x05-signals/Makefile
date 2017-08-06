@@ -3,7 +3,7 @@ CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
 T0	:= 0-handler
 T1	:= 1-current_handler_signal
 T2	:= 2-handle_sigaction
-T3	:= 3-current_handler_sigaction.c
+T3	:= 3-current_handler_sigaction
 
 all: $(T0) $(T1) $(T2) $(T3)
 
