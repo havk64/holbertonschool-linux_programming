@@ -1,8 +1,9 @@
 #include "signals.h"
 
-void sigquit_handler(int __attribute__((unused)) signum, siginfo_t *info,
-		     void __attribute__((unused)) *context)
+void sigquit_handler(int signum, siginfo_t *info, void *context)
 {
+	UNUSED(signum);
+	UNUSED(context);
 	printf("SIGQUIT sent by %d\n", info->si_pid);
 }
 

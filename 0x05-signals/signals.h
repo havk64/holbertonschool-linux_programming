@@ -1,5 +1,6 @@
 #ifndef SIGNALS_H
 #define SIGNALS_H
+#define UNUSED(x) (void)(x)
 #include <signal.h>
 #include <stdio.h>
 typedef void (*sighandler_t)(int);
