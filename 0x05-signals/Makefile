@@ -16,7 +16,7 @@ $(T1): 1-main.o 1-current_handler_signal.o print_hello.o
 $(T2): 2-handle_sigaction.o 2-main.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T3): 3-current_handler_sigaction.o 3-main.o
+$(T3): 3-current_handler_sigaction.o 3-main.o print_hello.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
