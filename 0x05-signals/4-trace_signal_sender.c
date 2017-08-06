@@ -2,7 +2,6 @@
 
 /**
  * sigquit_handler - the handler
- * __attribute__ - description
  * @signum: the signal to be handled
  * @info: pointer to a siginfo_t struct
  * @context: pointer to a ucontext_t struct
