@@ -10,4 +10,5 @@ void print_hello(int);
 void set_print_hello(void);
 int handle_sigaction(void);
 void _sa_handler(int signum);
+void (*current_handler_sigaction(void))(int);
 #endif /* SIGNALS_H */
