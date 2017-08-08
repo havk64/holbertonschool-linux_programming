@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 typedef void (*sighandler_t)(int);
 int handle_signal(void);
 void handler(int signum);
