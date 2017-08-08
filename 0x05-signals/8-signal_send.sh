@@ -2,7 +2,7 @@
 # Sends the signal SIGQUIT to a process, given its PID
 
 usage(){
-    printf "Usage: %s <pid>\n ${BASH_SOURCE}"
+    printf "Usage: %s <pid>\n" "${BASH_SOURCE}"
     exit 1
 }
 
