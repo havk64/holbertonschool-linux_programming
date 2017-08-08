@@ -6,5 +6,5 @@ usage(){
     exit 1
 }
 [ "$#" != 1 ] && usage
-kill -SIGINT "$1" > /dev/null 2>&1
+kill -SIGQUIT "$1" > /dev/null 2>&1
 exit
