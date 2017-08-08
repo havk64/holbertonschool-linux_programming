@@ -1,5 +1,12 @@
 #include "signals.h"
 
+/**
+ * main - Entry point
+ * @argc: Number of arguments
+ * @argv: Argument vector
+ *
+ * Return: On success, EXIT_SUCCESS. On error, EXIT FAILURE
+ */
 int main(int argc, char *argv[])
 {
 	pid_t pid;
