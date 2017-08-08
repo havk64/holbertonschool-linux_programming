@@ -7,8 +7,10 @@ T3	:= 3-current_handler_sigaction
 T4	:= 4-trace_signal_sender
 T5	:= 5-signal_describe
 T6	:= 6-suspend
+T7	:= 7-signal_send
+T7t	:= 7-wait_for_it
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t)
 
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -29,6 +31,12 @@ $(T5): 5-signal_describe.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(T6): 6-suspend.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(T7): 7-signal_send.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(T7t): 7-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
