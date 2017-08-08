@@ -1,10 +1,21 @@
 #include "signals.h"
 
+/**
+ * single_time - Prints a message when a signal is received
+ * @signum: the signal to be handled
+ *
+ * Return: always void
+ */
 void single_time(int signum)
 {
 	printf("Caught %d\n", signum);
 }
 
+/**
+ * main - Entry point
+ *
+ * Return: always void
+ */
 int main(void)
 {
 	struct sigaction act;
