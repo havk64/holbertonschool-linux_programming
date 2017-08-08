@@ -3,7 +3,7 @@
 
 usage(){
     printf "Usage: %s <pid>\n ${BASH_SOURCE}"
-    exit
+    exit 1
 }
 
 [ "$#" != 1 ] && usage
