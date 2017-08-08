@@ -5,8 +5,6 @@ usage(){
     printf "Usage: %s <pid>\n" "${BASH_SOURCE}"
     exit 1
 }
-
 [ "$#" != 1 ] && usage
-
-kill -SIGINT "$1"
+kill -SIGINT "$1" > /dev/null 2>&1
 exit
