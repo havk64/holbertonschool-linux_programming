@@ -9,8 +9,9 @@ T5	:= 5-signal_describe
 T6	:= 6-suspend
 T7	:= 7-signal_send
 T7t	:= 7-wait_for_it
+T10	:= 10-pid_exist
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10)
 
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -37,6 +38,9 @@ $(T7): 7-signal_send.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(T7t): 7-main.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(T10): 10-pid_exist.o 10-main.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
