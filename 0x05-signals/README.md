@@ -15,9 +15,9 @@ Note: The `sigaction` function was not allowed
 
 Example:
 
-    alex@~/0x05-signals$ make
+    $ make
 
-    alex@~/0x05-signals$ ./0-handler 
+    $ ./0-handler 
     [0] Wait for it ...
     [1] Wait for it ...
     [2] Wait for it ...
@@ -33,7 +33,7 @@ Example:
     [8] Wait for it ...
     [9] Wait for it ...
     ^\Quit (core dumped)
-    alex@~/0x05-signals$
+    $
 
 ### Task 1: Current handler - signal
 
@@ -47,9 +47,9 @@ that retrieves the current handler of the signal SIGINT
 
 Example:
 
-    alex@~/0x05-signals$ make
+    $ make
 
-    alex@~/0x05-signals$ ./1-current_handler_signal
+    $ ./1-current_handler_signal
     Address of the current handler: 0
     Address of the 'print_hello' function: 0x4006da
     Address of the current handler: 0x4006da
@@ -63,7 +63,7 @@ Example:
     ^CHello :)
     [5] Wait for it ...
     ^\Quit (core dumped)
-    alex@~/0x05-signals$
+    $
 
 ### Task 2: Gotta catch them all
 
@@ -78,9 +78,9 @@ was caught
 
 Example:
 
-    alex@~/0x05-signals$ make
+    $ make
 
-    alex@~/0x05-signals$ ./2-handle_sigaction 
+    $ ./2-handle_sigaction 
     [0] Wait for it ...
     [1] Wait for it ...
     ^CGotcha! [2]
@@ -96,7 +96,7 @@ Example:
     ^CGotcha! [2]
     [8] Wait for it ...
     ^\Quit (core dumped)
-    alex@~/0x05-signals$
+    $
  
 ### Task 3: Current handler - sigaction
 
@@ -110,9 +110,9 @@ function that retrieves the current handler of the signal `SIGINT`
 
 Example:
 
-    alex@~/0x05-signals$ make
+    $ make
 	
-    alex@~/0x05-signals$ ./3-current_handler_sigaction 
+    $ ./3-current_handler_sigaction 
     Address of the current handler: 0
     Address of the 'print_hello' function: 0x4006ea
     Address of the current handler: 0x4006ea
@@ -128,4 +128,4 @@ Example:
     ^CHello :)
     [6] Wait for it ...
     ^\Quit (core dumped)
-    alex@~/0x05-signals$
+    $
