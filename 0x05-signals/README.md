@@ -161,3 +161,36 @@ SIGQUIT sent by 95337
 [9] Wait for it ...
 ^C
 ```
+
+### Task 5: Description
+
+The file [5-signal_describe.c](5-signal_describe.c) has a program that
+prints a description of a given signal
+
+- Usage: `./describe <signum>`
+  - Where `<signum>` is the signal number to be described
+  - If the number of arguments is not correct, it prints `Usage: %s <signum>` (where `%s` is `argv[0]`), followed by a new line, and exit with `EXIT_FAILURE`
+- We were not allowed to have more than 1 function in your file
+- We were not allowed to have more than 12 lines in your function
+- We assumed that if a parameter is given, it will be a number
+
+```
+$ make
+
+$ ./5-signal_describe
+Usage: ./5-signal_describe <signum>
+$ ./5-signal_describe 1
+1: Hangup
+$ ./5-signal_describe 9
+9: Killed
+$ ./5-signal_describe 3
+3: Quit
+$ ./5-signal_describe 2
+2: Interrupt
+$ ./5-signal_describe 0
+0: Unknown signal 0
+$ ./5-signal_describe 100
+100: Unknown signal 100
+./5-signal_describe 20
+20: Stopped
+```
