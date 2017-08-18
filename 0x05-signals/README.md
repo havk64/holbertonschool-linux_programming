@@ -194,3 +194,29 @@ $ ./5-signal_describe 100
 ./5-signal_describe 20
 20: Stopped
 ```
+
+### Task 6: Catch a single time 
+
+The file [6-suspend.c](6-suspend.c) has a program
+that sets a handler for the signal `SIGINT`, and exits right after the signal is
+received and handled
+
+- It does not take any argument
+- It suspends indefinitely until a signal is received
+- When a `SIGINT` is received, you must print `Caught %d` (where `%d` must be replaced by the signal number), followed by a new line
+- After the first `SIGINT` is received, your program must:
+  - Print Signal received, followed by a new line
+  - Exit with `EXIT_SUCCESS`
+We were not allowed to use the functions exit, sleep or _exit
+We were not allowed to use any kind of loop (while, for, do/while)
+
+```
+$ make
+
+$ ./6-suspend 
+^CCaught 2
+Signal received
+
+$ echo $?
+0
+```
