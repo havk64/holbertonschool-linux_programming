@@ -1,3 +1,3 @@
-# holbertonschool-linux_programming
+# Holbertonschool Linux Programming
 
 Holberton School Linux Programming Assignments
