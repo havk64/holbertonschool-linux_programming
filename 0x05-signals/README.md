@@ -220,3 +220,40 @@ Signal received
 $ echo $?
 0
 ```
+
+### Task 7: Sending a signal
+
+The file [7-signal_send.c](7-signal_send.c) has a program that
+sends the signal `SIGINT` to a process, given its `PID`
+
+- Usage: `signal_send <pid>`
+  - Where <pid> is the PID of the process to send a signal to
+  - If the number of arguments is not correct, it prints `Usage: %s <pid>` (where `%s` is `argv[0]`), followed by a new line, and exit with `EXIT_FAILURE`
+- It returns `EXIT_SUCCESS` on success, or `EXIT_FAILURE`
+- We were not allowed to have more than 1 function in this file
+- We were not allowed to have more than 14 lines in our function
+
+```
+$ ./7-wait_for_it 
+PID: 98631
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+Waiting ...
+
+```
+In another terminal:
+
+```
+$ ./7-signal_send
+Usage: ./7-signal_send <pid>
+$ ./7-signal_send 98631
+```
