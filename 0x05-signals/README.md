@@ -291,3 +291,58 @@ Usage: ./8-signal_send <pid>
 $ sh ./8-signal_send.sh 98988
 $
 ```
+
+### Task 9: Catch with sh
+
+The file [9-handle_signal.sh](9-handle_signal.sh) has a script that
+set a handler for the signals `SIGABRT`, `SIGIO` and `SIGTERM`
+
+It prints `Nope` followed by a new line, each time a `SIGABRT`, `SIGIO` or
+`SIGTERM` is caught
+
+- Our script should contain a shebang
+- We were not allowed to have more than 2 lines in this script
+- We were not allowed to have more than 1 instruction per line
+
+```
+$ cat 9-main.sh
+#!/bin/sh
+. ./9-handle_signal.sh
+
+echo "PID: $$"
+
+while :
+do
+    echo "Waiting ..."
+    sleep 2
+done
+
+$ sh 9-main.sh
+PID: 99440
+Waiting ...
+Waiting ...
+Nope
+Waiting ...
+Nope
+Waiting ...
+Nope
+Waiting ...
+Nope
+Waiting ...
+Waiting ...
+Nope
+Waiting ...
+Nope
+Waiting ...
+Waiting ...
+Waiting ...
+Nope
+Waiting ...
+Nope
+Waiting ...
+Waiting ...
+Killed
+
+
+```
+
