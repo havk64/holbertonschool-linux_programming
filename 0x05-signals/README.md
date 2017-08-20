@@ -346,3 +346,34 @@ Killed
 
 ```
 
+### Task 10: Does it exist?
+
+The file [10-pid_exist.c](10-pid_exist.c) has a function that
+tests if a process exists, given its `PID`
+
+- Prototype: `int pid_exist(pid_t pid);`
+- It returns 1 if the process with the `PID` pid exists, or 0 otherwise
+- We were not allowed to have more than 1 function in your file
+- We were not allowed to have more than 1 line in your function
+- We were not allowed to include more than 2 headers in your file
+- We were not allowed to include your header file `signals.h`
+- We were not allowed to use the function `getpgid`
+
+```
+$ make
+
+$ ./10-pid_exist 1
+PID 1 exists
+
+$ ./10-pid_exist 2
+PID 2 exists
+
+$ ./10-pid_exist 1234
+PID 1234 does not exist
+
+$ ./10-pid_exist 98
+PID 98 does not exist
+
+$ ./10-pid_exist 890
+PID 890 exists
+```
