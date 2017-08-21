@@ -9,6 +9,7 @@
 void handler(int signum)
 {
 	printf("Gotcha! [%d]\n", signum);
+	fsync(1);
 }
 
 /**
