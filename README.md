@@ -11,3 +11,5 @@ Holberton School Linux Programming Assignments
 ### [Python - /proc filesystem](0x03-proc_filesystem)
 
 ### [C - Signals](0x05-signals)
+
+### [C - ReadELF](0x06-readelf)
