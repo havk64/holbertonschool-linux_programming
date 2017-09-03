@@ -4,7 +4,7 @@ T0	:= 0-hreadelf
 
 all: $(T0)
 
-$(T0): main_0.o
+$(T0): main_0.o print.o data.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
