@@ -4,6 +4,10 @@
 #include <elf.h>
 #include <stdlib.h>
 #include <unistd.h>
+typedef enum
+{
+	ELF32, ELF64
+} ElfClass;
 void check(int, char*);
 int is_elf(char *magic);
 int stat_it(char *filename);
