@@ -10,5 +10,5 @@ typedef enum
 } ElfClass;
 void check(int, char*);
 int is_elf(char *magic);
-int stat_it(char *filename);
+int get_stat(char *filename);
 #endif /* READELF_H */
