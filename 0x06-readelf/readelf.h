@@ -12,4 +12,6 @@ typedef enum
 int is_elf(unsigned char *magic);
 int get_stat(char *filename);
 void parse(int fd);
+ElfClass get_class(char c);
+void print_identity(unsigned char *header);
 #endif /* READELF_H */
