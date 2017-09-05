@@ -8,7 +8,8 @@ typedef enum
 {
 	ELF32, ELF64
 } ElfClass;
-void check(int, char*);
-int is_elf(char *magic);
+#define width 40
+int is_elf(unsigned char *magic);
 int get_stat(char *filename);
+void parse(int fd);
 #endif /* READELF_H */
