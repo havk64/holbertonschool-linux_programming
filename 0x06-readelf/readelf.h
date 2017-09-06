@@ -14,4 +14,8 @@ int get_stat(char *filename);
 void parse(int fd);
 ElfClass get_class(char c);
 void print_identity(unsigned char *header);
+void print_class(unsigned char data);
+void print_data(unsigned char data);
+void print_version(unsigned char data);
+void print_osabi(unsigned char data);
 #endif /* READELF_H */
