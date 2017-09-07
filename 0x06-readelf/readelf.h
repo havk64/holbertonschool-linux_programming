@@ -11,7 +11,7 @@ typedef enum
 typedef struct ehdr
 {
 	unsigned char	e_ident[EI_NIDENT];	/* ELF "magic number" */
-	long		e_entry;		/* Entry point virtual address */
+	uint64_t	e_entry;		/* Entry point virtual address */
 	uint64_t	e_phoff;		/* Program header table file offset */
 	uint64_t	e_shoff;		/* Section header table file offset */
 	uint32_t	e_version;		/* Identifies object file version */
