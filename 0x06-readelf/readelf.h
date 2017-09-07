@@ -30,6 +30,8 @@ int is_elf(unsigned char *magic);
 int get_stat(char *filename);
 void parse(int fd);
 ElfClass get_class(char c);
+void parse_32(ElfN_Ehdr *ehdr, FILE *file);
+void parse_64(ElfN_Ehdr *ehdr, FILE *file);
 void print_identity(unsigned char *header);
 void print_class(unsigned char data);
 void print_data(unsigned char data);
