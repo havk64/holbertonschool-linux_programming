@@ -25,7 +25,7 @@ typedef struct ehdr
 	uint16_t	e_shnum;		/* Section header table entry count */
 	uint16_t	e_shstrndx;		/* Section header string table index */
 } ElfN_Ehdr; /* Struct to represent headers from both 32 and 64bits files */
-#define width 40
+#define width 35
 int is_elf(unsigned char *magic);
 int get_stat(char *filename);
 void parse(int fd);
