@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <elf.h>
 #include <stdlib.h>
+#include <fcntl.h>	/* fopen */
+#include <sys/stat.h>	/* fstat */
 #include <unistd.h>
 typedef enum
 {
