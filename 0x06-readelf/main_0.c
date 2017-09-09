@@ -21,7 +21,7 @@ static void check(int n, char *error)
  * @magic: the first bytes of an elf file
  * Return: 1 to true and 0 to false
  */
-int is_elf(unsigned char *magic)
+_Bool is_elf(unsigned char *magic)
 {
 	if (magic[0] == 0x7f &&
 	    magic[1] == 0x45 &&

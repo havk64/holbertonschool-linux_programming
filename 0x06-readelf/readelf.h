@@ -30,7 +30,7 @@ typedef struct ehdr
 } ElfN_Ehdr; /* Struct to represent headers from both 32 and 64bits files */
 #define width 35
 #define GET_BYTE(field) get_byte(field, sizeof(field))
-int is_elf(unsigned char *magic);
+_Bool is_elf(unsigned char *magic);
 int get_stat(char *filename);
 void parse_elf(int fd);
 ElfClass get_class(char c);
