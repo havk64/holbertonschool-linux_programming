@@ -37,8 +37,18 @@ static char *machine_name(uint16_t e_machine)
 	{
 	case EM_NONE:		return "None";
 	case EM_M32:		return "WE32100";
+	case EM_SPARC:		return "Sparc";
 	case EM_386:		return "Intel 80386";
 	case EM_860:		return "Intel 80860";
+	case EM_68K:		return "MC68000";
+	case EM_88K:		return "MC88000";
+	case EM_MIPS:		return "MIPS R3000";
+	case EM_PARISC:		return "HPPA";
+	case EM_SPARC32PLUS:	return "Sparc v8+";
+	case EM_PPC:		return "PowerPC";
+	case EM_PPC64:		return "PowerPC64";
+	case EM_ARM:		return "ARM";
+	case EM_SH:		return "Renesas / SuperH SH";
 	case EM_S390:		return "IBM S/390";
 	case EM_ARM:		return "ARM";
 	case EM_SH:		return "Renesas / SuperH SH";
