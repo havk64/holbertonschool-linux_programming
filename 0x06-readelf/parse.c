@@ -60,8 +60,6 @@ static char *machine_name(uint16_t e_machine)
 	case EM_ARM:		return "ARM";
 	case EM_SH:		return "Renesas / SuperH SH";
 	case EM_S390:		return "IBM S/390";
-	case EM_ARM:		return "ARM";
-	case EM_SH:		return "Renesas / SuperH SH";
 	case EM_SPARCV9:	return "Sparc v9";
 	case EM_IA_64:		return "Intel IA-64";
 	case EM_X86_64:		return "Advanced Micro Devices X86-64";
