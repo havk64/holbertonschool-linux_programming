@@ -23,13 +23,10 @@ static void check(int n, char *error)
  */
 _Bool is_elf(unsigned char *magic)
 {
-	if (magic[0] == 0x7f &&
-	    magic[1] == 0x45 &&
-	    magic[2] == 0x4c &&
-	    magic[3] == 0x46)
-		return (1);
-	else
-		return (0);
+	return (magic[0] == 0x7f &&
+		magic[1] == 0x45 &&
+		magic[2] == 0x4c &&
+		magic[3] == 0x46);
 }
 
 /**
