@@ -1,5 +1,10 @@
 #include "readelf.h"
 
+/**
+ * parse_elf - parses a elf file to print its reader
+ * @fd: the file descriptor of the binary file
+ * Return: Always Void
+ */
 void parse_elf(int fd)
 {
 	FILE *stream;
@@ -29,6 +34,11 @@ void parse_elf(int fd)
 	fclose(stream);
 }
 
+/**
+ * machine_name - returns a const string with the the machine name
+ * @e_machine: the byte representing the system architecture
+ * Return: a constant string of the machine name
+ */
 static char *machine_name(uint16_t e_machine)
 {
 	static char buf[64];
@@ -62,6 +72,11 @@ static char *machine_name(uint16_t e_machine)
 	}
 }
 
+/**
+ * print_magic - print the elf magic number
+ * @e_ident: the pointer to the elf identity header
+ * Return: Always Void
+ */
 static void print_magic(unsigned char *e_ident)
 {
 	int i;
@@ -76,6 +91,11 @@ static void print_magic(unsigned char *e_ident)
 }
 
 
+/**
+ * print_identity - prints the elf identity header
+ * @e_ident: the first 16 bytes of the elf binary file
+ * Return: Always Void.
+ */
 void print_identity(unsigned char *e_ident)
 {
 	print_magic(e_ident);
@@ -87,6 +107,11 @@ void print_identity(unsigned char *e_ident)
 	       e_ident[EI_ABIVERSION]);
 }
 
+/**
+ * print_header - prints the whole header of the elf binary file
+ * @header: the pointer to a elf binary struct representing its header
+ * Return: Always Void.
+ */
 void print_header(ElfN_Ehdr *header)
 {
 	print_identity(header->e_ident);
