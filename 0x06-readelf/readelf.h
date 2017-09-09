@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <endian.h>
 typedef enum
 {
 	ELF32, ELF64
@@ -46,4 +47,6 @@ void print_machine(uint16_t data);
 void print_file_version(uint32_t data);
 void print_phoff(uint64_t e_phoff);
 void print_shoff(uint64_t e_shoff);
+uint64_t get_byte_big_endian(uint64_t, int);
+uint64_t get_byte_host(uint64_t, int);
 #endif /* READELF_H */
