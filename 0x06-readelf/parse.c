@@ -29,11 +29,11 @@ void parse_elf(int fd)
 	fclose(stream);
 }
 
-static char *machine_name(uint16_t data)
+static char *machine_name(uint16_t e_machine)
 {
 	static char buf[64];
 
-	switch (data)
+	switch (e_machine)
 	{
 	case EM_NONE:		return "None";
 	case EM_M32:		return "WE32100";
@@ -47,7 +47,7 @@ static char *machine_name(uint16_t data)
 	case EM_X86_64:		return "Advanced Micro Devices X86-64";
 	case EM_VAX:		return "Digital VAX";
 	default:
-		snprintf(buf, sizeof(buf), "<unknown>: 0x%x", data);
+		snprintf(buf, sizeof(buf), "<unknown>: 0x%x", e_machine);
 		return (buf);
 	}
 }
