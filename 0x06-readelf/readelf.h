@@ -32,7 +32,7 @@ typedef struct ehdr
 #define GET_BYTE(field) get_byte(field, sizeof(field))
 int is_elf(unsigned char *magic);
 int get_stat(char *filename);
-void parse(int fd);
+void parse_elf(int fd);
 ElfClass get_class(char c);
 void parse_32(ElfN_Ehdr *ehdr, FILE *file);
 void parse_64(ElfN_Ehdr *ehdr, FILE *file);
