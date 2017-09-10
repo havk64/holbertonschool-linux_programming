@@ -4,13 +4,13 @@ void print_file_version(uint32_t elfversion)
 {
 	char *format = "  %-*s0x%x\n";
 
-	switch (data)
+	switch (elfversion)
 	{
 	case EV_NONE:		/* Invalid version */
-		printf(format, width, "Version:", data);
+		printf(format, width, "Version:", elfversion);
 		break;
 	case EV_CURRENT:	/* Current version */
-		printf(format, width, "Version:", data);
+		printf(format, width, "Version:", elfversion);
 		break;
 	}
 }
