@@ -1,6 +1,22 @@
 #include "readelf.h"
 
 /**
+ * print_identity - prints the elf identity header
+ * @e_ident: the first 16 bytes of the elf binary file
+ * Return: Always Void.
+ */
+void print_identity(unsigned char *e_ident)
+{
+	print_magic(e_ident);
+	print_class(e_ident[EI_CLASS]);
+	print_data(e_ident[EI_DATA]);
+	print_version(e_ident[EI_VERSION]);
+	print_osabi(e_ident[EI_OSABI]);
+	printf("  %-*s%d\n", width, "ABI Version:",
+	       e_ident[EI_ABIVERSION]);
+}
+
+/**
  * print_class - prints the elf class
  * @class: the byte representing the elf class
  * Return: Always void.
