@@ -89,18 +89,25 @@ void print_osabi(unsigned char osabi)
 	case ELFOSABI_STANDALONE:	/* Stand-alone (embedded) ABI; */
 		printf(format, width, "OS/ABI:", "Standalone App");
 		break;
+	default:
+		printf("  %-*sunknown: %x\n", width, "OS/ABI:", osabi);
 	}
 }
 
-void print_type(uint16_t data)
+/**
+ * print_type - prints the type of binary object file
+ * @type: the byte representing the type of the binary file
+ * Return: Always void.
+ */
+void print_type(uint16_t type)
 {
 	char *format = "  %-*s%s\n";
 
-	switch (data)
+	switch (type)
 	{
 	case ET_NONE:
 		/* An unknown type. */
-		printf(format, width, "Type:", "unknown");
+		printf(format, width, "Type:", "NONE (None)");
 		break;
 	case ET_REL:
 		/* A relocatable file. */
