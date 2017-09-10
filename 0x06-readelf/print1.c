@@ -1,11 +1,11 @@
 #include "readelf.h"
 
-void print_class(unsigned char data)
+void print_class(unsigned char class)
 {
 	char *format = "  %-*s%s\n";
 
 	/* printf("  %-*s", width, "Class:"); */
-	switch (data)
+	switch (class)
 	{
 	case ELFCLASS32:
 		printf(format, width, "Class:", "ELF32");
