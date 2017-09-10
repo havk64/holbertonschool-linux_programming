@@ -1,5 +1,10 @@
 #include "readelf.h"
 
+/**
+ * print_class - prints the elf class
+ * @class: the byte representing the elf class
+ * Return: Always void.
+ */
 void print_class(unsigned char class)
 {
 	char *format = "  %-*s%s\n";
@@ -19,6 +24,11 @@ void print_class(unsigned char class)
 	}
 }
 
+/**
+ * print_data - prints the elf's endianess
+ * @data: the byte representing the endianess of an elf file
+ * Return: Always void.
+ */
 void print_data(unsigned char data)
 {
 	char *format = "  %-*s%s\n";
@@ -38,6 +48,11 @@ void print_data(unsigned char data)
 	}
 }
 
+/**
+ * print_version - prints the elf version
+ * @version: the byte representing the elf version
+ * Return: Always void.
+ */
 void print_version(unsigned char version)
 {
 	char *format = "  %-*s%s\n";
@@ -53,6 +68,11 @@ void print_version(unsigned char version)
 	}
 }
 
+/**
+ * print_osabi - prints the target OS ABI
+ * @osabi: the byte representing the OSABI
+ * Return: Always void.
+ */
 void print_osabi(unsigned char osabi)
 {
 	char *format = "  %-*s%s\n";
