@@ -23,11 +23,10 @@ void print_phoff(uint64_t phoff)
 	printf(format, width, title, phoff);
 }
 
-void print_shoff(uint64_t e_shoff)
+void print_shoff(uint64_t shoff)
 {
 	char *title = "Start of section headers:";
 	char *format = "  %-*s%lu (bytes into file)\n";
 
-	printf(format, width, title, e_shoff);
+	printf(format, width, title, shoff);
 }
-
