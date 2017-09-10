@@ -1,6 +1,6 @@
 #include "readelf.h"
 
-void print_file_version(uint32_t data)
+void print_file_version(uint32_t elfversion)
 {
 	char *format = "  %-*s0x%x\n";
 
