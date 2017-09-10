@@ -11,7 +11,7 @@ typedef enum
 {
 	ELF32, ELF64
 } ElfClass;
-typedef struct ehdr
+typedef struct
 {
 	unsigned char	e_ident[EI_NIDENT];	/* ELF "magic number" */
 	uint64_t	e_entry;		/* Entry point virtual address */
