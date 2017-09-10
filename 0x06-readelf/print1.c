@@ -63,31 +63,31 @@ void print_osabi(unsigned char osabi)
 		printf(format, width, "OS/ABI:", "UNIX - System V");
 		break;
 	case ELFOSABI_HPUX:		/* HP-UX ABI; */
-		printf(format, width, "OS/ABI:", "HP-UX");
+		printf(format, width, "OS/ABI:", "UNIX - HP-UX");
 		break;
 	case ELFOSABI_NETBSD:		/* NetBSD ABI; */
-		printf(format, width, "OS/ABI:", "NetBSD");
+		printf(format, width, "OS/ABI:", "UNIX - NetBSD");
 		break;
-		printf(format, width, "OS/ABI:", "Linux ABI");
 	case ELFOSABI_LINUX:		/* Compatibility alias to ELFOSABI_GNU */
+		printf(format, width, "OS/ABI:", "UNIX - GNU");
 		break;
 	case ELFOSABI_SOLARIS:		/* Solaris ABI; */
-		printf(format, width, "OS/ABI:", "Solaris");
+		printf(format, width, "OS/ABI:", "UNIX - Solaris");
 		break;
 	case ELFOSABI_IRIX:		/* IRIX ABI; */
-		printf(format, width, "OS/ABI:", "IRIX ABI");
+		printf(format, width, "OS/ABI:", "UNIX - IRIX");
 		break;
 	case ELFOSABI_FREEBSD:		/* FreeBSD ABI; */
-		printf(format, width, "OS/ABI:", "FreeBSD ABI");
+		printf(format, width, "OS/ABI:", "UNIX - FreeBSD");
 		break;
 	case ELFOSABI_TRU64:		/* TRU64 UNIX ABI; */
-		printf(format, width, "OS/ABI:", "TRU64 UNIX ABI");
+		printf(format, width, "OS/ABI:", "UNIX - TRU64");
 		break;
 	case ELFOSABI_ARM:		/* ARM architecture ABI; */
-		printf(format, width, "OS/ABI:", "ARM ABI");
+		printf(format, width, "OS/ABI:", "ARM");
 		break;
 	case ELFOSABI_STANDALONE:	/* Stand-alone (embedded) ABI; */
-		printf(format, width, "OS/ABI:", "STANDALONE ABI");
+		printf(format, width, "OS/ABI:", "Standalone App");
 		break;
 	}
 }
