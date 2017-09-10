@@ -42,7 +42,6 @@ void print_version(unsigned char version)
 {
 	char *format = "  %-*s%s\n";
 
-	/* printf("  %-*s", width, "Version:"); */
 	switch (version)
 	{
 	case EV_NONE:
@@ -58,13 +57,8 @@ void print_osabi(unsigned char data)
 {
 	char *format = "  %-*s%s\n";
 
-	/* printf("  %-*s", width, "OS/ABI:"); */
 	switch (data)
 	{
-	/* case ELFOSABI_NONE: */
-		/* Same as ELFOSABI_SYSV */
-		/* printf("None"); */
-		/* break; */
 	case ELFOSABI_SYSV:		/* UNIX System V ABI */
 		printf(format, width, "OS/ABI:", "UNIX - System V");
 		break;
@@ -102,7 +96,6 @@ void print_type(uint16_t data)
 {
 	char *format = "  %-*s%s\n";
 
-	/* printf("  %-*s", width, "Type:"); */
 	switch (data)
 	{
 	case ET_NONE:
