@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 	}
 
 	fd = get_stat(argv[1]);
-	parse_elf(fd);
+	parse_elf_header(fd);
 
 	close(fd);
 	return (0);
