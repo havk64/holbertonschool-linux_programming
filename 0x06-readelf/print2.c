@@ -1,6 +1,40 @@
 #include "readelf.h"
 
 /**
+ * print_type - prints the type of binary object file
+ * @type: the byte representing the type of the binary file
+ * Return: Always void.
+ */
+void print_type(uint16_t type)
+{
+	char *format = "  %-*s%s\n";
+
+	switch (type)
+	{
+	case ET_NONE:
+		/* An unknown type. */
+		printf(format, width, "Type:", "NONE (None)");
+		break;
+	case ET_REL:
+		/* A relocatable file. */
+		printf(format, width, "Type:", "REL (Relocatable file)");
+		break;
+	case ET_EXEC:
+		/* An executable file. */
+		printf(format, width, "Type:", "EXEC (Executable file)");
+		break;
+	case ET_DYN:
+		/* A shared object. */
+		printf(format, width, "Type:", "DYN (Shared object file)");
+		break;
+	case ET_CORE:
+		/* A core file. */
+		printf(format, width, "Type:", "CORE (Core file)");
+		break;
+	}
+}
+
+/**
  * print_elf_version - prints the elf version (default to the first one)
  * @elfversion: the byte that represents the current elf version
  * Return: Always void.
