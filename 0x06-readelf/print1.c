@@ -59,7 +59,7 @@ void print_osabi(unsigned char osabi)
 
 	switch (osabi)
 	{
-	case ELFOSABI_SYSV:		/* UNIX System V ABI */
+	case ELFOSABI_SYSV:		/* Alias to ELFOSABI_NONE */
 		printf(format, width, "OS/ABI:", "UNIX - System V");
 		break;
 	case ELFOSABI_HPUX:		/* HP-UX ABI; */
@@ -68,8 +68,8 @@ void print_osabi(unsigned char osabi)
 	case ELFOSABI_NETBSD:		/* NetBSD ABI; */
 		printf(format, width, "OS/ABI:", "NetBSD");
 		break;
-	case ELFOSABI_LINUX:		/* Linux ABI; */
 		printf(format, width, "OS/ABI:", "Linux ABI");
+	case ELFOSABI_LINUX:		/* Compatibility alias to ELFOSABI_GNU */
 		break;
 	case ELFOSABI_SOLARIS:		/* Solaris ABI; */
 		printf(format, width, "OS/ABI:", "Solaris");
