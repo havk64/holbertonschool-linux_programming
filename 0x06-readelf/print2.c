@@ -15,12 +15,12 @@ void print_file_version(uint32_t elfversion)
 	}
 }
 
-void print_phoff(uint64_t e_phoff)
+void print_phoff(uint64_t phoff)
 {
 	char *title = "Start of program headers:";
 	char *format = "  %-*s%lu (bytes into file)\n";
 
-	printf(format, width, title, e_phoff);
+	printf(format, width, title, phoff);
 }
 
 void print_shoff(uint64_t e_shoff)
