@@ -53,11 +53,11 @@ void print_version(unsigned char version)
 	}
 }
 
-void print_osabi(unsigned char data)
+void print_osabi(unsigned char osabi)
 {
 	char *format = "  %-*s%s\n";
 
-	switch (data)
+	switch (osabi)
 	{
 	case ELFOSABI_SYSV:		/* UNIX System V ABI */
 		printf(format, width, "OS/ABI:", "UNIX - System V");
