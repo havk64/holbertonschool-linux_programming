@@ -115,7 +115,6 @@ void print_header(ElfN_Ehdr *header)
 	print_identity(header->e_ident);
 	print_type(header->e_type);
 	printf("  %-*s%s\n", width, "Machine:", machine_name(header->e_machine));
-	/* print_machine(header->e_machine); */
 	printf("  %-*s0x%x\n", width, "Version:", header->e_version);
 	printf("  %-*s0x%lx\n", width, "Entry point address:",
 	       header->e_entry);
