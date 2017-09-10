@@ -38,12 +38,12 @@ void print_data(unsigned char data)
 	}
 }
 
-void print_version(unsigned char data)
+void print_version(unsigned char version)
 {
 	char *format = "  %-*s%s\n";
 
 	/* printf("  %-*s", width, "Version:"); */
-	switch (data)
+	switch (version)
 	{
 	case EV_NONE:
 		printf(format, width, "Version:", "Invalid version");
