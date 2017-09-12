@@ -33,6 +33,7 @@ typedef struct
 _Bool is_elf(unsigned char *magic);
 int get_stat(char *filename);
 void parse_elf_header(int fd);
+void parse_elf_sections(int fd);
 ElfClass get_class(char c);
 void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data);
 void parse_64(ElfN_Ehdr *ehdr, FILE *file, int ei_data);
