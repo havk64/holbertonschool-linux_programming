@@ -32,7 +32,7 @@ typedef struct
 #define GET_BYTE(field) get_byte(field, sizeof(field))
 _Bool is_elf(unsigned char *magic);
 int get_stat(char *filename);
-void parse_elf_header(int fd);
+void parse_elf_header(ElfN_Ehdr *ehdr, int fd);
 void parse_elf_sections(int fd);
 ElfClass get_class(char c);
 void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data);

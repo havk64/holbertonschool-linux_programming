@@ -5,10 +5,9 @@
  * @fd: the file descriptor of the binary file
  * Return: Always Void
  */
-void parse_elf_header(int fd)
+void parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 {
 	FILE *stream;
-	ElfN_Ehdr ehdr;
 	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, int);
 	ssize_t n;
 	ElfClass elfclass;
@@ -20,17 +19,16 @@ void parse_elf_header(int fd)
 		exit(EXIT_FAILURE);
 	}
 
-	n = fread(ehdr.e_ident, EI_NIDENT, 1, stream);
-	if (!is_elf(ehdr.e_ident) || n != 1)
+	n = fread(ehdr->e_ident, EI_NIDENT, 1, stream);
+	if (!is_elf(ehdr->e_ident) || n != 1)
 	{
 		printf("Not an ELF file - it has the wrong magic bytes at the start\n");
 		exit(EXIT_FAILURE);
 	}
 
-	elfclass = get_class(ehdr.e_ident[EI_CLASS]);
+	elfclass = get_class(ehdr->e_ident[EI_CLASS]);
 	fill_Ehdr = (elfclass == ELF32) ? &parse_32 : &parse_64;
-	(*fill_Ehdr)(&ehdr, stream, ehdr.e_ident[EI_DATA]);
-	print_header(&ehdr);
+	(*fill_Ehdr)(ehdr, stream, ehdr->e_ident[EI_DATA]);
 	fclose(stream);
 }
 
