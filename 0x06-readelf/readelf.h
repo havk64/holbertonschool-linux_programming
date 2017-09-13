@@ -28,6 +28,19 @@ typedef struct
 	uint16_t	e_shnum;		/* Section header table entry count */
 	uint16_t	e_shstrndx;		/* Section header string table index */
 } ElfN_Ehdr; /* Struct to represent headers from both 32 and 64bits files */
+typdef struct
+{
+	uint32_t	sh_name;
+	uint32_t	sh_type;
+	uint64_t	sh_flags;
+	uint64_t	sh_addr;
+	uint64_t	sh_offset;
+	uint64_t	sh_size;
+	uint32_t	sh_link;
+	uint32_t	sh_info;
+	uint64_t	sh_addralign;
+	uint64_t	sh_entsize;
+} ElfN_Shdr; /* Struct to represent section headers from 32 and 64 bits */
 #define width 35
 #define GET_BYTE(field) get_byte(field, sizeof(field))
 _Bool is_elf(unsigned char *magic);
