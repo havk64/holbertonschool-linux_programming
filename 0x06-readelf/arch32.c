@@ -55,6 +55,8 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 		exit(EXIT_FAILURE);
 
 	sh_strtab = get_strtab(file, ehdr);
+	/* TODO */
+	/* implement get_flags function, transfer print to separate file */
 	printf("There are %lu section headers, starting at offset 0x%lx:\n\n",
 	       shnum, ehdr->e_shoff);
 	printf("Section Headers:\n");
