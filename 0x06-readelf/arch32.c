@@ -29,11 +29,14 @@ void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 {
 	uint64_t (*get_byte)(uint64_t, int);
-	ssize_t i, n;
-	uint64_t shnum = ehdr->e_shnum;
+	ssize_t n;
+	uint64_t i, shnum;
 	Elf32_Shdr *shdr;
 	char *sh_strtab;
+	int nwidth = 18;
+	int twidth = 15;
 
+	shnum = ehdr->e_shnum;
 	shdr = malloc(ehdr->e_shentsize * shnum);
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
@@ -52,14 +55,19 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 		exit(EXIT_FAILURE);
 
 	sh_strtab = get_strtab(file, ehdr);
-	printf("There are %d section headers, starting at offset 0x%lx\n\n",
-	       (int)shnum, ehdr->e_shoff);
+	printf("There are %lu section headers, starting at offset 0x%lx:\n\n",
+	       shnum, ehdr->e_shoff);
 	printf("Section Headers:\n");
-	printf("  [Nr] %-*s%s %s\n", 25, "Name", "Type", "Addr");
-	for (i = 0; i < (int)shnum; i++)
+	printf("  [Nr] %-*s%-*s %-*s%-*s%-*s%-*s%-*s%-*s%-*s%-*s\n",
+	       nwidth, "Name", twidth, "Type", 9, "Addr", 7, "Off", 7, "Size", 3,
+	       "ES", 4, "Flg", 3, "Lk", 4, "Inf", 3, "Al");
+	for (i = 0; i < shnum; i++)
 	{
-		printf("  [%2d] %-*s%s %08x\n",
-		       (int)i, 25, sh_strtab + shdr[i].sh_name, "PROGBITS", shdr[i].sh_addr);
+		printf("  [%2lu] %-*s%-*s %08x %06x %06x %02x%*u %2u %3u %2u\n",
+		       i, nwidth, sh_strtab + shdr[i].sh_name, twidth,
+		       "PROGBITS", shdr[i].sh_addr, shdr[i].sh_offset,
+		       shdr[i].sh_size, shdr[i].sh_entsize, 4, shdr[i].sh_flags,
+		       shdr[i].sh_link, shdr[i].sh_info, shdr[i].sh_addralign);
 	}
 	free(sh_strtab);
 	free(shdr);
