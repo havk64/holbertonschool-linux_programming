@@ -14,6 +14,6 @@ $(T1): $(T1OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	$(RM) $(T0OBJS)
+	$(RM) $(T0OBJS) $(T1OBJS)
 re:
 	clean all
