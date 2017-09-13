@@ -32,10 +32,8 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	ssize_t i, n;
 	uint64_t shnum = ehdr->e_shnum;
 	Elf32_Shdr *shdr;
-	/* const char *start; */
 	char *sh_strtab;
 
-	(void)(i);
 	shdr = malloc(ehdr->e_shentsize * shnum);
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
@@ -62,7 +60,6 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	{
 		printf("  [%2d] %-*s%s %08x\n",
 		       (int)i, 25, sh_strtab + shdr[i].sh_name, "PROGBITS", shdr[i].sh_addr);
-		/* printf("[%2d]\t%s\t%8x\t"); */
 	}
 	free(sh_strtab);
 	free(shdr);
