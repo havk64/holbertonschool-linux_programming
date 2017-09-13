@@ -9,6 +9,7 @@
 int main(int argc, char *argv[])
 {
 	int fd;
+	ElfN_Ehdr ehdr;
 
 	if (argc != 2)
 	{
@@ -17,7 +18,8 @@ int main(int argc, char *argv[])
 	}
 
 	fd = get_stat(argv[1]);
-	parse_elf_header(fd);
+	parse_elf_header(&ehdr, fd);
+	print_header(&ehdr);
 
 	close(fd);
 	return (0);
