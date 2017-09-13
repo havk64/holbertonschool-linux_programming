@@ -2,6 +2,7 @@
 
 /**
  * parse_elf_header - parses a elf file to print its reader
+ * @ehdr: a pointer to a ElfN_Ehdr(32/64bits) struct
  * @fd: the file descriptor of the binary file
  * Return: Always Void
  */
