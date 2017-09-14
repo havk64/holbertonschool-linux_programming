@@ -41,7 +41,6 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
-	(void)(get_byte);
 	n = fseek(file, ehdr->e_shoff, SEEK_SET);
 	if (n < 0)
 	{
