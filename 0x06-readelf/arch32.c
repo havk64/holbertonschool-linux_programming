@@ -68,16 +68,16 @@ void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
 	get_byte = (ei_data == ELFDATA2MSB) ? get_byte_big_endian : get_byte_host;
 	for (i = 0; i < shnum; i++)
 	{
-		shdr[i].sh_name		= GET_BYTE(xhdr[i].sh_name);
-		shdr[i].sh_type		= GET_BYTE(xhdr[i].sh_type);
-		shdr[i].sh_flags	= GET_BYTE(xhdr[i].sh_flags);
-		shdr[i].sh_addr		= GET_BYTE(xhdr[i].sh_addr);
-		shdr[i].sh_offset	= GET_BYTE(xhdr[i].sh_offset);
-		shdr[i].sh_size		= GET_BYTE(xhdr[i].sh_size);
-		shdr[i].sh_link		= GET_BYTE(xhdr[i].sh_link);
-		shdr[i].sh_info		= GET_BYTE(xhdr[i].sh_info);
-		shdr[i].sh_addralign	= GET_BYTE(xhdr[i].sh_addralign);
-		shdr[i].sh_entsize	= GET_BYTE(xhdr[i].sh_entsize);
+		(shdr + i)->sh_name		= GET_BYTE((xhdr + i)->sh_name);
+		(shdr + i)->sh_type		= GET_BYTE((xhdr + i)->sh_type);
+		(shdr + i)->sh_flags		= GET_BYTE((xhdr + i)->sh_flags);
+		(shdr + i)->sh_addr		= GET_BYTE((xhdr + i)->sh_addr);
+		(shdr + i)->sh_offset		= GET_BYTE((xhdr + i)->sh_offset);
+		(shdr + i)->sh_size		= GET_BYTE((xhdr + i)->sh_size);
+		(shdr + i)->sh_link		= GET_BYTE((xhdr + i)->sh_link);
+		(shdr + i)->sh_info		= GET_BYTE((xhdr + i)->sh_info);
+		(shdr + i)->sh_addralign	= GET_BYTE((xhdr + i)->sh_addralign);
+		(shdr + i)->sh_entsize		= GET_BYTE((xhdr + i)->sh_entsize);
 	}
 	free(xhdr);
 }
