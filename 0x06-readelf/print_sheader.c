@@ -17,6 +17,7 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	       "ES", 4, "Flg", 3, "Lk", 4, "Inf", 3, "Al");
 	for (i = 0; i < shnum; i++)
 	{
+		/* TODO add function to return section type */
 		printf("  [%2lu] %-*s%-*s %08lx %06lx %06lx %02lx%*s %2u %3u %2lu\n",
 		       i, nwidth, sh_strtab + shdr[i].sh_name, twidth,
 		       "PROGBITS", shdr[i].sh_addr, shdr[i].sh_offset,
