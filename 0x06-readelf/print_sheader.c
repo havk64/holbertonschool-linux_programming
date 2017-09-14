@@ -14,7 +14,7 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	printf("Section Headers:\n");
 	printf("  [Nr] %-*s%-*s %-*s%-*s%-*s%-*s%-*s%-*s%-*s%-*s\n",
 	       nwidth, "Name", twidth, "Type", 9, "Addr", 7, "Off", 7, "Size", 3,
-	       "ES", 4, "Flg", 3, "Lk", 4, "Inf", 3, "Al");
+	       "ES", 4, "Flg", 3, "Lk", 4, "Inf", 2, "Al");
 	for (i = 0; i < shnum; i++)
 	{
 		/* TODO add function to return section type */
