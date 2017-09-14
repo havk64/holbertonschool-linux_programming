@@ -38,12 +38,12 @@ void parse_elf_header(ElfN_Ehdr *ehdr, int fd)
  * @fd: the file descriptor of the binary file
  * Return: Always Void
  */
-void parse_elf_sections(int fd)
+FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 {
 	FILE *stream;
-	ElfN_Ehdr ehdr;
+	/* ElfN_Ehdr ehdr; */
 	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, int);
-	void (*fill_Shdr)(ElfN_Ehdr*, FILE*, int);
+	/* void (*fill_Shdr)(ElfN_Ehdr*, FILE*, int); */
 	ssize_t n;
 	ElfClass elfclass;
 
@@ -54,15 +54,22 @@ void parse_elf_sections(int fd)
 		exit(EXIT_FAILURE);
 	}
 
-	n = fread(ehdr.e_ident, EI_NIDENT, 1, stream);
-	if (!is_elf(ehdr.e_ident) || n != 1)
+	n = fread(ehdr->e_ident, EI_NIDENT, 1, stream);
+	if (!is_elf(ehdr->e_ident) || n != 1)
 	{
 		printf("Not an ELF file - it has the wrong magic bytes at the start\n");
 		exit(EXIT_FAILURE);
 	}
 
-	elfclass = get_class(ehdr.e_ident[EI_CLASS]);
+	elfclass = get_class(ehdr->e_ident[EI_CLASS]);
+	/* TODO define a macro to choose between functions */
 	fill_Ehdr = (elfclass == ELF32) ? &parse_32 : &parse_64;
+	/* fill_Shdr = (elfclass == ELF32) ? &parse_section_32 : &parse_section_64; */
+	(*fill_Ehdr)(ehdr, stream, ehdr->e_ident[EI_DATA]);
+	/* (*fill_Shdr)(ehdr, stream, ehdr->e_ident[EI_DATA]); */
+	return (stream);
+}
+
 	fill_Shdr = (elfclass == ELF32) ? &parse_section_32 : &parse_section_64;
 	(*fill_Ehdr)(&ehdr, stream, ehdr.e_ident[EI_DATA]);
 	(*fill_Shdr)(&ehdr, stream, ehdr.e_ident[EI_DATA]);
