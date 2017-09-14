@@ -28,9 +28,8 @@ void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 
 void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 {
-	uint64_t (*get_byte)(uint64_t, int);
 	ssize_t n;
-	uint64_t i, shnum;
+	uint64_t shnum;
 	Elf32_Shdr *xhdr;
 	ElfN_Shdr *shdr;
 
@@ -42,7 +41,6 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
-	get_byte = (ei_data == ELFDATA2MSB) ? get_byte_big_endian : get_byte_host;
 	(void)(get_byte);
 	n = fseek(file, ehdr->e_shoff, SEEK_SET);
 	if (n < 0)
@@ -55,6 +53,20 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	if (n != ehdr->e_shnum)
 		exit(EXIT_FAILURE);
 
+	copy_sheader(shdr, xhdr, shnum, ei_data);
+
+	print_sheader(shdr, ehdr, file);
+	free(shdr);
+}
+
+void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
+		  int ei_data)
+{
+	uint64_t i;
+	uint64_t (*get_byte)(uint64_t, int);
+
+
+	get_byte = (ei_data == ELFDATA2MSB) ? get_byte_big_endian : get_byte_host;
 	for (i = 0; i < shnum; i++)
 	{
 		shdr[i].sh_name		= GET_BYTE(xhdr[i].sh_name);
@@ -68,8 +80,5 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 		shdr[i].sh_addralign	= GET_BYTE(xhdr[i].sh_addralign);
 		shdr[i].sh_entsize	= GET_BYTE(xhdr[i].sh_entsize);
 	}
-
-	print_sheader(shdr, ehdr, file);
 	free(xhdr);
-	free(shdr);
 }
