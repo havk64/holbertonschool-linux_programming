@@ -20,7 +20,7 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 		/* TODO add function to return section type */
 		printf("  [%2lu] %-*s%-*s %08lx %06lx %06lx %02lx%*s %2u %3u %2lu\n",
 		       i, nwidth, sh_strtab + shdr[i].sh_name, twidth,
-		       "PROGBITS", shdr[i].sh_addr, shdr[i].sh_offset,
+		       get_type(shdr[i].sh_type), shdr[i].sh_addr, shdr[i].sh_offset,
 		       shdr[i].sh_size, shdr[i].sh_entsize, 4,
 		       get_flags(shdr[i].sh_flags), shdr[i].sh_link,
 		       shdr[i].sh_info, shdr[i].sh_addralign);
