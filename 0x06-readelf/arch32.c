@@ -31,13 +31,14 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	uint64_t (*get_byte)(uint64_t, int);
 	ssize_t n;
 	uint64_t i, shnum;
-	Elf32_Shdr *shdr;
-	char *sh_strtab;
-	int nwidth = 18;
-	int twidth = 15;
+	Elf32_Shdr *xhdr;
+	ElfN_Shdr *shdr;
 
 	shnum = ehdr->e_shnum;
-	shdr = malloc(ehdr->e_shentsize * shnum);
+	xhdr = malloc(ehdr->e_shentsize * shnum);
+	/* TODO check for null */
+	shdr = malloc(sizeof(ElfN_Shdr) * shnum);
+	/* TODO check for null */
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
@@ -50,27 +51,25 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 		exit(EXIT_FAILURE);
 	}
 
-	n = fread(shdr, sizeof(Elf32_Shdr), ehdr->e_shnum, file);
+	n = fread(xhdr, sizeof(Elf32_Shdr), ehdr->e_shnum, file);
 	if (n != ehdr->e_shnum)
 		exit(EXIT_FAILURE);
 
-	sh_strtab = get_strtab(file, ehdr);
-	/* TODO */
-	/* implement get_flags function, transfer print to separate file */
-	printf("There are %lu section headers, starting at offset 0x%lx:\n\n",
-	       shnum, ehdr->e_shoff);
-	printf("Section Headers:\n");
-	printf("  [Nr] %-*s%-*s %-*s%-*s%-*s%-*s%-*s%-*s%-*s%-*s\n",
-	       nwidth, "Name", twidth, "Type", 9, "Addr", 7, "Off", 7, "Size", 3,
-	       "ES", 4, "Flg", 3, "Lk", 4, "Inf", 3, "Al");
 	for (i = 0; i < shnum; i++)
 	{
-		printf("  [%2lu] %-*s%-*s %08x %06x %06x %02x%*u %2u %3u %2u\n",
-		       i, nwidth, sh_strtab + shdr[i].sh_name, twidth,
-		       "PROGBITS", shdr[i].sh_addr, shdr[i].sh_offset,
-		       shdr[i].sh_size, shdr[i].sh_entsize, 4, shdr[i].sh_flags,
-		       shdr[i].sh_link, shdr[i].sh_info, shdr[i].sh_addralign);
+		shdr[i].sh_name		= GET_BYTE(xhdr[i].sh_name);
+		shdr[i].sh_type		= GET_BYTE(xhdr[i].sh_type);
+		shdr[i].sh_flags	= GET_BYTE(xhdr[i].sh_flags);
+		shdr[i].sh_addr		= GET_BYTE(xhdr[i].sh_addr);
+		shdr[i].sh_offset	= GET_BYTE(xhdr[i].sh_offset);
+		shdr[i].sh_size		= GET_BYTE(xhdr[i].sh_size);
+		shdr[i].sh_link		= GET_BYTE(xhdr[i].sh_link);
+		shdr[i].sh_info		= GET_BYTE(xhdr[i].sh_info);
+		shdr[i].sh_addralign	= GET_BYTE(xhdr[i].sh_addralign);
+		shdr[i].sh_entsize	= GET_BYTE(xhdr[i].sh_entsize);
 	}
-	free(sh_strtab);
+
+	print_sheader(shdr, ehdr, file);
+	free(xhdr);
 	free(shdr);
 }
