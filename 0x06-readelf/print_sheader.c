@@ -1,6 +1,6 @@
 #include "readelf.h"
 
-void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
+void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *sh_strtab)
 {
 	uint64_t i, shnum;
 	int nwidth = 18;
@@ -30,5 +30,6 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	printf("  O (extra OS processing required) o (OS specific), ");
 	printf("p (processor specific)\n");
 	free(sh_strtab);
+	free(shdr);
 }
 
