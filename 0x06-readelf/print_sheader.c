@@ -5,9 +5,7 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	uint64_t i, shnum;
 	int nwidth = 18;
 	int twidth = 15;
-	char *sh_strtab;
 
-	sh_strtab = get_strtab(file, ehdr);
 	shnum = ehdr->e_shnum;
 	printf("There are %lu section headers, starting at offset 0x%lx:\n\n",
 	       shnum, ehdr->e_shoff);
