@@ -25,6 +25,12 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 		       get_flags(shdr[i].sh_flags), shdr[i].sh_link,
 		       shdr[i].sh_info, shdr[i].sh_addralign);
 	}
+	printf("Key to Flags:\n");
+	printf("  W (write), A (alloc), X (execute), M (merge), S (strings)\n");
+	printf("  I (info), L (link order), G (group), T (TLS), E (exclude), ");
+	printf("x (unknown)\n");
+	printf("  O (extra OS processing required) o (OS specific), ");
+	printf("p (processor specific)\n");
 	free(sh_strtab);
 }
 
