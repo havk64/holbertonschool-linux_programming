@@ -26,20 +26,15 @@ void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	ehdr->e_shstrndx	= GET_BYTE(header.e_shstrndx);
 }
 
-void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
+void parse_section_32(ElfN_Ehdr *ehdr, ElfN_Shdr *shdr, FILE *file)
 {
 	ssize_t n;
 	uint64_t shnum;
 	Elf32_Shdr *xhdr;
-	ElfN_Shdr *shdr;
 
 	shnum = ehdr->e_shnum;
 	xhdr = malloc(ehdr->e_shentsize * shnum);
 	if (xhdr == NULL)
-		exit(EXIT_FAILURE);
-
-	shdr = malloc(sizeof(ElfN_Shdr) * shnum);
-	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
 	n = fseek(file, ehdr->e_shoff, SEEK_SET);
@@ -53,10 +48,10 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	if (n != ehdr->e_shnum)
 		exit(EXIT_FAILURE);
 
-	copy_sheader(shdr, xhdr, shnum, ei_data);
+	copy_sheader(shdr, xhdr, shnum, ehdr->e_ident[EI_DATA]);
 
-	print_sheader(shdr, ehdr, file);
-	free(shdr);
+	free(xhdr);
+	fclose(file);
 }
 
 void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
@@ -80,5 +75,4 @@ void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
 		(shdr + i)->sh_addralign	= GET_BYTE((xhdr + i)->sh_addralign);
 		(shdr + i)->sh_entsize		= GET_BYTE((xhdr + i)->sh_entsize);
 	}
-	free(xhdr);
 }
