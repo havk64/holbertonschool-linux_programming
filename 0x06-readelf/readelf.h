@@ -46,12 +46,12 @@ typedef struct
 _Bool is_elf(unsigned char *magic);
 int get_stat(char *filename);
 void parse_elf_header(ElfN_Ehdr *ehdr, int fd);
-void parse_elf_sections(int fd);
+FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd);
 ElfClass get_class(char c);
 void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data);
 void parse_64(ElfN_Ehdr *ehdr, FILE *file, int ei_data);
-void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data);
-void parse_section_64(ElfN_Ehdr *ehdr, FILE *file, int ei_data);
+void parse_section_32(ElfN_Ehdr *ehdr, ElfN_Shdr *shdr, FILE *file);
+void parse_section_64(ElfN_Ehdr *ehdr, ElfN_Shdr *shdr, FILE *file);
 void print_identity(unsigned char *header);
 void print_magic(unsigned char *e_ident);
 void print_header(ElfN_Ehdr *hptr);
