@@ -35,9 +35,10 @@ void parse_section_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 
 	shnum = ehdr->e_shnum;
 	xhdr = malloc(ehdr->e_shentsize * shnum);
-	/* TODO check for null */
+	if (xhdr == NULL)
+		exit(EXIT_FAILURE);
+
 	shdr = malloc(sizeof(ElfN_Shdr) * shnum);
-	/* TODO check for null */
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
