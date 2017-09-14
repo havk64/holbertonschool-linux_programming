@@ -70,8 +70,18 @@ FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 	return (stream);
 }
 
+ElfN_Shdr *parse_test(FILE *stream, ElfN_Ehdr *ehdr)
+{
+	ElfClass elfclass;
+	ElfN_Shdr *shdr;
+	void (*fill_Shdr)(ElfN_Ehdr*, ElfN_Shdr*, FILE*);
+
+	shdr = malloc(sizeof(ElfN_Ehdr) * ehdr->e_shnum);
+	if (shdr == NULL)
+		exit(EXIT_FAILURE);
+
+	elfclass = get_class(ehdr->e_ident[EI_CLASS]);
 	fill_Shdr = (elfclass == ELF32) ? &parse_section_32 : &parse_section_64;
-	(*fill_Ehdr)(&ehdr, stream, ehdr.e_ident[EI_DATA]);
-	(*fill_Shdr)(&ehdr, stream, ehdr.e_ident[EI_DATA]);
-	fclose(stream);
+	(*fill_Shdr)(ehdr, shdr, stream);
+	return (shdr);
 }
