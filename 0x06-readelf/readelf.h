@@ -64,6 +64,9 @@ void print_elf_version(uint32_t data);
 void print_phoff(uint64_t phoff);
 void print_shoff(uint64_t shoff);
 char *get_strtab(FILE *file, ElfN_Ehdr *ehdr);
+void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file);
+char *get_flags(uint64_t sh_flags);
+char get_letter(uint64_t flag);
 uint64_t get_byte_big_endian(uint64_t, int);
 uint64_t get_byte_host(uint64_t, int);
 #endif /* READELF_H */
