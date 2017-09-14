@@ -66,6 +66,7 @@ void print_shoff(uint64_t shoff);
 char *get_strtab(FILE *file, ElfN_Ehdr *ehdr);
 void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file);
 char *get_flags(uint64_t sh_flags);
+char *get_type(uint64_t sh_type);
 char get_letter(uint64_t flag);
 void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
 		  int ei_data);
