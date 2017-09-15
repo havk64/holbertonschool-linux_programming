@@ -76,7 +76,7 @@ ElfN_Shdr *parse_test(FILE *stream, ElfN_Ehdr *ehdr)
 	ElfN_Shdr *shdr;
 	void (*fill_Shdr)(ElfN_Ehdr*, ElfN_Shdr*, FILE*);
 
-	shdr = malloc(sizeof(ElfN_Ehdr) * ehdr->e_shnum);
+	shdr = malloc(sizeof(ElfN_Shdr) * ehdr->e_shnum);
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
