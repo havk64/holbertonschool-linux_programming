@@ -69,7 +69,7 @@ char *get_flags(uint64_t sh_flags);
 char *get_flags2(uint64_t sh_flags);
 char *get_type(uint64_t sh_type);
 char get_letter(uint64_t flag);
-void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
+void copy_sheader32(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
 		  int ei_data);
 ElfN_Shdr *parse_test(FILE *stream, ElfN_Ehdr *ehdr);
 uint64_t get_byte_big_endian(uint64_t, int);

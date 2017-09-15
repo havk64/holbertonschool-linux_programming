@@ -48,18 +48,17 @@ void parse_section_32(ElfN_Ehdr *ehdr, ElfN_Shdr *shdr, FILE *file)
 	if (n != ehdr->e_shnum)
 		exit(EXIT_FAILURE);
 
-	copy_sheader(shdr, xhdr, shnum, ehdr->e_ident[EI_DATA]);
+	copy_sheader32(shdr, xhdr, shnum, ehdr->e_ident[EI_DATA]);
 
 	free(xhdr);
 	fclose(file);
 }
 
-void copy_sheader(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum,
-		  int ei_data)
+void
+copy_sheader32(ElfN_Shdr *shdr, Elf32_Shdr *xhdr, uint64_t shnum, int ei_data)
 {
 	uint64_t i;
 	uint64_t (*get_byte)(uint64_t, int);
-
 
 	get_byte = (ei_data == ELFDATA2MSB) ? get_byte_big_endian : get_byte_host;
 	for (i = 0; i < shnum; i++)
