@@ -64,9 +64,7 @@ FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 	elfclass = get_class(ehdr->e_ident[EI_CLASS]);
 	/* TODO define a macro to choose between functions */
 	fill_Ehdr = (elfclass == ELF32) ? &parse_32 : &parse_64;
-	/* fill_Shdr = (elfclass == ELF32) ? &parse_section_32 : &parse_section_64; */
 	(*fill_Ehdr)(ehdr, stream, ehdr->e_ident[EI_DATA]);
-	/* (*fill_Shdr)(ehdr, stream, ehdr->e_ident[EI_DATA]); */
 	return (stream);
 }
 
