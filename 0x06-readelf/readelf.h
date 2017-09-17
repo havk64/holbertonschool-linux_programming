@@ -70,6 +70,7 @@ char *get_flags(uint64_t sh_flags);
 char *get_flags2(uint64_t sh_flags);
 char *get_type(uint64_t sh_type);
 char get_letter(uint64_t flag);
+ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file);
 uint64_t get_byte_big_endian(uint64_t, int);
 uint64_t get_byte_host(uint64_t, int);
 #endif /* READELF_H */

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	fd = get_stat(argv[1]);
 	stream = parse_elf_sections(&ehdr, fd);
 	strtab = get_strtab(stream, &ehdr);
-	shdr = parse_test(stream, &ehdr);
+	shdr = parse_sheaders(&ehdr, stream);
 	print_sheader(shdr, &ehdr, strtab);
 
 	close(fd);

@@ -68,11 +68,29 @@ FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 	return (stream);
 }
 
+ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 {
+	ssize_t n;
+	uint16_t shnum;
+	ElfClass ei_class;
 	ElfN_Shdr *shdr;
+	void (*copy_Shdr)(ElfN_Shdr*, ElfN_Ehdr*, FILE *);
 
+	shnum		= ehdr->e_shnum;
+	ei_class	= get_class(ehdr->e_ident[EI_CLASS]);
+	shdr = malloc(sizeof(ElfN_Shdr) * shnum);
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
+	n = fseek(file, ehdr->e_shoff, SEEK_SET);
+	if (n < 0)
+	{
+		perror("Fseek error");
+		exit(EXIT_FAILURE);
+	}
+
+	copy_Shdr = (ei_class == ELF32) ? &copy_sheader_32 : &copy_sheader_64;
+	(*copy_Shdr)(shdr, ehdr, file);
+	fclose(file);
 	return (shdr);
 }
