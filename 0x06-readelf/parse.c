@@ -68,6 +68,12 @@ FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 	return (stream);
 }
 
+/**
+ * parse_sheaders - extracts and process the section headers from an elf file
+ * @ehdr: a pointer to a elf header struct
+ * @file: a pointer to a file stream
+ * Return: a pointer to an array of section header struct
+ */
 ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 {
 	ssize_t n;
