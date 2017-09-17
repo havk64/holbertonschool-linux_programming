@@ -60,5 +60,5 @@ int get_stat(char *filename)
  */
 ElfClass get_class(char c)
 {
-	return ((c == 2) ? ELF64 : ELF32);
+	return ((c == ELFCLASS64) ? ELF64 : ELF32);
 }
