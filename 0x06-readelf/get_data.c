@@ -100,6 +100,11 @@ char get_letter(uint64_t flag)
 	}
 }
 
+/**
+ * get_flags - retrieves the enabled attributes on a section header
+ * @sh_flags: a sh_flags member of a elf section header struct
+ * Return: The characters that identify the enabled attributes of an elf file
+ */
 char *get_flags(uint64_t sh_flags)
 {
 	int i;
