@@ -56,7 +56,7 @@ char *get_strtab(FILE *file, ElfN_Ehdr *ehdr)
 		exit(EXIT_FAILURE);
 	}
 
-	get_arch(&shdr, ehdr, file);
+	get_sizeoff(&shdr, ehdr, file);
 	name = malloc(shdr.sh_size);
 	if (name == NULL)
 		exit(EXIT_FAILURE);
