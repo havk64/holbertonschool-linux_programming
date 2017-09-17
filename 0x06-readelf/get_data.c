@@ -36,6 +36,12 @@ void get_sizeoff(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	}
 }
 
+/**
+  * get_strtab - retrieves the section header string table of an elf file
+  * @file: a file stream to read from
+  * @ehdr: the struct representing the elf header
+  * Return: the section header string table
+ */
 char *get_strtab(FILE *file, ElfN_Ehdr *ehdr)
 {
 	char *name;
