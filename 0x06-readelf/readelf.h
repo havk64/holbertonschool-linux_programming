@@ -70,7 +70,6 @@ void print_middle32(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab);
 void print_middle64(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab);
 void print_tail(void);
 char *get_flags(uint64_t sh_flags);
-char *get_flags2(uint64_t sh_flags);
 char *get_type(uint64_t sh_type);
 char get_letter(uint64_t flag);
 void copy_sheader_32(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file);
