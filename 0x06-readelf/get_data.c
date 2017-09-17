@@ -154,6 +154,11 @@ char *get_flags2(uint64_t sh_flags)
 	return(buff);
 }
 
+/**
+ * get_type - retrieves the type of a given section
+ * @sh_type: a sh_type member of a section header struct
+ * Return: a string representing the type of a section
+ */
 char *get_type(uint64_t sh_type)
 {
 	switch (sh_type)
