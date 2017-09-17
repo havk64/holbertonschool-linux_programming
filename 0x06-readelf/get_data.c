@@ -1,10 +1,40 @@
 #include "readelf.h"
 
+void get_sizeoff(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
+{
+	ssize_t n;
+	uint64_t (*get_byte)(uint64_t, int);
+
+	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
+		get_byte_host;
+	if (get_class(ehdr->e_ident[EI_CLASS]) == ELF32)
+	{
+		Elf32_Shdr xhdr;
+
+		n = fread(&xhdr, sizeof(Elf32_Shdr), 1, file);
+		if (n != 1)
+			exit(EXIT_FAILURE);
+
+		shdr->sh_size		= GET_BYTE(xhdr.sh_size);
+		shdr->sh_offset		= GET_BYTE(xhdr.sh_offset);
+	} else
+	{
+		Elf64_Shdr xhdr;
+
+		n = fread(&xhdr, sizeof(Elf64_Shdr), 1, file);
+		if (n != 1)
+			exit(EXIT_FAILURE);
+
+		shdr->sh_size		= GET_BYTE(xhdr.sh_size);
+		shdr->sh_offset		= GET_BYTE(xhdr.sh_offset);
+	}
+}
+
 char *get_strtab(FILE *file, ElfN_Ehdr *ehdr)
 {
 	char *name;
 	ssize_t n;
-	Elf32_Shdr shdr;
+	ElfN_Shdr shdr;
 
 	n = fseek(file, ehdr->e_shoff + (ehdr->e_shstrndx * ehdr->e_shentsize),
 		  SEEK_SET);
@@ -14,10 +44,7 @@ char *get_strtab(FILE *file, ElfN_Ehdr *ehdr)
 		exit(EXIT_FAILURE);
 	}
 
-	n = fread(&shdr, sizeof(Elf32_Shdr), 1, file);
-	if (n != 1)
-		exit(EXIT_FAILURE);
-
+	get_arch(&shdr, ehdr, file);
 	name = malloc(shdr.sh_size);
 	if (name == NULL)
 		exit(EXIT_FAILURE);
@@ -29,13 +56,18 @@ char *get_strtab(FILE *file, ElfN_Ehdr *ehdr)
 		exit(EXIT_FAILURE);
 	}
 
-	n = fread(name, 1, shdr.sh_size, file);
-	if (n != shdr.sh_size)
+	n = fread(name, shdr.sh_size, 1, file);
+	if (n != 1)
 		exit(EXIT_FAILURE);
 
 	return (name);
 }
 
+/**
+ * get_letter - returns a character representing each section header flag
+ * @flag: a bit flag
+ * Return: a character representing miscellaneous attributes
+ */
 char get_letter(uint64_t flag)
 {
 	switch (flag)
