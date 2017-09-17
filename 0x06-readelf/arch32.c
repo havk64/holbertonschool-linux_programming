@@ -26,14 +26,35 @@ void parse_32(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
 	ehdr->e_shstrndx	= GET_BYTE(header.e_shstrndx);
 }
 
+void copy_sheader_32(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 {
+	Elf32_Shdr *source;
+	uint64_t (*get_byte)(uint64_t, int);
+	uint16_t i;
 	ssize_t n;
 
+	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
+		get_byte_host;
+	source = malloc(ehdr->e_shentsize * ehdr->e_shnum);
+	if (source == NULL)
 		exit(EXIT_FAILURE);
 
+	n = fread(source, ehdr->e_shentsize, ehdr->e_shnum, file);
 	if (n != ehdr->e_shnum)
 		exit(EXIT_FAILURE);
 
+	for (i = 0; i < ehdr->e_shnum; i++)
 	{
+		(shdr + i)->sh_name		= GET_BYTE((source + i)->sh_name);
+		(shdr + i)->sh_type		= GET_BYTE((source + i)->sh_type);
+		(shdr + i)->sh_flags		= GET_BYTE((source + i)->sh_flags);
+		(shdr + i)->sh_addr		= GET_BYTE((source + i)->sh_addr);
+		(shdr + i)->sh_offset		= GET_BYTE((source + i)->sh_offset);
+		(shdr + i)->sh_size		= GET_BYTE((source + i)->sh_size);
+		(shdr + i)->sh_link		= GET_BYTE((source + i)->sh_link);
+		(shdr + i)->sh_info		= GET_BYTE((source + i)->sh_info);
+		(shdr + i)->sh_addralign	= GET_BYTE((source + i)->sh_addralign);
+		(shdr + i)->sh_entsize		= GET_BYTE((source + i)->sh_entsize);
 	}
+	free(source);
 }
