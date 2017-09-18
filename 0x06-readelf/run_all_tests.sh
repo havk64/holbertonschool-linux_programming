@@ -14,6 +14,10 @@ PYTHONOBJ=test_files/python.obj
 SFTPSERVER=test_files/sftp-server
 VGPRELOAD=test_files/vgpreload_memcheck-x86-linux.so
 
+define(){
+    IFS=$'\n' read -r -d '' "${1}" || true
+}
+
 success(){
     printf "\xE2\x9C\x94  Outputs are identical! $1\n"
 }
