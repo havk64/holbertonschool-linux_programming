@@ -27,7 +27,6 @@ failure(){
     printf "%s" "$2"
 }
 
-printf "Cleaning up Obj files... "
 define FILES <<EOF
 ${NETBSD32}
 ${SOLARIS32}
@@ -44,7 +43,7 @@ ${VGPRELOAD}
 EOF
 
 printf "Cleaning up Obj files... "
-ERROR=$(make clean) && printf "%s" d"\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
+ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
 echo "Task 0:"
 printf "Buiding executable... "
 ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
