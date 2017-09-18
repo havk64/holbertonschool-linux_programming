@@ -1,6 +1,10 @@
 #!/bin/bash
 # Compile and test the output of 0-hreadelf binary agains the output of readelf -h
-FILE32=file32
+NETBSD32=test_files/netbsd32
+SOLARIS32=test_files/solaris32
+SORTIX32=test_files/sortix32
+SPARCBIGENDIAN32=test_files/sparcbigendian32
+UBUNTU64=test_files/ubuntu64
 FILE64=0-hreadelf
 OBJFILE=main_0.o
 LDFILE=/lib64/ld-linux-x86-64.so.2
@@ -8,7 +12,11 @@ LDFILE=/lib64/ld-linux-x86-64.so.2
 make clean
 make 0-hreadelf
 
-diff -s <(readelf -W -h ${FILE32}) <(./0-hreadelf ${FILE32})
+diff -s <(readelf -W -h ${NETBSD32}) <(./0-hreadelf ${NETBSD32})
+diff -s <(readelf -W -h ${SOLARIS32}) <(./0-hreadelf ${SOLARIS32})
+diff -s <(readelf -W -h ${SORTIX32}) <(./0-hreadelf ${SORTIX32})
+diff -s <(readelf -W -h ${SPARCBIGENDIAN32}) <(./0-hreadelf ${SPARCBIGENDIAN32})
+diff -s <(readelf -W -h ${UBUNTU64}) <(./0-hreadelf ${UBUNTU64})
 diff -s <(readelf -W -h ${FILE64}) <(./0-hreadelf ${FILE64})
 diff -s <(readelf -W -h ${OBJFILE}) <(./0-hreadelf ${OBJFILE})
 diff -s <(readelf -W -h ${LDFILE}) <(./0-hreadelf ${LDFILE})
