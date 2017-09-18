@@ -55,6 +55,21 @@ typedef struct elfn_ehdr
 	uint16_t	e_shstrndx;
 } ElfN_Ehdr;
 
+/**
+ * struct ElfN_Shdr - struct to represent 32/64bits section headers
+ *
+ * @sh_name: Offset to string in .shstrtab section
+ * @sh_type: Identify type of section
+ * @sh_flags: Attributes of a section
+ * @sh_addr: Virtual address of the section
+ * @sh_offset: Offset of the section
+ * @sh_size: Size of the section
+ * @sh_link: Section index of associated section
+ * @sh_info: Extra information
+ * @sh_addralign: Required alignment section
+ * @sh_entsize: Size of each section
+ */
+typedef struct ElfN_Shdr
 {
 	uint32_t	sh_name;		/* Offset to a string in .shstrtab section */
 	uint32_t	sh_type;		/* Identify the type of the header */
