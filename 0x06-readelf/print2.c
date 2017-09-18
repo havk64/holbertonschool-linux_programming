@@ -35,26 +35,6 @@ void print_type(uint16_t type)
 }
 
 /**
- * print_elf_version - prints the elf version (default to the first one)
- * @elfversion: the byte that represents the current elf version
- * Return: Always void.
- */
-void print_file_version(uint32_t elfversion)
-{
-	char *format = "  %-*s0x%x\n";
-
-	switch (elfversion)
-	{
-	case EV_NONE:		/* Invalid version */
-		printf(format, width, "Version:", elfversion);
-		break;
-	case EV_CURRENT:	/* Current version */
-		printf(format, width, "Version:", elfversion);
-		break;
-	}
-}
-
-/**
  * print_phoff - prints the program header offset
  * @phoff: the program header table's file offset in bytes
  * Return: Always void.
