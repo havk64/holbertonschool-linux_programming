@@ -9,7 +9,7 @@
 void parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 {
 	FILE *stream;
-	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, int);
+	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, unsigned char);
 	ssize_t n;
 	ElfClass elfclass;
 
@@ -42,8 +42,8 @@ FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 {
 	FILE *stream;
 	/* ElfN_Ehdr ehdr; */
-	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, int);
 	/* void (*fill_Shdr)(ElfN_Ehdr*, FILE*, int); */
+	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, unsigned char);
 	ssize_t n;
 	ElfClass elfclass;
 

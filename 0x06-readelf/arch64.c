@@ -1,6 +1,6 @@
 #include "readelf.h"
 
-void parse_64(ElfN_Ehdr *ehdr, FILE *file, int ei_data)
+void parse_64(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data)
 {
 	uint64_t (*get_byte)(uint64_t, int);
 	ssize_t n;
