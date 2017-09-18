@@ -33,6 +33,14 @@ void parse_64(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data)
 	ehdr->e_shstrndx	= GET_BYTE(header.e_shstrndx);
 }
 
+/**
+ * copy_sheader_64 - copy a section header array to a custom struct observing
+ * endianess
+ * @shdr: a pointer to an array of section headers struct
+ * @ehdr: a pointer to an Elf header struct
+ * @file: a pointer to a file stream
+ * Return: Always void
+ */
 void copy_sheader_64(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 {
 	Elf64_Shdr *source;
