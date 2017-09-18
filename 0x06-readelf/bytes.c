@@ -1,6 +1,11 @@
 #include "readelf.h"
 
-
+/**
+ * get_byte_big_endian - convert bytes from MSB to LSB
+ * @data: data to be converted
+ * @size: the size of the data
+ * Return: an unsigned long integer where the bytes are in the right order
+ */
 uint64_t get_byte_big_endian(uint64_t data, int size)
 {
 	switch (size)
