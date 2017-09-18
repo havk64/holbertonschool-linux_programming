@@ -121,6 +121,7 @@ char *get_flags(uint64_t sh_flags)
  */
 char *get_type(uint64_t sh_type)
 {
+	static char buff[8];
 	switch (sh_type)
 	{
 	case SHT_NULL:			return "NULL";
@@ -145,12 +146,16 @@ char *get_type(uint64_t sh_type)
 	case SHT_GNU_verneed:		return "VERNEED";
 	case SHT_GNU_versym:		return "VERSYM";
 	case 0x6ffffff0:		return "VERSYM";
-	case 0x6ffffff1:		return "LOOS+ffffff1";
-	case 0x6ffffff3:		return "LOOS+ffffff3";
 	case 0x6ffffffc:		return "VERDEF";
 	case 0x7ffffffd:		return "AUXILIARY";
 	case 0x7fffffff:		return "FILTER";
 	case SHT_GNU_LIBLIST:		return "GNU_LIBLIST";
-	default:			return (0);
+	default:
+		if (sh_type >= SHT_LOOS)
+		{
+			sprintf(buff, "LOOS+%lx", sh_type - SHT_LOOS);
+			return (buff);
+		}
+		return (0);
 	}
 }
