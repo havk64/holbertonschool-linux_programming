@@ -13,8 +13,11 @@ msg(){
     printf "\xE2\x9C\x94  Outputs are identical! $@\n"
 }
 
-ERROR=$(make clean) && printf "\xE2\x9C\x94  Cleaning up Obj files\n" || echo ${ERROR}
-ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  Buiding executable\n\n" || echo ${ERROR}
+printf "Cleaning up Obj files... "
+ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || echo ${ERROR}
+echo "Task 0:"
+printf "Buiding executable... "
+ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n" || echo ${ERROR}
 
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -h ${file}) <(./0-hreadelf ${file})) &&
