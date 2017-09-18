@@ -1,7 +1,7 @@
 #include "readelf.h"
 
 /**
- * check - verify return value of system calls
+ * check_error - verify return value of system calls
  * @n: return value
  * @error: constant string to be printed in case of error
  *
