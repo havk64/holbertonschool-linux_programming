@@ -9,8 +9,6 @@ FILE64=0-hreadelf
 OBJFILE=main_0.o
 LDFILE=/lib64/ld-linux-x86-64.so.2
 
-make clean
-make 0-hreadelf
 
 diff -s <(readelf -W -h ${NETBSD32}) <(./0-hreadelf ${NETBSD32})
 diff -s <(readelf -W -h ${SOLARIS32}) <(./0-hreadelf ${SOLARIS32})
@@ -20,12 +18,14 @@ diff -s <(readelf -W -h ${UBUNTU64}) <(./0-hreadelf ${UBUNTU64})
 diff -s <(readelf -W -h ${FILE64}) <(./0-hreadelf ${FILE64})
 diff -s <(readelf -W -h ${OBJFILE}) <(./0-hreadelf ${OBJFILE})
 diff -s <(readelf -W -h ${LDFILE}) <(./0-hreadelf ${LDFILE})
+ERROR=$(make clean) && printf "\xE2\x9C\x94  Cleaning up Obj files\n" || echo ${ERROR}
+ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  Buiding executable\n\n" || echo ${ERROR}
 
-make 1-hreadelf
 
 echo "Printing ${FILE32}"
 diff -s <(readelf -W -S ${FILE32}) <(./1-hreadelf ${FILE32})
 echo "Printing ${FILE64}"
+ERROR=(make 1-hreadelf) && printf "\xE2\x9C\x94  Buiding executable\n\n" || echo ${ERROR}
 diff -s <(readelf -W -S ${FILE64}) <(./1-hreadelf ${FILE64})
 echo "Printing ${LDFILE}"
 diff -s <(readelf -W -S ${LDFILE}) <(./1-hreadelf ${LDFILE})
