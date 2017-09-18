@@ -53,11 +53,22 @@ echo "Task 1:"
 printf "Buiding executable... "
 ERROR=(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || echo ${ERROR}
 
-echo "Printing ${NETBSD32}..."
-diff -s <(readelf -W -S ${NETBSD32}) <(./1-hreadelf ${NETBSD32})
-echo "Printing ${FILE64}..."
-diff -s <(readelf -W -S ${FILE64}) <(./1-hreadelf ${FILE64})
-echo "Printing ${LDFILE}..."
-diff -s <(readelf -W -S ${LDFILE}) <(./1-hreadelf ${LDFILE})
+while read -r file; do
+    ERROR=$(diff -s <(readelf -W -S ${file}) <(./1-hreadelf ${file})) &&
+	success "${file}" || failure "${file}" "${ERROR}\n"
+done <<EOF
+${NETBSD32}
+${SOLARIS32}
+${SORTIX32}
+${SPARCBIGENDIAN32}
+${UBUNTU64}
+${FILE64}
+${OBJFILE}
+${LDFILE}
+${JPGFILE}
+${PYTHONOBJ}
+${SFTPSERVER}
+${VGPRELOAD}
+EOF
 
 exit
