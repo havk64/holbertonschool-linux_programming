@@ -9,6 +9,9 @@ FILE64=0-hreadelf
 OBJFILE=main_0.o
 LDFILE=/lib64/ld-linux-x86-64.so.2
 JPGFILE=test_files/jpeg.mod
+PYTHONOBJ=test_files/python.obj
+SFTPSERVER=test_files/sftp-server
+VGPRELOAD=test_files/vgpreload_memcheck-x86-linux.so
 
 msg(){
     printf "\xE2\x9C\x94  Outputs are identical! $@\n"
