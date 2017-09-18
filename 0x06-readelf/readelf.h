@@ -18,7 +18,26 @@ typedef enum ElfClass
 {
 	ELF32, ELF64
 } ElfClass;
-typedef struct
+
+/**
+ * struct elfn_ehdr - Custom internal struct to represent 32/64bits elf headers
+ *
+ * @e_ident: Elf identity
+ * @e_entry: Entry point
+ * @e_phoff: Program header table offset
+ * @e_shoff: Section header file offset
+ * @e_version: Elf file version
+ * @e_flags: Processor specific flags
+ * @e_type: Object file type
+ * @e_machine: Specifies architecture
+ * @e_ehsize: Elf header size in bytes
+ * @e_phentsize: Program header table entry size
+ * @e_phnum: Program header table entry count
+ * @e_shentsize: Section header table entry size
+ * @e_shnum: Section header table entry count
+ * @e_shstrndx: Section header string table index
+ */
+typedef struct elfn_ehdr
 {
 	unsigned char	e_ident[EI_NIDENT];	/* ELF "magic number" */
 	uint64_t	e_entry;		/* Entry point virtual address */
