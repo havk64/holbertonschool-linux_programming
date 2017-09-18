@@ -4,6 +4,7 @@
  * get_sizeoff - retrieves the sh_size and sh_offset of an strtab
  * @shdr: the destination section header
  * @ehdr: the struct representing the elf header
+ * @file: a pointer to a file stream
  * Return: Always void.
  */
 void get_sizeoff(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
