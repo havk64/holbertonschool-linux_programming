@@ -126,6 +126,6 @@ void print_osabi(unsigned char osabi)
 		printf(format, width, "OS/ABI:", "Standalone App");
 		break;
 	default:
-		printf("  %-*sunknown: %x\n", width, "OS/ABI:", osabi);
+		printf("  %-*s<unknown: %x>\n", width, "OS/ABI:", osabi);
 	}
 }
