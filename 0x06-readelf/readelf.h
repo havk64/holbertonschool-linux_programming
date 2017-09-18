@@ -60,7 +60,6 @@ void print_data(unsigned char data);
 void print_version(unsigned char data);
 void print_osabi(unsigned char data);
 void print_type(uint16_t data);
-void print_elf_version(uint32_t data);
 void print_phoff(uint64_t phoff);
 void print_shoff(uint64_t shoff);
 char *get_strtab(FILE *file, ElfN_Ehdr *ehdr);
