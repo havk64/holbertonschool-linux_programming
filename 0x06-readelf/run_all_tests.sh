@@ -19,23 +19,15 @@ define(){
 }
 
 success(){
-    printf "\xE2\x9C\x94  Outputs are identical! $1\n"
+    printf "\xE2\x9C\x94  Outputs are identical! %s\n" "$1"
 }
 
 failure(){
-    printf "\u2718  Failed: $1\n"
-    printf "$2"
+    printf "\u2718  Failed: %s\n" "$1"
+    printf "%s" "$2"
 }
 
 printf "Cleaning up Obj files... "
-ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || printf "${ERROR}"
-echo "Task 0:"
-printf "Buiding executable... "
-ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "${ERROR}"
-
-while read -r file; do
-    ERROR=$(diff -s <(readelf -W -h ${file}) <(./0-hreadelf ${file})) &&
-	success "${file}" || printf "${ERROR}"
 done <<EOF
 ${NETBSD32}
 ${SOLARIS32}
@@ -51,15 +43,24 @@ ${SFTPSERVER}
 ${VGPRELOAD}
 EOF
 
+printf "Cleaning up Obj files... "
+ERROR=$(make clean) && printf "%s" d"\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
+echo "Task 0:"
+printf "Buiding executable... "
+ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
+
+while read -r file; do
+    ERROR=$(diff -s <(readelf -W -h "${file}") <(./0-hreadelf "${file}")) &&
+	success "${file}" || printf "%s" "${ERROR}"
 echo
 echo "==============================================="
 echo
 echo "Task 1:"
 printf "Buiding executable... "
-ERROR=$(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || echo ${ERROR}
+ERROR=$(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
 
 while read -r file; do
-    ERROR=$(diff -s <(readelf -W -S ${file}) <(./1-hreadelf ${file})) &&
+    ERROR=$(diff -s <(readelf -W -S "${file}") <(./1-hreadelf "${file}")) &&
 	success "${file}" || failure "${file}" "${ERROR}\n"
 done <<EOF
 ${NETBSD32}
