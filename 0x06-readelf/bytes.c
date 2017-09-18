@@ -21,6 +21,12 @@ uint64_t get_byte_big_endian(uint64_t data, int size)
 	}
 }
 
+/**
+ * get_byte_host - just return data without any modification
+ * @data: data to be returned
+ * @size: the size of the data
+ * Return: an unsigned long integer in host order
+ */
 uint64_t get_byte_host(uint64_t data, int __attribute__((unused)) size)
 {
 	return (data);
