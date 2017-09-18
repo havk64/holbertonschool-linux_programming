@@ -6,12 +6,12 @@ SOLARIS32=test_files/solaris32
 SORTIX32=test_files/sortix32
 SPARCBIGENDIAN32=test_files/sparcbigendian32
 UBUNTU64=test_files/ubuntu64
-FILE64=0-hreadelf
-OBJFILE=main_0.o
-LDFILE=/lib64/ld-linux-x86-64.so.2
+FILE64=test_files/0-hreadelf
+OBJFILE=test_files/main_0.o
 JPGFILE=test_files/jpeg.mod
 PYTHONOBJ=test_files/python.obj
 SFTPSERVER=test_files/sftp-server
+LIBPERL=test_files/libperl.so.5.18
 VGPRELOAD=test_files/vgpreload_memcheck-x86-linux.so
 
 define(){
@@ -35,10 +35,10 @@ ${SPARCBIGENDIAN32}
 ${UBUNTU64}
 ${FILE64}
 ${OBJFILE}
-${LDFILE}
 ${JPGFILE}
 ${PYTHONOBJ}
 ${SFTPSERVER}
+${LIBPERL}
 ${VGPRELOAD}
 EOF
 
