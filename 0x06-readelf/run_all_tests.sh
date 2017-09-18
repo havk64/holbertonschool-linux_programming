@@ -13,8 +13,13 @@ PYTHONOBJ=test_files/python.obj
 SFTPSERVER=test_files/sftp-server
 VGPRELOAD=test_files/vgpreload_memcheck-x86-linux.so
 
-msg(){
-    printf "\xE2\x9C\x94  Outputs are identical! $@\n"
+success(){
+    printf "\xE2\x9C\x94  Outputs are identical! $1\n"
+}
+
+failure(){
+    printf "\u2718  Failed: $1\n"
+    printf "$2"
 }
 
 printf "Cleaning up Obj files... "
