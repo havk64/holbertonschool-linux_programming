@@ -1,5 +1,10 @@
 #include "readelf.h"
 
+/**
+ * get_flags2 - Alternative way to get bit sets/flags
+ * @sh_flags: a sh_flags member of a elf header
+ * Return: a character representing section header attributes
+ */
 char *get_flags2(uint64_t sh_flags)
 {
 	static char buff[16];
