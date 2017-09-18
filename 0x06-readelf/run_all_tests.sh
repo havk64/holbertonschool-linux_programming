@@ -23,14 +23,14 @@ failure(){
 }
 
 printf "Cleaning up Obj files... "
-ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || echo ${ERROR}
+ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || printf "${ERROR}"
 echo "Task 0:"
 printf "Buiding executable... "
-ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n" || echo ${ERROR}
+ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n" || printf "${ERROR}"
 
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -h ${file}) <(./0-hreadelf ${file})) &&
-	msg "${file}" || echo ${ERROR}
+	success "${file}" || printf "${ERROR}"
 done <<EOF
 ${NETBSD32}
 ${SOLARIS32}
