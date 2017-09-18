@@ -8,6 +8,7 @@ UBUNTU64=test_files/ubuntu64
 FILE64=0-hreadelf
 OBJFILE=main_0.o
 LDFILE=/lib64/ld-linux-x86-64.so.2
+JPGFILE=test_files/jpeg.mod
 
 msg(){
     printf "\xE2\x9C\x94  Outputs are identical! $@\n"
@@ -31,6 +32,7 @@ ${UBUNTU64}
 ${FILE64}
 ${OBJFILE}
 ${LDFILE}
+${JPGFILE}
 EOF
 
 echo
