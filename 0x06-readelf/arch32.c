@@ -1,5 +1,12 @@
 #include "readelf.h"
 
+/**
+ * parse_32 - extracts and process a elf header
+ * @ehdr: a pointer to an Elf header struct
+ * @file: a pointer to a file stream
+ * @ei_data: a byte representing the endianess of the elf file
+ * Return: Always void.
+ */
 void parse_32(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data)
 {
 	uint64_t (*get_byte)(uint64_t, int);
@@ -26,6 +33,14 @@ void parse_32(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data)
 	ehdr->e_shstrndx	= GET_BYTE(header.e_shstrndx);
 }
 
+/**
+ * copy_sheader_32 - copy a section header array to a custom struct observing
+ * endianess
+ * @shdr: a pointer to an array of section headers struct
+ * @ehdr: a pointer to an Elf header struct
+ * @file: a pointer to a file stream
+ * Return: Always void
+ */
 void copy_sheader_32(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 {
 	Elf32_Shdr *source;
