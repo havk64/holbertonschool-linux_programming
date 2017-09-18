@@ -35,6 +35,7 @@ void parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 
 /**
  * parse_elf_sections - parses a elf file to print its reader
+ * @ehdr: a pointer to an Elf header struct
  * @fd: the file descriptor of the binary file
  * Return: Always Void
  */
@@ -70,7 +71,7 @@ FILE *parse_elf_sections(ElfN_Ehdr *ehdr, int fd)
 
 /**
  * parse_sheaders - extracts and process the section headers from an elf file
- * @ehdr: a pointer to a elf header struct
+ * @ehdr: a pointer to an Elf header struct
  * @file: a pointer to a file stream
  * Return: a pointer to an array of section header struct
  */
