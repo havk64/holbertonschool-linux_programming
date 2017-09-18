@@ -69,7 +69,7 @@ void print_phoff(uint64_t phoff)
 
 /**
  * print_shoff - prints the section header offset
- * @phoff: the section header table's file offset in bytes
+ * @shoff: the section header table's file offset in bytes
  * Return: Always void.
  */
 void print_shoff(uint64_t shoff)
