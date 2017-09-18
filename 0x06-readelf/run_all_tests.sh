@@ -51,7 +51,7 @@ echo "==============================================="
 echo
 echo "Task 1:"
 printf "Buiding executable... "
-ERROR=(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || echo ${ERROR}
+ERROR=$(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || echo ${ERROR}
 
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -S ${file}) <(./1-hreadelf ${file})) &&
