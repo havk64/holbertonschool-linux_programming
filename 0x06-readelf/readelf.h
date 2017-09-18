@@ -7,7 +7,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <endian.h>
-typedef enum
+
+/**
+ * enum ElfClass - represent an Elf Class(32/64 bits)
+ *
+ * @ELF32: 32 bits class
+ * @ELF64: 64 bits class
+ */
+typedef enum ElfClass
 {
 	ELF32, ELF64
 } ElfClass;
