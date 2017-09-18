@@ -145,6 +145,8 @@ char *get_type(uint64_t sh_type)
 	case SHT_GNU_verneed:		return "VERNEED";
 	case SHT_GNU_versym:		return "VERSYM";
 	case 0x6ffffff0:		return "VERSYM";
+	case 0x6ffffff1:		return "LOOS+ffffff1";
+	case 0x6ffffff3:		return "LOOS+ffffff3";
 	case 0x6ffffffc:		return "VERDEF";
 	case 0x7ffffffd:		return "AUXILIARY";
 	case 0x7fffffff:		return "FILTER";
