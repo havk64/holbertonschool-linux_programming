@@ -26,7 +26,7 @@ printf "Cleaning up Obj files... "
 ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || printf "${ERROR}"
 echo "Task 0:"
 printf "Buiding executable... "
-ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n" || printf "${ERROR}"
+ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "${ERROR}"
 
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -h ${file}) <(./0-hreadelf ${file})) &&
