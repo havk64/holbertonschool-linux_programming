@@ -1,5 +1,13 @@
 #include "readelf.h"
 
+/**
+ * print_sheader - prints a section header with the output similar together
+ * the command $ readelf -W -S <Elf file>
+ * @shdr: a pointer to an array of section headers struct
+ * @ehdr: a pointer to an Elf header struct
+ * @sh_strtab: a pointer to a string table index section
+ * Return: Always void.
+ */
 void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *sh_strtab)
 {
 	uint16_t shnum;
@@ -17,6 +25,13 @@ void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *sh_strtab)
 	free(shdr);
 }
 
+/**
+ * print_middle32 - prints the middle of a section header(32bit elf file)
+ * @shdr: a pointer to an array of section headers struct
+ * @shnum: the size of the array of section header structs
+ * @sh_strtab: a pointer to a string table index section
+ * Return: Always void.
+ */
 void print_middle32(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 {
 	uint16_t i;
@@ -38,6 +53,13 @@ void print_middle32(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 	}
 }
 
+/**
+ * print_middle64 - prints the middle of a section header(64bit elf file)
+ * @shdr: a pointer to an array of section headers struct
+ * @shnum: the size of the array of section header structs
+ * @sh_strtab: a pointer to a string table index section
+ * Return: Always void.
+ */
 void print_middle64(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 {
 	uint16_t i;
@@ -59,6 +81,10 @@ void print_middle64(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 	}
 }
 
+/**
+ * print_tail - prints complementary info about section header attributes
+ * Return: Always void.
+ */
 void print_tail(void)
 {
 	printf("Key to Flags:\n");
