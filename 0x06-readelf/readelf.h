@@ -71,17 +71,18 @@ typedef struct elfn_ehdr
  */
 typedef struct ElfN_Shdr
 {
-	uint32_t	sh_name;		/* Offset to a string in .shstrtab section */
-	uint32_t	sh_type;		/* Identify the type of the header */
-	uint64_t	sh_flags;		/* Identify the attributes of a section */
-	uint64_t	sh_addr;		/* Virtual address of the section */
-	uint64_t	sh_offset;		/* Offset of section in the image file */
-	uint64_t	sh_size;		/* Size of the section */
-	uint32_t	sh_link;		/* Section index of associated section */
-	uint32_t	sh_info;		/* Extra info */
-	uint64_t	sh_addralign;		/* Required alignment of the section */
-	uint64_t	sh_entsize;		/* Size of each section */
-} ElfN_Shdr; /* Struct to represent section headers from 32 and 64 bits */
+	uint32_t	sh_name;
+	uint32_t	sh_type;
+	uint64_t	sh_flags;
+	uint64_t	sh_addr;
+	uint64_t	sh_offset;
+	uint64_t	sh_size;
+	uint32_t	sh_link;
+	uint32_t	sh_info;
+	uint64_t	sh_addralign;
+	uint64_t	sh_entsize;
+} ElfN_Shdr;
+
 #define width 35
 #define GET_BYTE(field) get_byte(field, sizeof(field))
 _Bool is_elf(unsigned char *magic);
