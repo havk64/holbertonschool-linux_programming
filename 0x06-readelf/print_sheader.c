@@ -44,8 +44,8 @@ void print_middle32(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 	for (i = 0; i < shnum; i++)
 	{
 		/* TODO add function to return section type */
-		printf("  [%2u] %-*s%-*s %08lx %06lx %06lx %02lx%*s %2u %3u %2lu\n",
-		       i, nwidth, sh_strtab + shdr[i].sh_name, twidth,
+		printf("  [%2u] %-*s %-*s %08lx %06lx %06lx %02lx%*s %2u %3u %2lu\n",
+		       i, (nwidth - 1), sh_strtab + shdr[i].sh_name, twidth,
 		       get_type(shdr[i].sh_type), shdr[i].sh_addr, shdr[i].sh_offset,
 		       shdr[i].sh_size, shdr[i].sh_entsize, 4,
 		       get_flags(shdr[i].sh_flags), shdr[i].sh_link,
@@ -72,8 +72,8 @@ void print_middle64(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 	for (i = 0; i < shnum; i++)
 	{
 		/* TODO add function to return section type */
-		printf("  [%2u] %-*s%-*s %016lx %06lx %06lx %02lx%*s %2u %3u %2lu\n",
-		       i, nwidth, sh_strtab + shdr[i].sh_name, twidth,
+		printf("  [%2u] %-*s %-*s %016lx %06lx %06lx %02lx%*s %2u %3u %2lu\n",
+		       i, (nwidth - 1), sh_strtab + shdr[i].sh_name, twidth,
 		       get_type(shdr[i].sh_type), shdr[i].sh_addr, shdr[i].sh_offset,
 		       shdr[i].sh_size, shdr[i].sh_entsize, 4,
 		       get_flags(shdr[i].sh_flags), shdr[i].sh_link,
