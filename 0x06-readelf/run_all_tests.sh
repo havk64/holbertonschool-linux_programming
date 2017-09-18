@@ -13,17 +13,22 @@ msg(){
     printf "\xE2\x9C\x94  Outputs are identical! $@\n"
 }
 
-diff -s <(readelf -W -h ${NETBSD32}) <(./0-hreadelf ${NETBSD32})
-diff -s <(readelf -W -h ${SOLARIS32}) <(./0-hreadelf ${SOLARIS32})
-diff -s <(readelf -W -h ${SORTIX32}) <(./0-hreadelf ${SORTIX32})
-diff -s <(readelf -W -h ${SPARCBIGENDIAN32}) <(./0-hreadelf ${SPARCBIGENDIAN32})
-diff -s <(readelf -W -h ${UBUNTU64}) <(./0-hreadelf ${UBUNTU64})
-diff -s <(readelf -W -h ${FILE64}) <(./0-hreadelf ${FILE64})
-diff -s <(readelf -W -h ${OBJFILE}) <(./0-hreadelf ${OBJFILE})
-diff -s <(readelf -W -h ${LDFILE}) <(./0-hreadelf ${LDFILE})
 ERROR=$(make clean) && printf "\xE2\x9C\x94  Cleaning up Obj files\n" || echo ${ERROR}
 ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  Buiding executable\n\n" || echo ${ERROR}
 
+while read -r file; do
+    ERROR=$(diff -s <(readelf -W -h ${file}) <(./0-hreadelf ${file})) &&
+	msg "${file}" || echo ${ERROR}
+done <<EOF
+${NETBSD32}
+${SOLARIS32}
+${SORTIX32}
+${SPARCBIGENDIAN32}
+${UBUNTU64}
+${FILE64}
+${OBJFILE}
+${LDFILE}
+EOF
 
 echo "Printing ${FILE32}"
 diff -s <(readelf -W -S ${FILE32}) <(./1-hreadelf ${FILE32})
