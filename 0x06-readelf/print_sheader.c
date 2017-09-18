@@ -51,6 +51,8 @@ void print_middle32(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 		       get_flags(shdr[i].sh_flags), shdr[i].sh_link,
 		       shdr[i].sh_info, shdr[i].sh_addralign);
 	}
+	printf("Key to Flags:\n");
+	printf("  W (write), A (alloc), X (execute), M (merge), S (strings)\n");
 }
 
 /**
@@ -79,6 +81,9 @@ void print_middle64(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
 		       get_flags(shdr[i].sh_flags), shdr[i].sh_link,
 		       shdr[i].sh_info, shdr[i].sh_addralign);
 	}
+	printf("Key to Flags:\n");
+	printf("  W (write), A (alloc), X (execute), M (merge), S (strings), ");
+	printf("l (large)\n");
 }
 
 /**
@@ -87,8 +92,6 @@ void print_middle64(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab)
  */
 void print_tail(void)
 {
-	printf("Key to Flags:\n");
-	printf("  W (write), A (alloc), X (execute), M (merge), S (strings)\n");
 	printf("  I (info), L (link order), G (group), T (TLS), E (exclude), ");
 	printf("x (unknown)\n");
 	printf("  O (extra OS processing required) o (OS specific), ");
