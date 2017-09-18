@@ -39,22 +39,22 @@ typedef enum ElfClass
  */
 typedef struct elfn_ehdr
 {
-	unsigned char	e_ident[EI_NIDENT];	/* ELF "magic number" */
-	uint64_t	e_entry;		/* Entry point virtual address */
-	uint64_t	e_phoff;		/* Program header table file offset */
-	uint64_t	e_shoff;		/* Section header table file offset */
-	uint32_t	e_version;		/* Identifies object file version */
-	uint32_t	e_flags;		/* Processor-specific flags */
-	uint16_t	e_type;			/* Identifies object file type */
-	uint16_t	e_machine;		/* Specifies required architecture */
-	uint16_t	e_ehsize;		/* ELF header size in bytes */
-	uint16_t	e_phentsize;		/* Program header table entry size */
-	uint16_t	e_phnum;		/* Program header table entry count */
-	uint16_t	e_shentsize;		/* Section header table entry size */
-	uint16_t	e_shnum;		/* Section header table entry count */
-	uint16_t	e_shstrndx;		/* Section header string table index */
-} ElfN_Ehdr; /* Struct to represent headers from both 32 and 64bits files */
-typedef struct
+	unsigned char	e_ident[EI_NIDENT];
+	uint64_t	e_entry;
+	uint64_t	e_phoff;
+	uint64_t	e_shoff;
+	uint32_t	e_version;
+	uint32_t	e_flags;
+	uint16_t	e_type;
+	uint16_t	e_machine;
+	uint16_t	e_ehsize;
+	uint16_t	e_phentsize;
+	uint16_t	e_phnum;
+	uint16_t	e_shentsize;
+	uint16_t	e_shnum;
+	uint16_t	e_shstrndx;
+} ElfN_Ehdr;
+
 {
 	uint32_t	sh_name;		/* Offset to a string in .shstrtab section */
 	uint32_t	sh_type;		/* Identify the type of the header */
