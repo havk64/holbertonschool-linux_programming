@@ -122,6 +122,7 @@ char *get_flags(uint64_t sh_flags)
 char *get_type(uint64_t sh_type)
 {
 	static char buff[8];
+
 	switch (sh_type)
 	{
 	case SHT_NULL:			return "NULL";
