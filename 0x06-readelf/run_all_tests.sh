@@ -1,5 +1,6 @@
 #!/bin/bash
 # Compile and test the output of 0-hreadelf binary agains the output of readelf -h
+
 NETBSD32=test_files/netbsd32
 SOLARIS32=test_files/solaris32
 SORTIX32=test_files/sortix32
