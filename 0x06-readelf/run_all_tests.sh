@@ -9,6 +9,9 @@ FILE64=0-hreadelf
 OBJFILE=main_0.o
 LDFILE=/lib64/ld-linux-x86-64.so.2
 
+msg(){
+    printf "\xE2\x9C\x94  Outputs are identical! $@\n"
+}
 
 diff -s <(readelf -W -h ${NETBSD32}) <(./0-hreadelf ${NETBSD32})
 diff -s <(readelf -W -h ${SOLARIS32}) <(./0-hreadelf ${SOLARIS32})
