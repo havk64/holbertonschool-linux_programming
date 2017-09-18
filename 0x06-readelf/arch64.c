@@ -1,5 +1,12 @@
 #include "readelf.h"
 
+/**
+ * parse_64 - extracts and process a elf header
+ * @ehdr: a pointer to an Elf header struct
+ * @file: a pointer to a file stream
+ * @ei_data: a byte representing the endianess of the elf file
+ * Return: Always void.
+ */
 void parse_64(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data)
 {
 	uint64_t (*get_byte)(uint64_t, int);
