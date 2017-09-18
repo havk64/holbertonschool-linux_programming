@@ -28,7 +28,7 @@ failure(){
 }
 
 printf "Cleaning up Obj files... "
-done <<EOF
+define FILES <<EOF
 ${NETBSD32}
 ${SOLARIS32}
 ${SORTIX32}
@@ -52,6 +52,8 @@ ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERR
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -h "${file}") <(./0-hreadelf "${file}")) &&
 	success "${file}" || printf "%s" "${ERROR}"
+done <<< "${FILES}"
+
 echo
 echo "==============================================="
 echo
@@ -62,19 +64,6 @@ ERROR=$(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERR
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -S "${file}") <(./1-hreadelf "${file}")) &&
 	success "${file}" || failure "${file}" "${ERROR}\n"
-done <<EOF
-${NETBSD32}
-${SOLARIS32}
-${SORTIX32}
-${SPARCBIGENDIAN32}
-${UBUNTU64}
-${FILE64}
-${OBJFILE}
-${LDFILE}
-${JPGFILE}
-${PYTHONOBJ}
-${SFTPSERVER}
-${VGPRELOAD}
-EOF
+done <<< "${FILES}"
 
 exit
