@@ -7,6 +7,7 @@
  * @fd: the file descriptor of the binary file
  * Return: Always Void
  */
+FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 {
 	FILE *stream;
 	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, unsigned char);
