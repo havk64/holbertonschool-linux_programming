@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
 	int fd;
 	ElfN_Ehdr ehdr;
+	FILE *stream;
 
 	if (argc != 2)
 	{
@@ -18,9 +19,10 @@ int main(int argc, char *argv[])
 	}
 
 	fd = get_stat(argv[1]);
-	parse_elf_header(&ehdr, fd);
+	stream = parse_elf_header(&ehdr, fd);
 	print_header(&ehdr);
 
+	fclose(stream);
 	close(fd);
 	return (0);
 }
