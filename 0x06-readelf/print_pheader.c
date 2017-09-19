@@ -11,7 +11,14 @@ static char *get_ftype(unsigned int e_type)
 	case ET_EXEC:		return ("EXEC (Executable file)");
 	case ET_DYN:		return ("DYN (Shared object file)");
 	case ET_CORE:		return ("CORE (Core file)");
-	default:		 return (buf);
+	default:
+		if ((e_type >= ET_LOPROC) && (e_type <= ET_HIPROC))
+			snprintf(buf, sizeof(buf), "Processor Specific: (%x)", e_type);
+		else if ((e_type >= ET_LOOS) && (e_type <= ET_HIOS))
+			snprintf(buf, sizeof(buf), "OS Specific: (%x)", e_type);
+		else
+			snprintf(buf, sizeof(buf), "<unknown>: %x", e_type);
+		return (buf);
 	}
 }
 
