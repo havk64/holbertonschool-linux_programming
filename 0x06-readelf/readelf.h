@@ -140,4 +140,7 @@ void copy_sheader_64(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file);
 ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file);
 uint64_t get_byte_big_endian(uint64_t, int);
 uint64_t get_byte_host(uint64_t, int);
+ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file);
+void copy_pheader_32(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file);
+void copy_pheader_64(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file);
 #endif /* READELF_H */
