@@ -22,6 +22,29 @@ static char *get_ftype(unsigned int e_type)
 	}
 }
 
+static char *get_segment_type(uint32_t p_type)
+{
+	static char buf[16];
+
+	switch (p_type)
+	{
+	case PT_NULL:		return "NULL";
+	case PT_LOAD:		return "LOAD";
+	case PT_DYNAMIC:	return "DYNAMIC";
+	case PT_INTERP:		return "INTERP";
+	case PT_NOTE:		return "NOTE";
+	case PT_SHLIB:		return "SHLIB";
+	case PT_PHDR:		return "PHDR";
+	case PT_TLS:		return "TLS";
+	case PT_GNU_EH_FRAME:	return "GNU_EH_FRAME";
+	case PT_GNU_STACK:	return "GNU_STACK";
+	case PT_GNU_RELRO:	return "GNU_RELRO";
+	default:		 return (buf);
+	}
+}
+
+	}
+}
 
 void print_pheader(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, char *strtab)
 {
