@@ -64,3 +64,28 @@ ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 	fclose(file);
 	return (shdr);
 }
+
+ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file)
+{
+	ssize_t n;
+	ElfClass ei_class;
+	ElfN_Phdr *phdr;
+	void (*copy_Phdr)(ElfN_Phdr*, ElfN_Ehdr*, FILE*);
+
+	ei_class = get_class(ehdr->e_ident[EI_CLASS]);
+	phdr = malloc(sizeof(ElfN_Phdr) * ehdr->e_phnum);
+	if (phdr == NULL)
+		exit(EXIT_FAILURE);
+
+	n = fseek(file, ehdr->e_phoff, SEEK_SET);
+	if (n < 0)
+	{
+		perror("Fseek error");
+		exit(EXIT_FAILURE);
+	}
+
+	copy_Phdr = (ei_class == ELF32) ? &copy_pheader_32 : &copy_pheader_64;
+	(*copy_Phdr)(phdr, ehdr, file);
+	fclose(file);
+	return (phdr);
+}
