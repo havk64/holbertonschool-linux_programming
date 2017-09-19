@@ -83,6 +83,30 @@ typedef struct ElfN_Shdr
 	uint64_t	sh_entsize;
 } ElfN_Shdr;
 
+/**
+ * struct ElfN_Phdr - Internal Program Header struct
+ *
+ * @p_type:
+ * @p_flags:
+ * @p_offset:
+ * @p_vaddr:
+ * @p_paddr:
+ * @p_filesz:
+ * @p_memsz:
+ * @p_align:
+*/
+typedef struct ElfN_Phdr
+{
+	uint32_t   p_type;
+	uint32_t   p_flags;
+	Elf64_Off  p_offset;
+	Elf64_Addr p_vaddr;
+	Elf64_Addr p_paddr;
+	uint64_t   p_filesz;
+	uint64_t   p_memsz;
+	uint64_t   p_align;
+} ElfN_Phdr;
+
 #define width 35
 #define GET_BYTE(field) get_byte(field, sizeof(field))
 _Bool is_elf(unsigned char *magic);
