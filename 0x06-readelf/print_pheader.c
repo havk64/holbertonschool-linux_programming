@@ -46,6 +46,15 @@ static char *get_segment_type(uint32_t p_type)
 	}
 }
 
+static char *get_pflags(uint32_t p_flags)
+{
+	static char buf[3];
+
+	buf[0] = (p_flags & PF_R) ? 'R' : ' ';
+	buf[1] = (p_flags & PF_W) ? 'W' : ' ';
+	buf[2] = (p_flags & PF_X) ? 'E' : ' ';
+	return (buf);
+}
 static void print_middleph(ElfN_Phdr *phdr, char *strtab, uint16_t phnum)
 {
 	uint16_t i;
