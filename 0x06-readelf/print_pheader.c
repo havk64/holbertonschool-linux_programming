@@ -46,6 +46,17 @@ static char *get_segment_type(uint32_t p_type)
 	}
 }
 
+static void print_middleph(ElfN_Phdr *phdr, char *strtab, uint16_t phnum)
+{
+	uint16_t i;
+
+	(void)(strtab);
+	for (i = 0; i < phnum; i++)
+	{
+		printf("  %-*s 0x%06lx 0x%06lx 0x%06lx 0x%05lx 0x%05lx %3s 0x%lx\n", 14,
+		       get_segment_type(phdr[i].p_type), phdr[i].p_offset,
+		       phdr[i].p_vaddr, phdr[i].p_paddr, phdr[i].p_filesz,
+		       phdr[i].p_memsz, get_pflags(phdr[i].p_flags), phdr[i].p_align);
 	}
 }
 
@@ -59,6 +70,7 @@ void print_pheader(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, char *strtab)
 	printf("  %-14s %-8s %-9s %-9s %-7s %-7s %-3s %s\n",
 	       "Type", "Offset", "VirtAddr", "PhysAddr", "FileSiz", "MemSiz",
 	       "Flg", "Align");
+	print_middleph(phdr, strtab, ehdr->e_phnum);
 	free(strtab);
 	free(phdr);
 }
