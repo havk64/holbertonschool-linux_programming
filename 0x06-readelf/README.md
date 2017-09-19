@@ -9,7 +9,7 @@ a given Elf binary file
 
 It's output is exactly the same as the output of the command `$ readelf -W -h <elf file>`
 
-The `Makefile` compile and creates this executable as follows:
+The [`Makefile`](Makefile) compile and creates this executable as follows:
 
 ```
 $ make 1-hreadelf
