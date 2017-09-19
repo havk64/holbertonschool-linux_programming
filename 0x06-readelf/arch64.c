@@ -73,3 +73,38 @@ void copy_sheader_64(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	}
 	free(source);
 }
+
+void copy_pheader_64(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file)
+{
+	Elf64_Phdr *source;
+	uint64_t (*get_byte)(uint64_t, int);
+	uint16_t i, phnum, phsize;
+	ssize_t n;
+
+	phnum = ehdr->e_phnum;
+	phsize = ehdr->e_phentsize;
+	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
+		get_byte_host;
+
+	source = malloc(phsize * phnum);
+	if (source == NULL)
+		exit(EXIT_FAILURE);
+
+	n = fread(source, phsize, phnum, file);
+	if (n != phnum)
+		exit(EXIT_FAILURE);
+
+	for (i = 0; i < phnum; i++)
+	{
+		(phdr + i)->p_type		= GET_BYTE((source + i)->p_type);
+		(phdr + i)->p_flags		= GET_BYTE((source + i)->p_flags);
+		(phdr + i)->p_offset		= GET_BYTE((source + i)->p_offset);
+		(phdr + i)->p_vaddr		= GET_BYTE((source + i)->p_vaddr);
+		(phdr + i)->p_paddr		= GET_BYTE((source + i)->p_paddr);
+		(phdr + i)->p_filesz		= GET_BYTE((source + i)->p_filesz);
+		(phdr + i)->p_memsz		= GET_BYTE((source + i)->p_memsz);
+		(phdr + i)->p_align		= GET_BYTE((source + i)->p_align);
+	}
+	free(source);
+}
+
