@@ -43,14 +43,12 @@ FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 {
 	ssize_t n;
-	uint16_t shnum;
 	ElfClass ei_class;
 	ElfN_Shdr *shdr;
 	void (*copy_Shdr)(ElfN_Shdr*, ElfN_Ehdr*, FILE *);
 
-	shnum		= ehdr->e_shnum;
 	ei_class	= get_class(ehdr->e_ident[EI_CLASS]);
-	shdr = malloc(sizeof(ElfN_Shdr) * shnum);
+	shdr = malloc(sizeof(ElfN_Shdr) * ehdr->e_shnum);
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
 
