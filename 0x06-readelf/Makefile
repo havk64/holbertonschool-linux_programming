@@ -1,8 +1,11 @@
 CC	:= gcc
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
-T0OBJS	:= main_0.o stat.o parse.o arch32.o arch64.o print0.o print1.o print2.o bytes.o
-T1OBJS	:= main_1.o stat.o parse.o arch32.o arch64.o print_sheader.o bytes.o get_data.o
-T2OBJS	:= main_2.o stat.o parse.o arch32.o arch64.o bytes.o get_data.o print_pheader.o print_pheader2.o print2.o
+T0OBJS	:= main_0.o stat.o parse.o arch32.o arch64.o print0.o print1.o print2.o \
+	   bytes.o
+T1OBJS	:= main_1.o stat.o parse.o arch32.o arch64.o print_sheader.o bytes.o \
+	   get_data.o
+T2OBJS	:= main_2.o stat.o parse.o arch32.o arch64.o bytes.o get_data.o \
+	   print_pheader.o print_pheader2.o print2.o
 T0	:= 0-hreadelf
 T1	:= 1-hreadelf
 T2	:= 2-hreadelf
