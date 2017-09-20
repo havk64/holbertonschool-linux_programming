@@ -64,7 +64,7 @@ static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class)
 
 	adwidth = (class == ELF32) ? 8 : 16;
 	fswidth = (class == ELF32) ? 5 : 6;
-	format = "  %-*s 0x%06lx 0x%0*lx 0x%0*lx 0x%0*lx 0x%0*lx %3s 0x%lx\n";
+	format = "  %-*s 0x%06lx 0x%0*lx 0x%0*lx 0x%0*lx 0x%0*lx %3s %#lx\n";
 	for (i = 0; i < phnum; i++)
 	{
 		printf(format, 14, get_segment_type(phdr[i].p_type), phdr[i].p_offset,
