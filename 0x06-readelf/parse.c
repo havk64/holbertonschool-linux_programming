@@ -61,7 +61,6 @@ ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 
 	copy_Shdr = (ei_class == ELF32) ? &copy_sheader_32 : &copy_sheader_64;
 	(*copy_Shdr)(shdr, ehdr, file);
-	fclose(file);
 	return (shdr);
 }
 

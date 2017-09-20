@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 	shdr = parse_sheaders(&ehdr, stream);
 	print_sheader(shdr, &ehdr, strtab);
 
+	fclose(stream);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
