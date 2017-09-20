@@ -55,6 +55,7 @@ static char *get_pflags(uint32_t p_flags)
 	buf[2] = (p_flags & PF_X) ? 'E' : ' ';
 	return (buf);
 }
+
 static void print_middleph(ElfN_Phdr *phdr, char *strtab, uint16_t phnum)
 {
 	uint16_t i;
@@ -62,7 +63,7 @@ static void print_middleph(ElfN_Phdr *phdr, char *strtab, uint16_t phnum)
 	(void)(strtab);
 	for (i = 0; i < phnum; i++)
 	{
-		printf("  %-*s 0x%06lx 0x%06lx 0x%06lx 0x%05lx 0x%05lx %3s 0x%lx\n", 14,
+		printf("  %-*s 0x%06lx 0x%08lx 0x%08lx 0x%05lx 0x%05lx %3s 0x%lx\n", 14,
 		       get_segment_type(phdr[i].p_type), phdr[i].p_offset,
 		       phdr[i].p_vaddr, phdr[i].p_paddr, phdr[i].p_filesz,
 		       phdr[i].p_memsz, get_pflags(phdr[i].p_flags), phdr[i].p_align);
@@ -73,11 +74,11 @@ void
 print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab)
 {
 	printf("\nElf file type is %s\n", get_ftype(ehdr->e_type));
-	printf("Entry point %lx\n", ehdr->e_entry);
+	printf("Entry point 0x%lx\n", ehdr->e_entry);
 	printf("There are %d program headers, starting at offset %lu\n\n",
 	       ehdr->e_phnum, ehdr->e_phoff);
-	printf("Program headers:\n");
-	printf("  %-14s %-8s %-9s %-9s %-7s %-7s %-3s %s\n",
+	printf("Program Headers:\n");
+	printf("  %-14s %-8s %-10s %-10s %-7s %-7s %-3s %s\n",
 	       "Type", "Offset", "VirtAddr", "PhysAddr", "FileSiz", "MemSiz",
 	       "Flg", "Align");
 	print_middleph(phdr, strtab, ehdr->e_phnum);
