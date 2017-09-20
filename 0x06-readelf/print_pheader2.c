@@ -8,11 +8,11 @@ print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 
 	(void)(phdr);
 	(void)(strtab);
-	printf("\nSection to Segment mapping:\n");
-	printf(" Segment Sections...\n");
+	printf("\n Section to Segment mapping:\n");
+	printf("  Segment Sections...\n");
 	for (i = 0; i < ehdr->e_phnum; i++)
 	{
-		printf("  %2.2u     ", i);
+		printf("   %2.2u     ", i);
 		printf("\n");
 	}
 }
