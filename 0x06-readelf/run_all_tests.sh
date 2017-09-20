@@ -24,7 +24,7 @@ success(){
 
 failure(){
     printf "\u2718  Failed: %s\n" "$1"
-    printf "%s" "$2"
+    printf "%s\n\n" "$2"
 }
 
 define FILES <<EOF
@@ -43,11 +43,10 @@ ${VGPRELOAD}
 EOF
 
 printf "Cleaning up Obj files... "
-ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
+ERROR=$(make clean) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s\n" "${ERROR}"
 echo "Task 0:"
 printf "Buiding executable... "
-ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
-
+ERROR=$(make 0-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s\n" "${ERROR}"
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -h "${file}") <(./0-hreadelf "${file}")) &&
 	success "${file}" || printf "%s" "${ERROR}"
@@ -58,8 +57,7 @@ echo "==============================================="
 echo
 echo "Task 1:"
 printf "Buiding executable... "
-ERROR=$(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s" "${ERROR}"
-
+ERROR=$(make 1-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s\n" "${ERROR}"
 while read -r file; do
     ERROR=$(diff -s <(readelf -W -S "${file}") <(./1-hreadelf "${file}")) &&
 	success "${file}" || failure "${file}" "${ERROR}\n"
