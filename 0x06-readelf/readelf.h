@@ -143,7 +143,9 @@ uint64_t get_byte_host(uint64_t, int);
 ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file);
 void copy_pheader_32(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file);
 void copy_pheader_64(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file);
-void print_segment_mapping(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, char *strtab);
 void
 print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab);
+void
+print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
+		      char *strtab);
 #endif /* READELF_H */

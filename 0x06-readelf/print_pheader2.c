@@ -1,6 +1,8 @@
 #include "readelf.h"
 
-void print_segment_mapping(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, char *strtab)
+void
+print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
+		      char *strtab)
 {
 	uint16_t i;
 
