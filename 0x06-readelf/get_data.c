@@ -43,21 +43,11 @@ void get_sizeoff(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
   * @ehdr: the struct representing the elf header
   * Return: the section header string table
  */
-char *get_strtab(FILE *file, ElfN_Ehdr *ehdr)
+char *get_strtab(FILE *file, ElfN_Shdr shdr)
 {
 	char *name;
 	ssize_t n;
-	ElfN_Shdr shdr;
 
-	n = fseek(file, ehdr->e_shoff + (ehdr->e_shstrndx * ehdr->e_shentsize),
-		  SEEK_SET);
-	if (n < 0)
-	{
-		perror("fseek error");
-		exit(EXIT_FAILURE);
-	}
-
-	get_sizeoff(&shdr, ehdr, file);
 	name = malloc(shdr.sh_size);
 	if (name == NULL)
 		exit(EXIT_FAILURE);

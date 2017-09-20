@@ -127,7 +127,7 @@ void print_osabi(unsigned char data);
 void print_type(uint16_t data);
 void print_phoff(uint64_t phoff);
 void print_shoff(uint64_t shoff);
-char *get_strtab(FILE *file, ElfN_Ehdr *ehdr);
+char *get_strtab(FILE *file, ElfN_Shdr shdr);
 void get_sizeoff(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file);
 void print_sheader(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *sh_strtab);
 void print_middle32(ElfN_Shdr *shdr, uint16_t shnum, char *sh_strtab);

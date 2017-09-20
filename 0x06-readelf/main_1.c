@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
 
 	fd = get_stat(argv[1]);
 	stream = parse_elf_header(&ehdr, fd);
-	strtab = get_strtab(stream, &ehdr);
 	shdr = parse_sheaders(&ehdr, stream);
+	strtab = get_strtab(stream, shdr[ehdr.e_shstrndx]);
 	print_sheader(shdr, &ehdr, strtab);
 
 	fclose(stream);
