@@ -63,4 +63,14 @@ while read -r file; do
 	success "${file}" || failure "${file}" "${ERROR}\n"
 done <<< "${FILES}"
 
+echo
+echo "==============================================="
+echo
+echo "Task 2:"
+printf "Buiding executable... "
+ERROR=$(make 2-hreadelf) && printf "\xE2\x9C\x94  OK!\n\n" || printf "%s\n" "${ERROR}"
+while read -r file; do
+    ERROR=$(diff -s <(readelf -W -l "${file}") <(./2-hreadelf "${file}")) &&
+	success "${file}" || failure "${file}" "${ERROR}\n"
+done <<< "${FILES}"
 exit
