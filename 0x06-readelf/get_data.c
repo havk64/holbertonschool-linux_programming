@@ -1,43 +1,6 @@
 #include "readelf.h"
 
 /**
- * get_sizeoff - retrieves the sh_size and sh_offset of an strtab
- * @shdr: the destination section header
- * @ehdr: the struct representing the elf header
- * @file: a pointer to a file stream
- * Return: Always void.
- */
-void get_sizeoff(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
-{
-	ssize_t n;
-	uint64_t (*get_byte)(uint64_t, int);
-
-	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
-		get_byte_host;
-	if (get_class(ehdr->e_ident[EI_CLASS]) == ELF32)
-	{
-		Elf32_Shdr xhdr;
-
-		n = fread(&xhdr, sizeof(Elf32_Shdr), 1, file);
-		if (n != 1)
-			exit(EXIT_FAILURE);
-
-		shdr->sh_size		= GET_BYTE(xhdr.sh_size);
-		shdr->sh_offset		= GET_BYTE(xhdr.sh_offset);
-	} else
-	{
-		Elf64_Shdr xhdr;
-
-		n = fread(&xhdr, sizeof(Elf64_Shdr), 1, file);
-		if (n != 1)
-			exit(EXIT_FAILURE);
-
-		shdr->sh_size		= GET_BYTE(xhdr.sh_size);
-		shdr->sh_offset		= GET_BYTE(xhdr.sh_offset);
-	}
-}
-
-/**
   * get_strtab - retrieves the section header string table of an elf file
   * @file: a file stream to read from
   * @shdr: the section header of the String Table index
