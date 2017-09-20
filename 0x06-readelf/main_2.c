@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	int fd;
 	ElfN_Ehdr ehdr;
 	ElfN_Phdr *phdr;
+	ElfN_Shdr *shdr;
 	FILE *stream;
 	char *strtab;
 
@@ -22,9 +23,10 @@ int main(int argc, char *argv[])
 
 	fd = get_stat(argv[1]);
 	stream = parse_elf_header(&ehdr, fd);
-	strtab = get_strtab(stream, &ehdr);
+	shdr = parse_sheaders(&ehdr, stream);
+	strtab = get_strtab(stream, shdr[ehdr.e_shstrndx]);
 	phdr = parse_pheader(&ehdr, stream);
-	print_pheader(phdr, &ehdr, strtab);
+	print_pheader(phdr, shdr, &ehdr, strtab);
 
 	close(fd);
 	return (0);
