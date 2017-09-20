@@ -56,32 +56,44 @@ static char *get_pflags(uint32_t p_flags)
 	return (buf);
 }
 
-static void print_middleph(ElfN_Phdr *phdr, char *strtab, uint16_t phnum)
+static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class)
 {
 	uint16_t i;
+	char *format;
+	uint16_t adwidth, fswidth;
 
-	(void)(strtab);
+	adwidth = (class == ELF32) ? 8 : 16;
+	fswidth = (class == ELF32) ? 5 : 6;
+	format = "  %-*s 0x%06lx 0x%0*lx 0x%0*lx 0x%0*lx 0x%0*lx %3s 0x%lx\n";
 	for (i = 0; i < phnum; i++)
 	{
-		printf("  %-*s 0x%06lx 0x%08lx 0x%08lx 0x%05lx 0x%05lx %3s 0x%lx\n", 14,
-		       get_segment_type(phdr[i].p_type), phdr[i].p_offset,
-		       phdr[i].p_vaddr, phdr[i].p_paddr, phdr[i].p_filesz,
-		       phdr[i].p_memsz, get_pflags(phdr[i].p_flags), phdr[i].p_align);
+		printf(format, 14, get_segment_type(phdr[i].p_type), phdr[i].p_offset,
+		       adwidth, phdr[i].p_vaddr, adwidth, phdr[i].p_paddr,
+		       fswidth, phdr[i].p_filesz, fswidth, phdr[i].p_memsz,
+		       get_pflags(phdr[i].p_flags), phdr[i].p_align);
 	}
 }
 
 void
 print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab)
 {
+	char *format;
+	ElfClass class;
+	uint16_t adwidth, fswidth;
+
+	class = (get_class(ehdr->e_ident[EI_CLASS]));
+	adwidth = (class == ELF32) ? 10 : 18;
+	fswidth = (class == ELF32) ? 7 : 8;
+
 	printf("\nElf file type is %s\n", get_ftype(ehdr->e_type));
 	printf("Entry point 0x%lx\n", ehdr->e_entry);
 	printf("There are %d program headers, starting at offset %lu\n\n",
 	       ehdr->e_phnum, ehdr->e_phoff);
 	printf("Program Headers:\n");
-	printf("  %-14s %-8s %-10s %-10s %-7s %-7s %-3s %s\n",
-	       "Type", "Offset", "VirtAddr", "PhysAddr", "FileSiz", "MemSiz",
-	       "Flg", "Align");
-	print_middleph(phdr, strtab, ehdr->e_phnum);
+	format = "  %-14s %-8s %-*s %-*s %-*s %-*s %-3s %s\n";
+	printf(format, "Type", "Offset", adwidth, "VirtAddr", adwidth, "PhysAddr",
+	       fswidth, "FileSiz", fswidth, "MemSiz", "Flg", "Align");
+	print_middleph(phdr, ehdr->e_phnum, class);
 	print_segment_mapping(phdr, shdr, ehdr, strtab);
 	free(strtab);
 	free(shdr);
