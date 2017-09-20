@@ -82,7 +82,8 @@ print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab)
 	       "Type", "Offset", "VirtAddr", "PhysAddr", "FileSiz", "MemSiz",
 	       "Flg", "Align");
 	print_middleph(phdr, strtab, ehdr->e_phnum);
-	print_segment_mapping(phdr, ehdr, strtab);
+	print_segment_mapping(phdr, shdr, ehdr, strtab);
 	free(strtab);
+	free(shdr);
 	free(phdr);
 }
