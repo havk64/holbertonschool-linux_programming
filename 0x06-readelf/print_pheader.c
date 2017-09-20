@@ -69,7 +69,8 @@ static void print_middleph(ElfN_Phdr *phdr, char *strtab, uint16_t phnum)
 	}
 }
 
-void print_pheader(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, char *strtab)
+void
+print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab)
 {
 	printf("\nElf file type is %s\n", get_ftype(ehdr->e_type));
 	printf("Entry point %lx\n", ehdr->e_entry);
