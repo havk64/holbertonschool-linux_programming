@@ -23,10 +23,17 @@ int main(int argc, char *argv[])
 
 	fd = get_stat(argv[1]);
 	stream = parse_elf_header(&ehdr, fd);
-	shdr = parse_sheaders(&ehdr, stream);
-	strtab = get_strtab(stream, shdr[ehdr.e_shstrndx]);
-	phdr = parse_pheader(&ehdr, stream);
-	print_pheader(phdr, shdr, &ehdr, strtab);
+	if (ehdr.e_phnum == 0)
+	{
+		printf("\nThere are no program headers in this file.\n");
+		fclose(stream);
+	} else
+	{
+		shdr = parse_sheaders(&ehdr, stream);
+		strtab = get_strtab(stream, shdr[ehdr.e_shstrndx]);
+		phdr = parse_pheader(&ehdr, stream);
+		print_pheader(phdr, shdr, &ehdr, strtab);
+	}
 
 	close(fd);
 	return (0);
