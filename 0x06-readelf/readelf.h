@@ -148,4 +148,5 @@ print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab);
 void
 print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 		      char *strtab);
+char *get_interp(FILE *file, ElfN_Phdr phdr);
 #endif /* READELF_H */
