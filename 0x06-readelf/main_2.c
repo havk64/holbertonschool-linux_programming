@@ -22,6 +22,9 @@ int main(int argc, char *argv[])
 	}
 
 	fd = get_stat(argv[1]);
+	if (fd < 0)
+		return (EXIT_FAILURE);
+
 	stream = parse_elf_header(&ehdr, fd);
 	if (ehdr.e_phnum == 0)
 	{
