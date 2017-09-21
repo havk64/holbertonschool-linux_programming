@@ -75,7 +75,8 @@ static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class)
 }
 
 void
-print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab)
+print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab,
+	      FILE *file)
 {
 	char *format;
 	ElfClass class;
