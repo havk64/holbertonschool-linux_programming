@@ -25,6 +25,7 @@ FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 	if (!is_elf(ehdr->e_ident) || n != 1)
 	{
 		printf("Not an ELF file - it has the wrong magic bytes at the start\n");
+		fclose(stream);
 		exit(EXIT_FAILURE);
 	}
 
