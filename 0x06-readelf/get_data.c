@@ -120,22 +120,20 @@ char *get_interp(FILE *file, ElfN_Phdr phdr)
 	ssize_t n;
 	char *interp;
 
-	if (phdr.p_type == PT_INTERP)
+	interp = malloc(phdr.p_filesz);
+	if (interp == NULL)
+		exit(EXIT_FAILURE);
+
+	n = fseek(file, phdr.p_offset, SEEK_SET);
+	if (n < 0)
 	{
-		interp = malloc(phdr.p_filesz);
-		if (interp == NULL)
-			exit(EXIT_FAILURE);
-
-		n = fseek(file, phdr.p_offset, SEEK_SET);
-		if (n < 0)
-		{
-			perror("Fseek error");
-			exit(EXIT_FAILURE);
-		}
-
-		n = fread(interp, phdr.p_filesz, 1, file);
-		if (n != 1)
-			exit(EXIT_FAILURE);
+		perror("Fseek error");
+		exit(EXIT_FAILURE);
 	}
+
+	n = fread(interp, phdr.p_filesz, 1, file);
+	if (n != 1)
+		exit(EXIT_FAILURE);
+
 	return (interp);
 }
