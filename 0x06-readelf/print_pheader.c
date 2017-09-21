@@ -56,7 +56,8 @@ static char *get_pflags(uint32_t p_flags)
 	return (buf);
 }
 
-static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class)
+static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
+			   FILE *file)
 {
 	uint16_t i;
 	char *format;
