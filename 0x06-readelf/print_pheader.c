@@ -95,7 +95,7 @@ print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab,
 	format = "  %-14s %-8s %-*s %-*s %-*s %-*s %-3s %s\n";
 	printf(format, "Type", "Offset", adwidth, "VirtAddr", adwidth, "PhysAddr",
 	       fswidth, "FileSiz", fswidth, "MemSiz", "Flg", "Align");
-	print_middleph(phdr, ehdr->e_phnum, class);
+	print_middleph(phdr, ehdr->e_phnum, class, file);
 	print_segment_mapping(phdr, shdr, ehdr, strtab);
 	free(strtab);
 	free(shdr);

@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		shdr = parse_sheaders(&ehdr, stream);
 		strtab = get_strtab(stream, shdr[ehdr.e_shstrndx]);
 		phdr = parse_pheader(&ehdr, stream);
-		print_pheader(phdr, shdr, &ehdr, strtab);
+		print_pheader(phdr, shdr, &ehdr, strtab, stream);
 	}
 
 	fclose(stream);
