@@ -1,5 +1,10 @@
 #include "readelf.h"
 
+/**
+ * get_ftype - prints the type of binary object file
+ * @type: the byte representing the type of the binary file
+ * Return: a string with the type of the elf file
+ */
 static char *get_ftype(unsigned int e_type)
 {
 	static char buf[32];
