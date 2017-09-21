@@ -20,7 +20,8 @@ print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 			if (section.sh_name != 0 &&
 			    section.sh_offset >= segment.p_offset &&
 			    section.sh_offset + section.sh_size <=
-			    segment.p_offset + segment.p_memsz)
+			    segment.p_offset + segment.p_memsz &&
+			    section.sh_size != 0 && section.sh_addr != 0)
 				printf("%s ", strtab + section.sh_name);
 		}
 		printf("\n");
