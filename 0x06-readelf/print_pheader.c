@@ -60,7 +60,7 @@ static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
 			   FILE *file)
 {
 	uint16_t i;
-	char *format;
+	char *format, *interp;
 	uint16_t adwidth, fswidth;
 
 	adwidth = (class == ELF32) ? 8 : 16;
@@ -73,8 +73,12 @@ static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
 		       fswidth, phdr[i].p_filesz, fswidth, phdr[i].p_memsz,
 		       get_pflags(phdr[i].p_flags), phdr[i].p_align);
 		if (phdr[i].p_type == PT_INTERP)
+		{
+			interp = get_interp(file, phdr[i]);
 			printf("      [Requesting program interpreter: %s]\n",
-			       get_interp(file, phdr[i]));
+			       interp);
+			free(interp);
+		}
 	}
 }
 
