@@ -72,6 +72,9 @@ static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
 		       adwidth, phdr[i].p_vaddr, adwidth, phdr[i].p_paddr,
 		       fswidth, phdr[i].p_filesz, fswidth, phdr[i].p_memsz,
 		       get_pflags(phdr[i].p_flags), phdr[i].p_align);
+		if (phdr[i].p_type == PT_INTERP)
+			printf("      [Requesting program interpreter: %s]\n",
+			       get_interp(file, phdr[i]));
 	}
 }
 
