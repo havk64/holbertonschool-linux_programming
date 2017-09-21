@@ -114,7 +114,12 @@ char *get_type(uint64_t sh_type)
 	}
 }
 
-
+/**
+ * get_interp - retrieves a interp content section
+ * @file: a file stream to read from
+ * @phdr: a ElfN_Phdr struct of type .interp
+ * Return: a string with the interpreter's name
+ */
 char *get_interp(FILE *file, ElfN_Phdr phdr)
 {
 	ssize_t n;
