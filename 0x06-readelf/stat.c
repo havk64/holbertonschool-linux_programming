@@ -48,7 +48,8 @@ int get_stat(char *filename)
 	if ((sbuf.st_mode & S_IFMT) != S_IFREG)
 	{
 		printf("%s is not a regular file\n", filename);
-		exit(EXIT_FAILURE);
+		close(fd);
+		return (EXIT_FAILURE);
 	}
 	return (fd);
 }
