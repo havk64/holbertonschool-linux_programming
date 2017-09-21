@@ -85,6 +85,5 @@ ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file)
 
 	copy_Phdr = (ei_class == ELF32) ? &copy_pheader_32 : &copy_pheader_64;
 	(*copy_Phdr)(phdr, ehdr, file);
-	fclose(file);
 	return (phdr);
 }

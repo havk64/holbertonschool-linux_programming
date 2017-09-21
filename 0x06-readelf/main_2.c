@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
 	if (ehdr.e_phnum == 0)
 	{
 		printf("\nThere are no program headers in this file.\n");
-		fclose(stream);
 	} else
 	{
 		shdr = parse_sheaders(&ehdr, stream);
@@ -35,6 +34,7 @@ int main(int argc, char *argv[])
 		print_pheader(phdr, shdr, &ehdr, strtab);
 	}
 
+	fclose(stream);
 	close(fd);
 	return (0);
 }
