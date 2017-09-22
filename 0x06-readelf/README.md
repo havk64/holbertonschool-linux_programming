@@ -211,6 +211,98 @@ Key to Flags:
 
 ```
 
+### Task 2: ELF program headers 
+The program `2-hreadelf` displays the information about the `Program Header Table` of a
+given Elf binary file
+
+It's output is exactly the same as the output of the command `$ readelf -W -l <elf file>`
+
+The `Makefile` compile and creates this executable as follows:
+```
+$ make 2-hreadelf
+
+$ ./2-hreadelf test_files/netbsd32
+
+Elf file type is EXEC (Executable file)
+Entry point 0x80484c0
+There are 6 program headers, starting at offset 52
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  PHDR           0x000034 0x08048034 0x08048034 0x000c0 0x000c0 R E 0x4
+  INTERP         0x0000f4 0x080480f4 0x080480f4 0x00017 0x00017 R   0x1
+      [Requesting program interpreter: /usr/libexec/ld.elf_so]
+  LOAD           0x000000 0x08048000 0x08048000 0x008a7 0x008a7 R E 0x1000
+  LOAD           0x0008a8 0x080498a8 0x080498a8 0x000e0 0x000ec RW  0x1000
+  DYNAMIC        0x000900 0x08049900 0x08049900 0x00088 0x00088 RW  0x4
+  NOTE           0x00010c 0x0804810c 0x0804810c 0x00034 0x00034 R   0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00
+   01     .interp
+   02     .interp .note.netbsd.ident .hash .dynsym .dynstr .rel.got .rel.plt .init .plt .text .fini .rodata
+   03     .data .ctors .dtors .got .dynamic .bss
+   04     .dynamic
+   05     .note.netbsd.ident
+   
+$ ./2-hreadelf test_files/sparcbigendian32
+
+Elf file type is EXEC (Executable file)
+Entry point 0x10d20
+There are 6 program headers, starting at offset 52
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  PHDR           0x000034 0x00010034 0x00010034 0x000c0 0x000c0 R E 0x4
+  INTERP         0x0000f4 0x000100f4 0x000100f4 0x00013 0x00013 R   0x1
+      [Requesting program interpreter: /lib/ld-linux.so.2]
+  LOAD           0x000000 0x00010000 0x00010000 0x14370 0x14370 R E 0x10000
+  LOAD           0x014370 0x00034370 0x00034370 0x00628 0x44908 RWE 0x10000
+  DYNAMIC        0x0145e4 0x000345e4 0x000345e4 0x000d0 0x000d0 RW  0x4
+  NOTE           0x000108 0x00010108 0x00010108 0x00020 0x00020 R   0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00
+   01     .interp
+   02     .interp .note.ABI-tag .hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt .init .text .fini .rodata
+   03     .data .eh_frame .dynamic .ctors .dtors .jcr .plt .got .bss
+   04     .dynamic
+   05     .note.ABI-tag
+   
+$ ./2-hreadelf test_files/ubuntu64
+
+Elf file type is EXEC (Executable file)
+Entry point 0x400600
+There are 9 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align
+  PHDR           0x000040 0x0000000000400040 0x0000000000400040 0x0001f8 0x0001f8 R E 0x8
+  INTERP         0x000238 0x0000000000400238 0x0000000000400238 0x00001c 0x00001c R   0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x000000 0x0000000000400000 0x0000000000400000 0x000b24 0x000b24 R E 0x200000
+  LOAD           0x000e10 0x0000000000600e10 0x0000000000600e10 0x000258 0x000260 RW  0x200000
+  DYNAMIC        0x000e28 0x0000000000600e28 0x0000000000600e28 0x0001d0 0x0001d0 RW  0x8
+  NOTE           0x000254 0x0000000000400254 0x0000000000400254 0x000044 0x000044 R   0x4
+  GNU_EH_FRAME   0x0009f8 0x00000000004009f8 0x00000000004009f8 0x000034 0x000034 R   0x4
+  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x10
+  GNU_RELRO      0x000e10 0x0000000000600e10 0x0000000000600e10 0x0001f0 0x0001f0 R   0x1
+
+ Section to Segment mapping:
+  Segment Sections...
+   00
+   01     .interp
+   02     .interp .note.ABI-tag .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt .init .plt .plt.got .text .fini .rodata .eh_frame_hdr .eh_frame
+   03     .init_array .fini_array .jcr .dynamic .got .got.plt .data .bss
+   04     .dynamic
+   05     .note.ABI-tag .note.gnu.build-id
+   06     .eh_frame_hdr
+   07
+   08     .init_array .fini_array .jcr .dynamic .got
+```
+
 ### Unit tests
 
 All tests can be executed by running the [`run_all_tests.sh`](run_all_tests.sh) shell script.
