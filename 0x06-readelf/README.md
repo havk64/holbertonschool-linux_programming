@@ -253,4 +253,21 @@ Buiding executable... ✔  OK!
 ✔  Outputs are identical! test_files/sftp-server
 ✔  Outputs are identical! test_files/libperl.so.5.18
 ✔  Outputs are identical! test_files/vgpreload_memcheck-x86-linux.so
+===============================================
+
+Task 2:
+Buiding executable... ✔  OK!
+
+✔  Outputs are identical! test_files/netbsd32
+✔  Outputs are identical! test_files/solaris32
+✔  Outputs are identical! test_files/sortix32
+✔  Outputs are identical! test_files/sparcbigendian32
+✔  Outputs are identical! test_files/ubuntu64
+✔  Outputs are identical! test_files/0-hreadelf
+✔  Outputs are identical! test_files/main_0.o
+✔  Outputs are identical! test_files/jpeg.mod
+✔  Outputs are identical! test_files/python.obj
+✔  Outputs are identical! test_files/sftp-server
+✔  Outputs are identical! test_files/libperl.so.5.18
+✔  Outputs are identical! test_files/vgpreload_memcheck-x86-linux.so
 ```
