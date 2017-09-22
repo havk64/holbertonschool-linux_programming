@@ -86,14 +86,14 @@ typedef struct ElfN_Shdr
 /**
  * struct ElfN_Phdr - Internal Program Header struct
  *
- * @p_type:
- * @p_flags:
- * @p_offset:
- * @p_vaddr:
- * @p_paddr:
- * @p_filesz:
- * @p_memsz:
- * @p_align:
+ * @p_type: describe the type of the segment
+ * @p_flags: the bitmask flag relevant to the segment
+ * @p_offset: the offset to the segment's first byte
+ * @p_vaddr: the virtual address of the segments' first byte
+ * @p_paddr: the physical address of the segment's first byte
+ * @p_filesz: the number of bytes in the file image
+ * @p_memsz: the number of bytes in the memory image
+ * @p_align: the value to which the segments are aligned
 */
 typedef struct ElfN_Phdr
 {
