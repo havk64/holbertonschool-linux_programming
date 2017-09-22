@@ -65,6 +65,12 @@ ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 	return (shdr);
 }
 
+/**
+ * parse_pheader - parse a program (segment) header
+ * @ehdr: a pointer to a Elf header struct
+ * @file: a pointer to a file stream
+ * Return: an array of Elf program header structs if any
+ */
 ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file)
 {
 	ssize_t n;

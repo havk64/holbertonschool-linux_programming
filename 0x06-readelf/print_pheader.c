@@ -2,7 +2,7 @@
 
 /**
  * get_ftype - prints the type of binary object file
- * @type: the byte representing the type of the binary file
+ * @e_type: the byte representing the type of the binary file
  * Return: a string with the type of the elf file
  */
 static char *get_ftype(unsigned int e_type)
@@ -27,6 +27,11 @@ static char *get_ftype(unsigned int e_type)
 	}
 }
 
+/**
+ * get_segment_type - retrieve a string representing the type of a segment
+ * @p_type: a p_type member of an Elf program header struct
+ * Return: the string with the name of the type of a given segment
+ */
 static char *get_segment_type(uint32_t p_type)
 {
 	static char buf[16];
@@ -51,6 +56,11 @@ static char *get_segment_type(uint32_t p_type)
 	}
 }
 
+/**
+ * get_pflags - retrieve the characters representing the permission flags
+ * @p_flags: a p_flags member of an Elf program header struct
+ * Return: a character string
+ */
 static char *get_pflags(uint32_t p_flags)
 {
 	static char buf[3];
@@ -61,6 +71,14 @@ static char *get_pflags(uint32_t p_flags)
 	return (buf);
 }
 
+/**
+ * print_middleph - print the segment header
+ * @phdr: a pointer to an array of program headers structs
+ * @phnum: a e_phnum member of an elf header
+ * @class: a ElfClass enum
+ * @file: a pointer to a file stream
+ * Return: Always void.
+ */
 static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
 			   FILE *file)
 {
@@ -87,6 +105,15 @@ static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
 	}
 }
 
+/**
+ * print_pheader - print the whole segment header
+ * @phdr: a pointer to an array of program header structs
+ * @shdr: a pointer to an array of section header structs
+ * @ehdr: a pointer to a Elf header struct
+ * @strtab: the content of a string table index
+ * @file: a pointer to a file stream
+ * Return: Always void.
+ */
 void
 print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab,
 	      FILE *file)

@@ -1,5 +1,13 @@
 #include "readelf.h"
 
+/**
+ * print_segment_mapping - print the mapping of sections to segments
+ * @phdr: a pointer to an array of segment (program) headers
+ * @shdr: a pointer to an array of section headers
+ * @ehdr: a pointer to an elf header
+ * @strtab: a pointer to a String table index
+ * Return: Always void
+ */
 void
 print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 		      char *strtab)
