@@ -74,6 +74,13 @@ void copy_sheader_32(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	free(source);
 }
 
+/**
+ * copy_pheader_32 - read and fill an ElfN_Phdr struct
+ * @phdr: a pointer to an array of segment header struct
+ * @ehdr: a pointer to an elf header struct
+ * @file: a pointer to a file stream
+ * Return: Always void.
+ */
 void copy_pheader_32(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file)
 {
 	Elf32_Phdr *source;
