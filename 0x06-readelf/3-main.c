@@ -7,8 +7,8 @@ int main(int argc, char *argv[])
 	ElfN_Shdr *shdr, *section;
 	ElfN_Sym *symtab;
 	FILE *stream;
-	uint16_t i;
-	char *strtab;
+	uint16_t i, size;
+	char *strtab, *symstr;
 
 	if (argc != 2)
 	{
@@ -28,12 +28,15 @@ int main(int argc, char *argv[])
 		section = (shdr + i);
 		if (section->sh_type == SHT_DYNSYM || section->sh_type == SHT_SYMTAB)
 		{
-			symtab = parse_symheader(&ehdr, shdr[i], stream);
-			/* print */
+			size = section->sh_size / section->sh_entsize;
+			symtab = parse_symheader(&ehdr, *section, stream);
+			symstr = get_strtab(stream, shdr[section->sh_link]);
+			print_symtable(symtab, strtab + section->sh_name, size, symstr,
+				       get_class(ehdr.e_ident[EI_CLASS]));
+			free(symstr);
 			free(symtab);
 		}
 	}
-
 	free(strtab);
 	free(shdr);
 	fclose(stream);
