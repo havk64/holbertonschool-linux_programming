@@ -130,7 +130,7 @@ copy_sym64(ElfN_Sym *symtab, uint16_t size, ElfN_Ehdr *ehdr, FILE *file)
 	if (source == NULL)
 		exit(EXIT_FAILURE);
 
-	n = fread(source, size * sizeof(Elf32_Sym), 1, file);
+	n = fread(source, size * sizeof(Elf64_Sym), 1, file);
 	if (n != 1)
 		exit(EXIT_FAILURE);
 
