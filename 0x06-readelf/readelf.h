@@ -172,7 +172,10 @@ print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 char *get_interp(FILE *file, ElfN_Phdr phdr);
 ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file);
 void
-copy_sym32(ElfN_Sym *symtab, size_t size, ElfN_Ehdr *ehdr, FILE *file);
+copy_sym32(ElfN_Sym *symtab, uint16_t size, ElfN_Ehdr *ehdr, FILE *file);
 void
-copy_sym64(ElfN_Sym *symtab, size_t size, ElfN_Ehdr *ehdr, FILE *file);
+copy_sym64(ElfN_Sym *symtab, uint16_t size, ElfN_Ehdr *ehdr, FILE *file);
+void
+print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
+	       ElfClass class);
 #endif /* READELF_H */

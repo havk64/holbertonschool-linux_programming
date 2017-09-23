@@ -116,12 +116,12 @@ void copy_pheader_64(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file)
 }
 
 void
-copy_sym64(ElfN_Sym *symtab, size_t size, ElfN_Ehdr *ehdr, FILE *file)
+copy_sym64(ElfN_Sym *symtab, uint16_t size, ElfN_Ehdr *ehdr, FILE *file)
 {
 	ssize_t n;
 	Elf64_Sym *source;
 	uint64_t (*get_byte)(uint64_t, int);
-	size_t i;
+	uint16_t i;
 
 	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
 		get_byte_host;

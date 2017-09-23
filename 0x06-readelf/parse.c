@@ -99,9 +99,9 @@ ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file)
 {
 	ssize_t n;
 	ElfN_Sym *symtab;
-	void (*copy_Symhdr)(ElfN_Sym*, size_t, ElfN_Ehdr*, FILE*);
+	void (*copy_Symhdr)(ElfN_Sym*, uint16_t, ElfN_Ehdr*, FILE*);
 	ElfClass ei_class;
-	size_t size;
+	uint16_t size;
 
 	size = symhdr.sh_size / symhdr.sh_entsize;
 	ei_class = get_class(ehdr->e_ident[EI_CLASS]);
