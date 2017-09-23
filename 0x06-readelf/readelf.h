@@ -107,6 +107,26 @@ typedef struct ElfN_Phdr
 	uint64_t   p_align;
 } ElfN_Phdr;
 
+/**
+ * struct ElfN_Sym - a struct to represent file's Symbol table (32/64bits)
+ *
+ * @st_name:
+ * @st_info:
+ * @st_other:
+ * @st_shndx:
+ * @st_value:
+ * @st_size:
+ */
+typedef struct ElfN_Sym
+{
+	uint32_t      st_name;
+	unsigned char st_info;
+	unsigned char st_other;
+	uint16_t      st_shndx;
+	Elf64_Addr    st_value;
+	uint64_t      st_size;
+} ElfN_Sym;
+
 #define width 35
 #define GET_BYTE(field) get_byte(field, sizeof(field))
 _Bool is_elf(unsigned char *magic);
