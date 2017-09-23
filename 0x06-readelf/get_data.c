@@ -4,7 +4,7 @@
   * get_strtab - retrieves the section header string table of an elf file
   * @file: a file stream to read from
   * @shdr: the section header of the String Table index
-  * Return: the section header string table
+  * Return: the whole string table
  */
 char *get_strtab(FILE *file, ElfN_Shdr shdr)
 {
