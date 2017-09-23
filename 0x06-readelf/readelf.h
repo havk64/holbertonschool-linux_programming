@@ -171,4 +171,6 @@ print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 		      char *strtab);
 char *get_interp(FILE *file, ElfN_Phdr phdr);
 ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file);
+void
+copy_sym32(ElfN_Sym *symtab, size_t size, ElfN_Ehdr *ehdr, FILE *file);
 #endif /* READELF_H */

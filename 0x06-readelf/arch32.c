@@ -114,3 +114,35 @@ void copy_pheader_32(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file)
 	}
 	free(source);
 }
+
+void
+copy_sym32(ElfN_Sym *symtab, size_t size, ElfN_Ehdr *ehdr, FILE *file)
+{
+	ssize_t n;
+	Elf32_Sym *source;
+	uint64_t (*get_byte)(uint64_t, int);
+	size_t i;
+
+	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
+		get_byte_host;
+
+	source = malloc(size * sizeof(Elf32_Sym));
+	if (source == NULL)
+		exit(EXIT_FAILURE);
+
+	n = fread(source, size * sizeof(Elf32_Sym), 1, file);
+	if (n != 1)
+		exit(EXIT_FAILURE);
+
+
+	for (i = 0; i < size; i++)
+	{
+		(symtab + i)->st_name		= GET_BYTE((source + i)->st_name);
+		(symtab + i)->st_value		= GET_BYTE((source + i)->st_value);
+		(symtab + i)->st_size		= GET_BYTE((source + i)->st_size);
+		(symtab + i)->st_info		= GET_BYTE((source + i)->st_info);
+		(symtab + i)->st_other		= GET_BYTE((source + i)->st_other);
+		(symtab + i)->st_shndx		= GET_BYTE((source + i)->st_shndx);
+	}
+	free(source);
+}
