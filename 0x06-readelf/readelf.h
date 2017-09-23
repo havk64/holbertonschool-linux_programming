@@ -128,7 +128,7 @@ typedef struct ElfN_Sym
 } ElfN_Sym;
 
 #define width 35
-#define GET_BYTE(field) get_byte(field, sizeof(field))
+#define GET_BYTE(field)	get_byte(field, sizeof(field))
 #define ELF_ST_TYPE(val)	((val) & 0xF)
 #define ELF_ST_BIND(val)	(((unsigned int)(val)) >> 4)
 _Bool is_elf(unsigned char *magic);
