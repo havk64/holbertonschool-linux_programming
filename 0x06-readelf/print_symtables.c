@@ -72,18 +72,25 @@ print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
 {
 	uint16_t i;
 	ElfN_Sym *symbol;
+	char *format;
 
 	printf("\nSymbol table '%s' contains %hu entries:\n", name, size);
 	if (class == ELF32)
+	{
+		format = "    %2hu: %08lx %5lu %-7s %-6s %-8s %3s %s\n";
 		printf("   Num:    Value  Size Type    Bind   Vis      Ndx Name\n");
+	}
 	else
+	{
+		format = "    %2hu: %016lx %5lu %-7s %-6s %-8s %3s %s\n";
 		printf("   Num:    Value          Size Type    Bind   Vis      Ndx Name\n");
+	}
 	for (i = 0; i < size; i++)
 	{
 		symbol = (symtab + i);
-		printf("    %2hu: %08lx %5lu %-7s %-6s %-8s %3s %s\n", i, symbol->st_value,
-		       symbol->st_size, get_symtype(ELF32_ST_TYPE(symbol->st_info)),
-		       get_symbind(ELF32_ST_BIND(symbol->st_info)),
+		printf(format, i, symbol->st_value, symbol->st_size,
+		       get_symtype(ELF64_ST_TYPE(symbol->st_info)),
+		       get_symbind(ELF64_ST_BIND(symbol->st_info)),
 		       get_symvis(symbol->st_other), get_symndx(symbol->st_shndx),
 		       symstr + symbol->st_name);
 	}
