@@ -89,8 +89,8 @@ print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
 	{
 		symbol = (symtab + i);
 		printf(format, i, symbol->st_value, symbol->st_size,
-		       get_symtype(ELF64_ST_TYPE(symbol->st_info)),
-		       get_symbind(ELF64_ST_BIND(symbol->st_info)),
+		       get_symtype(ELF_ST_TYPE(symbol->st_info)),
+		       get_symbind(ELF_ST_BIND(symbol->st_info)),
 		       get_symvis(symbol->st_other), get_symndx(symbol->st_shndx),
 		       symstr + symbol->st_name);
 	}
