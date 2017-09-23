@@ -4,7 +4,7 @@ int main(int argc, char *argv[])
 {
 	int fd;
 	ElfN_Ehdr ehdr;
-	ElfN_Shdr *shdr;
+	ElfN_Shdr *shdr, *section;
 	ElfN_Sym *symtab;
 	FILE *stream;
 	uint16_t i;
@@ -25,7 +25,8 @@ int main(int argc, char *argv[])
 	strtab = get_strtab(stream, shdr[ehdr.e_shstrndx]);
 	for (i = 0; i < ehdr.e_shnum; i++)
 	{
-		if (shdr[i].sh_type == SHT_DYNSYM || shdr[i].sh_type == SHT_SYMTAB)
+		section = (shdr + i);
+		if (section->sh_type == SHT_DYNSYM || section->sh_type == SHT_SYMTAB)
 		{
 			symtab = parse_symheader(&ehdr, shdr[i], stream);
 			/* print */
