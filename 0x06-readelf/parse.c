@@ -94,3 +94,29 @@ ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file)
 	(*copy_Phdr)(phdr, ehdr, file);
 	return (phdr);
 }
+
+ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file)
+{
+	ssize_t n;
+	ElfN_Sym *symtab;
+	void (*copy_Symhdr)(ElfN_Sym*, size_t, ElfN_Ehdr*, FILE*);
+	ElfClass ei_class;
+	size_t size;
+
+	size = symhdr.sh_size / symhdr.sh_entsize;
+	ei_class = get_class(ehdr->e_ident[EI_CLASS]);
+	symtab = malloc(size * sizeof(ElfN_Sym));
+	if (symtab == NULL)
+		exit(EXIT_FAILURE);
+
+	n = fseek(file, symhdr.sh_offset, SEEK_SET);
+	if (n < 0)
+	{
+		perror("Fseek error");
+		exit(EXIT_FAILURE);
+	}
+
+	copy_Symhdr = (ei_class == ELF32) ? &copy_sym32 : &copy_sym64;
+	(*copy_Symhdr)(symtab, size, ehdr, file);
+	return (symtab);
+}

@@ -170,4 +170,5 @@ void
 print_segment_mapping(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr,
 		      char *strtab);
 char *get_interp(FILE *file, ElfN_Phdr phdr);
+ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file);
 #endif /* READELF_H */
