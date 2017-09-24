@@ -86,6 +86,15 @@ static char *get_symndx(uint16_t index)
 	}
 }
 
+/**
+ * print_symtable - prints the symbol table the elf file
+ * @symtab: a pointer to a ElfN_Sym struct
+ * @name: a pointer to a string with the section name
+ * @size: the number of entries in the symbol table
+ * @symstr: a pointer to a string with a string table section
+ * @class: a enum representing the class of the elf file (32/64 bits)
+ * Return: Always void.
+ */
 void
 print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
 	       ElfClass class)
