@@ -66,6 +66,11 @@ static char *get_symvis(unsigned char visibility)
 	}
 }
 
+/**
+ * get_symndx - retrieve a string representation of the symbol's index
+ * @index: a numeric representation of symbol's index
+ * Return: a string representation of symbol's index
+ */
 static char *get_symndx(uint16_t index)
 {
 	static char buf[8];
