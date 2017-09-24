@@ -110,12 +110,12 @@ typedef struct ElfN_Phdr
 /**
  * struct ElfN_Sym - a struct to represent file's Symbol table (32/64bits)
  *
- * @st_name:
- * @st_info:
- * @st_other:
- * @st_shndx:
- * @st_value:
- * @st_size:
+ * @st_name: an index into the elf file's symbol string table
+ * @st_info: the symbol's type and binding attributes
+ * @st_other: defines the symbol visibility
+ * @st_shndx: the relevant section header table index
+ * @st_value: the value of the associated symbol
+ * @st_size: the size of associated symbol
  */
 typedef struct ElfN_Sym
 {
