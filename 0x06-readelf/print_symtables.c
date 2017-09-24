@@ -25,6 +25,11 @@ static char *get_symtype(unsigned char type)
 	}
 }
 
+/**
+ * get_symbind - retrieve a string representing the symbol's binding
+ * @bind: a numeric representation of the symbol's bind
+ * Return: a string representing the symbol's binding
+ */
 static char *get_symbind(unsigned char bind)
 {
 	static char buf[16];
