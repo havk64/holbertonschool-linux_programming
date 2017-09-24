@@ -77,12 +77,12 @@ print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
 	printf("\nSymbol table '%s' contains %hu entries:\n", name, size);
 	if (class == ELF32)
 	{
-		format = "    %2hu: %08lx %5lu %-7s %-6s %-8s %3s %s\n";
+		format = "%6hu: %08lx %5lu %-7s %-6s %-7s  %3s %s\n";
 		printf("   Num:    Value  Size Type    Bind   Vis      Ndx Name\n");
 	}
 	else
 	{
-		format = "    %2hu: %016lx %5lu %-7s %-6s %-8s %3s %s\n";
+		format = "%6hu: %016lx %5lu %-7s %-6s %-8s %3s %s\n";
 		printf("   Num:    Value          Size Type    Bind   Vis      Ndx Name\n");
 	}
 	for (i = 0; i < size; i++)
