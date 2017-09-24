@@ -1,5 +1,11 @@
 #include "readelf.h"
 
+/**
+ * main - entry point, task 3
+ * @argc: integer representing number of command line arguments
+ * @argv: the command line arguments vector
+ * Return: On success, EXIT_SUCCESS, On failure, EXIT_FAILURE
+ */
 int main(int argc, char *argv[])
 {
 	int fd;
