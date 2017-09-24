@@ -1,5 +1,10 @@
 #include "readelf.h"
 
+/**
+ * get_symtype - retrieve a string representing symbol's type
+ * @type: a numeric representation of the symbol's type
+ * Return: a string representing symbol's type
+ */
 static char *get_symtype(unsigned char type)
 {
 	static char buf[16];
