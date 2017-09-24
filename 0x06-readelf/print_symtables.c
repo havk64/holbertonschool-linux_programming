@@ -46,6 +46,11 @@ static char *get_symbind(unsigned char bind)
 	}
 }
 
+/**
+ * get_symvis - retrieve a string representation of the symbol's visibility
+ * @visibility: a numeric representation of the symbol's visibility
+ * Return: a string representation of symbol's visibility
+ */
 static char *get_symvis(unsigned char visibility)
 {
 	switch (visibility)
