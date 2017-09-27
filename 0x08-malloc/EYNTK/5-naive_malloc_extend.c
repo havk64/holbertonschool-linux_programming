@@ -7,35 +7,52 @@
 void *naive_malloc_extend(size_t size)
 {
 	static void *start_brk;
-	static char *ptr;
-	void *old_brk;
-	size_t *header, chunk, hsize;
+	static size_t counter;
+	char *ptr, *old_brk, *end_brk;
+	size_t i, *header, chunk, hsize, unused;
 	int pagesize;
 
-	if (start_brk == 0)
-	{
-		start_brk = sbrk(0);
-		if (start_brk == BRK_FAILED)
-			return (NULL);
-
-		ptr = (char *)start_brk;
-	}
-	hsize = sizeof(size_t);
-	chunk = size + hsize;
+	counter += 1;
 	pagesize = sysconf(_SC_PAGESIZE);
 	if (pagesize < 0)
 	{
 		perror("sysconf error");
 		return (NULL);
 	}
+	if (start_brk == 0)
+	{
+		start_brk = sbrk(pagesize);
+		if (start_brk == BRK_FAILED)
+			return (NULL);
 
-	if ((ptr + chunk) > (char *)sbrk(0))
+		unused = pagesize;
+		header = (size_t *)start_brk;
+		*header = unused;
+	}
+	/* end_brk = old_brk + pagesize; */
+	(void)(end_brk);
+	(void)(old_brk);
+	hsize = sizeof(size_t);
+	chunk = size + hsize;
+
+	ptr = (char *)start_brk;
+	for (i = 0; i < counter; i++)
+	{
+		header = (size_t *)ptr;
+		if (i == (counter - 1))
+		{
+			unused = *header;
+			*header = chunk;
+		}
+		ptr += *header;
+	}
+
+	if (unused > chunk)
 	{
 		old_brk = sbrk(pagesize);
-		printf("Old brk: %p\n", old_brk);
+		unused += pagesize;
 	}
 	header = (size_t *)ptr;
-	*header = chunk;
-	ptr += chunk;
+	*header = unused - chunk;
 	return ((void *)(ptr - size));
 }
