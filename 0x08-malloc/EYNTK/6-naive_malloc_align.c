@@ -46,7 +46,7 @@ void *naive_malloc_align(size_t size)
 		ptr += *header;
 	}
 
-	if (unused > chunk)
+	if (unused <= chunk)
 	{
 		old_brk = sbrk(PAGESIZE);
 		unused += PAGESIZE;
