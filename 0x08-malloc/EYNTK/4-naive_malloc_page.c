@@ -9,10 +9,9 @@ void *naive_malloc_page(size_t size)
 	static void *start_brk;
 	static char *ptr;
 	void *old_brk;
-	size_t *header, actual_size, chunk, hsize;
+	size_t *header, chunk, hsize;
 	int pagesize;
 
-	(void)(actual_size);
 	if (start_brk == 0)
 	{
 		start_brk = sbrk(0);
