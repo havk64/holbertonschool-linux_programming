@@ -3,16 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define BRK_FAILED ((void *)-1)
+#define PAGESIZE (1 << 12)
 
-void *bootstrap(size_t *unused, size_t *header, int pagesize)
+void *bootstrap(size_t *unused, size_t *header)
 {
 	void *brk;
 
-	brk = sbrk(pagesize);
+	brk = sbrk(PAGESIZE);
 	if (brk == BRK_FAILED)
 		return (NULL);
 
-	*unused = pagesize;
+	*unused = PAGESIZE;
 	header = (size_t *)brk;
 	*header = *unused;
 	return (brk);
@@ -24,16 +25,9 @@ void *naive_malloc_extend(size_t size)
 	static size_t counter;
 	char *ptr, *old_brk;
 	size_t i, *header, chunk, hsize, unused;
-	int pagesize;
 
 	counter += 1;
-	pagesize = sysconf(_SC_PAGESIZE);
-	if (pagesize < 0)
-	{
-		perror("sysconf error");
-		return (NULL);
-	}
-	start_brk = (start_brk == 0) ? bootstrap(&unused, header = NULL, pagesize) :
+	start_brk = (start_brk == 0) ? bootstrap(&unused, header = NULL) :
 		start_brk;
 	hsize = sizeof(size_t);
 	chunk = size + hsize;
@@ -52,8 +46,8 @@ void *naive_malloc_extend(size_t size)
 
 	if (unused > chunk)
 	{
-		old_brk = sbrk(pagesize);
-		unused += pagesize;
+		old_brk = sbrk(PAGESIZE);
+		unused += PAGESIZE;
 		(void)(old_brk);
 	}
 	header = (size_t *)ptr;
