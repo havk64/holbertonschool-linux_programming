@@ -7,9 +7,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static inline void errExit(void)
+static inline void errExit(const char *msg)
 {
-	perror("mmap failed");
+	perror(msg);
 	exit(EXIT_FAILURE);
 }
 
