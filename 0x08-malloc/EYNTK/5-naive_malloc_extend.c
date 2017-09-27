@@ -4,11 +4,25 @@
 #include <stdlib.h>
 #define BRK_FAILED ((void *)-1)
 
+void *bootstrap(size_t *unused, size_t *header, int pagesize)
+{
+	void *brk;
+
+	brk = sbrk(pagesize);
+	if (brk == BRK_FAILED)
+		return (NULL);
+
+	*unused = pagesize;
+	header = (size_t *)brk;
+	*header = *unused;
+	return (brk);
+}
+
 void *naive_malloc_extend(size_t size)
 {
 	static void *start_brk;
 	static size_t counter;
-	char *ptr, *old_brk, *end_brk;
+	char *ptr, *old_brk;
 	size_t i, *header, chunk, hsize, unused;
 	int pagesize;
 
@@ -19,19 +33,8 @@ void *naive_malloc_extend(size_t size)
 		perror("sysconf error");
 		return (NULL);
 	}
-	if (start_brk == 0)
-	{
-		start_brk = sbrk(pagesize);
-		if (start_brk == BRK_FAILED)
-			return (NULL);
-
-		unused = pagesize;
-		header = (size_t *)start_brk;
-		*header = unused;
-	}
-	/* end_brk = old_brk + pagesize; */
-	(void)(end_brk);
-	(void)(old_brk);
+	start_brk = (start_brk == 0) ? bootstrap(&unused, header = NULL, pagesize) :
+		start_brk;
 	hsize = sizeof(size_t);
 	chunk = size + hsize;
 
@@ -51,6 +54,7 @@ void *naive_malloc_extend(size_t size)
 	{
 		old_brk = sbrk(pagesize);
 		unused += pagesize;
+		(void)(old_brk);
 	}
 	header = (size_t *)ptr;
 	*header = unused - chunk;
