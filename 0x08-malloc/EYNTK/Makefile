@@ -8,8 +8,9 @@ T3	:= header_malloc
 T4	:= page_malloc
 T4a	:= test_malloc
 T5	:= extend_malloc
+T6	:= aligned_malloc
 
-all: $(T0) $(T1) $(T2) $(T2a) $(T3) $(T4) $(T4a) $(T5)
+all: $(T0) $(T1) $(T2) $(T2a) $(T3) $(T4) $(T4a) $(T5) $(T6)
 
 $(T0): 0-main.o
 	$(CC) $(CFLAGS) $^ -o $@
@@ -33,4 +34,7 @@ $(T4a): 4-main_beyond.o 4-naive_malloc_page.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(T5): 5-main.o 5-naive_malloc_extend.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+$(T6): 6-main.o 6-naive_malloc_align.o
 	$(CC) $(CFLAGS) $^ -o $@
