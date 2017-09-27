@@ -54,5 +54,5 @@ void *naive_malloc_align(size_t size)
 	}
 	header = (size_t *)ptr;
 	*header = unused - chunk;
-	return ((void *)(ptr - ALIGN(size)));
+	return ((void *)(ptr - (chunk - hsize)));
 }
