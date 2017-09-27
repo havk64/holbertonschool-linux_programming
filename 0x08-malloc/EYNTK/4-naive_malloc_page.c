@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define BRK_FAILED ((void *)-1)
 
 void *naive_malloc_page(size_t size)
 {
@@ -15,6 +16,9 @@ void *naive_malloc_page(size_t size)
 	if (start_brk == 0)
 	{
 		start_brk = sbrk(0);
+		if (start_brk == BRK_FAILED)
+			return (NULL);
+
 		ptr = (char *)start_brk;
 	}
 	hsize = sizeof(size_t);
