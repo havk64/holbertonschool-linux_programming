@@ -124,3 +124,21 @@ print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
 		       symstr + symbol->st_name);
 	}
 }
+
+/**
+ * #define ELF_ST_BIND(val)		(((unsigned int)(val)) >> 4)
+ * #define ELF_ST_TYPE(val)		((val) & 0xF)
+ * #define ELF_ST_INFO(bind,type)	(((bind) << 4) + ((type) & 0xF))
+ *
+ * printf(format, i, symbol->st_value, symbol->st_size,
+ * get_symtype(((symbol->st_info) & 0xf)),
+ * get_symbind((((unsigned char) (symbol->st_info)) >> 4)),
+ * get_symvis(symbol->st_other), get_symndx(symbol->st_shndx),
+ * symstr + symbol->st_name);
+ *
+ *  DT_VERNEEDNUM
+ *  DT_VERSYM
+ *  DT_VERSIONTAGIDX (DT_VERSYM)
+ *  #define DT_VERSIONTAGIDX(tag)	(DT_VERNEEDNUM - (tag))
+ * }
+ */
