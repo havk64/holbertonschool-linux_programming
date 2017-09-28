@@ -34,7 +34,8 @@ $(OBJDIR)%.o: $(SRC)%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(T0OBJS) $(T1OBJS) $(T2OBJS) $(T3OBJS)
+	$(RM) $(OBJDIR)*.o
+
 
 re:
 	clean all
