@@ -15,32 +15,32 @@ T1	:= 1-hreadelf
 T2	:= 2-hreadelf
 T3	:= 100-hreadelf
 
-.PHONY: all clean cleanall re
+.PHONY	: all clean cleanall re
 
-all: $(T0) $(T1) $(T2) $(T3)
+all	: $(T0) $(T1) $(T2) $(T3)
 
-$(T0): $(T0OBJS)
+$(T0)	: $(T0OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T1): $(T1OBJS)
+$(T1)	: $(T1OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T2): $(T2OBJS)
+$(T2)	: $(T2OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T3): $(T3OBJS)
+$(T3)	: $(T3OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJDIR)%.o: $(SRC)%.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-clean:
+clean	:
 	$(RM) $(OBJDIR)*.o
 
 cleanall: clean
 	$(RM) $(T0) $(T1) $(T2) $(T3)
 
-re:
+re	:
 	clean all
 
