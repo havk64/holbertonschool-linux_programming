@@ -15,6 +15,8 @@ T1	:= 1-hreadelf
 T2	:= 2-hreadelf
 T3	:= 100-hreadelf
 
+.PHONY: all clean cleanall re
+
 all: $(T0) $(T1) $(T2) $(T3)
 
 $(T0): $(T0OBJS)
@@ -41,3 +43,4 @@ cleanall: clean
 
 re:
 	clean all
+
