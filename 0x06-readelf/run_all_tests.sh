@@ -1,18 +1,18 @@
 #!/bin/bash
 # Compile and test the output of 0-hreadelf binary agains the output of readelf -h
 
-NETBSD32=test_files/netbsd32
-SOLARIS32=test_files/solaris32
-SORTIX32=test_files/sortix32
-SPARCBIGENDIAN32=test_files/sparcbigendian32
-UBUNTU64=test_files/ubuntu64
-FILE64=test_files/0-hreadelf
-OBJFILE=test_files/main_0.o
-JPGFILE=test_files/jpeg.mod
-PYTHONOBJ=test_files/python.obj
-SFTPSERVER=test_files/sftp-server
-LIBPERL=test_files/libperl.so.5.18
-VGPRELOAD=test_files/vgpreload_memcheck-x86-linux.so
+NETBSD32=test/netbsd32
+SOLARIS32=test/solaris32
+SORTIX32=test/sortix32
+SPARCBIGENDIAN32=test/sparcbigendian32
+UBUNTU64=test/ubuntu64
+FILE64=test/0-hreadelf
+OBJFILE=test/main_0.o
+JPGFILE=test/jpeg.mod
+PYTHONOBJ=test/python.obj
+SFTPSERVER=test/sftp-server
+LIBPERL=test/libperl.so.5.18
+VGPRELOAD=test/vgpreload_memcheck-x86-linux.so
 
 define(){
     IFS=$'\n' read -r -d '' "${1}" || true
