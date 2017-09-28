@@ -36,6 +36,8 @@ $(OBJDIR)%.o: $(SRC)%.c
 clean:
 	$(RM) $(OBJDIR)*.o
 
+cleanall: clean
+	$(RM) $(T0) $(T1) $(T2) $(T3)
 
 re:
 	clean all
