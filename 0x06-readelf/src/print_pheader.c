@@ -79,15 +79,15 @@ static char *get_pflags(uint32_t p_flags)
  * @file: a pointer to a file stream
  * Return: Always void.
  */
-static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, ElfClass class,
+static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, _Bool class,
 			   FILE *file)
 {
 	uint16_t i;
 	char *format, *interp;
 	uint16_t adwidth, fswidth;
 
-	adwidth = (class == ELF32) ? 8 : 16;
-	fswidth = (class == ELF32) ? 5 : 6;
+	adwidth = (class) ? 16 : 8;
+	fswidth = (class) ?  6 : 5;
 	format = "  %-*s 0x%06lx 0x%0*lx 0x%0*lx 0x%0*lx 0x%0*lx %3s %#lx\n";
 	for (i = 0; i < phnum; i++)
 	{
@@ -119,12 +119,12 @@ print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab,
 	      FILE *file)
 {
 	char *format;
-	ElfClass class;
+	_Bool class;
 	uint16_t adwidth, fswidth;
 
-	class = (get_class(ehdr->e_ident[EI_CLASS]));
-	adwidth = (class == ELF32) ? 10 : 18;
-	fswidth = (class == ELF32) ? 7 : 8;
+	class = IS_ELF64(ehdr);
+	adwidth = (class) ? 18 : 10;
+	fswidth = (class) ? 8 : 7;
 
 	printf("\nElf file type is %s\n", get_ftype(ehdr->e_type));
 	printf("Entry point 0x%lx\n", ehdr->e_entry);

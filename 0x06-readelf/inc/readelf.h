@@ -9,17 +9,6 @@
 #include <endian.h>
 
 /**
- * enum ElfClass - represent an Elf Class(32/64 bits)
- *
- * @ELF32: 32 bits class
- * @ELF64: 64 bits class
- */
-typedef enum ElfClass
-{
-	ELF32, ELF64
-} ElfClass;
-
-/**
  * struct elfn_ehdr - Custom internal struct to represent 32/64bits elf headers
  *
  * @e_ident: Elf identity
@@ -131,12 +120,13 @@ typedef struct ElfN_Sym
 #define GET_BYTE(field)	get_byte(field, sizeof(field))
 #define ELF_ST_TYPE(val)	((val) & 0xF)
 #define ELF_ST_BIND(val)	(((unsigned int)(val)) >> 4)
+#define IS_ELF64(e_header) ((e_header->e_ident[EI_CLASS]) == ELFCLASS64)
+#define IS_BIGENDIAN(e_header) ((e_header->e_ident[EI_DATA]) == ELFDATA2MSB)
 _Bool is_elf(unsigned char *magic);
 int get_stat(char *filename);
 FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd);
-ElfClass get_class(char c);
-void parse_32(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data);
-void parse_64(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data);
+void parse_32(ElfN_Ehdr *ehdr, FILE *file);
+void parse_64(ElfN_Ehdr *ehdr, FILE *file);
 void parse_section_32(ElfN_Ehdr *ehdr, ElfN_Shdr *shdr, FILE *file);
 void parse_section_64(ElfN_Ehdr *ehdr, ElfN_Shdr *shdr, FILE *file);
 void print_identity(unsigned char *header);
@@ -179,5 +169,5 @@ void
 copy_sym64(ElfN_Sym *symtab, uint16_t size, ElfN_Ehdr *ehdr, FILE *file);
 void
 print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
-	       ElfClass class);
+	       _Bool class);
 #endif /* READELF_H */

@@ -53,13 +53,3 @@ int get_stat(char *filename)
 	}
 	return (fd);
 }
-
-/**
- * get_class - check the class of a elf file
- * @c: the byte to be checked
- * Return: a ElfClass enum object
- */
-ElfClass get_class(char c)
-{
-	return ((c == ELFCLASS64) ? ELF64 : ELF32);
-}

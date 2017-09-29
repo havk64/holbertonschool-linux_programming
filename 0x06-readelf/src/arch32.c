@@ -7,13 +7,13 @@
  * @ei_data: a byte representing the endianess of the elf file
  * Return: Always void.
  */
-void parse_32(ElfN_Ehdr *ehdr, FILE *file, unsigned char ei_data)
+void parse_32(ElfN_Ehdr *ehdr, FILE *file)
 {
 	uint64_t (*get_byte)(uint64_t, int);
 	ssize_t n;
 	Elf32_Ehdr header;
 
-	get_byte = (ei_data == ELFDATA2MSB) ? get_byte_big_endian : get_byte_host;
+	get_byte = (IS_BIGENDIAN(ehdr)) ? get_byte_big_endian : get_byte_host;
 	n = fread(&header.e_type, sizeof(header) - EI_NIDENT, 1, file);
 	if (n != 1)
 		exit(EXIT_FAILURE);
@@ -48,8 +48,7 @@ void copy_sheader_32(ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, FILE *file)
 	uint16_t i;
 	ssize_t n;
 
-	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
-		get_byte_host;
+	get_byte = (IS_BIGENDIAN(ehdr)) ? get_byte_big_endian : get_byte_host;
 	source = malloc(ehdr->e_shentsize * ehdr->e_shnum);
 	if (source == NULL)
 		exit(EXIT_FAILURE);
@@ -90,8 +89,7 @@ void copy_pheader_32(ElfN_Phdr *phdr, ElfN_Ehdr *ehdr, FILE *file)
 
 	phnum = ehdr->e_phnum;
 	phsize = ehdr->e_phentsize;
-	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
-		get_byte_host;
+	get_byte = (IS_BIGENDIAN(ehdr)) ? get_byte_big_endian : get_byte_host;
 
 	source = malloc(phsize * phnum);
 	if (source == NULL)
@@ -123,8 +121,7 @@ copy_sym32(ElfN_Sym *symtab, uint16_t size, ElfN_Ehdr *ehdr, FILE *file)
 	uint64_t (*get_byte)(uint64_t, int);
 	uint16_t i;
 
-	get_byte = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB) ? get_byte_big_endian :
-		get_byte_host;
+	get_byte = (IS_BIGENDIAN(ehdr)) ? get_byte_big_endian : get_byte_host;
 
 	source = malloc(size * sizeof(Elf32_Sym));
 	if (source == NULL)

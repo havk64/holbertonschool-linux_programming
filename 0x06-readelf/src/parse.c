@@ -10,9 +10,8 @@
 FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 {
 	FILE *stream;
-	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*, unsigned char);
+	void (*fill_Ehdr)(ElfN_Ehdr*, FILE*);
 	ssize_t n;
-	ElfClass elfclass;
 
 	stream = fdopen(fd, "rb");
 	if (stream == NULL)
@@ -29,9 +28,8 @@ FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 		exit(EXIT_FAILURE);
 	}
 
-	elfclass = get_class(ehdr->e_ident[EI_CLASS]);
-	fill_Ehdr = (elfclass == ELF32) ? &parse_32 : &parse_64;
-	(*fill_Ehdr)(ehdr, stream, ehdr->e_ident[EI_DATA]);
+	fill_Ehdr = (IS_ELF64(ehdr)) ? &parse_64 : &parse_32;
+	(*fill_Ehdr)(ehdr, stream);
 	return (stream);
 }
 
@@ -44,11 +42,9 @@ FILE *parse_elf_header(ElfN_Ehdr *ehdr, int fd)
 ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 {
 	ssize_t n;
-	ElfClass ei_class;
 	ElfN_Shdr *shdr;
 	void (*copy_Shdr)(ElfN_Shdr*, ElfN_Ehdr*, FILE *);
 
-	ei_class	= get_class(ehdr->e_ident[EI_CLASS]);
 	shdr = malloc(sizeof(ElfN_Shdr) * ehdr->e_shnum);
 	if (shdr == NULL)
 		exit(EXIT_FAILURE);
@@ -60,7 +56,7 @@ ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 		exit(EXIT_FAILURE);
 	}
 
-	copy_Shdr = (ei_class == ELF32) ? &copy_sheader_32 : &copy_sheader_64;
+	copy_Shdr = (IS_ELF64(ehdr)) ? &copy_sheader_64 : &copy_sheader_32;
 	(*copy_Shdr)(shdr, ehdr, file);
 	return (shdr);
 }
@@ -74,11 +70,9 @@ ElfN_Shdr *parse_sheaders(ElfN_Ehdr *ehdr, FILE *file)
 ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file)
 {
 	ssize_t n;
-	ElfClass ei_class;
 	ElfN_Phdr *phdr;
 	void (*copy_Phdr)(ElfN_Phdr*, ElfN_Ehdr*, FILE*);
 
-	ei_class = get_class(ehdr->e_ident[EI_CLASS]);
 	phdr = malloc(sizeof(ElfN_Phdr) * ehdr->e_phnum);
 	if (phdr == NULL)
 		exit(EXIT_FAILURE);
@@ -90,7 +84,7 @@ ElfN_Phdr *parse_pheader(ElfN_Ehdr *ehdr, FILE *file)
 		exit(EXIT_FAILURE);
 	}
 
-	copy_Phdr = (ei_class == ELF32) ? &copy_pheader_32 : &copy_pheader_64;
+	copy_Phdr = (IS_ELF64(ehdr)) ? &copy_pheader_64 : &copy_pheader_32;
 	(*copy_Phdr)(phdr, ehdr, file);
 	return (phdr);
 }
@@ -100,11 +94,9 @@ ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file)
 	ssize_t n;
 	ElfN_Sym *symtab;
 	void (*copy_Symhdr)(ElfN_Sym*, uint16_t, ElfN_Ehdr*, FILE*);
-	ElfClass ei_class;
 	uint16_t size;
 
 	size = symhdr.sh_size / symhdr.sh_entsize;
-	ei_class = get_class(ehdr->e_ident[EI_CLASS]);
 	symtab = malloc(size * sizeof(ElfN_Sym));
 	if (symtab == NULL)
 		exit(EXIT_FAILURE);
@@ -116,7 +108,7 @@ ElfN_Sym *parse_symheader(ElfN_Ehdr *ehdr, ElfN_Shdr symhdr, FILE *file)
 		exit(EXIT_FAILURE);
 	}
 
-	copy_Symhdr = (ei_class == ELF32) ? &copy_sym32 : &copy_sym64;
+	copy_Symhdr = (IS_ELF64(ehdr)) ? &copy_sym64 : &copy_sym32;
 	(*copy_Symhdr)(symtab, size, ehdr, file);
 	return (symtab);
 }

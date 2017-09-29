@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 			symtab = parse_symheader(&ehdr, *section, stream);
 			symstr = get_strtab(stream, shdr[section->sh_link]);
 			print_symtable(symtab, strtab + section->sh_name, size, symstr,
-				       get_class(ehdr.e_ident[EI_CLASS]));
+				       ehdr.e_ident[EI_CLASS] == ELFCLASS64);
 			free(symstr);
 			free(symtab);
 		}
