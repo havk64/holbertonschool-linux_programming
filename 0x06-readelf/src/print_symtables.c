@@ -97,14 +97,14 @@ static char *get_symndx(uint16_t index)
  */
 void
 print_symtable(ElfN_Sym *symtab, char *name, uint16_t size, char *symstr,
-	       _Bool class)
+	       _Bool is_elf64)
 {
 	uint16_t i;
 	ElfN_Sym *symbol;
 	char *format;
 
 	printf("\nSymbol table '%s' contains %hu entries:\n", name, size);
-	if (class)
+	if (is_elf64)
 	{
 		format = "%6hu: %016lx %5lu %-7s %-6s %-8s %3s %s\n";
 		printf("   Num:    Value          Size Type    Bind   Vis      Ndx Name\n");

@@ -79,15 +79,15 @@ static char *get_pflags(uint32_t p_flags)
  * @file: a pointer to a file stream
  * Return: Always void.
  */
-static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, _Bool class,
+static void print_middleph(ElfN_Phdr *phdr, uint16_t phnum, _Bool is_elf64,
 			   FILE *file)
 {
 	uint16_t i;
 	char *format, *interp;
 	uint16_t adwidth, fswidth;
 
-	adwidth = (class) ? 16 : 8;
-	fswidth = (class) ?  6 : 5;
+	adwidth = (is_elf64) ? 16 : 8;
+	fswidth = (is_elf64) ?  6 : 5;
 	format = "  %-*s 0x%06lx 0x%0*lx 0x%0*lx 0x%0*lx 0x%0*lx %3s %#lx\n";
 	for (i = 0; i < phnum; i++)
 	{
@@ -119,12 +119,12 @@ print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab,
 	      FILE *file)
 {
 	char *format;
-	_Bool class;
+	_Bool is_elf64;
 	uint16_t adwidth, fswidth;
 
-	class = IS_ELF64(ehdr);
-	adwidth = (class) ? 18 : 10;
-	fswidth = (class) ? 8 : 7;
+	is_elf64 = IS_ELF64(ehdr);
+	adwidth = (is_elf64) ? 18 : 10;
+	fswidth = (is_elf64) ? 8 : 7;
 
 	printf("\nElf file type is %s\n", get_ftype(ehdr->e_type));
 	printf("Entry point 0x%lx\n", ehdr->e_entry);
@@ -134,7 +134,7 @@ print_pheader(ElfN_Phdr *phdr, ElfN_Shdr *shdr, ElfN_Ehdr *ehdr, char *strtab,
 	format = "  %-14s %-8s %-*s %-*s %-*s %-*s %-3s %s\n";
 	printf(format, "Type", "Offset", adwidth, "VirtAddr", adwidth, "PhysAddr",
 	       fswidth, "FileSiz", fswidth, "MemSiz", "Flg", "Align");
-	print_middleph(phdr, ehdr->e_phnum, class, file);
+	print_middleph(phdr, ehdr->e_phnum, is_elf64, file);
 	print_segment_mapping(phdr, shdr, ehdr, strtab);
 	free(strtab);
 	free(shdr);
