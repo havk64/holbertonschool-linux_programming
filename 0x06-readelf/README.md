@@ -12,7 +12,7 @@ It's output is exactly the same as the output of the command `$ readelf -W -h <e
 The [`Makefile`](Makefile) compile and creates this executable as follows:
 
 ```
-$ make 1-hreadelf
+$ make 0-hreadelf
 
 $ ./0-hreadelf test_files/netbsd32
 
