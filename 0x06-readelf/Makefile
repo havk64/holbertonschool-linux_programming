@@ -15,7 +15,7 @@ T1	:= 1-hreadelf
 T2	:= 2-hreadelf
 T3	:= 100-hreadelf
 
-.PHONY	: all clean cleanall re
+.PHONY	: all clean cleanall re mkobjdir
 
 all	: $(T0) $(T1) $(T2) $(T3)
 
@@ -31,9 +31,11 @@ $(T2)	: $(T2OBJS)
 $(T3)	: $(T3OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(OBJDIR)%.o: $(SRC)%.c
-	@mkdir -p $(@D)
+$(OBJDIR)%.o: $(SRC)%.c | mkobjdir
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+mkobjdir:
+	mkdir -p $(OBJDIR)
 
 clean	:
 	$(RM) $(OBJDIR)*.o
@@ -43,4 +45,3 @@ cleanall: clean
 
 re	:
 	clean all
-
