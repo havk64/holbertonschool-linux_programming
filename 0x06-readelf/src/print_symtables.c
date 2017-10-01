@@ -92,7 +92,7 @@ static char *get_symndx(uint16_t index)
  * @name: a pointer to a string with the section name
  * @size: the number of entries in the symbol table
  * @symstr: a pointer to a string with a string table section
- * @class: a enum representing the class of the elf file (32/64 bits)
+ * @is_elf64: a _Bool representing the class of the elf file (32/64 bits)
  * Return: Always void.
  */
 void

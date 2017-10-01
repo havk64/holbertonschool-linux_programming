@@ -75,7 +75,7 @@ static char *get_pflags(uint32_t p_flags)
  * print_middleph - print the segment header
  * @phdr: a pointer to an array of program headers structs
  * @phnum: a e_phnum member of an elf header
- * @class: a ElfClass enum
+ * @is_elf64: a _Bool representing the class of the file (32/64 bits)
  * @file: a pointer to a file stream
  * Return: Always void.
  */
