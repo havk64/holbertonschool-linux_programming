@@ -4,7 +4,6 @@
  * parse_32 - extracts and process a elf header
  * @ehdr: a pointer to an Elf header struct
  * @file: a pointer to a file stream
- * @ei_data: a byte representing the endianess of the elf file
  * Return: Always void.
  */
 void parse_32(ElfN_Ehdr *ehdr, FILE *file)
