@@ -9,18 +9,14 @@ asm_strlen:
 
 	push rdx
 
-	sub rsp, 0x8
-	mov qword [rsp], -1
-	mov dword edx, -1
+	mov qword rdx, -1
 
 loop:
 	inc edx
-	inc qword [rsp]
-	cmp byte [edi + edx], 0x0
+	cmp byte [rdi + rdx], 0x0
 	jne loop
-	mov qword rax, [rsp]
+	mov rax, rdx
 
-	add rsp, 0x8
 	pop rdx
 
 	mov rsp, rbp
