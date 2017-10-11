@@ -21,13 +21,13 @@ print_alphabet:
 	mov rsi, rsp		; The address to read from
 	mov rdx, 1		; Size to be writed, one byte at a time
 
-	mov byte [rsp], 61h
+	mov byte [rsp], 0x61
 
 loop:				; Loop instructions
 	syscall
 	inc byte [rsp]
-	cmp byte [rsp], 7ah
-	jle loop
+	cmp byte [rsp], 0x7a
+	jl loop
 	;; End of the loop
 
 	add rsp, 1		; Free the space used by our variable
