@@ -4,22 +4,23 @@ BITS 64
 	segment .text
 
 asm_strlen:
-	push rbp
+	push rbp		; Function prologue
 	mov rbp, rsp
 
-	push rdx
+	push rdx		; Save the register to be used before
 
-	mov qword rdx, -1
+	mov qword rdx, -1	; Initialize the register counter
 
 loop:
 	inc edx
 	cmp byte [rdi + rdx], 0x0
-	jne loop
-	mov rax, rdx
+	jne loop		; End of the loop
 
-	pop rdx
+	mov rax, rdx		; Copy the value of the counter to be returned
 
-	mov rsp, rbp
+	pop rdx			; Restore rdx
+
+	mov rsp, rbp		; Function epilogue
 	pop rbp
 	ret
 
