@@ -1,5 +1,5 @@
 CC	:= gcc
-CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
+CFLAGS	:= -g -O0 -Wall -Wextra -Werror -pedantic
 Ex0	:= add_me
 Ex1	:= swap
 Ex2	:= alphabet
