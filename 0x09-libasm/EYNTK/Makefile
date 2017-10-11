@@ -24,3 +24,7 @@ swap.o: swap.asm
 print_alphabet.o: print_alphabet.asm
 	nasm -f elf64 $<
 
+clean:
+	$(RM) *.o
+
+re: clean all
