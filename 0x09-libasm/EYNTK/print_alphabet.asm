@@ -16,10 +16,10 @@ print_alphabet:
 	sub rsp, 1		; Make room to our char variable (one byte)
 
 	;; Prepare the system call
-	mov rax, 1		; Number of write system call
-	mov rdi, 1		; Print to the STDOUT
+	mov eax, 1		; Number of write system call
+	mov edi, 1		; Print to the STDOUT
 	mov rsi, rsp		; The address to read from
-	mov rdx, 1		; Size to be writed, one byte at a time
+	mov edx, 1		; Size to be writed, one byte at a time
 
 	mov byte [rsp], 0x61
 
@@ -27,7 +27,7 @@ loop:				; Loop instructions
 	syscall
 	inc byte [rsp]
 	cmp byte [rsp], 0x7a
-	jl loop
+	jle loop
 	;; End of the loop
 
 	add rsp, 1		; Free the space used by our variable
