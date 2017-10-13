@@ -3,6 +3,8 @@ CFLAGS	:= -g -O0 -Wall -Wextra -Werror -pedantic
 T0	:= 0-strlen
 T1	:= 1-strcmp
 
+.PHONY	: all clean re
+
 all: $(T0) $(T1)
 
 $(T0): 0-main.o 0-strlen.o
