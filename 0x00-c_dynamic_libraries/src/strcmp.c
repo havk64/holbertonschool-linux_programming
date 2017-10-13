@@ -1,6 +1,15 @@
 #include "holberton.h"
 
-int _strcmp(__attribute__((unused)) char *s1, __attribute__((unused)) char *s2)
+int _strcmp(char *s1,  char *s2)
 {
-	return (0);
+	int n, i = 0;
+
+	while (s1[i] != 0 || s2[i] != 0)
+	{
+		n = s1[i] - s2[i];
+		if (n != 0)
+			break;
+		i++;
+	}
+	return (n);
 }
