@@ -19,15 +19,15 @@ print_alphabet:
 	mov eax, 1		; Number of write system call
 	mov edi, 1		; Print to the STDOUT
 	mov rsi, rsp		; The address to read from
-	mov edx, 1		; Size to be writed, one byte at a time
+	mov edx, 1		; Size to be written, one byte at a time
 
-	mov byte [rsp], 0x61
+	mov byte [rsp], 0x61	; Write the letter 'a' (97) to our char variable
 
 loop:				; Loop instructions
 	syscall
-	inc byte [rsp]
-	cmp byte [rsp], 0x7a
-	jle loop
+	inc byte [rsp]		; Increment by one
+	cmp byte [rsp], 0x7a	; Compare with the target end
+	jle loop		; While not in the target loop
 	;; End of the loop
 
 	add rsp, 1		; Free the space used by our variable
