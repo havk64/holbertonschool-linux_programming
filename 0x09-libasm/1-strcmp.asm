@@ -40,6 +40,6 @@ end:
 	add rsp, (2 * 8)
 	pop rdx
 
-	pop rbp
 	mov rsp, rbp
+	pop rbp
 	ret
