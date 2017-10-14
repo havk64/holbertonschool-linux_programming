@@ -20,14 +20,15 @@ start:
 	mov rax, QWORD [rbp - 0x10]
 	movzx eax, BYTE [rax]
 	test al, al
-	je end
+	je subtract
 	mov rax, QWORD [rbp - 0x10]
 	movzx edx, BYTE [rax]
 	mov rax, QWORD [rsp]
 	movzx eax, BYTE [rax]
 	cmp dl, al
 	je loop
-end:
+
+subtract:
 	mov rax, QWORD [rbp - 0x10]
 	movzx eax, BYTE [rax]
 	movzx edx, al
