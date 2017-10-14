@@ -11,12 +11,12 @@ asm_strcmp:
 
 	mov QWORD [rbp - 0x10], rdi
 	mov QWORD [rsp], rsi
-	jmp first
+	jmp start
 
 loop:
 	add QWORD [rbp - 0x10], 1
 	add QWORD [rsp], 1
-first:
+start:
 	mov rax, QWORD [rbp - 0x10]
 	movzx eax, BYTE [rax]
 	test al, al
