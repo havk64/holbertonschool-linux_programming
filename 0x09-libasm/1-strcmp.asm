@@ -36,11 +36,23 @@ subtract:
 	movzx eax, BYTE [rax]
 	movzx eax, al
 	sub edx, eax
-	mov eax, edx
 
+	cmp edx, 0
+	jl less_than
+	jg greater_than
+
+end:
 	add rsp, (2 * 8)
 	pop rdx
 
 	mov rsp, rbp
 	pop rbp
 	ret
+
+less_than:
+	mov eax, -1
+	jmp end
+
+greater_than:
+	mov eax, 1
+	jmp end
