@@ -5,35 +5,27 @@ BITS 64
 asm_strcmp:
 	push rbp
 	mov rbp, rsp
-
 	push rdx
-	sub rsp, (2 * 8)
+	push rcx
 
-	mov QWORD [rbp - 0x10], rdi
-	mov QWORD [rsp], rsi
+	mov rcx, 0
 	jmp start
 
 loop:
-	inc QWORD [rbp - 0x10]
-	inc QWORD [rsp]
+	inc rcx
 start:
-	mov rax, QWORD [rbp - 0x10]
-	movzx eax, BYTE [rax]
+	movzx eax, BYTE [rdi + rcx]
 	test al, al
 	je subtract
-	mov rax, QWORD [rbp - 0x10]
-	movzx edx, BYTE [rax]
-	mov rax, QWORD [rsp]
-	movzx eax, BYTE [rax]
+	movzx edx, BYTE [rdi + rcx]
+	movzx eax, BYTE [rsi + rcx]
 	cmp dl, al
 	je loop
 
 subtract:
-	mov rax, QWORD [rbp - 0x10]
-	movzx eax, BYTE [rax]
+	movzx eax, BYTE [rdi + rcx]
 	movzx edx, al
-	mov rax, QWORD [rsp]
-	movzx eax, BYTE [rax]
+	movzx eax, BYTE [rsi + rcx]
 	movzx eax, al
 	sub edx, eax
 
@@ -42,9 +34,8 @@ subtract:
 	jg greater_than
 
 end:
-	add rsp, (2 * 8)
+	pop rcx
 	pop rdx
-
 	mov rsp, rbp
 	pop rbp
 	ret
