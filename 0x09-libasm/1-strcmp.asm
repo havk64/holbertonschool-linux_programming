@@ -27,9 +27,7 @@ subtract:
 	movzx edx, al
 	movzx eax, BYTE [rsi + rcx]
 	movzx eax, al
-	sub edx, eax
-
-	cmp edx, 0
+	cmp edx, eax
 	jl less_than
 	jg greater_than
 
