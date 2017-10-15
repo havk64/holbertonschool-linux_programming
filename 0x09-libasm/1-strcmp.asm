@@ -14,8 +14,8 @@ asm_strcmp:
 	jmp start
 
 loop:
-	add QWORD [rbp - 0x10], 1
-	add QWORD [rsp], 1
+	inc QWORD [rbp - 0x10]
+	inc QWORD [rsp]
 start:
 	mov rax, QWORD [rbp - 0x10]
 	movzx eax, BYTE [rax]
