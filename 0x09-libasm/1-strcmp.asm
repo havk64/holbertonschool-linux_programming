@@ -20,7 +20,7 @@ start:
 	movzx edx, BYTE [rdi + rcx]
 	movzx eax, BYTE [rsi + rcx]
 	cmp dl, al
-	je loop
+	jz loop
 
 subtract:
 	movzx eax, BYTE [rdi + rcx]
