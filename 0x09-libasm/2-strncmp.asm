@@ -17,8 +17,8 @@ asm_strncmp:
 	jmp start
 
 loop:
-	add QWORD [rbp - 0x18], 1
-	add QWORD [rsp], 1
+	inc QWORD [rbp - 0x18]
+	inc QWORD [rsp]
 	inc ecx
 start:
 	mov rax, QWORD [rbp - 0x18]
