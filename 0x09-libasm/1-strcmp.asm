@@ -16,7 +16,7 @@ loop:
 start:
 	movzx eax, BYTE [rdi + rcx]
 	test al, al
-	je subtract
+	jz subtract
 	movzx edx, BYTE [rdi + rcx]
 	movzx eax, BYTE [rsi + rcx]
 	cmp dl, al
