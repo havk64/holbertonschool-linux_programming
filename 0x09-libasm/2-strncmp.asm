@@ -9,48 +9,35 @@ asm_strncmp:
 	push rbx
 	push rcx
 
-	sub rsp, (2 * 8)
-
-	mov QWORD [rbp - 0x18], rdi
-	mov QWORD [rsp], rsi
 	mov ecx, 0
 	jmp start
 
 loop:
-	inc QWORD [rbp - 0x18]
-	inc QWORD [rsp]
 	inc ecx
 start:
-	mov rax, QWORD [rbp - 0x18]
-	movzx eax, BYTE [rax]
+	movzx eax, BYTE [rdi + rcx]
 	test al, al
 	je subtract
 	mov eax, 0
 	cmp edx, ecx
 	je end
-	mov rax, QWORD [rbp - 0x18]
-	movzx ebx, BYTE [rax]
-	mov rax, QWORD [rsp]
-	movzx eax, BYTE [rax]
+	movzx ebx, BYTE [rdi + rcx]
+	movzx eax, BYTE [rsi + rcx]
 	cmp bl, al
 	je loop
 
 subtract:
-	mov rax, QWORD [rbp - 0x18]
-	movzx eax, BYTE [rax]
-	movzx ecx, al
-	mov rax, QWORD [rsp]
-	movzx eax, BYTE [rax]
+	movzx eax, BYTE [rdi + rcx]
+	movzx ebx, BYTE [rsi + rcx]
 	movzx eax, al
-	sub ecx, eax
+	sub al, bl
 
-	cmp ecx, 0
+	cmp al, 0
 	je is_zero
 	jl less_than
 	jg greater_than
 
 end:
-	add rsp, (2 * 8)
 	pop rcx
 	pop rbx
 	mov rsp, rbp
