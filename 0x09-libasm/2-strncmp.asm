@@ -17,54 +17,53 @@ CPU X64
 	segment .text
 
 asm_strncmp:
-	push rbp
+	push rbp		; Routine preamble
 	mov rbp, rsp
-	push rbx
+	push rbx		; Save registers to be used
 	push rcx
 
-	mov ecx, 0
-	jmp start
+	mov ecx, 0		; Start a counter
+	jmp start		; Skip the first counter increment
 
 loop:
-	inc ecx
-start:
-	movzx eax, BYTE [rdi + rcx]
-	test al, al
-	je subtract
-	mov eax, 0
-	cmp edx, ecx
-	je end
-	movzx ebx, BYTE [rdi + rcx]
-	movzx eax, BYTE [rsi + rcx]
-	cmp bl, al
+	inc ecx			; Increment the counter
+start:	movzx eax, BYTE [rdi + rcx] ; Test if s1 char is NULL
+	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
+	je break		    ; If NULL (zero) break
+	mov eax, 0		    ; Reset the return value
+	cmp edx, ecx		    ; Compare 'n' to the counter
+	je end			    ; If equal go to the end
+	movzx ebx, BYTE [rdi + rcx] ; Char from first argument  (s1)
+	movzx eax, BYTE [rsi + rcx] ; Char from second argument (s2)
+	cmp bl, al		    ; If chars are equal keep looping
 	je loop
 
-subtract:
-	movzx eax, BYTE [rdi + rcx]
+break:
+	movzx eax, BYTE [rdi + rcx] ; Check the difference between chars
 	movzx ebx, BYTE [rsi + rcx]
 	movzx eax, al
 	sub al, bl
 
-	cmp al, 0
+	cmp al, 0		; Act accordingly (jump to appropriate subroutine)
 	je is_zero
 	jl less_than
 	jg greater_than
 
 end:
-	pop rcx
+	pop rcx			; Restore registers used
 	pop rbx
-	mov rsp, rbp
+	mov rsp, rbp		; Routine epilogue
 	pop rbp
 	ret
 
 less_than:
-	mov eax, -1
+	mov eax, -1		; If first less than second return -1
 	jmp end
 
 greater_than:
-	mov eax, 1
+	mov eax, 1		; If first greater return 1
 	jmp end
 
 is_zero:
-	mov eax, 0
+	mov eax, 0		; If equal return zero
 	jmp end
