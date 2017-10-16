@@ -29,14 +29,14 @@ loop:
 	inc ecx			; Increment the counter
 start:	movzx eax, BYTE [rdi + rcx] ; Test if s1 char is NULL
 	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
-	je break		    ; If NULL (zero) break
+	jz break		    ; If NULL (zero) break
 	mov eax, 0		    ; Reset the return value
 	cmp edx, ecx		    ; Compare 'n' to the counter
-	je end			    ; If equal go to the end
+	jz end			    ; If equal go to the end
 	movzx ebx, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx eax, BYTE [rsi + rcx] ; Char from second argument (s2)
 	cmp bl, al		    ; If chars are equal keep looping
-	je loop
+	jz loop
 
 break:
 	movzx eax, BYTE [rdi + rcx] ; Check the difference between chars
@@ -45,7 +45,7 @@ break:
 	sub al, bl
 
 	cmp al, 0		; Act accordingly (jump to appropriate subroutine)
-	je is_zero
+	jz is_zero
 	jl less_than
 	jg greater_than
 
