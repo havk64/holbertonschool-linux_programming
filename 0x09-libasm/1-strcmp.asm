@@ -21,7 +21,7 @@ asm_strcmp:
 	push rcx
 
 	mov rcx, 0		; Start a counter
-	jmp start		; Skip the first increment
+	jmp start		; Skip the first counter increment
 
 loop:
 	inc rcx			; Increment the counter
