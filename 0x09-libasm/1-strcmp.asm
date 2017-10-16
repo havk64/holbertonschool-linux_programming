@@ -40,8 +40,9 @@ end:
 	ret
 
 is_null:
-	movzx edx, BYTE [rdi + rcx]
-	movzx eax, BYTE [rsi + rcx]
+	movzx eax, BYTE [rdi + rcx]
+	movzx edx, BYTE [rsi + rcx]
 	sub al, dl
+	cmp al, 0
 	jmp return
 
