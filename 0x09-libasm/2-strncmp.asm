@@ -1,5 +1,18 @@
 BITS 64
 CPU X64
+	;;
+	;; strncmp clone - return the difference between two strings
+	;;
+	;; Prototype: int asm_strncmp(const char *s1, const char *s2, size_t n);
+	;; @s1: Pointer to the first string
+	;; @s2: Pointer to the second string
+	;; @n: the only first bytes to be compared
+	;; Return: an integer that less than, equal to, or greater than zero if s1  is
+	;; found, respectively, to be less than, to match, or  be greater than s2.
+	;;
+	;; Implementation using just registers instead of variables on stack (memory)
+	;;
+
 	global asm_strncmp
 	segment .text
 
