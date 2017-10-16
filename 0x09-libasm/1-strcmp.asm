@@ -1,4 +1,16 @@
 BITS 64
+	;;
+	;; strcmp clone - return the difference between two strings
+	;;
+	;; Prototype: int asm_strcmp(const char *s1, const char *s2);
+	;; @s1: Pointer to the first string
+	;; @s2: Pointer to the second string
+	;; Return: an integer that less than, equal to, or greater than zero if s1  is
+	;; found, respectively, to be less than, to match, or  be greater than s2.
+	;;
+	;; Implementation using just registers instead of variables on stack (memory)
+	;;
+
 	global asm_strcmp
 
 	segment .text
