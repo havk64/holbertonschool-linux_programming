@@ -14,6 +14,7 @@ CPU X64
 	;;
 
 	global asm_strncmp
+
 	segment .text
 
 asm_strncmp:
@@ -21,33 +22,23 @@ asm_strncmp:
 	mov rbp, rsp
 	push rbx		; Save registers to be used
 	push rcx
-
 	mov ecx, 0		; Start a counter
-	jmp start		; Skip the first counter increment
 
 loop:
-	inc ecx			; Increment the counter
-start:	movzx eax, BYTE [rdi + rcx] ; Test if s1 char is NULL
-	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
-	jz break		    ; If NULL (zero) break
-	mov eax, 0		    ; Reset the return value
 	cmp edx, ecx		    ; Compare 'n' to the counter
-	jz end			    ; If equal go to the end
+	jz is_equal		    ; If equal go to the end
 	movzx ebx, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx eax, BYTE [rsi + rcx] ; Char from second argument (s2)
 	cmp bl, al		    ; If chars are equal keep looping
-	jz loop
-
-break:
-	movzx eax, BYTE [rdi + rcx] ; Check the difference between chars
-	movzx ebx, BYTE [rsi + rcx]
-	movzx eax, al
-	sub al, bl
-
-	cmp al, 0		; Act accordingly (jump to appropriate subroutine)
-	jz is_zero
 	jl less_than
 	jg greater_than
+	inc ecx			    ; Increment the counter
+	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
+	jz is_equal		    ; If NULL (zero) break
+	jmp loop
+
+is_equal:
+	mov eax, 0		; If equal return zero
 
 end:
 	pop rcx			; Restore registers used
@@ -64,6 +55,3 @@ greater_than:
 	mov eax, 1		; If first greater return 1
 	jmp end
 
-is_zero:
-	mov eax, 0		; If equal return zero
-	jmp end
