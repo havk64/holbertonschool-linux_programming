@@ -14,6 +14,7 @@ BITS 64
 	global asm_strcmp
 
 	segment .text
+
 asm_strcmp:
 	push rbp		; Routine preamble
 	mov rbp, rsp
