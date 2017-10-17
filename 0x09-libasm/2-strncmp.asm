@@ -26,7 +26,7 @@ asm_strncmp:
 
 loop:
 	cmp edx, ecx		    ; Compare 'n' to the counter
-	jz is_equal		    ; If equal, break
+	jz equal		    ; If equal, break
 	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
 	cmp al, bl		    ; Compare characters
@@ -37,7 +37,7 @@ loop:
 	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
 	jnz loop		    ; If not NULL (zero) loop, otherwiser break
 
-is_equal:
+equal:
 	mov eax, 0		; If equal return zero
 
 end:
