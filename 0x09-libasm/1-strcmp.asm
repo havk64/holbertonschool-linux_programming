@@ -32,19 +32,7 @@ loop:
 	inc rcx			; Otherwise increment the counter
 	;; Test if the s1 character is NULL (end of string)
 	test al, al		; 'test' (bitwise &) is lighter than 'cmp'
-	jz is_equal		; If end of string (zero) exit from loop
-	jmp loop		; Otherwise keep looping
-
-is_equal:
-	mov eax, 0
-	jmp end
-
-less_than:
-	mov eax, -1		; If first less than second return -1
-	jmp end			; and Return
-
-greater_than:
-	mov eax, 1		; If first is greater return 1 and return
+	jnz loop		; If not zero loop, otherwise continue (end)
 
 end:
 	pop rcx			; Restore used registers
@@ -52,5 +40,14 @@ end:
 	mov rsp, rbp		; Routine epilogue
 	pop rbp
 	ret
+
+less_than:
+	mov eax, -1		; If first less than second return -1
+	jmp end			; and Return
+
+greater_than:
+	mov eax, 1		; If first is greater return 1 and return
+	jmp end
+
 
 
