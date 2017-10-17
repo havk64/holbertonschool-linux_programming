@@ -27,9 +27,9 @@ asm_strncmp:
 loop:
 	cmp edx, ecx		    ; Compare 'n' to the counter
 	jz is_equal		    ; If equal go to the end
-	movzx ebx, BYTE [rdi + rcx] ; Char from first argument  (s1)
-	movzx eax, BYTE [rsi + rcx] ; Char from second argument (s2)
-	cmp bl, al		    ; If chars are equal keep looping
+	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
+	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
+	cmp al, bl		    ; If chars are equal keep looping
 	jl less_than
 	jg greater_than
 	inc ecx			    ; Increment the counter
