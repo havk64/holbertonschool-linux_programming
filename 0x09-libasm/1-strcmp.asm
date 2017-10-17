@@ -18,15 +18,15 @@ BITS 64
 asm_strcmp:
 	push rbp		; Routine preamble
 	mov rbp, rsp
-	push rdx		; Save registers to be used
+	push rbx		; Save registers to be used
 	push rcx
 	mov rcx, 0		; Start a counter
 
 loop:
 
-	movzx edx, BYTE [rdi + rcx] ; Char from first argument  (s1)
+	movzx ebx, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx eax, BYTE [rsi + rcx] ; Char from second argument (s2)
-	cmp dl, al		    ; Compare values
+	cmp bl, al		    ; Compare values
 	jl less_than		; If first is less than second skip
 	jg greater_than		; If greater skip
 	inc rcx			; Otherwise increment the counter
@@ -36,7 +36,7 @@ loop:
 
 end:
 	pop rcx			; Restore used registers
-	pop rdx
+	pop rbx
 	mov rsp, rbp		; Routine epilogue
 	pop rbp
 	ret
