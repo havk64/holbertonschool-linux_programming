@@ -27,8 +27,8 @@ loop:
 	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
 	cmp al, bl		    ; Compare values
-	jl less_than		; If first is less than second skip
-	jg greater_than		; If greater skip
+	jb less_than		; If first is less than second skip
+	ja greater_than		; If greater skip
 	inc rcx			; Otherwise increment the counter
 	;; Test if the s1 character is NULL (end of string)
 	test al, al		; 'test' (bitwise &) is lighter than 'cmp'
