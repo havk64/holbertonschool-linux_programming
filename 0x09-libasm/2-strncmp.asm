@@ -26,15 +26,16 @@ asm_strncmp:
 
 loop:
 	cmp edx, ecx		    ; Compare 'n' to the counter
-	jz is_equal		    ; If equal go to the end
+	jz is_equal		    ; If equal, break
 	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
-	cmp al, bl		    ; If chars are equal keep looping
-	jl less_than
-	jg greater_than
-	inc ecx			    ; Increment the counter
+	cmp al, bl		    ; Compare characters
+	jl less_than		    ; If less than, break
+	jg greater_than		    ; If greater than, break
+	inc ecx			    ; Otherwise, increment the counter
+	;; Test if the s1 character is NULL (end of string)
 	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
-	jnz loop		    ; If NULL (zero) break
+	jnz loop		    ; If not NULL (zero) loop, otherwiser break
 
 is_equal:
 	mov eax, 0		; If equal return zero
