@@ -34,8 +34,7 @@ loop:
 	jg greater_than
 	inc ecx			    ; Increment the counter
 	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
-	jz is_equal		    ; If NULL (zero) break
-	jmp loop
+	jnz loop		    ; If NULL (zero) break
 
 is_equal:
 	mov eax, 0		; If equal return zero
