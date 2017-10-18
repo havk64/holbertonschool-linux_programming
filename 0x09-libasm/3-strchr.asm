@@ -14,9 +14,9 @@ loop:
 	mov cl, BYTE [eax]
 	cmp ecx, esi
 	jz end
-	inc eax
 	test cl, cl
 	jz eos
+	inc eax
 	jmp loop
 
 end:
