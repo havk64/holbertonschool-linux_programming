@@ -11,7 +11,7 @@ asm_strchr:
 	push rcx
 	mov eax, edi
 loop:
-	movzx ecx, BYTE [rax]
+	mov cl, BYTE [eax]
 	cmp ecx, esi
 	jz end
 	inc eax
