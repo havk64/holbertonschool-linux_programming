@@ -4,10 +4,11 @@ T0	:= 0-strlen
 T1	:= 1-strcmp
 T2	:= 2-strncmp
 T3	:= 3-strchr
+T4	:= 4-strstr
 
 .PHONY	: all clean re
 
-all: $(T0) $(T1) $(T2) $(T3)
+all: $(T0) $(T1) $(T2) $(T3) $(T4)
 
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -21,6 +22,9 @@ $(T2): 2-main.o 2-strncmp.o
 $(T3): 3-main.o 3-strchr.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+$(T4): 4-main.o 4-strstr.o
+	$(CC) $(CFLAGS) -o $@ $^
+
 0-strlen.o: 0-strlen.asm
 	nasm -f elf64 $<
 
@@ -31,6 +35,9 @@ $(T3): 3-main.o 3-strchr.o
 	nasm -f elf64 $<
 
 3-strchr.o: 3-strchr.asm
+	nasm -f elf64 $<
+
+4-strstr.o: 4-strstr.asm
 	nasm -f elf64 $<
 
 clean:
