@@ -1,6 +1,6 @@
 BITS 64
 CPU X64
-
+	;; Prototype: char *asm_strstr(const char *s, char *sub);
 	global asm_strstr
 
 	segment .text
