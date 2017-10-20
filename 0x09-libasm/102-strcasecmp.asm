@@ -22,8 +22,7 @@ first:	movzx ebx, BYTE [esi + ecx]
 
 continue:
 	cmp al, bl
-	ja greater
-	jb lesser
+	jnz diff
 	inc ecx
 	test al, al
 	jnz loop
@@ -35,11 +34,7 @@ end:
 	pop rbp
 	ret
 
-greater:
-	sub eax, ebx
-	jmp end
-
-lesser:
+diff:
 	sub eax, ebx
 	jmp end
 
