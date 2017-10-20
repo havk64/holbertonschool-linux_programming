@@ -47,6 +47,3 @@ downcase2:
 	jna cmp
 	add bl, 32
 	jmp cmp
-
-
-	;; 65(A) to 89 (Z)
