@@ -10,9 +10,10 @@ BITS 64
 	;;
 
 	global asm_strlen
-	segment .text
 
 asm_strlen:
+segment .text
+
 	push rbp		; Routine prologue
 	mov rbp, rsp
 	xor eax, eax		; Initialize the counter
