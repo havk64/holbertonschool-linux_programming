@@ -5,7 +5,7 @@ CPU X64
 	global asm_puts
 	extern asm_strlen
 
-	segment .text
+segment .text
 
 asm_puts:
 	push rbp
