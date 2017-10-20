@@ -24,12 +24,12 @@ asm_strcmp:
 
 loop:
 
-	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
-	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
+	movzx eax, BYTE [edi + rcx] ; Char from first argument  (s1)
+	movzx ebx, BYTE [esi + rcx] ; Char from second argument (s2)
 	cmp al, bl		    ; Compare values
 	jb less_than		; If first is less than second skip
 	ja greater_than		; If greater skip
-	inc rcx			; Otherwise increment the counter
+	inc ecx			; Otherwise increment the counter
 	;; Test if the s1 character is NULL (end of string)
 	test al, al		; 'test' (bitwise &) is lighter than 'cmp'
 	jnz loop		; If not zero loop, otherwise continue (end)
