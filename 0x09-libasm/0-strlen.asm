@@ -6,19 +6,13 @@ BITS 64
 asm_strlen:
 	push rbp		; Function prologue
 	mov rbp, rsp
-
-	push rdx		; Save the register to be used before
-
-	mov qword rdx, -1	; Initialize the register counter
+	mov rax, 0		; Initialize the register counter
+	jmp start
 
 loop:
-	inc edx
-	cmp byte [rdi + rdx], 0x0
-	jne loop		; End of the loop
-
-	mov rax, rdx		; Copy the value of the counter to be returned
-
-	pop rdx			; Restore rdx
+	inc rax
+start:	cmp BYTE [rdi + rax], 0
+	jnz loop		; End of the loop
 
 	mov rsp, rbp		; Function epilogue
 	pop rbp
