@@ -7,10 +7,11 @@ T3	:= 3-strchr
 T4	:= 4-strstr
 T5	:= 5-memcpy
 T6	:= 100-putc
+T7	:= 101-puts
 
 .PHONY	: all clean re
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7)
 
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -33,6 +34,9 @@ $(T5): 5-main.o 5-memcpy.o
 $(T6): 100-main.o 100-putc.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+$(T7): 101-main.o 101-puts.o 0-strlen.o
+	$(CC) $(CFLAGS) -o $@ $^
+
 0-strlen.o: 0-strlen.asm
 	nasm -f elf64 $<
 
@@ -52,6 +56,9 @@ $(T6): 100-main.o 100-putc.o
 	nasm -f elf64 $<
 
 100-putc.o: 100-putc.asm
+	nasm -f elf64 $<
+
+101-puts.o: 101-puts.asm
 	nasm -f elf64 $<
 
 clean:
