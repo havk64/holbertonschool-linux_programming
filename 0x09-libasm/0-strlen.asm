@@ -11,8 +11,8 @@ asm_strlen:
 
 loop:
 	inc eax
-start:	cmp BYTE [edi + eax], 0
-	jnz loop		; End of the loop
+start:	cmp BYTE [edi + eax], 0	; Compare each byte/char against zero
+	jnz loop		; If not zero (NULL/End of string) keep counting
 
 	mov rsp, rbp		; Function epilogue
 	pop rbp
