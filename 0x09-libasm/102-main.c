@@ -17,8 +17,6 @@
  */
 int main(void)
 {
-	printf("a: %d, b: %d\n", strcasecmp(S1, S4), asm_strcasecmp(S1, S4));
-	printf("a: %d, b: %d\n", strcasecmp(S4, S1), asm_strcasecmp(S4, S1));
 	assert(strcasecmp(S1, S1) == asm_strcasecmp(S1, S1));
 	assert(strcasecmp(S1, S2) == asm_strcasecmp(S1, S2));
 	assert(strcasecmp(S1, S3) == asm_strcasecmp(S1, S3));
