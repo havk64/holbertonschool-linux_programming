@@ -1,5 +1,14 @@
 BITS 64
 
+	;;
+	;; strlen clone - find the length of a string
+	;;
+	;; Prototype: size_t asm_strlen(const char *str);
+	;; @str: a pointer to the string to be scanned
+	;; Return: the number of bytes of the given string
+	;; Using registers to count (no variables on stack frame)
+	;;
+
 	global asm_strlen
 	segment .text
 
