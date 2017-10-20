@@ -19,9 +19,7 @@ loop:
 first:	movzx ebx, BYTE [esi + ecx]
 	cmp bl, 91
 	jb downcase2
-
-continue:
-	cmp al, bl
+cmp:	cmp al, bl
 	jnz diff
 	inc ecx
 	test al, al
@@ -46,9 +44,9 @@ downcase1:
 
 downcase2:
 	cmp bl, 64
-	jna continue
+	jna cmp
 	add bl, 32
-	jmp continue
+	jmp cmp
 
 
 	;; 65(A) to 89 (Z)
