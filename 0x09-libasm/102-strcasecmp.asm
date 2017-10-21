@@ -4,7 +4,6 @@ CPU X64
 	global asm_strcasecmp
 
 segment .text
-
 asm_strcasecmp:
 	push rbp
 	mov rbp, rsp
@@ -37,13 +36,13 @@ diff:
 	jmp end
 
 downcase1:
-	cmp al, 64
+	cmp al, 0x40
 	jna first
-	add al, 32
+	or al, 0x20
 	jmp first
 
 downcase2:
-	cmp bl, 64
+	cmp bl, 0x40
 	jna cmp
-	add bl, 32
+	or bl, 0x20
 	jmp cmp
