@@ -41,13 +41,13 @@ diff:
 downcase1:
 	cmp al, 0x40
 	jna first
-	add al, 0x20
+	or al, 0x20
 	jmp first
 
 downcase2:
 	cmp bl, 0x40
 	jna cmp
-	add bl, 0x20
+	or bl, 0x20
 	jmp cmp
 
 break:
