@@ -11,10 +11,11 @@ T7	:= 101-puts
 T8	:= 102-strcasecmp
 T9	:= 103-strncasecmp
 T10	:= 104-strspn
+T11	:= 105-strcspn
 
 .PHONY	: all clean re
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) $(T11)
 
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -49,6 +50,9 @@ $(T9): 103-main.o 103-strncasecmp.o
 $(T10): 104-main.o 104-strspn.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+$(T11): 105-main.o 105-strcspn.o
+	$(CC) $(CFLAGS) -o $@ $^
+
 0-strlen.o: 0-strlen.asm
 	nasm -f elf64 $<
 
@@ -80,6 +84,9 @@ $(T10): 104-main.o 104-strspn.o
 	nasm -f elf64 $<
 
 104-strspn.o: 104-strspn.asm
+	nasm -f elf64 $<
+
+105-strcspn.o: 105-strcspn.asm
 	nasm -f elf64 $<
 
 clean:
