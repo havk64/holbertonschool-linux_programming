@@ -24,8 +24,8 @@ asm_strcmp:
 
 loop:
 
-	movzx eax, BYTE [edi + rcx] ; Char from first argument  (s1)
-	movzx ebx, BYTE [esi + rcx] ; Char from second argument (s2)
+	movzx eax, BYTE [edi + ecx] ; Char from first argument  (s1)
+	movzx ebx, BYTE [esi + ecx] ; Char from second argument (s2)
 	cmp al, bl		    ; Compare values
 	jb less_than		; If first is less than second skip
 	ja greater_than		; If greater skip
