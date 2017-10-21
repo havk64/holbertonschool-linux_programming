@@ -19,7 +19,8 @@ loop:
 	test bl, bl
 	jz end
 	jmp inner
-outter:	inc ecx
+outter:	inc eax
+	inc ecx
 	jmp loop
 
 end:
@@ -34,9 +35,8 @@ inner:
 	xor edx, edx
 iloop:	movzx r8d, BYTE [esi + edx]
 	test r8b, r8b
-	jz outter
+	jz end
 	inc edx
 	cmp bl, r8b
 	jnz iloop
-	inc eax
-	jmp iloop
+	jmp outter
