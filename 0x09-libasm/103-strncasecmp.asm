@@ -1,5 +1,5 @@
-	BITS 64
-	CPU X64
+BITS 64
+CPU X64
 
 	;; Prototype: int asm_strncasecmp(const char *s1, const char *s2, size_t n);
 	global asm_strncasecmp
