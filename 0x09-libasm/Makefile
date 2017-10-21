@@ -9,10 +9,11 @@ T5	:= 5-memcpy
 T6	:= 100-putc
 T7	:= 101-puts
 T8	:= 102-strcasecmp
+T9	:= 103-strncasecmp
 
 .PHONY	: all clean re
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9)
 
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -41,6 +42,9 @@ $(T7): 101-main.o 101-puts.o 0-strlen.o
 $(T8): 102-main.o 102-strcasecmp.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+$(T9): 103-main.o 103-strncasecmp.o
+	$(CC) $(CFLAGS) -o $@ $^
+
 0-strlen.o: 0-strlen.asm
 	nasm -f elf64 $<
 
@@ -66,6 +70,9 @@ $(T8): 102-main.o 102-strcasecmp.o
 	nasm -f elf64 $<
 
 102-strcasecmp.o: 102-strcasecmp.asm
+	nasm -f elf64 $<
+
+103-strncasecmp.o: 103-strncasecmp.asm
 	nasm -f elf64 $<
 
 clean:
