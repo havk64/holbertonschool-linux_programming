@@ -1,5 +1,7 @@
 CC	:= gcc
 CFLAGS	:= -g -O0 -Wall -Wextra -Werror -pedantic
+NASM	:= /usr/bin/nasm
+NFLAGS	:= -f elf64
 T0	:= 0-strlen
 T1	:= 1-strcmp
 T2	:= 2-strncmp
@@ -62,47 +64,8 @@ $(T12): 106-main.o 106-strpbrk.o
 $(T13): 1000-main.o 1000-puti.o 100-putc.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-0-strlen.o: 0-strlen.asm
-	nasm -f elf64 $<
-
-1-strcmp.o: 1-strcmp.asm
-	nasm -f elf64 $<
-
-2-strncmp.o: 2-strncmp.asm
-	nasm -f elf64 $<
-
-3-strchr.o: 3-strchr.asm
-	nasm -f elf64 $<
-
-4-strstr.o: 4-strstr.asm
-	nasm -f elf64 $<
-
-5-memcpy.o: 5-memcpy.asm
-	nasm -f elf64 $<
-
-100-putc.o: 100-putc.asm
-	nasm -f elf64 $<
-
-101-puts.o: 101-puts.asm
-	nasm -f elf64 $<
-
-102-strcasecmp.o: 102-strcasecmp.asm
-	nasm -f elf64 $<
-
-103-strncasecmp.o: 103-strncasecmp.asm
-	nasm -f elf64 $<
-
-104-strspn.o: 104-strspn.asm
-	nasm -f elf64 $<
-
-105-strcspn.o: 105-strcspn.asm
-	nasm -f elf64 $<
-
-106-strpbrk.o: 106-strpbrk.asm
-	nasm -f elf64 $<
-
-1000-puti.o: 1000-puti.asm
-	nasm -f elf64 $<
+%.o: %.asm
+	$(NASM) $(NFLAGS) -o $@ $<
 
 clean:
 	$(RM) *.o
