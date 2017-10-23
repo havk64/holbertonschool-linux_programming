@@ -9,14 +9,13 @@ CPU X64
 asm_putc:
 	push rbp
 	mov rbp, rsp
-	sub rsp, 4
-	mov DWORD [rsp], edi
+	push rdi
 	mov eax, 1
 	mov edi, 1
 	mov rsi, rsp
 	mov edx, 1
 	syscall
-	add rsp, 4
+	pop rdi
 	mov rsp, rbp
 	pop rbp
 	ret
