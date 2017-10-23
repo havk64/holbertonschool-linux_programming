@@ -10,6 +10,8 @@ segment .text
 asm_puti:
 	push rbp
 	mov rbp, rsp
+	push r9
+	xor r9d, r9d
 	mov eax, edi
 	test eax, eax
 	js negative
@@ -26,6 +28,7 @@ zero:
 negative:
 	xor eax, eax
 end:
+	pop r9
 	mov rsp, rbp
 	pop rbp
 	ret
@@ -37,7 +40,6 @@ print:
 	push rbx
 	push rcx
 	push r8
-	push r9
 	sub rsp, 8
 	lea rbx, [rsp]
 	mov QWORD [rbx], 1
@@ -60,7 +62,6 @@ calc:
 	jmp calc
 
 fdigit:
-	xor r9d, r9d
 	mov [rcx], rdi
 iloop:	mov eax, [rcx]
 	test eax, eax
@@ -81,7 +82,6 @@ iloop:	mov eax, [rcx]
 end2:
 	mov eax, r9d
 	add rsp, 0x10
-	pop r9
 	pop r8
 	pop rcx
 	pop rbx
