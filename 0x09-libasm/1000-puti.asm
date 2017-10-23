@@ -26,7 +26,14 @@ zero:
 	jmp end
 
 negative:
-	xor eax, eax
+	neg eax
+	push rax
+	mov edi, '-'
+	call asm_putc
+	add r9b, al
+	pop rax
+	mov edi, eax
+	call print
 end:
 	pop r9
 	mov rsp, rbp
@@ -71,8 +78,8 @@ iloop:	mov eax, [rcx]
 	mov dil, al
 	or dil, 0x30
 	call asm_putc
-	inc r9b
 	mov [rcx], edx
+	add r9b, al
 	mov eax, [rbx]
 	xor edx, edx
 	div r8d
