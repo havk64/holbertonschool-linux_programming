@@ -43,22 +43,24 @@ end:
 	pop rbp
 	ret
 
-	;; Prototype int print(int n);
+	;; Prototype int print(int n, const char *base, size_t length);
 print:
 	push rbp
 	mov rbp, rsp
+	push rbx
 	push rcx
+	push rdx
+	lea rbx, [rsp]
 	xor ecx, ecx
 iloop:	xor edx, edx
-	div ebx
+	div DWORD [rbx]
 	sub rsp, 1
 	mov [rsp], dl
 	inc cx
 	test eax, eax
 	jnz iloop
 pstr:	movzx r8d, BYTE [rsp]
-	lea r8, [rsi + r8]
-	movzx edi, BYTE [r8]
+	movzx edi, BYTE [rsi + r8]
 	call asm_putc
 	add r9b, al
 	add rsp, 1
@@ -68,7 +70,9 @@ pstr:	movzx r8d, BYTE [rsp]
 
 end_print:
 	mov eax, r9d
+	pop rdx
 	pop rcx
+	pop rbx
 	mov rsp, rbp
 	pop rbp
 	ret
