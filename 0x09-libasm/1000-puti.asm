@@ -46,52 +46,29 @@ print:
 	mov rbp, rsp
 	push rbx
 	push rcx
-	push r8
-	sub rsp, 8
-	lea rbx, [rsp]
-	mov QWORD [rbx], 1
-	sub rsp, 8
-	lea rcx, [rsp]
-	mov QWORD [rcx], rdi
-	mov r8d, 10
-
-calc:
-	mov eax, [rcx]
-	cmp eax, 10
-	jb fdigit
-	xor edx, edx
-	div r8d
-	mov [rcx], eax
-	mov eax, [rbx]
-	xor edx, edx
-	mul r8d
-	mov [rbx], eax
-	jmp calc
-
-fdigit:
-	mov [rcx], rdi
-iloop:	mov eax, [rcx]
+	mov ebx, 10
+	xor ecx, ecx
+iloop:	xor edx, edx
+	div ebx
+	sub rsp, 1
+	mov [rsp], dl
+	inc cx
 	test eax, eax
-	jz end2
-	xor edx, edx
-	div DWORD [rbx]
-	mov dil, al
+	jnz iloop
+pstr:	movzx edi, BYTE [rsp]
 	or dil, 0x30
 	call asm_putc
-	mov [rcx], edx
 	add r9b, al
-	mov eax, [rbx]
-	xor edx, edx
-	div r8d
-	mov [rbx], eax
-	jmp iloop
+	add rsp, 1
+	dec cx
+	test cx, cx
+	jnz pstr
 
-end2:
+end_print:
 	mov eax, r9d
-	add rsp, 0x10
-	pop r8
 	pop rcx
 	pop rbx
 	mov rsp, rbp
 	pop rbp
 	ret
+
