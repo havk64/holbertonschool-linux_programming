@@ -1,7 +1,7 @@
 BITS 64
 CPU X64
 
-	;; Prototype: size_t asm_puti(int n);
+	;; Prototype: size_t asm_puti_base(int n, const char *base);
 
 	global asm_puti_base
 	extern asm_putc
