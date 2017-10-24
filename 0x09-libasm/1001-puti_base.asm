@@ -11,13 +11,13 @@ segment .text
 asm_puti_base:
 	push rbp
 	mov rbp, rsp
-	push rbx
+	push rdx
 	push r8
 	push r9
 	push rdi
 	mov rdi, rsi
 	call asm_strlen
-	mov ebx, eax
+	mov edx, eax
 	pop rdi
 	xor r9d, r9d
 	mov eax, edi
@@ -38,7 +38,7 @@ negative:
 end:
 	pop r9
 	pop r8
-	pop rbx
+	pop rdx
 	mov rsp, rbp
 	pop rbp
 	ret
