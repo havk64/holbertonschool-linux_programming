@@ -10,6 +10,7 @@ asm_putc:
 	mov rbp, rsp
 	push rcx
 	push rdx
+	push rsi
 	push rdi
 	mov eax, 1
 	mov edi, 1
@@ -17,6 +18,7 @@ asm_putc:
 	mov edx, 1
 	syscall
 	pop rdi
+	pop rsi
 	pop rdx
 	pop rcx
 	mov rsp, rbp
