@@ -15,14 +15,7 @@ asm_puti:
 	mov eax, edi
 	test eax, eax
 	js negative
-	jz zero
 	call print
-	jmp end
-
-zero:
-	mov dil, al
-	or dil, 0x30
-	call asm_putc
 	jmp end
 
 negative:
