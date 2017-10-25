@@ -19,6 +19,7 @@ loop:
 	inc edi
 	test al, al
 	jnz loop
+	xor eax, eax
 
 end:
 	pop rdx
