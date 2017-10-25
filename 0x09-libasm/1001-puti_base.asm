@@ -31,28 +31,9 @@ asm_puti_base:			; Implement asm_put_base function/routine
 	xor r9d, r9d		; Start/reset our counter to the number of char printed
 	mov eax, edi		; Copy 1st arg to check its sign (positive or negative)
 	test eax, eax
-	js negative		; If negative jump to subroutine
-	jmp print		; Otherwise print it
-
-negative:
-	neg eax			; Make positive (flip sign)
-	push rax		; Preserve the number on stack
-	mov edi, '-'		; Define 1st arg to putc
-	call asm_putc		; Call putc to print the minus sign
-	add r9b, al		; Add the return value to r9 to be returned later
-	pop rax			; Restore the number
-	mov edi, eax		; Use the number as 1st argument to next routine
-	jmp print		; Jump to print
-end:
-	add rsp, 8		; Remove 8 bytes from stack (used by rax)
-	pop r9			; Restore GPR (General Purpose Registers)
-	pop r8
-	pop rdx
-	mov rsp, rbp		; Routine epilogue, return from stack frame
-	pop rbp
-	ret
-
-print:
+	js negative		; If negative jump to subroutine...
+				; Otherwise continue to 'print' subroutine
+print:				; Subroutine to print each digit
 	mov ebx, [rdx]		; Copy the length of string to ebx
 	xor ecx, ecx		; Start a counter
 iloop:	xor edx, edx		; Reset edx to make the division
@@ -71,4 +52,23 @@ pstr:	movzx r8d, BYTE [rsp]	; After we reach zero start copying bytes from stack
 	test cx, cx		   ; Check when we reach zero
 	jnz pstr		   ; While not zero, loop
 	mov eax, r9d		   ; When zero, copy the acumulator to return value
-	jmp end			   ; and jump to the end
+
+end:
+	add rsp, 8		; Remove 8 bytes from stack (used by rax)
+	pop r9			; Restore GPR (General Purpose Registers)
+	pop r8
+	pop rdx
+	mov rsp, rbp		; Routine epilogue, return from stack frame
+	pop rbp
+	ret
+
+negative:			; Subroutine to deal with negative numbers
+	neg eax			; Make positive (flip sign)
+	push rax		; Preserve the number on stack
+	mov edi, '-'		; Define 1st arg to putc
+	call asm_putc		; Call putc to print the minus sign
+	add r9b, al		; Add the return value to r9 to be returned later
+	pop rax			; Restore the number
+	mov edi, eax		; Use the number as 1st argument to next routine
+	jmp print		; Jump to 'print' subroutine
+

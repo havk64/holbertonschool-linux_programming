@@ -35,7 +35,7 @@ pushd:	xor edx, edx		; Zero edx register used in the division
 	test eax, eax		; Check when it reach zero
 	jnz pushd		; While not zero, loop
 print:	movzx edi, BYTE [rsp]	; Start retrieving each byte from stack, reverse order
-	or dil, 0x30		; Add 32 to each digit to convert it to an ASCII character
+	or dil, 0x30		; Add 48 to each digit to convert it to an ASCII character
 	call asm_putc		; Call the routine to print each digit
 	add r8b, al		; Add the return value of function call to the accumulator
 	add rsp, 1		; Remove each byte from stack

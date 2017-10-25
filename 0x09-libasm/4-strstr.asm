@@ -10,6 +10,7 @@ asm_strstr:
 	mov rbp, rsp
 	push rbx
 	push rcx
+	push rdx
 
 loop:
 	movzx eax, BYTE [edi]
@@ -20,6 +21,7 @@ loop:
 	jnz loop
 
 end:
+	pop rdx
 	pop rcx
 	pop rbx
 	mov rsp, rbp
@@ -28,13 +30,14 @@ end:
 
 match:
 	mov eax, edi
-	mov ecx, 0
+	xor ecx, ecx
 substr:
 	inc ecx
 	mov bl, BYTE [edi + ecx]
-	test bl, bl
+	mov dl, BYTE [esi + ecx]
+	test dl, dl
 	jz end
-	cmp bl, BYTE [esi + ecx]
+	cmp bl, dl
 	jz substr
 	inc edi
 	jmp loop
