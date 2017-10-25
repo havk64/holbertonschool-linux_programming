@@ -24,8 +24,7 @@ asm_puti_base:
 	mov eax, edi
 	test eax, eax
 	js negative
-	call print
-	jmp end
+	jmp print
 
 negative:
 	neg eax
@@ -35,9 +34,9 @@ negative:
 	add r9b, al
 	pop rax
 	mov edi, eax
-	call print
+	jmp print
 end:
-	pop rax
+	sub rsp, 8
 	pop r9
 	pop r8
 	pop rdx
@@ -45,12 +44,7 @@ end:
 	pop rbp
 	ret
 
-	;; Prototype int print(int n, const char *base, size_t *length);
 print:
-	push rbp
-	mov rbp, rsp
-	push rbx
-	push rcx
 	mov ebx, [rdx]
 	xor ecx, ecx
 iloop:	xor edx, edx
@@ -68,12 +62,5 @@ pstr:	movzx r8d, BYTE [rsp]
 	dec cx
 	test cx, cx
 	jnz pstr
-
-end_print:
 	mov eax, r9d
-	pop rcx
-	pop rbx
-	mov rsp, rbp
-	pop rbp
-	ret
-
+	jmp end
