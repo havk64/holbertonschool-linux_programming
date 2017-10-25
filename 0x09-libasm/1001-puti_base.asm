@@ -3,64 +3,64 @@ CPU X64
 
 	;; Prototype: size_t asm_puti_base(int n, const char *base);
 
-	global asm_puti_base
-	extern asm_putc
-	extern asm_strlen
+	global asm_puti_base	; Define symbol to routine of the same name
+	extern asm_putc		; Import function from external file
+	extern asm_strlen	; Import function from external file
 
 segment .text
-asm_puti_base:
-	push rbp
+asm_puti_base:			; Implement main function
+	push rbp		; Routine prologue, create new stack frame
 	mov rbp, rsp
-	push rdx
+	push rdx		; Save registers that will be overriden
 	push r8
 	push r9
-	push rdi
-	mov rdi, rsi
-	call asm_strlen
-	pop rdi
-	push rax
-	lea rdx, [rsp]
-	xor r9d, r9d
-	mov eax, edi
+	push rdi		; Save first function argument
+	mov rdi, rsi		; Use 2nd argument as the 1st to call strlen
+	call asm_strlen		; Call to strlen, measure the length of string
+	pop rdi			; Restore 1st argument
+	push rax		; Save return value of strlen (length) to the stack
+	lea rdx, [rsp]		; Copy a pointer to the length of string (base)
+	xor r9d, r9d		; Start/reset our counter to the number of char printed
+	mov eax, edi		; Copy 1st arg to check its sign (positive or negative)
 	test eax, eax
-	js negative
-	jmp print
+	js negative		; If negative jump to subroutine
+	jmp print		; Otherwise print it
 
 negative:
-	neg eax
-	push rax
-	mov edi, '-'
-	call asm_putc
-	add r9b, al
-	pop rax
-	mov edi, eax
-	jmp print
+	neg eax			; Make positive (flip sign)
+	push rax		; Preserve the number on stack
+	mov edi, '-'		; Define 1st arg to putc
+	call asm_putc		; Call putc to print the minus sign
+	add r9b, al		; Add the return value to r9 to be returned later
+	pop rax			; Restore the number
+	mov edi, eax		; Use the number as 1st argument to next routine
+	jmp print		; Jump to print
 end:
-	sub rsp, 8
-	pop r9
+	add rsp, 8		; Remove 8 bytes from stack (used by rax)
+	pop r9			; Restore GPR (General Purpose Registers)
 	pop r8
 	pop rdx
-	mov rsp, rbp
+	mov rsp, rbp		; Routine epilogue, return from stack frame
 	pop rbp
 	ret
 
 print:
-	mov ebx, [rdx]
-	xor ecx, ecx
-iloop:	xor edx, edx
-	div ebx
-	sub rsp, 1
-	mov [rsp], dl
-	inc cx
-	test eax, eax
-	jnz iloop
-pstr:	movzx r8d, BYTE [rsp]
-	movzx edi, BYTE [rsi + r8]
-	call asm_putc
-	add r9b, al
-	add rsp, 1
-	dec cx
-	test cx, cx
-	jnz pstr
-	mov eax, r9d
-	jmp end
+	mov ebx, [rdx]		; Copy the length of string to ebx
+	xor ecx, ecx		; Start a counter
+iloop:	xor edx, edx		; Reset edx to make the division
+	div ebx			; Divide the number (in edx:eax) by length of string
+	sub rsp, 1		; Reserve one byte on stack to put the remainder
+	mov [rsp], dl		; Save the remainder of division (number / length)
+	inc cx			; Increment our counter
+	test eax, eax		; Check when we reach zero
+	jnz iloop		; While not zero, loop
+pstr:	movzx r8d, BYTE [rsp]	; After we reach zero start copying bytes from stack
+	movzx edi, BYTE [rsi + r8] ; in reverse order to be printed
+	call asm_putc		   ; Print each digit
+	add r9b, al		   ; Transfer the result of call to putc to our counter
+	add rsp, 1		   ; Restore each byte from the stack
+	dec cx			   ; Decrement our counter
+	test cx, cx		   ; Check when we reach zero
+	jnz pstr		   ; While not zero, loop
+	mov eax, r9d		   ; When zero, copy the acumulator to return value
+	jmp end			   ; and jump to the end
