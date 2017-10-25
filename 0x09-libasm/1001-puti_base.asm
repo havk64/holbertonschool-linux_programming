@@ -16,7 +16,7 @@ CPU X64
 	extern asm_strlen	; Import function from external file
 
 segment .text
-asm_puti_base:			; Implement main function
+asm_puti_base:			; Implement asm_put_base function/routine
 	push rbp		; Routine prologue, create new stack frame
 	mov rbp, rsp
 	push rdx		; Save registers that will be overriden
