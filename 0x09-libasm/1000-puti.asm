@@ -1,7 +1,13 @@
 BITS 64
 CPU X64
 
+	;;
+	;; asm_puti - print each digit of a signed base 10 number to STDOUT using
+	;; asm_putc routine (defined in the 100-putc.asm file)
+	;;
 	;; Prototype: size_t asm_puti(int n);
+	;; @n: the base 10 number to be printed
+	;;
 
 	global asm_puti
 	extern asm_putc
