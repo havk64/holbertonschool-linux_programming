@@ -31,9 +31,9 @@ asm_puti_base:			; Implement asm_put_base function/routine
 	xor r9d, r9d		; Start/reset our counter to the number of char printed
 	mov eax, edi		; Copy 1st arg to check its sign (positive or negative)
 	test eax, eax
-print:
 	js negative		; If negative jump to subroutine...
 				; Otherwise continue to 'print' subroutine
+print:				; Subroutine to print each digit
 	mov ebx, [rdx]		; Copy the length of string to ebx
 	xor ecx, ecx		; Start a counter
 iloop:	xor edx, edx		; Reset edx to make the division
@@ -62,7 +62,7 @@ end:
 	pop rbp
 	ret
 
-negative:
+negative:			; Subroutine to deal with negative numbers
 	neg eax			; Make positive (flip sign)
 	push rax		; Preserve the number on stack
 	mov edi, '-'		; Define 1st arg to putc
@@ -70,5 +70,5 @@ negative:
 	add r9b, al		; Add the return value to r9 to be returned later
 	pop rax			; Restore the number
 	mov edi, eax		; Use the number as 1st argument to next routine
-	jmp print		; Jump to print
+	jmp print		; Jump to 'print' subroutine
 
