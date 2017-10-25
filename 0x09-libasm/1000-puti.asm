@@ -15,23 +15,6 @@ asm_puti:
 	mov eax, edi
 	test eax, eax
 	js negative
-	jmp print
-
-negative:
-	neg eax
-	push rax
-	mov edi, '-'
-	call asm_putc
-	add r9b, al
-	pop rax
-	mov edi, eax
-	jmp print
-end:
-	pop r9
-	mov rsp, rbp
-	pop rbp
-	ret
-
 print:
 	mov ebx, 10
 	xor ecx, ecx
@@ -51,5 +34,18 @@ pstr:	movzx edi, BYTE [rsp]
 	test cx, cx
 	jnz pstr
 	mov eax, r9d
-	jmp end
+end:
+	pop r9
+	mov rsp, rbp
+	pop rbp
+	ret
 
+negative:
+	neg eax
+	push rax
+	mov edi, '-'
+	call asm_putc
+	add r9b, al
+	pop rax
+	mov edi, eax
+	jmp print
