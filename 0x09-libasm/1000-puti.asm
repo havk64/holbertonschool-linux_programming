@@ -15,24 +15,24 @@ asm_puti:
 	mov eax, edi
 	test eax, eax
 	js negative
-print:
+num2str:
 	mov ebx, 10
 	xor ecx, ecx
-iloop:	xor edx, edx
+pushd:	xor edx, edx
 	div ebx
 	sub rsp, 1
 	mov [rsp], dl
 	inc cx
 	test eax, eax
-	jnz iloop
-pstr:	movzx edi, BYTE [rsp]
+	jnz pushd
+print:	movzx edi, BYTE [rsp]
 	or dil, 0x30
 	call asm_putc
 	add r9b, al
 	add rsp, 1
 	dec cx
 	test cx, cx
-	jnz pstr
+	jnz print
 	mov eax, r9d
 end:
 	pop r9
@@ -48,4 +48,4 @@ negative:
 	add r9b, al
 	pop rax
 	mov edi, eax
-	jmp print
+	jmp num2str
