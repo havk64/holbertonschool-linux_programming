@@ -1,7 +1,15 @@
 BITS 64
 CPU X64
 
+	;;
+	;; asm_puti_base - prints each digit of a signed number in the given base
+	;; to STDOUT using the putc routine that prints one char at a time
+	;;
 	;; Prototype: size_t asm_puti_base(int n, const char *base);
+	;; @n: the signed number to be printed
+	;; @base: a string representing the base
+	;; Return: the number of digits printed
+	;;
 
 	global asm_puti_base	; Define symbol to routine of the same name
 	extern asm_putc		; Import function from external file
