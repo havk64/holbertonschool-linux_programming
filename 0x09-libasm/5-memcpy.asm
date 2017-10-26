@@ -14,7 +14,7 @@ asm_memcpy:
 	mov eax, edi
 
 loop:
-	cmp rdx, rcx
+	cmp edx, ecx
 	jz end
 	mov bl, BYTE [esi + ecx]
 	test bl, bl
