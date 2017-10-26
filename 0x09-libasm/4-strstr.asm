@@ -1,6 +1,18 @@
 BITS 64
 CPU X64
+	;;
+	;; asm_strstr - a clone of strstr function
+	;;
+	;; Description:	the strstr() function finds the first occurrence of the
+	;; substring @sub in the string @s.
+	;;
+	;; @s: the pointer to the string
+	;; @sub: a pointer to the substring to be searched for
+	;; Return: a pointer to the beginning of the substring,
+	;; or NULL if substring is not found.
+	;;
 	;; Prototype: char *asm_strstr(const char *s, char *sub);
+	;;
 	global asm_strstr
 
 	segment .text
