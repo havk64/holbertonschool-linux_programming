@@ -22,7 +22,7 @@ asm_strncmp:
 	mov rbp, rsp
 	push rbx		; Save registers to be used
 	push rcx
-	mov ecx, 0		; Start a counter
+	xor ecx, ecx		; Start a counter
 
 loop:
 	cmp edx, ecx		    ; Compare 'n' to the counter
