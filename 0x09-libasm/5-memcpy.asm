@@ -10,7 +10,7 @@ asm_memcpy:
 	mov rbp, rsp
 	push rbx
 	push rcx
-	mov rcx, 0
+	xor ecx, ecx
 	mov rax, rdi
 
 loop:
