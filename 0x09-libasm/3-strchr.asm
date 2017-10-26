@@ -1,6 +1,17 @@
 BITS 64
 CPU X64
+	;;
+	;; asm_strchr - clone of strchr (3) function
+	;;
+	;; Description:	The strchr() function returns a pointer to the first
+	;; occurrence of the character @c in the string @s.
+	;;
+	;; @s: a pointer to the string to scanned
+	;; @c: a character to be searched for
+	;; Return: a pointer to the matched character or
+	;; NULL if the character is not found.
 	;; Prototype: char *asm_strchr(const char *s, int c);
+	;;
 	global asm_strchr
 
 	segment .text
