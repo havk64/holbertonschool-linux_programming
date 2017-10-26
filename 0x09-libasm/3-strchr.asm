@@ -11,7 +11,7 @@ asm_strchr:
 	push rcx		; Save register to be used
 	mov eax, edi		; Copy the first function argument to eax register
 loop:
-	mov cl, BYTE [eax]	; Read one byte of the string to low byte of ecx
+	movzx ecx, BYTE [eax]	; Read one byte of the string to low byte of ecx
 	cmp ecx, esi		; Compare it agains the second argument
 	jz end			; If they are equal jump to the end (returning eax)
 	test cl, cl		; Test if the byte/char is NULL (end of string)
