@@ -25,7 +25,7 @@ asm_strncmp:
 	xor ecx, ecx		; Start a counter
 
 loop:
-	cmp edx, ecx		    ; Compare 'n' to the counter
+	cmp edx, ecx		    ; Compare 'n' (3rd arg) with the counter
 	jz equal		    ; If equal, break
 	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
 	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
