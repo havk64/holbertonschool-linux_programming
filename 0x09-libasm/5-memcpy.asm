@@ -11,7 +11,7 @@ asm_memcpy:
 	push rbx
 	push rcx
 	mov rcx, 0
-	mov eax, edi
+	mov rax, rdi
 
 loop:
 	cmp edx, ecx
