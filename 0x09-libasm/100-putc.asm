@@ -29,11 +29,11 @@ asm_putc:
 	push rsi
 	push rdi
 	mov eax, 1
-	mov edi, 1
-	mov rsi, rsp
 	mov edx, 1
 	syscall
 	pop rdi
+	mov rsi, rsp
+	mov edi, 1
 	pop rsi
 	pop rdx
 	pop rcx
