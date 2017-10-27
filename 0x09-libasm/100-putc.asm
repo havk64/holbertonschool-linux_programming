@@ -22,21 +22,21 @@ CPU X64
 
 segment .text
 asm_putc:
-	push rbp
+	push rbp		; Routine prologue, set new stack frame
 	mov rbp, rsp
-	push rcx
+	push rcx		; Save registers state/values
 	push rdx
 	push rsi
-	push rdi
-	mov eax, 1
-	mov edx, 1
-	syscall
-	pop rdi
-	lea rsi, [rsp]
-	mov edi, 1
+	push rdi		; Copy the 1st arg to putc to the stack
+	mov eax, 1		; eax carry the syscall number (1 for write)
+	mov edx, 1		; 3rd arg is the amount of bytes to be written
+	lea rsi, [rsp]		; 2nd arg is a pointer to the buffer to be printed
+	mov edi, 1		; 1st arg is the number of file descriptor (1 for STDOUT)
+	syscall			; Call to 'write'
+	pop rdi			; Restore registers state/values
 	pop rsi
 	pop rdx
 	pop rcx
-	mov rsp, rbp
+	mov rsp, rbp		; Routine epilogue, take down stack frame
 	pop rbp
-	ret
+	ret			; Return
