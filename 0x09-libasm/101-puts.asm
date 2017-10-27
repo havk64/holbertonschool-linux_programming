@@ -13,8 +13,8 @@ asm_puts:
 	call asm_strlen
 	mov edx, eax
 	mov esi, edi
-	mov eax, 1
 	mov edi, 1
+	mov eax, 1
 	syscall
 	mov rsp, rbp
 	pop rbp
