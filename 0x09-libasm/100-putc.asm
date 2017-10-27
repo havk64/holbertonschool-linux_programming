@@ -32,7 +32,7 @@ asm_putc:
 	mov edx, 1
 	syscall
 	pop rdi
-	mov rsi, rsp
+	lea rsi, [rsp]
 	mov edi, 1
 	pop rsi
 	pop rdx
