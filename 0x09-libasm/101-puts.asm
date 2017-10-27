@@ -1,7 +1,14 @@
 BITS 64
 CPU X64
 
+	;;
+	;; asm_puts - a assembly routine that prints a string to STDOUT
+	;;
+	;; @str: a pointer to the string to be printed.
+	;; Return: the number of bytes printed.
+	;;
 	;; Prototype: size_t asm_puts(const char *str);
+	;;
 	global asm_puts
 	extern asm_strlen
 
