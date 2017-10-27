@@ -1,7 +1,23 @@
 BITS 64
 CPU X64
 
+	;;
+	;; asm_putc - prints one character to STOUT
+	;;
+	;; Description: This routine uses the 'write' syscall to print the @c
+	;; integer as a character to the STDOUT.
+	;; The corresponding C implementation is:
+	;;
+	;; size_t putc(int c)
+	;; {
+	;; 	return (write(1, &c, 1));
+	;; }
+	;;
+	;; @c: the character to be printed
+	;; Return: the value return by the 'write' syscall
+	;;
 	;; Prototype: size_t asm_putc(int c);
+	;;
 	global asm_putc
 
 segment .text
