@@ -1,6 +1,18 @@
 BITS 64
 CPU X64
+	;;
+	;; asm_strcasecmp - clone of strcasecmp function in x86 assembly
+	;;
+	;; Description: compares the two strings s1 and s2, ignoring the case of
+	;; the characters.
+	;;
 	;; Prototype: int asm_strcasecmp(const char *s1, const char *s2);
+	;; @s1: a pointer to the first string
+	;; @s2: a pointer to the second string
+	;; Return: It returns an integer less than, equal to, or greater than
+	;; zero if s1 is found, respectively, to be less than, to match, or be
+	;; greater than s2.
+	;;
 	global asm_strcasecmp
 
 segment .text
