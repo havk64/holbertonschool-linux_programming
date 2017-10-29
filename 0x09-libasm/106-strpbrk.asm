@@ -1,7 +1,18 @@
 BITS 64
 CPU X64
 
-	;; Prototype: char *asm_strpbrk(const char *s, const char *accept);
+	;;
+	;; asm_strpbrk - clone of function strpbrk
+	;;
+	;; Description:	search a string for any of a set of bytes
+	;;
+	;; C Prototype: char *asm_strpbrk(const char *s, const char *accept);
+	;; @s: a pointer to a string
+	;; @accept: a pointer to a substring
+	;; Return: a pointer to the byte in @s that matches one of the bytes
+	;; in @accept, or NULL if no such byte is found.
+	;;
+
 	global asm_strpbrk
 
 segment .text
