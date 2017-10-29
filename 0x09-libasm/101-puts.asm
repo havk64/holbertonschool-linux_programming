@@ -20,7 +20,7 @@ asm_puts:
 	mov edx, eax		; Use the length of the string as 3rd arg to write syscall
 	mov esi, edi		; 2nd arg is the string
 	mov edi, 1		; 1st arg is the file descriptor to write to (1 for STDOUT)
-	mov eax, 1		; eax carry the syscall number (1 for write)
+	mov eax, 1		; eax carries the syscall number (1 for write)
 	syscall
 	mov rsp, rbp		; Routine epilogue, take down stack frame
 	pop rbp
