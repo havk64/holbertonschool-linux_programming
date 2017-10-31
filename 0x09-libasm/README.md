@@ -4,6 +4,11 @@ System programming & Algorithm ― Linux programming
 
 ### Task 0 - Strlen
 
+The file [0-strlen](0-strlen) has a copycat of the function `strlen(3)`, in
+x86-64 Assembly
+
+- Prototype when used in C: `size_t asm_strlen(const char *str)`;
+
 ```
 $ cat 0-main.c
 #include <stdlib.h>
