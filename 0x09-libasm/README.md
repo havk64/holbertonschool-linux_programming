@@ -51,3 +51,38 @@ The file [1-strcmp.asm](1-strcmp.asm) has a copycat of the function `strcmp(3)`,
 X86-64 Assembly
 
 - Prototype when used in C: `int asm_strcmp(const char *s1, const char *s2);`
+
+```
+$ cat 2-main.c 
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "libasm.h"
+
+#define S1  "Holberton School"
+#define S2  ""
+#define S3  "Holberton Socool"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+    assert(strcmp(S1, S1) == asm_strcmp(S1, S1));
+    assert(strcmp(S1, S2) == asm_strcmp(S1, S2));
+    assert(strcmp(S1, S3) == asm_strcmp(S1, S3));
+
+    printf("All good!\n");
+    return (EXIT_SUCCESS);
+}
+
+$ make
+
+$ ./1-strcmp
+
+All good!
+```
