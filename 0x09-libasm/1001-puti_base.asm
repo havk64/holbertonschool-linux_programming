@@ -11,8 +11,8 @@ CPU X64
 	;; Return: the number of digits printed
 	;;
 
+	extern asm_putc, asm_strlen	; Import functions from external file
 	global asm_puti_base		; Define symbol to routine of the same name
-	extern asm_putc, asm_strlen	; Import function from external file
 
 segment .text
 asm_puti_base:			; Implement asm_put_base function/routine
