@@ -7,8 +7,8 @@ BITS 64
 	;; @str: a pointer to the string to be scanned
 	;; Return: the number of bytes of the given string
 	;;
-	;; Instead of test each character for the end of string this implementation
-	;; tests each quadword (8 bytes) at a time to increase the performance.
+	;; Instead of test one character at a time for the end of string this
+	;; implementation tests each quadword (8 bytes) at a time.
 	;;
 
 	global asm_strlen_opt
