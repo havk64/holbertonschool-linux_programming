@@ -27,27 +27,26 @@ asm_strlen_opt:
 	mov rbx, rdi		; rbx got pointer to @str
 
 	xor ecx, ecx		; Reset ecx to zero
-	not ecx			; Invert ecx bits (-1), count backwards
 	xor al, al		; Reset al to NULL (zero) for scasb instruction
 	cld			; Clear direction flag, advances DI/SI
-loop:	test rdi, 0x07		; Mask the address with 8 - 1 to check remainder
-	jz next
+loop:	test rdi, 0x07		; Mask the address with 8 - 1 to check remainder (8 bytes align)
+	jz next			; Jump to next when aligned
+	inc cx			; Otherwise increment the counter
 	scasb			; Repeat 'scasb' until end of string + 1
-	loopnz loop		; TODO - use loopnz
-	jmp end
+	jnz loop
+	jmp end			; If end of string jump to end
 repeat:
-	add rbx, 0x8		; Increment pointer to @str
-	sub ecx, 0x8		; Count backwards
-next:
-	mov rax, [rbx]		; rax got the value (8 bytes) of @str
+	add ecx, 0x8		; Count each 8 bytes
+next:				; TODO - after find 0 verify where it was found and count
+	mov rax, [rbx + rcx]	; rax got the value (8 bytes) of @str
 	sub rax, [lomagic]
 	mov r8, [rbx]		; r8 got value (8 bytes) of @str
 	not r8
 	and r8, [himagic]
 	test rax, r8
 	jz repeat
-end:	not ecx			; Invert ecx bits after the loop to get the length
-	lea eax, [ecx - 1]
+end:
+	lea eax, [ecx]
 
 	pop rdi
 	pop r8
