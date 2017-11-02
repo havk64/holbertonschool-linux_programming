@@ -7,7 +7,9 @@ BITS 64
 	;; @str: a pointer to the string to be scanned
 	;; Return: the number of bytes of the given string
 	;;
-	;; Uses registers to count (instead of variables on stack frame)
+	;; Implementation using SSE 4.2 text processing instructions where
+	;; the string can be analyzed 16 bytes at a time thanks to the register size
+	;; of 128 bits, granting great performance.
 	;;
 
 	global asm_strlen	; Export the symbol to be used by external files
