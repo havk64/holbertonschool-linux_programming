@@ -7,6 +7,8 @@ int main(void)
 {
 	uint64_t rax, rbx, rcx, rdx;
 
+	/* Inline assembly to check CPU info */
+	/* *cpuid* is a processor suplementary instruction for x86 architecture  */
 	__asm__ __volatile__ ("cpuid\n\t"
 			      : "=a" (rax), "=b" (rbx), "=c" (rcx), "=d"(rdx)
 			      : "0" (0));
