@@ -28,7 +28,7 @@ asm_strcmp_sse:
 loop:
 	add esi, 10h		; Increment 16 bytes (128 bits) at a time
 	movdqu xmm0, [esi]	; Load 16 bytes from addr in esi into xmm0 (unaligned)
-	pcmpistri xmm0, [esi + edi], 11000b ; Check diff between the two strings
+	pcmpistri xmm0, [esi + edi], 11000b ; Compare the two strings
 	ja short loop			    ; While equal keep iterating
 	jc short diff		; If they differ return the index in ecx and jump
 	xor eax, eax		; Otherwise they are equal, return 0
