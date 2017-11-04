@@ -37,11 +37,11 @@ end:
 	pop rbp
 	ret			; Return
 
-diff:				; Replace jump with 'setcc' instruction
+diff:				; Replace conditional jumps with 'setcc' instruction
 	add edi, esi		; Add back the address of edi
 	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (ecx)
 	cmp al,	BYTE [esi + ecx]    ; Compare the characters
-	setb bl			; setb puts 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
+	setb bl			; Set 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
 	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffff : 0
 	mov eax, ebx		; eax = (al < dl) ? 0xffff : 0
 	and eax, -1		; eax = (al < dl) ? 0xffff : 0
