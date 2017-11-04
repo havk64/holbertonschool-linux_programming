@@ -20,34 +20,34 @@ BITS 64
 
 section .text
 asm_strcmp_sse:
-	push rbp
+	push rbp		; Routine prologue
 	mov rbp, rsp
-	sub rdi, rsi
-	sub esi, 10h
+	sub rdi, rsi		; Reduce effectively to just one index (rsi)
+	sub esi, 10h		; Sub 16 bytes, avoid jump first `add` instruction
 
 loop:
-	add esi, 10h
-	movdqu xmm0, [esi]
-	pcmpistri xmm0, [esi + edi], 11000b
-	ja short loop
-	jc short diff
-	xor eax, eax
+	add esi, 10h		; Increment 16 bytes (128 bits) at a time
+	movdqu xmm0, [esi]	; Load 16 bytes from addr in esi into xmm0 (unaligned)
+	pcmpistri xmm0, [esi + edi], 11000b ; Check diff between the two strings
+	ja short loop			    ; While equal keep iterating
+	jc short diff		; If they differ return the index in ecx and jump
+	xor eax, eax		; Otherwise they are equal, return 0
 end:
-	mov rsp, rbp
+	mov rsp, rbp		; Routine epilogue
 	pop rbp
-	ret
+	ret			; Return
 
-diff:
-	add edi, esi
-	movzx eax, BYTE [edi + ecx]
+diff:				; Replace jump with 'setcc' instruction
+	add edi, esi		; Add back the address of edi
+	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (ecx)
 	movzx edx, BYTE [esi + ecx]
-	cmp al, dl
-	setb bl
-	neg ebx
-	mov eax, ebx
-	and eax, -1
-	not ebx
-	and ebx, 1
-	or eax, ebx
-	jmp short end
+	cmp al, dl		; Compare the characters
+	setb bl			; setb puts 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
+	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffff : 0
+	mov eax, ebx		; eax = (al < dl) ? 0xffff : 0
+	and eax, -1		; eax = (al < dl) ? 0xffff : 0
+	not ebx			; ebx = (al < dl) ? 0 : 0xffff
+	and ebx, 1		; ebx = (al < dl) ? 0 : 1
+	or eax, ebx		; eax = (al < dl) ? 0xffff : 1 (-1 or 1)
+	jmp short end		; Go to the end and return
 
