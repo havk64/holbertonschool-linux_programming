@@ -13,8 +13,8 @@ loop:
 	add esi, 10h
 	movdqu xmm0, [esi]
 	pcmpistri xmm0, [esi + edi], 11000b
-	ja loop
-	jc diff
+	ja short loop
+	jc short diff
 	xor eax, eax
 end:
 	mov rsp, rbp
@@ -33,5 +33,5 @@ diff:
 	not ebx
 	and ebx, 1
 	or eax, ebx
-	jmp end
+	jmp short end
 
