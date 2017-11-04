@@ -26,11 +26,12 @@ diff:
 	movzx eax, BYTE [edi + ecx]
 	movzx edx, BYTE [esi + ecx]
 	cmp al, dl
-	jb less
-	mov eax, 1
-	jmp end
-
-less:
-	mov eax, -1
+	setb bl
+	neg ebx
+	mov eax, ebx
+	and eax, -1
+	not ebx
+	and ebx, 1
+	or eax, ebx
 	jmp end
 
