@@ -40,8 +40,7 @@ end:
 diff:				; Replace jump with 'setcc' instruction
 	add edi, esi		; Add back the address of edi
 	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (ecx)
-	movzx edx, BYTE [esi + ecx]
-	cmp al, dl		; Compare the characters
+	cmp al,	BYTE [esi + ecx]    ; Compare the characters
 	setb bl			; setb puts 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
 	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffff : 0
 	mov eax, ebx		; eax = (al < dl) ? 0xffff : 0
