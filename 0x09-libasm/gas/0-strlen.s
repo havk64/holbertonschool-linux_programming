@@ -1,16 +1,16 @@
 
-	#
-	# asm_strlen - clone of strlen function. Find the length of a string
-	# Gnu Assembler Syntax
-	#
-	# Prototype: size_t asm_strlen(const char *str);
-	# @str: a pointer to the string to be scanned
-	# Return: the number of bytes of the given string
-	#
-	# Implementation using SSE 4.2 text processing instructions where
-	# the string can be analyzed 16 bytes at a time thanks to the register size
-	# of 128 bits, granting great performance.
-	#
+	/*
+	 * asm_strlen - clone of strlen function. Find the length of a string
+	 * Gnu Assembler Syntax
+	 *
+	 * Prototype: size_t asm_strlen(const char *str);
+	 * @str: a pointer to the string to be scanned
+	 * Return: the number of bytes of the given string
+	 *
+	 * Implementation using SSE 4.2 text processing instructions where
+	 * the string can be analyzed 16 bytes at a time thanks to the register size
+	 * of 128 bits, granting great performance.
+	 */
 
         .global asm_strlen      # Export the symbol to be used by external files
 
