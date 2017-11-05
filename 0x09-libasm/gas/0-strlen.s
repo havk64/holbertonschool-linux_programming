@@ -23,8 +23,8 @@ asm_strlen:                     # Define the asm_strlen routine
 
 loop:
         addl $16,%eax           # Increment the counter by 16 each iteration
-	pcmpistri $0x8, (%edi, %eax, 1), %xmm0 # Look for the end of string
-        jnz loop                           # and generates an index on %ecx
+	pcmpistri $0b1000, (%edi, %eax, 1), %xmm0 # Look for the end of string
+        jnz loop                           	  # and generates an index on %ecx
 
         addl %ecx, %eax         # Add the index to the counter to be returned
         movq %rbp, %rsp         # Routine epilogue
