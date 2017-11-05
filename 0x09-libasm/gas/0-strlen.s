@@ -19,15 +19,15 @@ asm_strlen:                     # Define the asm_strlen routine
         pushq %rbp              # Routine prologue
         movq %rsp, %rbp
 	pxor %xmm0, %xmm0
-        movl $-16, %eax          # Initialize %eax to -16 to avoid one jmp
+        movl $-16, %eax         # Initialize %eax to -16 to avoid one jmp
 
 loop:
         addl $16,%eax           # Increment the counter by 16 each iteration
 	pcmpistri $0x8, (%edi, %eax, 1), %xmm0 # Look for the end of string
         jnz loop                           # and generates an index on %ecx
 
-        addl %ecx, %eax          # Add the index to the counter to be returned
-        movq %rbp, %rsp          # Routine epilogue
+        addl %ecx, %eax         # Add the index to the counter to be returned
+        movq %rbp, %rsp         # Routine epilogue
         popq %rbp
         ret
 
