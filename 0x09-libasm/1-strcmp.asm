@@ -23,7 +23,6 @@ asm_strcmp:
 	xor ecx, ecx		; Start a counter
 
 loop:
-
 	movzx eax, BYTE [edi + ecx] ; Char from first argument  (s1)
 	movzx ebx, BYTE [esi + ecx] ; Char from second argument (s2)
 	cmp al, bl		    ; Compare values
