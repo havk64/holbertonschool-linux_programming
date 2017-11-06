@@ -17,11 +17,11 @@ asm_strlen:			; Define the asm_strlen routine
 	push rbp		; Routine prologue
 	mov rbp, rsp
 	xor eax, eax		; Initialize the counter
-	jmp start		; Skip the first increment
+	dec eax			; Compensate first increment
 
 loop:				; Define the symbol to be used by the jnz instruction
 	inc eax
-start:	cmp BYTE [edi + eax], 0	; Compare each byte/char against zero
+	cmp BYTE [edi + eax], 0	; Compare each byte/char against zero
 	jnz loop		; If not zero (NULL/End of string) keep counting
 
 	mov rsp, rbp		; Routine epilogue
