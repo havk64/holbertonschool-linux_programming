@@ -1,0 +1,63 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_puti - print each digit of a signed base 10 number to STDOUT using
+     6                                  	;; asm_putc routine (defined in the 100-putc.asm file)
+     7                                  	;;
+     8                                  	;; Prototype: size_t asm_puti(int n);
+     9                                  	;; @n: the base 10 number to be printed
+    10                                  	;;
+    11                                  
+    12                                  	global asm_puti		; Define and export asm_puti symbol
+    13                                  	extern asm_putc		; Import the asm_putc function/routine
+    14                                  
+    15                                  segment .text
+    16                                  asm_puti:			; Implement the asm_puti function/routine
+    17 00000000 55                      	push rbp		; Routine prologue, create new stack frame
+    18 00000001 4889E5                  	mov rbp, rsp
+    19 00000004 53                      	push rbx		; Save registers to be used
+    20 00000005 51                      	push rcx
+    21 00000006 52                      	push rdx
+    22 00000007 4150                    	push r8
+    23 00000009 4531C0                  	xor r8d, r8d		; Reset 32 bits version of r9 register, our accumulator
+    24 0000000C 89F8                    	mov eax, edi		; Copy 1st arg (number) to eax
+    25 0000000E 85C0                    	test eax, eax		; Check the number sign
+    26 00000010 7842                    	js negative		; If negative jump to subroutine
+    27                                  num2str:			; Subroutine to convert number to string
+    28 00000012 BB0A000000              	mov ebx, 10		; Copy the divisor to ebx
+    29 00000017 31C9                    	xor ecx, ecx		; Start a counter
+    30 00000019 31D2                    pushd:	xor edx, edx		; Zero edx register used in the division
+    31 0000001B F7F3                    	div ebx			; Divide the number (in eax) by 10
+    32 0000001D 4883EC01                	sub rsp, 1		; Reserve on byte on stack
+    33 00000021 881424                  	mov [rsp], dl		; Save the remainder of the division to this byte
+    34 00000024 66FFC1                  	inc cx			; Increment the counter
+    35 00000027 85C0                    	test eax, eax		; Check when it reach zero
+    36 00000029 75EE                    	jnz pushd		; While not zero, loop
+    37 0000002B 0FB63C24                print:	movzx edi, BYTE [rsp]	; Start retrieving each byte from stack, reverse order
+    38 0000002F 4080CF30                	or dil, 0x30		; Add 48 to each digit to convert it to an ASCII character
+    39 00000033 E8(00000000)            	call asm_putc		; Call the routine to print each digit
+    40 00000038 4100C0                  	add r8b, al		; Add the return value of function call to the accumulator
+    41 0000003B 4883C401                	add rsp, 1		; Remove each byte from stack
+    42 0000003F 66FFC9                  	dec cx			; Decrease the counter
+    43 00000042 6685C9                  	test cx, cx		; Check when it reach zero
+    44 00000045 75E4                    	jnz print		; While not zero, loop
+    45 00000047 4489C0                  	mov eax, r8d		; Transfer the accumulator to eax (return value)
+    46                                  end:
+    47 0000004A 4158                    	pop r8			; Restore registers
+    48 0000004C 5A                      	pop rdx
+    49 0000004D 59                      	pop rcx
+    50 0000004E 5B                      	pop rbx
+    51 0000004F 4889EC                  	mov rsp, rbp		; Routine epilogue, take down the stack frame
+    52 00000052 5D                      	pop rbp
+    53 00000053 C3                      	ret
+    54                                  
+    55                                  negative:			; Subroutine to deal with negative numbers
+    56 00000054 F7D8                    	neg eax			; Flip sign
+    57 00000056 50                      	push rax		; Save the number to the stack
+    58 00000057 BF2D000000              	mov edi, '-'		; Prepare 1st function argument
+    59 0000005C E8(00000000)            	call asm_putc		; Call putc to print the minus sign
+    60 00000061 4100C0                  	add r8b, al		; Add the return value to the accumulator
+    61 00000064 58                      	pop rax			; Retrieve the number from stack
+    62 00000065 89C7                    	mov edi, eax		; Copy it to edi (1st argument to func call)
+    63 00000067 EBA9                    	jmp num2str		; Jump to num2str subroutine
