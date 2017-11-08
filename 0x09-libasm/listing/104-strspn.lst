@@ -1,0 +1,54 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_strspn - clone of strspn function in X86 Assembly
+     6                                  	;;
+     7                                  	;; Description:	calculates the length (in bytes) of the initial segment
+     8                                  	;; of @s which consists entirely of bytes in @accept.
+     9                                  	;;
+    10                                  	;; Prototype: size_t asm_strspn(const char *s, const char *accept);
+    11                                  	;; @s: a pointer to a string
+    12                                  	;; @accept: a pointer to a substring
+    13                                  	;; Return: the number of bytes in the initial segment of @s which consist
+    14                                  	;; only of bytes from @accept.
+    15                                  	;;
+    16                                  
+    17                                  	global	asm_strspn
+    18                                  
+    19                                  segment .text
+    20                                  asm_strspn:
+    21 00000000 55                      	push rbp
+    22 00000001 4889E5                  	mov rbp, rsp
+    23 00000004 53                      	push rbx
+    24 00000005 51                      	push rcx
+    25 00000006 52                      	push rdx
+    26 00000007 31C0                    	xor eax, eax
+    27 00000009 31C9                    	xor ecx, ecx
+    28                                  
+    29                                  loop:
+    30 0000000B 670FB61C0F              	movzx ebx, BYTE [edi + ecx]
+    31 00000010 84DB                    	test bl, bl
+    32 00000012 7408                    	jz end
+    33 00000014 EB0E                    	jmp inner
+    34 00000016 FFC0                    outter:	inc eax
+    35 00000018 FFC1                    	inc ecx
+    36 0000001A EBEF                    	jmp loop
+    37                                  
+    38                                  end:
+    39 0000001C 5A                      	pop rdx
+    40 0000001D 59                      	pop rcx
+    41 0000001E 5B                      	pop rbx
+    42 0000001F 4889EC                  	mov rsp, rbp
+    43 00000022 5D                      	pop rbp
+    44 00000023 C3                      	ret
+    45                                  
+    46                                  inner:
+    47 00000024 31D2                    	xor edx, edx
+    48 00000026 67440FB60416            iloop:	movzx r8d, BYTE [esi + edx]
+    49 0000002C 4584C0                  	test r8b, r8b
+    50 0000002F 74EB                    	jz end
+    51 00000031 FFC2                    	inc edx
+    52 00000033 4438C3                  	cmp bl, r8b
+    53 00000036 75EE                    	jnz iloop
+    54 00000038 EBDC                    	jmp outter
