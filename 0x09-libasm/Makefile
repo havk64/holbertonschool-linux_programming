@@ -1,6 +1,6 @@
 CC	:= gcc
-NASM	:= /usr/bin/nasm
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
+NASM	:= nasm
 NFLAGS	:= -f elf64 -g
 T0	:= 0-strlen
 T1	:= 1-strcmp
