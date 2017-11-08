@@ -1,0 +1,62 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  	;;
+     4                                  	;; asm_strcasecmp - clone of strcasecmp function in x86 assembly
+     5                                  	;;
+     6                                  	;; Description: compares the two strings s1 and s2, ignoring the case of
+     7                                  	;; the characters.
+     8                                  	;;
+     9                                  	;; Prototype: int asm_strcasecmp(const char *s1, const char *s2);
+    10                                  	;; @s1: a pointer to the first string
+    11                                  	;; @s2: a pointer to the second string
+    12                                  	;; Return: It returns an integer less than, equal to, or greater than
+    13                                  	;; zero if s1 is found, respectively, to be less than, to match, or be
+    14                                  	;; greater than s2.
+    15                                  	;;
+    16                                  
+    17                                  	global asm_strcasecmp
+    18                                  
+    19                                  segment .text
+    20                                  asm_strcasecmp:
+    21 00000000 55                      	push rbp		; Routine prologue
+    22 00000001 4889E5                  	mov rbp, rsp
+    23 00000004 53                      	push rbx		; Save registers state/values
+    24 00000005 51                      	push rcx
+    25 00000006 31C9                    	xor ecx, ecx		; Reset ecx to be used as a counter
+    26                                  				; not ecx - TODO
+    27                                  
+    28                                  loop:
+    29 00000008 670FB6040F              	movzx eax, BYTE [edi + ecx]
+    30 0000000D 3C5B                    	cmp al, 91
+    31 0000000F 721F                    	jb downcase1
+    32 00000011 670FB61C0E              first:	movzx ebx, BYTE [esi + ecx]
+    33 00000016 80FB5B                  	cmp bl, 91
+    34 00000019 721D                    	jb downcase2
+    35 0000001B 38D8                    cmp:	cmp al, bl
+    36 0000001D 750D                    	jnz diff
+    37 0000001F FFC1                    	inc ecx			; Remove this line - TODO
+    38 00000021 84C0                    	test al, al
+    39 00000023 75E3                    	jnz loop		; TODO - use loopnz
+    40                                  
+    41                                  end:
+    42 00000025 59                      	pop rcx
+    43 00000026 5B                      	pop rbx
+    44 00000027 4889EC                  	mov rsp, rbp
+    45 0000002A 5D                      	pop rbp
+    46 0000002B C3                      	ret
+    47                                  
+    48                                  diff:
+    49 0000002C 29D8                    	sub eax, ebx
+    50 0000002E EBF5                    	jmp end
+    51                                  
+    52                                  downcase1:
+    53 00000030 3C40                    	cmp al, 0x40
+    54 00000032 76DD                    	jna first
+    55 00000034 0C20                    	or al, 0x20
+    56 00000036 EBD9                    	jmp first
+    57                                  
+    58                                  downcase2:
+    59 00000038 80FB40                  	cmp bl, 0x40
+    60 0000003B 76DE                    	jna cmp
+    61 0000003D 80CB20                  	or bl, 0x20
+    62 00000040 EBD9                    	jmp cmp
