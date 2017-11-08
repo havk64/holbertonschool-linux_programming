@@ -19,11 +19,12 @@ T11	:= 105-strcspn
 T12	:= 106-strpbrk
 T13	:= 1000-puti
 T14	:= 1001-puti_base
+all	:= $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) $(T11) \
+$(T12) $(T13) $(T14)
 
 .PHONY	: all clean re
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) $(T11) \
-$(T12) $(T13) $(T14)
+all: $(all)
 
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
