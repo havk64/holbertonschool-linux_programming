@@ -1,0 +1,40 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  	;;
+     4                                  	;; asm_strchr - clone of strchr (3) function
+     5                                  	;;
+     6                                  	;; Description:	The strchr() function returns a pointer to the first
+     7                                  	;; occurrence of the character @c in the string @s.
+     8                                  	;;
+     9                                  	;; @s: a pointer to the string to scanned
+    10                                  	;; @c: a character to be searched for
+    11                                  	;; Return: a pointer to the matched character or
+    12                                  	;; NULL if the character is not found.
+    13                                  	;; Prototype: char *asm_strchr(const char *s, int c);
+    14                                  	;;
+    15                                  	global asm_strchr
+    16                                  
+    17                                  	segment .text
+    18                                  
+    19                                  asm_strchr:
+    20 00000000 55                      	push rbp		; Routine prologue
+    21 00000001 4889E5                  	mov rbp, rsp
+    22 00000004 51                      	push rcx		; Save register to be used
+    23 00000005 89F8                    	mov eax, edi		; Copy the first function argument to eax register
+    24                                  loop:
+    25 00000007 670FB608                	movzx ecx, BYTE [eax]	; Read one byte of the string to low byte of ecx
+    26 0000000B 39F1                    	cmp ecx, esi		; Compare it agains the second argument
+    27 0000000D 7408                    	jz end			; If they are equal jump to the end (returning eax)
+    28 0000000F 84C9                    	test cl, cl		; Test if the byte/char is NULL (end of string)
+    29 00000011 740A                    	jz eos			; If NULL jump to 'eos'
+    30 00000013 FFC0                    	inc eax			; Otherwise increment the pointer to the string
+    31 00000015 EBF0                    	jmp loop		; ...and loop again
+    32                                  
+    33                                  end:
+    34 00000017 59                      	pop rcx			; Routine epilogue
+    35 00000018 4889EC                  	mov rsp, rbp
+    36 0000001B 5D                      	pop rbp
+    37 0000001C C3                      	ret
+    38                                  
+    39 0000001D B800000000              eos:	mov eax, 0		; If end of string return 0
+    40 00000022 EBF3                    	jmp end
