@@ -1,24 +1,24 @@
 BITS 64
 
 	;;
-	;; asm_strlen_opt - Clone of strlen. Measure the length of a string
+	;; asm_strlen_vec - vectorized implementation of strlen.
 	;;
 	;; Prototype: size_t asm_strlen(const char *str);
 	;; @str: a pointer to the string to be scanned
 	;; Return: the number of bytes of the given string
 	;;
-	;; Instead of test one character at a time for the end of string this
-	;; implementation tests each quadword (8 bytes) at a time.
+	;; This implementation reads 8 bytes at a time using a vectorized
+	;; approach to verify for the end of the string.
 	;;
 
-	global asm_strlen_opt
+	global asm_strlen_vec
 
 segment .rodata
 himagic	dq 0x8080808080808080, 1
 lomagic	dq 0x0101010101010101, 1
 
 segment .text
-asm_strlen_opt:
+asm_strlen_vec:
 	push rbp
 	mov rbp, rsp
 	push rbx
