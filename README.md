@@ -14,4 +14,4 @@ Holberton School Linux Programming Assignments
 
 ### [C - ReadELF](0x06-readelf)
 
-### [Assembly - libASM] (0x09-libasm)
+### [Assembly - libASM](0x09-libasm)
