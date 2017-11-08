@@ -22,12 +22,12 @@ section .text
 asm_strcmp:
 	push rbp		; Routine prologue
 	mov rbp, rsp
-	sub rdi, rsi		; Reduce effectively to just one index (rsi)
+	sub rdi, rsi		; Reduce effectively to just one index (%rsi)
 	sub esi, 10h		; Sub 16 bytes, avoid jump first `add` instruction
 
 loop:
 	add esi, 10h		; Increment 16 bytes (128 bits) at a time
-	movdqu xmm0, [esi]	; Load 16 bytes from addr in esi into xmm0 (unaligned)
+	movdqu xmm0, [esi]	; Load 16 bytes from %esi addr into %xmm0 (unaligned)
 	pcmpistri xmm0, [esi + edi], 11000b ; Compare the two strings
 	ja short loop			    ; While equal keep iterating
 	jc short diff		; If they differ return the index in ecx and jump
@@ -38,8 +38,8 @@ end:
 	ret			; Return
 
 diff:				; Replace conditional jumps with 'setcc' instruction
-	add edi, esi		; Add back the address of edi
-	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (ecx)
+	add edi, esi		; Add back the address of %edi
+	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (%ecx)
 	cmp al,	BYTE [esi + ecx]    ; Compare the characters
 	setb bl			; Set 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
 	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffff : 0
