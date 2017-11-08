@@ -1,0 +1,51 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_strpbrk - clone of function strpbrk
+     6                                  	;;
+     7                                  	;; Description:	search a string for any of a set of bytes
+     8                                  	;;
+     9                                  	;; C Prototype: char *asm_strpbrk(const char *s, const char *accept);
+    10                                  	;; @s: a pointer to a string
+    11                                  	;; @accept: a pointer to a substring
+    12                                  	;; Return: a pointer to the byte in @s that matches one of the bytes
+    13                                  	;; in @accept, or NULL if no such byte is found.
+    14                                  	;;
+    15                                  
+    16                                  	global asm_strpbrk
+    17                                  
+    18                                  segment .text
+    19                                  asm_strpbrk:
+    20 00000000 55                      	push rbp
+    21 00000001 4889E5                  	mov rbp, rsp
+    22 00000004 53                      	push rbx
+    23 00000005 51                      	push rcx
+    24 00000006 678D07                  	lea eax, [edi]
+    25                                  
+    26                                  loop:
+    27 00000009 670FB618                	movzx ebx, BYTE [eax]
+    28 0000000D 84DB                    	test bl, bl
+    29 0000000F 7406                    	jz notfound
+    30 00000011 EB0D                    	jmp inner
+    31 00000013 FFC0                    outter:	inc eax
+    32 00000015 EBF2                    	jmp loop
+    33                                  
+    34                                  notfound:
+    35 00000017 31C0                    	xor eax, eax
+    36                                  end:
+    37 00000019 59                      	pop rcx
+    38 0000001A 5B                      	pop rbx
+    39 0000001B 4889EC                  	mov rsp, rbp
+    40 0000001E 5D                      	pop rbp
+    41 0000001F C3                      	ret
+    42                                  
+    43                                  inner:
+    44 00000020 31C9                    	xor ecx, ecx
+    45 00000022 670FB6140E              iloop:	movzx edx, BYTE [esi + ecx]
+    46 00000027 84D2                    	test dl, dl
+    47 00000029 74E8                    	jz outter
+    48 0000002B FFC1                    	inc ecx
+    49 0000002D 38D3                    	cmp bl, dl
+    50 0000002F 74E8                    	jz end
+    51 00000031 EBEF                    	jmp iloop
