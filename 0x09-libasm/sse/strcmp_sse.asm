@@ -2,12 +2,12 @@ BITS 64
 	;;
 	;; strcmp clone - return the difference between two strings
 	;;
-	;; Implementation: Using SSE 4.2 text processing instructions where
-	;; the string are analyzed 16 bytes at a time thanks to the register size
-	;; of 128 bits, granting great performance.
-	;; Also avoid conditional jump to allow 'Speculative Execution', a feature
-	;; available in modern processors that uses its parallel processing
-	;; capabilities.
+	;; Implementation: vectorized implementation using SSE 4.2 text processing
+	;; instructions where the strings are analyzed 16 bytes at a time by
+	;; using xmm# register of 128 bits to improve text processing performance.
+	;; Indeed it avoids some conditional jumps contributing to 'Speculative
+	;; Execution', a feature available in modern processors that uses its
+	;; parallel processing capabilities.
 	;;
 	;; Prototype: int asm_strcmp(const char *s1, const char *s2);
 	;; @s1: Pointer to the first string
