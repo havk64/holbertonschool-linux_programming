@@ -1,0 +1,73 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_puti_base - prints each digit of a signed number in the given base
+     6                                  	;; to STDOUT using the putc routine that prints one char at a time
+     7                                  	;;
+     8                                  	;; Prototype: size_t asm_puti_base(int n, const char *base);
+     9                                  	;; @n: the signed number to be printed
+    10                                  	;; @base: a string representing the base
+    11                                  	;; Return: the number of digits printed
+    12                                  	;;
+    13                                  
+    14                                  	extern asm_putc, asm_strlen	; Import functions from external file
+    15                                  	global asm_puti_base		; Define symbol to routine of the same name
+    16                                  
+    17                                  segment .text
+    18                                  asm_puti_base:			; Implement asm_put_base function/routine
+    19 00000000 55                      	push rbp		; Routine prologue, create new stack frame
+    20 00000001 4889E5                  	mov rbp, rsp
+    21 00000004 52                      	push rdx		; Save registers that will be overriden
+    22 00000005 4150                    	push r8
+    23 00000007 4151                    	push r9
+    24 00000009 57                      	push rdi		; Save first function argument
+    25 0000000A 4889F7                  	mov rdi, rsi		; Use 2nd argument as the 1st to call strlen
+    26 0000000D E8(00000000)            	call asm_strlen		; Call to strlen, measure the length of string
+    27 00000012 5F                      	pop rdi			; Restore 1st argument
+    28 00000013 50                      	push rax		; Save return value of strlen (length) to the stack
+    29 00000014 488D1424                	lea rdx, [rsp]		; Copy a pointer to the length of string (base)
+    30 00000018 4531C9                  	xor r9d, r9d		; Start/reset our counter to the number of char printed
+    31 0000001B 89F8                    	mov eax, edi		; Copy 1st arg to check its sign (positive or negative)
+    32 0000001D 85C0                    	test eax, eax
+    33 0000001F 7845                    	js negative		; If negative jump to subroutine...
+    34                                  				; Otherwise continue to 'print' subroutine
+    35                                  print:				; Subroutine to print each digit
+    36 00000021 8B1A                    	mov ebx, [rdx]		; Copy the length of string to ebx
+    37 00000023 31C9                    	xor ecx, ecx		; Start a counter
+    38 00000025 31D2                    iloop:	xor edx, edx		; Reset edx to make the division
+    39 00000027 F7F3                    	div ebx			; Divide the number (in edx:eax) by length of string
+    40 00000029 4883EC01                	sub rsp, 1		; Reserve one byte on stack to put the remainder
+    41 0000002D 881424                  	mov [rsp], dl		; Save the remainder of division (number / length)
+    42 00000030 66FFC1                  	inc cx			; Increment our counter
+    43 00000033 85C0                    	test eax, eax		; Check when we reach zero
+    44 00000035 75EE                    	jnz iloop		; While not zero, loop
+    45 00000037 440FB60424              pstr:	movzx r8d, BYTE [rsp]	; After we reach zero start copying bytes from stack
+    46 0000003C 420FB63C06              	movzx edi, BYTE [rsi + r8] ; in reverse order to be printed
+    47 00000041 E8(00000000)            	call asm_putc		   ; Print each digit
+    48 00000046 4100C1                  	add r9b, al		   ; Transfer the result of call to putc to our counter
+    49 00000049 4883C401                	add rsp, 1		   ; Restore each byte from the stack
+    50 0000004D 66FFC9                  	dec cx			   ; Decrement our counter
+    51 00000050 6685C9                  	test cx, cx		   ; Check when we reach zero
+    52 00000053 75E2                    	jnz pstr		   ; While not zero, loop
+    53 00000055 4489C8                  	mov eax, r9d		   ; When zero, copy the acumulator to return value
+    54                                  
+    55                                  end:
+    56 00000058 4883C408                	add rsp, 8		; Remove 8 bytes from stack (used by rax)
+    57 0000005C 4159                    	pop r9			; Restore GPR (General Purpose Registers)
+    58 0000005E 4158                    	pop r8
+    59 00000060 5A                      	pop rdx
+    60 00000061 4889EC                  	mov rsp, rbp		; Routine epilogue, return from stack frame
+    61 00000064 5D                      	pop rbp
+    62 00000065 C3                      	ret
+    63                                  
+    64                                  negative:			; Subroutine to deal with negative numbers
+    65 00000066 F7D8                    	neg eax			; Make positive (flip sign)
+    66 00000068 50                      	push rax		; Preserve the number on stack
+    67 00000069 BF2D000000              	mov edi, '-'		; Define 1st arg to putc
+    68 0000006E E8(00000000)            	call asm_putc		; Call putc to print the minus sign
+    69 00000073 4100C1                  	add r9b, al		; Add the return value to r9 to be returned later
+    70 00000076 58                      	pop rax			; Restore the number
+    71 00000077 89C7                    	mov edi, eax		; Use the number as 1st argument to next routine
+    72 00000079 EBA6                    	jmp print		; Jump to 'print' subroutine
+    73                                  
