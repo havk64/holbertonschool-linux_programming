@@ -1,0 +1,29 @@
+     1                                  BITS 64
+     2                                  
+     3                                  	;;
+     4                                  	;; asm_strlen - clone of strlen function. Finds the length of a string
+     5                                  	;;
+     6                                  	;; Prototype: size_t asm_strlen(const char *str);
+     7                                  	;; @str: a pointer to the string to be scanned
+     8                                  	;; Return: the number of bytes of the given string
+     9                                  	;;
+    10                                  	;; Uses registers to count (instead of variables on stack frame)
+    11                                  	;;
+    12                                  
+    13                                  	global asm_strlen	; Export the symbol to be used by external files
+    14                                  
+    15                                  segment .text			; Define the beginning of the .text (code) segment
+    16                                  asm_strlen:			; Define the asm_strlen routine
+    17 00000000 55                      	push rbp		; Routine prologue
+    18 00000001 4889E5                  	mov rbp, rsp
+    19 00000004 31C0                    	xor eax, eax		; Initialize the counter
+    20 00000006 FFC8                    	dec eax			; Compensate first increment
+    21                                  
+    22                                  loop:				; Define the symbol to be used by the jnz instruction
+    23 00000008 FFC0                    	inc eax
+    24 0000000A 67803C0700              	cmp BYTE [edi + eax], 0	; Compare each byte/char against zero
+    25 0000000F 75F7                    	jnz loop		; If not zero (NULL/End of string) keep counting
+    26                                  
+    27 00000011 4889EC                  	mov rsp, rbp		; Routine epilogue
+    28 00000014 5D                      	pop rbp
+    29 00000015 C3                      	ret
