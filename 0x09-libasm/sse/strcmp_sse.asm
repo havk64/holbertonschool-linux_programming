@@ -16,10 +16,10 @@ BITS 64
 	;; found, respectively, to be less than, to match, or  be greater than s2.
 	;;
 
-	global asm_strcmp_sse
+	global asm_strcmp
 
 section .text
-asm_strcmp_sse:
+asm_strcmp:
 	push rbp		; Routine prologue
 	mov rbp, rsp
 	sub rdi, rsi		; Reduce effectively to just one index (rsi)
