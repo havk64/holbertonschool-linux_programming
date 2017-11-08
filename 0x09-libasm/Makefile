@@ -1,6 +1,7 @@
 CC	:= gcc
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
 OBJS	:= objs/
+LST	:= listing/
 NASM	:= nasm
 NFLAGS	:= -f elf64 -g
 T0	:= 0-strlen
@@ -27,7 +28,7 @@ $(T12) $(T13) $(T14)
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
 $(OBJS)%.o: %.asm | $(OBJS)
-	$(NASM) $(NFLAGS) -o $@ $<
+	$(NASM) $(NFLAGS) -o $@ $< -l $(LST)$(<:.asm=.lst)
 
 $(OBJS):
 	@mkdir -p $@
