@@ -1,0 +1,27 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_puts - a assembly routine that prints a string to STDOUT
+     6                                  	;;
+     7                                  	;; @str: a pointer to the string to be printed.
+     8                                  	;; Return: the number of bytes printed.
+     9                                  	;;
+    10                                  	;; Prototype: size_t asm_puts(const char *str);
+    11                                  	;;
+    12                                  	global asm_puts
+    13                                  	extern asm_strlen
+    14                                  
+    15                                  segment .text
+    16                                  asm_puts:
+    17 00000000 55                      	push rbp		; Routine prologue, set new stack frame
+    18 00000001 4889E5                  	mov rbp, rsp
+    19 00000004 E8(00000000)            	call asm_strlen		; Call asm_strlen to measure the string length
+    20 00000009 89C2                    	mov edx, eax		; Use the length of the string as 3rd arg to write syscall
+    21 0000000B 89FE                    	mov esi, edi		; 2nd arg is the string
+    22 0000000D BF01000000              	mov edi, 1		; 1st arg is the file descriptor to write to (1 for STDOUT)
+    23 00000012 B801000000              	mov eax, 1		; eax carries the syscall number (1 for write)
+    24 00000017 0F05                    	syscall
+    25 00000019 4889EC                  	mov rsp, rbp		; Routine epilogue, take down stack frame
+    26 0000001C 5D                      	pop rbp
+    27 0000001D C3                      	ret			; Return
