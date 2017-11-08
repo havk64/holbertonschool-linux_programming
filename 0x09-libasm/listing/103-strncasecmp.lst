@@ -1,0 +1,69 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_strncasecmp - clone of strncasecmp function in X86 Assembly
+     6                                  	;;
+     7                                  	;; Description:	compares the two strings @s1 and @s2, ignoring the case
+     8                                  	;; of the characters.
+     9                                  	;;
+    10                                  	;; Prototype: int asm_strncasecmp(const char *s1, const char *s2, size_t n);
+    11                                  	;; @s1: a pointer to the first string
+    12                                  	;; @s2: a pointer to the second string
+    13                                  	;; @n: the number of bytes to be compared
+    14                                  	;; Return: It returns an integer less than, equal to, or greater than
+    15                                  	;; zero if s1 is found, respectively, to be less than, to match, or be
+    16                                  	;; greater than s2.compare two strings ignoring case
+    17                                  	;;
+    18                                  
+    19                                  	global asm_strncasecmp
+    20                                  
+    21                                  segment .text
+    22                                  asm_strncasecmp:
+    23 00000000 55                      	push rbp
+    24 00000001 4889E5                  	mov rbp, rsp
+    25 00000004 53                      	push rbx
+    26 00000005 51                      	push rcx
+    27 00000006 31C9                    	xor ecx, ecx
+    28                                  
+    29                                  loop:
+    30 00000008 39CA                    	cmp edx, ecx
+    31 0000000A 743A                    	jz break
+    32 0000000C 670FB6040F              	movzx eax, BYTE [edi + ecx]
+    33 00000011 3C5B                    	cmp al, 0x5b
+    34 00000013 721F                    	jb downcase1
+    35 00000015 670FB61C0E              first:	movzx ebx, BYTE [esi + ecx]
+    36 0000001A 80FB5B                  	cmp bl, 0x5b
+    37 0000001D 721D                    	jb downcase2
+    38 0000001F 38D8                    cmp:	cmp al, bl
+    39 00000021 750D                    	jnz diff
+    40 00000023 FFC1                    	inc ecx
+    41 00000025 84C0                    	test al, al
+    42 00000027 75DF                    	jnz loop
+    43                                  
+    44                                  end:
+    45 00000029 59                      	pop rcx
+    46 0000002A 5B                      	pop rbx
+    47 0000002B 4889EC                  	mov rsp, rbp
+    48 0000002E 5D                      	pop rbp
+    49 0000002F C3                      	ret
+    50                                  
+    51                                  diff:
+    52 00000030 29D8                    	sub eax, ebx
+    53 00000032 EBF5                    	jmp end
+    54                                  
+    55                                  downcase1:
+    56 00000034 3C40                    	cmp al, 0x40
+    57 00000036 76DD                    	jna first
+    58 00000038 0C20                    	or al, 0x20
+    59 0000003A EBD9                    	jmp first
+    60                                  
+    61                                  downcase2:
+    62 0000003C 80FB40                  	cmp bl, 0x40
+    63 0000003F 76DE                    	jna cmp
+    64 00000041 80CB20                  	or bl, 0x20
+    65 00000044 EBD9                    	jmp cmp
+    66                                  
+    67                                  break:
+    68 00000046 B800000000              	mov eax, 0
+    69 0000004B EBDC                    	jmp end
