@@ -2,6 +2,7 @@ CC	:= gcc
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
 OBJS	:= objs/
 LST	:= listing/
+SSE	:= sse/
 NASM	:= nasm
 NFLAGS	:= -f elf64 -g
 T0	:= 0-strlen
@@ -19,8 +20,12 @@ T11	:= 105-strcspn
 T12	:= 106-strpbrk
 T13	:= 1000-puti
 T14	:= 1001-puti_base
-all	:= $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) $(T11) \
-$(T12) $(T13) $(T14)
+S0	:= strlen_sse
+S1	:= strcmp_sse
+vpath %.asm $(SSE)
+
+all	:= $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) \
+	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1)
 
 .PHONY	: all clean re
 
@@ -30,7 +35,7 @@ $(OBJS)%.o: %.asm | $(OBJS)
 	$(NASM) $(NFLAGS) -o $@ $< -l $(LST)$(<:.asm=.lst)
 
 $(OBJS):
-	@mkdir -p $(LST) $@
+	@mkdir -p $(LST)$(SSE) $@
 
 $(OBJS)%.o: c_interface/%.c
 	$(CC) -c $(CFLAGS) -I. -o $@ $^
@@ -78,6 +83,12 @@ $(T13): $(addprefix $(OBJS), 1000-main.o 1000-puti.o 100-putc.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(T14): $(addprefix $(OBJS), 1001-main.o 1001-puti_base.o 100-putc.o 0-strlen.o)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(S0): $(addprefix $(OBJS), 0-main.o strlen_sse.o)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(S1): $(addprefix $(OBJS), 1-main.o strcmp_sse.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
