@@ -1,5 +1,6 @@
 CC	:= gcc
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
+OBJS	:= objs/
 NASM	:= nasm
 NFLAGS	:= -f elf64 -g
 T0	:= 0-strlen
@@ -25,6 +26,11 @@ $(T12) $(T13) $(T14)
 
 $(T0): 0-main.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
+$(OBJS)%.o: %.asm | $(OBJS)
+	$(NASM) $(NFLAGS) -o $@ $<
+
+$(OBJS):
+	@mkdir -p $@
 
 $(T1): 1-main.o 1-strcmp.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -68,8 +74,6 @@ $(T13): 1000-main.o 1000-puti.o 100-putc.o
 $(T14): 1001-main.o 1001-puti_base.o 100-putc.o 0-strlen.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-%.o: %.asm
-	$(NASM) $(NFLAGS) -o $@ $<
 
 clean:
 	$(RM) *.o
