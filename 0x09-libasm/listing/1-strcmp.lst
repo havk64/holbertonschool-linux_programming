@@ -1,0 +1,52 @@
+     1                                  BITS 64
+     2                                  	;;
+     3                                  	;; strcmp clone - return the difference between two strings
+     4                                  	;;
+     5                                  	;; Prototype: int asm_strcmp(const char *s1, const char *s2);
+     6                                  	;; @s1: Pointer to the first string
+     7                                  	;; @s2: Pointer to the second string
+     8                                  	;; Return: an integer that less than, equal to, or greater than zero if s1  is
+     9                                  	;; found, respectively, to be less than, to match, or  be greater than s2.
+    10                                  	;;
+    11                                  	;; Implementation using just registers instead of variables on stack (memory)
+    12                                  	;;
+    13                                  
+    14                                  	global asm_strcmp
+    15                                  
+    16                                  segment .text
+    17                                  
+    18                                  asm_strcmp:
+    19 00000000 55                      	push rbp		; Routine preamble
+    20 00000001 4889E5                  	mov rbp, rsp
+    21 00000004 53                      	push rbx		; Save registers to be used
+    22 00000005 51                      	push rcx
+    23 00000006 31C9                    	xor ecx, ecx		; Start a counter
+    24                                  
+    25                                  loop:
+    26 00000008 670FB6040F              	movzx eax, BYTE [edi + ecx] ; Char from first argument  (s1)
+    27 0000000D 670FB61C0E              	movzx ebx, BYTE [esi + ecx] ; Char from second argument (s2)
+    28 00000012 38D8                    	cmp al, bl		    ; Compare values
+    29 00000014 720F                    	jb less_than		; If first is less than second skip
+    30 00000016 7714                    	ja greater_than		; If greater skip
+    31 00000018 FFC1                    	inc ecx			; Otherwise increment the counter
+    32                                  	;; Test if the s1 character is NULL (end of string)
+    33 0000001A 84C0                    	test al, al		; 'test' (bitwise &) is lighter than 'cmp'
+    34 0000001C 75EA                    	jnz loop		; If not zero loop, otherwise continue (end)
+    35                                  
+    36                                  end:
+    37 0000001E 59                      	pop rcx			; Restore used registers
+    38 0000001F 5B                      	pop rbx
+    39 00000020 4889EC                  	mov rsp, rbp		; Routine epilogue
+    40 00000023 5D                      	pop rbp
+    41 00000024 C3                      	ret
+    42                                  
+    43                                  less_than:
+    44 00000025 B8FFFFFFFF              	mov eax, -1		; If first less than second return -1
+    45 0000002A EBF2                    	jmp end			; and Return
+    46                                  
+    47                                  greater_than:
+    48 0000002C B801000000              	mov eax, 1		; If first is greater return 1 and return
+    49 00000031 EBEB                    	jmp end
+    50                                  
+    51                                  
+    52                                  
