@@ -1,0 +1,56 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  	;;
+     4                                  	;; asm_strstr - a clone of strstr function
+     5                                  	;;
+     6                                  	;; Description:	the strstr() function finds the first occurrence of the
+     7                                  	;; substring @sub in the string @s.
+     8                                  	;;
+     9                                  	;; @s: the pointer to the string
+    10                                  	;; @sub: a pointer to the substring to be searched for
+    11                                  	;; Return: a pointer to the beginning of the substring,
+    12                                  	;; or NULL if substring is not found.
+    13                                  	;;
+    14                                  	;; Prototype: char *asm_strstr(const char *s, char *sub);
+    15                                  	;;
+    16                                  	global asm_strstr
+    17                                  
+    18                                  	segment .text
+    19                                  
+    20                                  asm_strstr:
+    21 00000000 55                      	push rbp
+    22 00000001 4889E5                  	mov rbp, rsp
+    23 00000004 53                      	push rbx
+    24 00000005 51                      	push rcx
+    25 00000006 52                      	push rdx
+    26                                  
+    27                                  loop:
+    28 00000007 670FB607                	movzx eax, BYTE [edi]
+    29 0000000B 673A06                  	cmp al, BYTE [esi]
+    30 0000000E 7410                    	jz match
+    31 00000010 FFC7                    	inc edi
+    32 00000012 84C0                    	test al, al
+    33 00000014 75F1                    	jnz loop
+    34 00000016 31C0                    	xor eax, eax
+    35                                  
+    36                                  end:
+    37 00000018 5A                      	pop rdx
+    38 00000019 59                      	pop rcx
+    39 0000001A 5B                      	pop rbx
+    40 0000001B 4889EC                  	mov rsp, rbp
+    41 0000001E 5D                      	pop rbp
+    42 0000001F C3                      	ret
+    43                                  
+    44                                  match:
+    45 00000020 89F8                    	mov eax, edi
+    46 00000022 31C9                    	xor ecx, ecx
+    47                                  substr:
+    48 00000024 FFC1                    	inc ecx
+    49 00000026 678A1C0F                	mov bl, BYTE [edi + ecx]
+    50 0000002A 678A140E                	mov dl, BYTE [esi + ecx]
+    51 0000002E 84D2                    	test dl, dl
+    52 00000030 74E6                    	jz end
+    53 00000032 38D3                    	cmp bl, dl
+    54 00000034 74EE                    	jz substr
+    55 00000036 FFC7                    	inc edi
+    56 00000038 EBCD                    	jmp loop
