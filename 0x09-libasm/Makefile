@@ -26,58 +26,64 @@ $(T12) $(T13) $(T14)
 
 all: $(all)
 
-$(T0): 0-main.o 0-strlen.o
-	$(CC) $(CFLAGS) -o $@ $^
 $(OBJS)%.o: %.asm | $(OBJS)
 	$(NASM) $(NFLAGS) -o $@ $< -l $(LST)$(<:.asm=.lst)
 
 $(OBJS):
-	@mkdir -p $@
+	@mkdir -p $(LST) $@
 
-$(T1): 1-main.o 1-strcmp.o
+$(OBJS)%.o: c_interface/%.c
+	$(CC) -c $(CFLAGS) -I. -o $@ $^
+
+$(T0): $(addprefix $(OBJS), 0-main.o 0-strlen.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T2): 2-main.o 2-strncmp.o
+$(T1): $(addprefix $(OBJS), 1-main.o 1-strcmp.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T3): 3-main.o 3-strchr.o
+$(T2): $(addprefix $(OBJS), 2-main.o 2-strncmp.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T4): 4-main.o 4-strstr.o
+$(T3): $(addprefix $(OBJS), 3-main.o 3-strchr.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T5): 5-main.o 5-memcpy.o
+$(T4): $(addprefix $(OBJS), 4-main.o 4-strstr.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T6): 100-main.o 100-putc.o
+$(T5): $(addprefix $(OBJS), 5-main.o 5-memcpy.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T7): 101-main.o 101-puts.o 0-strlen.o
+$(T6): $(addprefix $(OBJS), 100-main.o 100-putc.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T8): 102-main.o 102-strcasecmp.o
+$(T7): $(addprefix $(OBJS), 101-main.o 101-puts.o 0-strlen.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T9): 103-main.o 103-strncasecmp.o
+$(T8): $(addprefix $(OBJS), 102-main.o 102-strcasecmp.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T10): 104-main.o 104-strspn.o
+$(T9): $(addprefix $(OBJS), 103-main.o 103-strncasecmp.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T11): 105-main.o 105-strcspn.o
+$(T10): $(addprefix $(OBJS), 104-main.o 104-strspn.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T12): 106-main.o 106-strpbrk.o
+$(T11): $(addprefix $(OBJS), 105-main.o 105-strcspn.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T13): 1000-main.o 1000-puti.o 100-putc.o
+$(T12): $(addprefix $(OBJS), 106-main.o 106-strpbrk.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T14): 1001-main.o 1001-puti_base.o 100-putc.o 0-strlen.o
+$(T13): $(addprefix $(OBJS), 1000-main.o 1000-puti.o 100-putc.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
+$(T14): $(addprefix $(OBJS), 1001-main.o 1001-puti_base.o 100-putc.o 0-strlen.o)
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	$(RM) *.o
+	$(RM) $(OBJS)*.o
+
+cleanall: clean
+	$(RM) $(all)
 
 re: clean all
