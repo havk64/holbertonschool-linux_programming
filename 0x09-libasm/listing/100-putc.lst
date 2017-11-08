@@ -1,0 +1,42 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  
+     4                                  	;;
+     5                                  	;; asm_putc - prints one character to STOUT
+     6                                  	;;
+     7                                  	;; Description: This routine uses the 'write' syscall to print the @c
+     8                                  	;; integer as a character to the STDOUT.
+     9                                  	;; The corresponding C implementation is:
+    10                                  	;;
+    11                                  	;; size_t putc(int c)
+    12                                  	;; {
+    13                                  	;; 	return (write(1, &c, 1));
+    14                                  	;; }
+    15                                  	;;
+    16                                  	;; @c: the character to be printed
+    17                                  	;; Return: the value return by the 'write' syscall
+    18                                  	;;
+    19                                  	;; Prototype: size_t asm_putc(int c);
+    20                                  	;;
+    21                                  	global asm_putc
+    22                                  
+    23                                  segment .text
+    24                                  asm_putc:
+    25 00000000 55                      	push rbp		; Routine prologue, set new stack frame
+    26 00000001 4889E5                  	mov rbp, rsp
+    27 00000004 51                      	push rcx		; Save registers state/values
+    28 00000005 52                      	push rdx
+    29 00000006 56                      	push rsi
+    30 00000007 57                      	push rdi		; Copy the 1st arg to putc to the stack
+    31 00000008 B801000000              	mov eax, 1		; eax carry the syscall number (1 for write)
+    32 0000000D BA01000000              	mov edx, 1		; 3rd arg is the amount of bytes to be written
+    33 00000012 488D3424                	lea rsi, [rsp]		; 2nd arg is a pointer to the buffer to be printed
+    34 00000016 BF01000000              	mov edi, 1		; 1st arg is the number of file descriptor (1 for STDOUT)
+    35 0000001B 0F05                    	syscall			; Call to 'write'
+    36 0000001D 5F                      	pop rdi			; Restore registers state/values
+    37 0000001E 5E                      	pop rsi
+    38 0000001F 5A                      	pop rdx
+    39 00000020 59                      	pop rcx
+    40 00000021 4889EC                  	mov rsp, rbp		; Routine epilogue, take down stack frame
+    41 00000024 5D                      	pop rbp
+    42 00000025 C3                      	ret			; Return
