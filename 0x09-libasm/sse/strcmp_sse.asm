@@ -42,11 +42,11 @@ diff:				; Replace conditional jumps with 'setcc' instruction
 	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (%ecx)
 	cmp al,	BYTE [esi + ecx]    ; Compare the characters
 	setb bl			; Set 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
-	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffff : 0
-	mov eax, ebx		; eax = (al < dl) ? 0xffff : 0
-	and eax, -1		; eax = (al < dl) ? 0xffff : 0
-	not ebx			; ebx = (al < dl) ? 0 : 0xffff
+	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffffff : 0
+	mov eax, ebx		; eax = (al < dl) ? 0xffffffff : 0
+	and eax, -1		; eax = (al < dl) ? 0xffffffff : 0
+	not ebx			; ebx = (al < dl) ? 0 : 0xffffffff
 	and ebx, 1		; ebx = (al < dl) ? 0 : 1
-	or eax, ebx		; eax = (al < dl) ? 0xffff : 1 (-1 or 1)
+	or eax, ebx		; eax = (al < dl) ? 0xffffffff : 1 (-1 or 1)
 	jmp short end		; Go to the end and return
 
