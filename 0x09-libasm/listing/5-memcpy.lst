@@ -1,0 +1,43 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  	;;
+     4                                  	;; asm_memcpy - a clone of memcpy in x86 Assembly
+     5                                  	;;
+     6                                  	;; Description:	The memcpy() function copies @n bytes from memory area
+     7                                  	;; @src to memory area @dest.
+     8                                  	;;
+     9                                  	;; @dest: a pointer to the destination string
+    10                                  	;; @src: a pointer to the source string
+    11                                  	;; @n: the number of bytes to be copied
+    12                                  	;; Return: a pointer to @dest string
+    13                                  	;;
+    14                                  	;; Prototype: void *asm_memcpy(void *dest, const void *src, size_t n);
+    15                                  	;;
+    16                                  	global asm_memcpy
+    17                                  
+    18                                  	segment .text
+    19                                  
+    20                                  asm_memcpy:
+    21 00000000 55                      	push rbp
+    22 00000001 4889E5                  	mov rbp, rsp
+    23 00000004 53                      	push rbx
+    24 00000005 51                      	push rcx
+    25 00000006 31C9                    	xor ecx, ecx
+    26 00000008 4889F8                  	mov rax, rdi
+    27                                  
+    28                                  loop:
+    29 0000000B 39CA                    	cmp edx, ecx
+    30 0000000D 7410                    	jz end
+    31 0000000F 678A1C0E                	mov bl, BYTE [esi + ecx]
+    32 00000013 84DB                    	test bl, bl
+    33 00000015 7408                    	jz end
+    34 00000017 67881C0F                	mov [edi + ecx], bl
+    35 0000001B FFC1                    	inc ecx
+    36 0000001D EBEC                    	jmp loop
+    37                                  
+    38                                  end:
+    39 0000001F 59                      	pop rcx
+    40 00000020 5B                      	pop rbx
+    41 00000021 4889EC                  	mov rsp, rbp
+    42 00000024 5D                      	pop rbp
+    43 00000025 C3                      	ret
