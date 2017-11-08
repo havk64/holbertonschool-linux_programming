@@ -1,0 +1,57 @@
+     1                                  BITS 64
+     2                                  CPU X64
+     3                                  	;;
+     4                                  	;; strncmp clone - return the difference between two strings
+     5                                  	;;
+     6                                  	;; Prototype: int asm_strncmp(const char *s1, const char *s2, size_t n);
+     7                                  	;; @s1: Pointer to the first string
+     8                                  	;; @s2: Pointer to the second string
+     9                                  	;; @n: the only first bytes to be compared
+    10                                  	;; Return: an integer that less than, equal to, or greater than zero if s1  is
+    11                                  	;; found, respectively, to be less than, to match, or  be greater than s2.
+    12                                  	;;
+    13                                  	;; Implementation using just registers instead of variables on stack (memory)
+    14                                  	;;
+    15                                  
+    16                                  	global asm_strncmp
+    17                                  
+    18                                  	segment .text
+    19                                  
+    20                                  asm_strncmp:
+    21 00000000 55                      	push rbp		; Routine preamble
+    22 00000001 4889E5                  	mov rbp, rsp
+    23 00000004 53                      	push rbx		; Save registers to be used
+    24 00000005 51                      	push rcx
+    25 00000006 31C9                    	xor ecx, ecx		; Start a counter
+    26                                  
+    27                                  loop:
+    28 00000008 39CA                    	cmp edx, ecx		    ; Compare 'n' (3rd arg) with the counter
+    29 0000000A 7414                    	jz equal		    ; If equal, break
+    30 0000000C 0FB6040F                	movzx eax, BYTE [rdi + rcx] ; Char from first argument  (s1)
+    31 00000010 0FB61C0E                	movzx ebx, BYTE [rsi + rcx] ; Char from second argument (s2)
+    32 00000014 38D8                    	cmp al, bl		    ; Compare characters
+    33 00000016 7214                    	jb less_than		    ; If less than, break
+    34 00000018 7719                    	ja greater_than		    ; If greater than, break
+    35 0000001A FFC1                    	inc ecx			    ; Otherwise, increment the counter
+    36                                  	;; Test if the s1 character is NULL (end of string)
+    37 0000001C 84C0                    	test al, al		    ; 'test' (bitwise &) is lighter than 'cmp'
+    38 0000001E 75E8                    	jnz loop		    ; If not NULL (zero) loop, otherwiser break
+    39                                  
+    40                                  equal:
+    41 00000020 B800000000              	mov eax, 0		; If equal return zero
+    42                                  
+    43                                  end:
+    44 00000025 59                      	pop rcx			; Restore registers used
+    45 00000026 5B                      	pop rbx
+    46 00000027 4889EC                  	mov rsp, rbp		; Routine epilogue
+    47 0000002A 5D                      	pop rbp
+    48 0000002B C3                      	ret
+    49                                  
+    50                                  less_than:
+    51 0000002C B8FFFFFFFF              	mov eax, -1		; If first less than second return -1
+    52 00000031 EBF2                    	jmp end
+    53                                  
+    54                                  greater_than:
+    55 00000033 B801000000              	mov eax, 1		; If first greater return 1
+    56 00000038 EBEB                    	jmp end
+    57                                  
