@@ -95,6 +95,6 @@ clean:
 	$(RM) $(OBJS)*.o
 
 cleanall: clean
-	$(RM) $(all)
+	$(RM) $(all) $(LST)*.lst
 
 re: clean all
