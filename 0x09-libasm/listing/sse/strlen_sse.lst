@@ -1,0 +1,32 @@
+     1                                  BITS 64
+     2                                  
+     3                                  	;;
+     4                                  	;; asm_strlen - clone of strlen function. Finds the length of a string
+     5                                  	;;
+     6                                  	;; Prototype: size_t asm_strlen(const char *str);
+     7                                  	;; @str: a pointer to the string to be scanned
+     8                                  	;; Return: the number of bytes of the given string
+     9                                  	;;
+    10                                  	;; Implementation using SSE 4.2 text processing instructions where
+    11                                  	;; the string can be analyzed 16 bytes at a time thanks to the register size
+    12                                  	;; of 128 bits, granting great performance.
+    13                                  	;;
+    14                                  
+    15                                  	global asm_strlen	; Export the symbol to be used by external files
+    16                                  
+    17                                  section .text			; Define the beginning of the .text (code) section
+    18                                  asm_strlen:			; Define the asm_strlen routine
+    19 00000000 55                      	push rbp		; Routine prologue
+    20 00000001 4889E5                  	mov rbp, rsp
+    21 00000004 660FEFC0                	pxor xmm0, xmm0		; reset xmm0 (NULL comparison)
+    22 00000008 B8F0FFFFFF              	mov eax, -16		; Initialize %eax to -16 to avoid one jmp
+    23                                  
+    24                                  loop:
+    25 0000000D 83C010                  	add eax, 16		; Increment the counter by 16 each iteration
+    26 00000010 67660F3A63040708        	pcmpistri xmm0, [edi + eax], 1000b ; Look for the end of string
+    27 00000018 75F3                    	jnz short loop			   ; and generates an index on %ecx
+    28                                  
+    29 0000001A 01C8                    	add eax, ecx		; Add the index to the counter to be returned
+    30 0000001C 4889EC                  	mov rsp, rbp		; Routine epilogue
+    31 0000001F 5D                      	pop rbp
+    32 00000020 C3                      	ret

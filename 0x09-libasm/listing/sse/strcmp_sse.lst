@@ -1,0 +1,52 @@
+     1                                  BITS 64
+     2                                  	;;
+     3                                  	;; strcmp clone - return the difference between two strings
+     4                                  	;;
+     5                                  	;; Implementation: vectorized implementation using SSE 4.2 text processing
+     6                                  	;; instructions where the strings are analyzed 16 bytes at a time by
+     7                                  	;; using xmm# register of 128 bits to improve text processing performance.
+     8                                  	;; Indeed it avoids some conditional jumps contributing to 'Speculative
+     9                                  	;; Execution', a feature available in modern processors that uses its
+    10                                  	;; parallel processing capabilities.
+    11                                  	;;
+    12                                  	;; Prototype: int asm_strcmp(const char *s1, const char *s2);
+    13                                  	;; @s1: Pointer to the first string
+    14                                  	;; @s2: Pointer to the second string
+    15                                  	;; Return: an integer that less than, equal to, or greater than zero if s1  is
+    16                                  	;; found, respectively, to be less than, to match, or  be greater than s2.
+    17                                  	;;
+    18                                  
+    19                                  	global asm_strcmp
+    20                                  
+    21                                  section .text
+    22                                  asm_strcmp:
+    23 00000000 55                      	push rbp		; Routine prologue
+    24 00000001 4889E5                  	mov rbp, rsp
+    25 00000004 4829F7                  	sub rdi, rsi		; Reduce effectively to just one index (%rsi)
+    26 00000007 83EE10                  	sub esi, 10h		; Sub 16 bytes, avoid jump first `add` instruction
+    27                                  
+    28                                  loop:
+    29 0000000A 83C610                  	add esi, 10h		; Increment 16 bytes (128 bits) at a time
+    30 0000000D 67F30F6F06              	movdqu xmm0, [esi]	; Load 16 bytes from %esi addr into %xmm0 (unaligned)
+    31 00000012 67660F3A63043E18        	pcmpistri xmm0, [esi + edi], 11000b ; Compare the two strings
+    32 0000001A 77EE                    	ja short loop			    ; While equal keep iterating
+    33 0000001C 7207                    	jc short diff		; If they differ return the index in ecx and jump
+    34 0000001E 31C0                    	xor eax, eax		; Otherwise they are equal, return 0
+    35                                  end:
+    36 00000020 4889EC                  	mov rsp, rbp		; Routine epilogue
+    37 00000023 5D                      	pop rbp
+    38 00000024 C3                      	ret			; Return
+    39                                  
+    40                                  diff:				; Replace conditional jumps with 'setcc' instruction
+    41 00000025 01F7                    	add edi, esi		; Add back the address of %edi
+    42 00000027 670FB6040F              	movzx eax, BYTE [edi + ecx] ; Read the two strings at index (%ecx)
+    43 0000002C 673A040E                	cmp al,	BYTE [esi + ecx]    ; Compare the characters
+    44 00000030 0F92C3                  	setb bl			; Set 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
+    45 00000033 F7DB                    	neg ebx			; Two's complement: ebx = (al < dl) ? 0xffffff : 0
+    46 00000035 89D8                    	mov eax, ebx		; eax = (al < dl) ? 0xffffffff : 0
+    47 00000037 83E0FF                  	and eax, -1		; eax = (al < dl) ? 0xffffffff : 0
+    48 0000003A F7D3                    	not ebx			; ebx = (al < dl) ? 0 : 0xffffffff
+    49 0000003C 83E301                  	and ebx, 1		; ebx = (al < dl) ? 0 : 1
+    50 0000003F 09D8                    	or eax, ebx		; eax = (al < dl) ? 0xffffffff : 1 (-1 or 1)
+    51 00000041 EBDD                    	jmp short end		; Go to the end and return
+    52                                  
