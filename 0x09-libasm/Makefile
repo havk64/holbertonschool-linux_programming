@@ -23,11 +23,16 @@ T14	:= 1001-puti_base
 S0	:= strlen_sse
 S1	:= strcmp_sse
 U0	:= cpuid
+G0	:= strlen_gas
+G1	:= strcmp_gas
+G2	:= strncmp_gas
+G3	:= strchr_gas
+GAS	:= gas/
 
 vpath %.asm $(SSE)
 
 all	:= $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) \
-	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1) $(U0)
+	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1) $(U0) $(G0) $(G1) $(G2) $(G3)
 
 .PHONY	: all clean re subdir
 
@@ -97,6 +102,18 @@ $(S1): $(addprefix $(OBJS), 1-main.o strcmp_sse.o)
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(U0): $(addprefix $(OBJS), 1001-puti_base.o 100-putc.o 0-strlen.o) utils/cpuid.c
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G0): $(OBJS)0-main.o $(GAS)0-strlen.o
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G1): $(OBJS)1-main.o $(GAS)1-strcmp.o
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G2): $(OBJS)2-main.o $(GAS)2-strncmp.o
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G3): $(OBJS)3-main.o $(GAS)3-strchr.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 clean:
