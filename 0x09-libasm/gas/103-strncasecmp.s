@@ -22,7 +22,7 @@ asm_strncasecmp:
 	movq %rsp, %rbp
 	pushq %rbx
 	pushq %rcx
-	xor %ecx, %ecx
+	xorl %ecx, %ecx
 
 loop:
 	cmpl %ecx, %edx
@@ -35,8 +35,8 @@ first:	movzxb (%esi, %ecx), %ebx
 	jb downcase2
 cmp:	cmpb %bl, %al
 	jnz diff
-	inc %ecx
-	test %al, %al
+	incl %ecx
+	testb %al, %al
 	jnz loop
 
 end:
@@ -44,16 +44,16 @@ end:
 	popq %rbx
 	movq %rbp, %rsp
 	popq %rbp
-	ret
+	retq
 
 diff:
-	sub %ebx, %eax
+	subl %ebx, %eax
 	jmp end
 
 downcase1:
 	cmpb $0x40, %al
 	jna first
-	or $0x20, %al
+	orb $0x20, %al
 	jmp first
 
 downcase2:
@@ -63,5 +63,5 @@ downcase2:
 	jmp cmp
 
 break:
-	xor %eax, %eax
+	xorl %eax, %eax
 	jmp end
