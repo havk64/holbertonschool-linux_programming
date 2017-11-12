@@ -1,4 +1,4 @@
-libasm	:= 0-strlen.o 1-strcmp.o 2-strncmp.o 3-strchr.o
+libasm	:= 0-strlen.o 1-strcmp.o 2-strncmp.o 3-strchr.o 4-strstr.o 5-memcpy.o
 LST	:= listing/
 ASFLAGS	:= -g -aghls
 

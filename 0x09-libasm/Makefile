@@ -28,20 +28,23 @@ G1	:= strcmp_gas
 G2	:= strncmp_gas
 G3	:= strchr_gas
 G4	:= strstr_gas
+G5	:= memcpy_gas
 GAS	:= gas/
 
 vpath %.asm $(SSE)
 
-all	:= $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) \
+all	:= subdir $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) \
 	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1) $(U0) $(G0) $(G1) $(G2) $(G3) \
-	$(G4)
+	$(G4) $(G5)
 
-.PHONY	: all clean re subdir
+.PHONY	: all clean re subdir $(GAS)
 
-all: $(all) $(subdir)
+all: $(all)
 
 subdir: $(GAS)
-	$(MAKE) -C $(GAS)
+
+$(GAS):
+	$(MAKE) -C $@
 
 $(OBJS)%.o: %.asm | $(OBJS)
 	$(NASM) $(NFLAGS) -o $@ $< -l $(LST)$(<:.asm=.lst)
@@ -119,6 +122,9 @@ $(G3): $(OBJS)3-main.o $(GAS)3-strchr.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 $(G4): $(OBJS)4-main.o $(GAS)4-strstr.o
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G5): $(OBJS)5-main.o $(GAS)5-memcpy.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 clean:
