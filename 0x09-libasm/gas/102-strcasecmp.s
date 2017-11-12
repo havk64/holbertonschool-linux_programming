@@ -25,10 +25,10 @@ asm_strcasecmp:
 
 loop:
 	movzxb (%edi, %ecx), %eax
-	cmpb $91, %al
+	cmpb $0x5b, %al
 	jb downcase1
 first:	movzxb (%esi, %ecx), %ebx
-	cmpb $91, %bl
+	cmpb $0x5b, %bl
 	jb downcase2
 cmp:	cmpb %bl, %al
 	jnz diff
