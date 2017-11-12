@@ -1,9 +1,9 @@
-objs	:= 0-strlen.o 1-strcmp.o 2-strncmp.o 3-strchr.o
+libasm	:= 0-strlen.o 1-strcmp.o 2-strncmp.o 3-strchr.o
 LST	:= listing/
 ASFLAGS	:= -g -aghls
 
 .PHONY	: all
-all: $(objs)
+all: $(libasm)
 
 %.o: %.s
 	$(AS) $(ASFLAGS)=$(LST)$(<:.s=.lst) -o $@ $<
