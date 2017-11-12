@@ -27,12 +27,14 @@ G0	:= strlen_gas
 G1	:= strcmp_gas
 G2	:= strncmp_gas
 G3	:= strchr_gas
+G4	:= strstr_gas
 GAS	:= gas/
 
 vpath %.asm $(SSE)
 
 all	:= $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) \
-	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1) $(U0) $(G0) $(G1) $(G2) $(G3)
+	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1) $(U0) $(G0) $(G1) $(G2) $(G3) \
+	$(G4)
 
 .PHONY	: all clean re subdir
 
@@ -114,6 +116,9 @@ $(G2): $(OBJS)2-main.o $(GAS)2-strncmp.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 $(G3): $(OBJS)3-main.o $(GAS)3-strchr.o
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G4): $(OBJS)4-main.o $(GAS)4-strstr.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 clean:
