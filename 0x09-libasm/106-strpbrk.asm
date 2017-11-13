@@ -27,7 +27,14 @@ loop:
 	movzx ebx, BYTE [eax]
 	test bl, bl
 	jz notfound
-	jmp inner
+inner:	xor ecx, ecx
+iloop:	movzx edx, BYTE [esi + ecx]
+	test dl, dl
+	jz outter
+	inc ecx
+	cmp bl, dl
+	jz end
+	jmp iloop
 outter:	inc eax
 	jmp loop
 
@@ -40,12 +47,3 @@ end:
 	pop rbp
 	ret
 
-inner:
-	xor ecx, ecx
-iloop:	movzx edx, BYTE [esi + ecx]
-	test dl, dl
-	jz outter
-	inc ecx
-	cmp bl, dl
-	jz end
-	jmp iloop
