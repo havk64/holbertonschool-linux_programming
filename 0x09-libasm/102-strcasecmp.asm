@@ -13,6 +13,7 @@ CPU X64
 	;; zero if s1 is found, respectively, to be less than, to match, or be
 	;; greater than s2.
 	;;
+
 	global asm_strcasecmp
 
 segment .text
@@ -21,15 +22,26 @@ asm_strcasecmp:
 	mov rbp, rsp
 	push rbx
 	push rcx
+	push rdx
 	xor ecx, ecx
 
 loop:
 	movzx eax, BYTE [edi + ecx]
-	cmp al, 'Z' + 1
-	jb downcase1
-first:	movzx ebx, BYTE [esi + ecx]
-	cmp bl, 'Z' + 1
-	jb downcase2
+	xor edx, edx
+	sub al, 'A'
+	cmp al, 'Z' - 'A'
+	setb dl
+	shl dl, 5
+	or al, dl
+	add al, 'A'
+	movzx ebx, BYTE [esi + ecx]
+	xor edx, edx
+	sub bl, 'A'
+	cmp bl, 'Z' - 'A'
+	setb dl
+	shl dl, 5
+	or bl, dl
+	add bl, 'A'
 cmp:	cmp al, bl
 	jnz diff
 	inc ecx
@@ -37,6 +49,7 @@ cmp:	cmp al, bl
 	jnz loop
 
 end:
+	pop rdx
 	pop rcx
 	pop rbx
 	mov rsp, rbp
@@ -46,15 +59,3 @@ end:
 diff:
 	sub eax, ebx
 	jmp end
-
-downcase1:
-	cmp al, 'A' - 1
-	jna first
-	or al, 0x20
-	jmp first
-
-downcase2:
-	cmp bl, 'A' - 1
-	jna cmp
-	or bl, 0x20
-	jmp cmp
