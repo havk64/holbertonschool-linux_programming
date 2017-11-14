@@ -25,10 +25,10 @@ asm_strcasecmp:
 
 loop:
 	movzx eax, BYTE [edi + ecx]
-	cmp al, 91
+	cmp al, 'Z' + 1
 	jb downcase1
 first:	movzx ebx, BYTE [esi + ecx]
-	cmp bl, 91
+	cmp bl, 'Z' + 1
 	jb downcase2
 cmp:	cmp al, bl
 	jnz diff
@@ -48,13 +48,13 @@ diff:
 	jmp end
 
 downcase1:
-	cmp al, 0x40
+	cmp al, 'A' - 1
 	jna first
 	or al, 0x20
 	jmp first
 
 downcase2:
-	cmp bl, 0x40
+	cmp bl, 'A' - 1
 	jna cmp
 	or bl, 0x20
 	jmp cmp
