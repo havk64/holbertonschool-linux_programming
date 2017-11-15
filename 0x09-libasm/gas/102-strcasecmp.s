@@ -21,21 +21,21 @@ asm_strcasecmp:
 	movq %rsp, %rbp
 	pushq %rbx
 	pushq %rcx
-	pushq %r9
+	pushq %r8
 	xorl %ecx, %ecx
 
 loop:
 	movzxb (%edi, %ecx), %eax
 	leal -'A(%eax), %r9d
 	cmpb $('Z - 'A), %r9b
-	setbe %r9b
-	shlb $5, %r9b
-	orb %r9b, %al
+	setbe %r8b
+	shlb $5, %r8b
+	orb %r8b, %al
 	movzxb (%esi, %ecx), %ebx
-	leal -'A(%ebx), %r9d
-	cmpb $('Z - 'A), %r9b
-	leal 0x20(%ebx), %r9d
-	cmovbel %r9d, %ebx
+	leal -'A(%ebx), %r8d
+	cmpb $('Z - 'A), %r8b
+	leal 0x20(%ebx), %r8d
+	cmovbel %r8d, %ebx
 	cmpb %bl, %al
 	jnz diff
 	inc %ecx
@@ -43,7 +43,7 @@ loop:
 	jnz loop
 
 end:
-	popq %r9
+	popq %r8
 	popq %rcx
 	popq %rbx
 	movq %rbp, %rsp
