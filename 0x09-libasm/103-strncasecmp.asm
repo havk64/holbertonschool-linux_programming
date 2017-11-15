@@ -30,12 +30,12 @@ asm_strncasecmp:
 loop:
 	cmp edx, ecx		; When the counter is equal to @n...
 	jz break		; Stop the loop
-	movzx eax, BYTE [edi + ecx] ; Read @s1 character
+	movzx eax, BYTE [edi + ecx] ; Read @s1 character and start case checking
 	lea r8d, [eax - 'A']	    ; By subt the lower bound we skip one comparison
 	cmp r8b, 'Z' - 'A'	    ; The only comparison needed  now is with max - min
 	setbe r8b		    ; Using setxx we avoid unnecessary jumps
 	shl r8b, 5		    ; Set the 6th bit to be activated case upper case
-	or al, r8b		    ; Use *or* to activate the 6th bit/lower the case
+	or al, r8b		    ; Use *or* to activate it and lower the case
 	movzx ebx, BYTE [esi + ecx] ; Do the same with the second string @s2
 	lea r8d, [ebx - 'A']
 	cmp r8b, 'Z' - 'A'
