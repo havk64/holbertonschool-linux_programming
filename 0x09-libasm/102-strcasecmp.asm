@@ -22,24 +22,21 @@ asm_strcasecmp:
 	mov rbp, rsp
 	push rbx		; Preserve register's state
 	push rcx
-	push rdx
-	push r9
+	push r8
 	xor ecx, ecx		; Clear the counter (zero)
 
 loop:
 	movzx eax, BYTE [edi + ecx] ; Read @s1 character
-	xor edx, edx		    ; Clear edx, start case check within range (A-Z)
-	lea r9d, [eax - 'A']	    ; By subt the lower bound we skip one comparison
-	cmp r9b, 'Z' - 'A'	    ; The only comparison needed  now is with max - min
-	setbe dl		    ; Using setxx we avoid unnecessary jumps
-	shl dl, 5		    ; Set the 6th bit to be activated case upper case
-	or al, dl		    ; Use *or* to activate the 6th bit/lower the case
+	lea r8d, [eax - 'A']	    ; By subt the lower bound we skip one comparison
+	cmp r8b, 'Z' - 'A'	    ; The only comparison needed  now is with max - min
+	setbe r8b		    ; Using setxx we avoid unnecessary jumps
+	shl r8b, 5		    ; Set the 6th bit to be activated case upper case
+	or al, r8b		    ; Use *or* to activate the 6th bit/lower the case
 	movzx ebx, BYTE [esi + ecx] ; Do the same with the second string @s2
-	xor edx, edx
-	lea r9d, [ebx - 'A']
-	cmp r9b, 'Z' - 'A'
-	lea edx, [ebx + 0x20]	; This time, instead of setxx I'm using LEA...
-	cmovbe ebx, edx		; and conditional move to lower the case (when upper)
+	lea r8d, [ebx - 'A']
+	cmp r8b, 'Z' - 'A'
+	lea r8d, [ebx + 0x20]	; This time, instead of setxx I'm using LEA...
+	cmovbe ebx, r8d		; and conditional move to lower the case (when upper)
 	cmp al, bl		; Check if they diff (after converted to lower case)
 	jnz diff		; If different jump
 	inc ecx			; Otherwise increase the counter...
@@ -47,8 +44,7 @@ loop:
 	jnz loop		; ...loop
 
 end:
-	pop r9			; Restore register's state
-	pop rdx
+	pop r8			; Restore register's state
 	pop rcx
 	pop rbx
 	mov rsp, rbp		; Routine prologue
