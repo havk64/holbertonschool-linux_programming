@@ -24,17 +24,28 @@ asm_strncasecmp:
 	mov rbp, rsp
 	push rbx
 	push rcx
+	push r8
 	xor ecx, ecx
 
 loop:
 	cmp edx, ecx
 	jz break
 	movzx eax, BYTE [edi + ecx]
-	cmp al, 0x5b
-	jb downcase1
-first:	movzx ebx, BYTE [esi + ecx]
-	cmp bl, 0x5b
-	jb downcase2
+	xor r8d, r8d
+	sub al, 'A'
+	cmp al, 'Z' - 'A'
+	setbe r8b
+	shl r8b, 5
+	or al, r8b
+	add al, 'A'
+	movzx ebx, BYTE [esi + ecx]
+	xor r8d, r8d
+	sub bl, 'A'
+	cmp bl, 'Z' - 'A'
+	setbe r8b
+	shl r8b, 5
+	or bl, r8b
+	add bl, 'A'
 cmp:	cmp al, bl
 	jnz diff
 	inc ecx
@@ -42,6 +53,7 @@ cmp:	cmp al, bl
 	jnz loop
 
 end:
+	pop r8
 	pop rcx
 	pop rbx
 	mov rsp, rbp
@@ -51,18 +63,6 @@ end:
 diff:
 	sub eax, ebx
 	jmp end
-
-downcase1:
-	cmp al, 0x40
-	jna first
-	or al, 0x20
-	jmp first
-
-downcase2:
-	cmp bl, 0x40
-	jna cmp
-	or bl, 0x20
-	jmp cmp
 
 break:
 	mov eax, 0
