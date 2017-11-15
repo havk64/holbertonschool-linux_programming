@@ -21,40 +21,35 @@ asm_strcasecmp:
 	movq %rsp, %rbp
 	pushq %rbx
 	pushq %rcx
+	pushq %r9
 	xorl %ecx, %ecx
 
 loop:
 	movzxb (%edi, %ecx), %eax
-	cmpb $0x5b, %al
-	jb downcase1
-first:	movzxb (%esi, %ecx), %ebx
-	cmpb $0x5b, %bl
-	jb downcase2
-cmp:	cmpb %bl, %al
+	leal -'A(%eax), %r9d
+	cmpb $('Z - 'A), %r9b
+	setbe %r9b
+	shlb $5, %r9b
+	orb %r9b, %al
+	movzxb (%esi, %ecx), %ebx
+	leal -'A(%ebx), %r9d
+	cmpb $('Z - 'A), %r9b
+	leal 0x20(%ebx), %r9d
+	cmovbel %r9d, %ebx
+	cmpb %bl, %al
 	jnz diff
 	inc %ecx
 	test %al, %al
 	jnz loop
 
 end:
+	popq %r9
 	popq %rcx
 	popq %rbx
 	movq %rbp, %rsp
 	popq %rbp
-	ret
+	retq
 
 diff:
 	subl %ebx, %eax
 	jmp end
-
-downcase1:
-	cmpb $0x40, %al
-	jna first
-	or $0x20, %al
-	jmp first
-
-downcase2:
-	cmpb $0x40, %bl
-	jna cmp
-	or $0x20, %bl
-	jmp cmp
