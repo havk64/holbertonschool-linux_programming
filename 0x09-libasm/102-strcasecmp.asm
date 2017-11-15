@@ -47,8 +47,8 @@ loop:
 	jnz loop		; ...loop
 
 end:
-	pop r9
-	pop rdx			; Restore register's state
+	pop r9			; Restore register's state
+	pop rdx
 	pop rcx
 	pop rbx
 	mov rsp, rbp		; Routine prologue
@@ -56,5 +56,5 @@ end:
 	ret			; Return
 
 diff:
-	sub eax, ebx		; Check the different to return
+	sub eax, ebx		; Check the difference to return
 	jmp end
