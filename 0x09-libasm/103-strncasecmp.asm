@@ -20,25 +20,25 @@ CPU X64
 
 segment .text
 asm_strncasecmp:
-	push rbp
+	push rbp		; Routine preamble
 	mov rbp, rsp
-	push rbx
+	push rbx		; Preserve register's state
 	push rcx
 	push r8
-	xor ecx, ecx
+	xor ecx, ecx		; Clear the counter (zero)
 
 loop:
-	cmp edx, ecx
-	jz break
-	movzx eax, BYTE [edi + ecx]
-	xor r8d, r8d
-	sub al, 'A'
-	cmp al, 'Z' - 'A'
-	setbe r8b
-	shl r8b, 5
-	or al, r8b
-	add al, 'A'
-	movzx ebx, BYTE [esi + ecx]
+	cmp edx, ecx		; When the counter is equal to @n...
+	jz break		; Stop the loop
+	movzx eax, BYTE [edi + ecx] ; Read @s1 character
+	xor r8d, r8d		    ; Clear edx, start case check within range (A-Z)
+	sub al, 'A'		    ; By subt the lower bound we skip one comparison
+	cmp al, 'Z' - 'A'	    ; The only comparison needed  now is with max - min
+	setbe r8b		    ; Using setxx we avoid unnecessary jumps
+	shl r8b, 5		    ; Set the 6th bit to be activated case upper case
+	or al, r8b		    ; Use *or* to activate the 6th bit/lower the case
+	add al, 'A'		    ; Add back the 'min' of our range (A-Z)
+	movzx ebx, BYTE [esi + ecx] ; Do the same with the second string @s2
 	xor r8d, r8d
 	sub bl, 'A'
 	cmp bl, 'Z' - 'A'
@@ -46,11 +46,11 @@ loop:
 	shl r8b, 5
 	or bl, r8b
 	add bl, 'A'
-cmp:	cmp al, bl
-	jnz diff
-	inc ecx
-	test al, al
-	jnz loop
+cmp:	cmp al, bl		; Check if they diff
+	jnz diff		; If different jump
+	inc ecx			; Otherwise increase the counter...
+	test al, al		; While the char is not end of string (0)...
+	jnz loop		; ...loop
 
 end:
 	pop r8
