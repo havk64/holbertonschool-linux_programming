@@ -51,16 +51,16 @@ cmp:	cmp al, bl		; Check if they diff
 	jnz loop		; ...loop
 
 end:
-	pop r9
+	pop r9			; Restore register's state/values
 	pop r8
 	pop rcx
 	pop rbx
-	mov rsp, rbp
+	mov rsp, rbp		; Routine prologue
 	pop rbp
-	ret
+	ret			; Return
 
 diff:
-	sub eax, ebx
+	sub eax, ebx		; Check the difference to return
 	jmp end
 
 break:
