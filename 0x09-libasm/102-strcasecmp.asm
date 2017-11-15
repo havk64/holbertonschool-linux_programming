@@ -18,44 +18,44 @@ CPU X64
 
 segment .text
 asm_strcasecmp:
-	push rbp
+	push rbp		; Routine preamble
 	mov rbp, rsp
-	push rbx
+	push rbx		; Preserve register's state
 	push rcx
 	push rdx
-	xor ecx, ecx
+	xor ecx, ecx		; Clear the counter (zero)
 
 loop:
-	movzx eax, BYTE [edi + ecx]
-	xor edx, edx
-	sub al, 'A'
-	cmp al, 'Z' - 'A'
-	setb dl
-	shl dl, 5
-	or al, dl
-	add al, 'A'
-	movzx ebx, BYTE [esi + ecx]
+	movzx eax, BYTE [edi + ecx] ; Read @s1 character
+	xor edx, edx		    ; Clear edx, start case check within range (A-Z)
+	sub al, 'A'		    ; By subt the lower bound we skip one comparison
+	cmp al, 'Z' - 'A'	    ; The only comparison needed  now is with max - min
+	setbe dl		    ; Using setxx we avoid unnecessary jumps
+	shl dl, 5		    ; Set the 6th bit to be activated case upper case
+	or al, dl		    ; Use *or* to activate the 6th bit/lower the case
+	add al, 'A'		    ; Add back the 'min' of our range (A-Z)
+	movzx ebx, BYTE [esi + ecx] ; Do the same with the second string @s2
 	xor edx, edx
 	sub bl, 'A'
 	cmp bl, 'Z' - 'A'
-	setb dl
+	setbe dl
 	shl dl, 5
 	or bl, dl
 	add bl, 'A'
-cmp:	cmp al, bl
-	jnz diff
-	inc ecx
-	test al, al
-	jnz loop
+cmp:	cmp al, bl		; Check if they diff
+	jnz diff		; If different jump
+	inc ecx			; Otherwise increase the counter...
+	test al, al		; While the char is not end of string (0)...
+	jnz loop		; ...loop
 
 end:
-	pop rdx
+	pop rdx			; Restore register's state
 	pop rcx
 	pop rbx
-	mov rsp, rbp
+	mov rsp, rbp		; Routine prologue
 	pop rbp
-	ret
+	ret			; Return
 
 diff:
-	sub eax, ebx
+	sub eax, ebx		; Check the different to return
 	jmp end
