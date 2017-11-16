@@ -18,26 +18,9 @@ CPU X64
 	segment .text
 
 asm_memcpy:
-	push rbp
-	mov rbp, rsp
-	push rbx
-	push rcx
-	xor ecx, ecx
 	mov rax, rdi
+	mov ecx, edx
+	cld
 
-loop:
-	cmp edx, ecx
-	jz end
-	mov bl, BYTE [esi + ecx]
-	test bl, bl
-	jz end
-	mov [edi + ecx], bl
-	inc ecx
-	jmp loop
-
-end:
-	pop rcx
-	pop rbx
-	mov rsp, rbp
-	pop rbp
+rep	movsb
 	ret
