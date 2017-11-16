@@ -16,25 +16,10 @@
 
 .text
 asm_memcpy:
-	pushq %rbp
-	movq %rsp, %rbp
-	pushq %rbx
 	pushq %rcx
-	xorl %ecx, %ecx
 	movq %rdi, %rax
+	movl %edx, %ecx
 
-loop:
-	cmpl %ecx, %edx
-	jz end
-	movb (%esi, %ecx), %bl
-	test %bl, %bl
-	movb %bl, (%edi, %ecx)
-	inc %ecx
-	jmp loop
-
-end:
+rep	movsbb
 	popq %rcx
-	popq %rbx
-	movq %rbp, %rsp
-	popq %rbp
 	ret
