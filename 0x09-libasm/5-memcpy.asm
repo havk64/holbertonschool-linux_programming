@@ -18,9 +18,9 @@ CPU X64
 
 segment .text
 asm_memcpy:
-	mov rax, rdi
-	mov ecx, edx
-	cld
+	mov rax, rdi		; Copy the pointer to @dest string to be returned
+	mov ecx, edx		; Copy the length @n to the counter
+	cld			; Clear the direction flag, DL
 
-rep	movsb
-	ret
+rep	movsb			; Copy @n bytes from ESI (source) to EDI (destination)
+	ret			; Return
