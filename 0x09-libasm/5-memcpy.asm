@@ -13,10 +13,10 @@ CPU X64
 	;;
 	;; Prototype: void *asm_memcpy(void *dest, const void *src, size_t n);
 	;;
+
 	global asm_memcpy
 
-	segment .text
-
+segment .text
 asm_memcpy:
 	mov rax, rdi
 	mov ecx, edx
