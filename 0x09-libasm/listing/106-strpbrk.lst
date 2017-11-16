@@ -26,26 +26,24 @@
     26                                  loop:
     27 00000009 670FB618                	movzx ebx, BYTE [eax]
     28 0000000D 84DB                    	test bl, bl
-    29 0000000F 7406                    	jz notfound
-    30 00000011 EB0D                    	jmp inner
-    31 00000013 FFC0                    outter:	inc eax
-    32 00000015 EBF2                    	jmp loop
-    33                                  
-    34                                  notfound:
-    35 00000017 31C0                    	xor eax, eax
-    36                                  end:
-    37 00000019 59                      	pop rcx
-    38 0000001A 5B                      	pop rbx
-    39 0000001B 4889EC                  	mov rsp, rbp
-    40 0000001E 5D                      	pop rbp
-    41 0000001F C3                      	ret
-    42                                  
-    43                                  inner:
-    44 00000020 31C9                    	xor ecx, ecx
-    45 00000022 670FB6140E              iloop:	movzx edx, BYTE [esi + ecx]
-    46 00000027 84D2                    	test dl, dl
-    47 00000029 74E8                    	jz outter
-    48 0000002B FFC1                    	inc ecx
-    49 0000002D 38D3                    	cmp bl, dl
-    50 0000002F 74E8                    	jz end
-    51 00000031 EBEF                    	jmp iloop
+    29 0000000F 7417                    	jz notfound
+    30 00000011 31C9                    inner:	xor ecx, ecx
+    31 00000013 670FB6140E              iloop:	movzx edx, BYTE [esi + ecx]
+    32 00000018 84D2                    	test dl, dl
+    33 0000001A 7408                    	jz outter
+    34 0000001C FFC1                    	inc ecx
+    35 0000001E 38D3                    	cmp bl, dl
+    36 00000020 7408                    	jz end
+    37 00000022 EBEF                    	jmp iloop
+    38 00000024 FFC0                    outter:	inc eax
+    39 00000026 EBE1                    	jmp loop
+    40                                  
+    41                                  notfound:
+    42 00000028 31C0                    	xor eax, eax
+    43                                  end:
+    44 0000002A 59                      	pop rcx
+    45 0000002B 5B                      	pop rbx
+    46 0000002C 4889EC                  	mov rsp, rbp
+    47 0000002F 5D                      	pop rbp
+    48 00000030 C3                      	ret
+    49                                  
