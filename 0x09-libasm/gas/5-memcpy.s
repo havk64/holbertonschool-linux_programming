@@ -1,4 +1,3 @@
-
 	/*
 	 * asm_memcpy - a clone of memcpy in x86 Assembly
 	 *
@@ -12,14 +11,14 @@
 	 *
 	 * Prototype: void *asm_memcpy(void *dest, const void *src, size_t n);
 	 */
+
+	.text
 	.globl asm_memcpy
 
-.text
 asm_memcpy:
 	pushq %rcx
 	movq %rdi, %rax
 	movl %edx, %ecx
-
 rep	movsb
 	popq %rcx
 	ret
