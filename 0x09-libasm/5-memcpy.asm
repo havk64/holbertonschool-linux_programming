@@ -14,13 +14,12 @@ CPU X64
 	;; Prototype: void *asm_memcpy(void *dest, const void *src, size_t n);
 	;;
 
+	segment .text
 	global asm_memcpy
 
-segment .text
 asm_memcpy:
 	mov rax, rdi		; Copy the pointer to @dest string to be returned
 	mov ecx, edx		; Copy the length @n to the counter
 	cld			; Clear the direction flag, DL
-
 rep	movsb			; Copy @n bytes from ESI (source) to EDI (destination)
 	ret			; Return
