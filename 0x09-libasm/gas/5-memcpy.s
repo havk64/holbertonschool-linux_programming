@@ -20,6 +20,6 @@ asm_memcpy:
 	movq %rdi, %rax
 	movl %edx, %ecx
 
-rep	movsbb
+rep	movsb
 	popq %rcx
 	ret
