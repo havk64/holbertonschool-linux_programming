@@ -33,13 +33,14 @@ G100	:= putc_gas
 G101	:= puts_gas
 G102	:= strcasecmp_gas
 G103	:= strncasecmp_gas
+G104	:= strspn_gas
 GAS	:= gas/
 
 vpath %.asm $(SSE)
 
 all	:= subdir $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T8) $(T9) $(T10) \
 	$(T11) $(T12) $(T13) $(T14) $(S0) $(S1) $(U0) $(G0) $(G1) $(G2) $(G3) \
-	$(G4) $(G5) $(G100) $(G101) $(G102) $(G103)
+	$(G4) $(G5) $(G100) $(G101) $(G102) $(G103) $(G104)
 
 .PHONY	: all clean re subdir $(GAS)
 
@@ -141,6 +142,9 @@ $(G102): $(OBJS)102-main.o $(GAS)102-strcasecmp.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 $(G103): $(OBJS)103-main.o $(GAS)103-strncasecmp.o
+	$(CC) $(CFLAGS) -I. -o $@ $^
+
+$(G104): $(OBJS)104-main.o $(GAS)104-strspn.o
 	$(CC) $(CFLAGS) -I. -o $@ $^
 
 clean:
