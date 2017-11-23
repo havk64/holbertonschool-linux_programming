@@ -1,0 +1,50 @@
+GAS LISTING 101-puts.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/101-puts.lst 
+ input file    	: 101-puts.s
+ output file   	: 101-puts.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T20:33:42.000-0800
+
+GAS LISTING 101-puts.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_puts - a assembly routine that prints a string to STDOUT
+   4              		 *
+   5              		 * @str: a pointer to the string to be printed.
+   6              		 * Return: the number of bytes printed.
+   7              		 *
+   8              		 * Prototype: size_t asm_puts(const char *str);
+   9              		 */
+  10              	
+  11              		.globl asm_puts
+  12              	
+  13              	.text
+  14              	asm_puts:
+  15 0000 55       		pushq %rbp		# Routine prologue, set new stack frame
+  16 0001 4889E5   		movq %rsp, %rbp
+  17 0004 E8000000 		call asm_strlen		# Call asm_strlen to measure the string length
+  17      00
+  18 0009 89C2     		movl %eax, %edx		# Use the length of the string as 3rd arg to write syscall
+  19 000b 89FE     		movl %edi, %esi		# 2nd arg is the string
+  20 000d BF010000 		movl $1, %edi		# 1st arg is the file descriptor to write to (1 for STDOUT)
+  20      00
+  21 0012 B8010000 		movl $1, %eax		# %eax carries the syscall number (1 for write)
+  21      00
+  22 0017 0F05     		syscall
+  23 0019 4889EC   		movq %rbp, %rsp		# Routine epilogue, take down stack frame
+  24 001c 5D       		popq %rbp
+  25 001d C3       		ret			# Return
+GAS LISTING 101-puts.s 			page 3
+
+
+DEFINED SYMBOLS
+          101-puts.s:14     .text:0000000000000000 asm_puts
+
+UNDEFINED SYMBOLS
+asm_strlen
