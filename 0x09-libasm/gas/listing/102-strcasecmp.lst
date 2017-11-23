@@ -1,0 +1,87 @@
+GAS LISTING 102-strcasecmp.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/102-strcasecmp.lst 
+ input file    	: 102-strcasecmp.s
+ output file   	: 102-strcasecmp.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-15T06:29:39.000-0800
+
+GAS LISTING 102-strcasecmp.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_strcasecmp - clone of strcasecmp function in x86 assembly
+   4              		 *
+   5              		 * Description: compares the two strings s1 and s2, ignoring the case of
+   6              		 * the characters.
+   7              		 *
+   8              		 * Prototype: int asm_strcasecmp(const char *s1, const char *s2);
+   9              		 * @s1: a pointer to the first string
+  10              		 * @s2: a pointer to the second string
+  11              		 * Return: It returns an integer less than, equal to, or greater than
+  12              		 * zero if s1 is found, respectively, to be less than, to match, or be
+  13              		 * greater than s2.
+  14              		 */
+  15              	
+  16              		.globl asm_strcasecmp
+  17              	
+  18              	.text
+  19              	asm_strcasecmp:
+  20 0000 55       		pushq %rbp		# TODO - add comments, transfer improvements to 103 file
+  21 0001 4889E5   		movq %rsp, %rbp
+  22 0004 53       		pushq %rbx
+  23 0005 51       		pushq %rcx
+  24 0006 4150     		pushq %r8
+  25 0008 31C9     		xorl %ecx, %ecx
+  26              	
+  27              	loop:
+  28 000a 670FB604 		movzxb (%edi, %ecx), %eax
+  28      0F
+  29 000f 67448D48 		leal -'A(%eax), %r9d
+  29      BF
+  30 0014 4180F919 		cmpb $('Z - 'A), %r9b
+  31 0018 410F96C0 		setbe %r8b
+  32 001c 41C0E005 		shlb $5, %r8b
+  33 0020 4408C0   		orb %r8b, %al
+  34 0023 670FB61C 		movzxb (%esi, %ecx), %ebx
+  34      0E
+  35 0028 67448D43 		leal -'A(%ebx), %r8d
+  35      BF
+  36 002d 4180F819 		cmpb $('Z - 'A), %r8b
+  37 0031 67448D43 		leal 0x20(%ebx), %r8d
+  37      20
+  38 0036 410F46D8 		cmovbel %r8d, %ebx
+  39 003a 38D8     		cmpb %bl, %al
+  40 003c 750F     		jnz diff
+  41 003e FFC1     		inc %ecx
+  42 0040 84C0     		test %al, %al
+  43 0042 75C6     		jnz loop
+  44              	
+  45              	end:
+  46 0044 4158     		popq %r8
+  47 0046 59       		popq %rcx
+  48 0047 5B       		popq %rbx
+  49 0048 4889EC   		movq %rbp, %rsp
+  50 004b 5D       		popq %rbp
+  51 004c C3       		retq
+  52              	
+GAS LISTING 102-strcasecmp.s 			page 3
+
+
+  53              	diff:
+  54 004d 29D8     		subl %ebx, %eax
+  55 004f EBF3     		jmp end
+GAS LISTING 102-strcasecmp.s 			page 4
+
+
+DEFINED SYMBOLS
+    102-strcasecmp.s:19     .text:0000000000000000 asm_strcasecmp
+    102-strcasecmp.s:27     .text:000000000000000a loop
+    102-strcasecmp.s:53     .text:000000000000004d diff
+    102-strcasecmp.s:45     .text:0000000000000044 end
+
+NO UNDEFINED SYMBOLS
