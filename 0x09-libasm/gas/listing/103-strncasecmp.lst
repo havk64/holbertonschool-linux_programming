@@ -1,0 +1,101 @@
+GAS LISTING 103-strncasecmp.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/103-strncasecmp.lst 
+ input file    	: 103-strncasecmp.s
+ output file   	: 103-strncasecmp.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-12T16:41:44.000-0800
+
+GAS LISTING 103-strncasecmp.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_strncasecmp - clone of strncasecmp function in X86 Assembly
+   4              		 *
+   5              		 * Description:	compares the two strings @s1 and @s2, ignoring the case
+   6              		 * of the characters.
+   7              		 *
+   8              		 * Prototype: int asm_strncasecmp(const char *s1, const char *s2, size_t n);
+   9              		 * @s1: a pointer to the first string
+  10              		 * @s2: a pointer to the second string
+  11              		 * @n: the number of bytes to be compared
+  12              		 * Return: It returns an integer less than, equal to, or greater than
+  13              		 * zero if s1 is found, respectively, to be less than, to match, or be
+  14              		 * greater than s2.compare two strings ignoring case
+  15              		 */
+  16              	
+  17              		.globl asm_strncasecmp
+  18              	
+  19              	.text
+  20              	asm_strncasecmp:
+  21 0000 55       		pushq %rbp
+  22 0001 4889E5   		movq %rsp, %rbp
+  23 0004 53       		pushq %rbx
+  24 0005 51       		pushq %rcx
+  25 0006 31C9     		xorl %ecx, %ecx
+  26              	
+  27              	loop:
+  28 0008 39CA     		cmpl %ecx, %edx
+  29 000a 743A     		jz break
+  30 000c 670FB604 		movzxb (%edi, %ecx), %eax
+  30      0F
+  31 0011 3C5B     		cmpb $0x5b, %al
+  32 0013 721F     		jb downcase1
+  33 0015 670FB61C 	first:	movzxb (%esi, %ecx), %ebx
+  33      0E
+  34 001a 80FB5B   		cmpb $0x5b, %bl
+  35 001d 721D     		jb downcase2
+  36 001f 38D8     	cmp:	cmpb %bl, %al
+  37 0021 750D     		jnz diff
+  38 0023 FFC1     		incl %ecx
+  39 0025 84C0     		testb %al, %al
+  40 0027 75DF     		jnz loop
+  41              	
+  42              	end:
+  43 0029 59       		popq %rcx
+  44 002a 5B       		popq %rbx
+  45 002b 4889EC   		movq %rbp, %rsp
+  46 002e 5D       		popq %rbp
+  47 002f C3       		retq
+  48              	
+  49              	diff:
+  50 0030 29D8     		subl %ebx, %eax
+  51 0032 EBF5     		jmp end
+  52              	
+  53              	downcase1:
+  54 0034 3C40     		cmpb $0x40, %al
+  55 0036 76DD     		jna first
+GAS LISTING 103-strncasecmp.s 			page 3
+
+
+  56 0038 0C20     		orb $0x20, %al
+  57 003a EBD9     		jmp first
+  58              	
+  59              	downcase2:
+  60 003c 80FB40   		cmpb $0x40, %bl
+  61 003f 76DE     		jna cmp
+  62 0041 80CB20   		or $0x20, %bl
+  63 0044 EBD9     		jmp cmp
+  64              	
+  65              	break:
+  66 0046 31C0     		xorl %eax, %eax
+  67 0048 EBDF     		jmp end
+GAS LISTING 103-strncasecmp.s 			page 4
+
+
+DEFINED SYMBOLS
+   103-strncasecmp.s:20     .text:0000000000000000 asm_strncasecmp
+   103-strncasecmp.s:27     .text:0000000000000008 loop
+   103-strncasecmp.s:65     .text:0000000000000046 break
+   103-strncasecmp.s:53     .text:0000000000000034 downcase1
+   103-strncasecmp.s:33     .text:0000000000000015 first
+   103-strncasecmp.s:59     .text:000000000000003c downcase2
+   103-strncasecmp.s:36     .text:000000000000001f cmp
+   103-strncasecmp.s:49     .text:0000000000000030 diff
+   103-strncasecmp.s:42     .text:0000000000000029 end
+
+NO UNDEFINED SYMBOLS
