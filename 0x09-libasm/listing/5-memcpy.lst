@@ -13,14 +13,13 @@
     13                                  	;;
     14                                  	;; Prototype: void *asm_memcpy(void *dest, const void *src, size_t n);
     15                                  	;;
-    16                                  	global asm_memcpy
-    17                                  
-    18                                  	segment .text
+    16                                  
+    17                                  	segment .text
+    18                                  	global asm_memcpy
     19                                  
     20                                  asm_memcpy:
-    21 00000000 4889F8                  	mov rax, rdi
-    22 00000003 89D1                    	mov ecx, edx
-    23 00000005 FC                      	cld
-    24                                  
-    25 00000006 F3A4                    rep	movsb
-    26 00000008 C3                      	ret
+    21 00000000 4889F8                  	mov rax, rdi		; Copy the pointer to @dest string to be returned
+    22 00000003 89D1                    	mov ecx, edx		; Copy the length @n to the counter
+    23 00000005 FC                      	cld			; Clear the direction flag, DL
+    24 00000006 F3A4                    rep	movsb			; Copy @n bytes from ESI (source) to EDI (destination)
+    25 00000008 C3                      	ret			; Return
