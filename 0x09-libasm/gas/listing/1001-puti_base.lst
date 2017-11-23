@@ -1,0 +1,105 @@
+GAS LISTING 1001-puti_base.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/1001-puti_base.lst 
+ input file    	: 1001-puti_base.s
+ output file   	: 1001-puti_base.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-20T17:31:05.000-0800
+
+GAS LISTING 1001-puti_base.s 			page 2
+
+
+   1              		/*
+   2              		 * asm_puti_base - prints each digit of a signed number in the given base
+   3              		 * to STDOUT using the putc routine that prints one char at a time
+   4              		 *
+   5              		 * Prototype: size_t asm_puti_base(int n, const char *base);
+   6              		 * @n: the signed number to be printed
+   7              		 * @base: a string representing the base
+   8              		 * Return: the number of digits printed
+   9              		 */
+  10              	
+  11              		.text
+  12              		.globl asm_puti_base	# Define symbol to routine of the same name
+  13              	
+  14              	asm_puti_base:			# Implement asm_put_base function/routine
+  15 0000 55       		push %rbp		# Routine prologue, create new stack frame
+  16 0001 4889E5   		movq %rsp, %rbp
+  17 0004 52       		pushq %rdx		# Save registers that will be overriden
+  18 0005 4150     		pushq %r8
+  19 0007 4151     		pushq %r9
+  20 0009 57       		pushq %rdi		# Save first function argument
+  21 000a 4889F7   		movq %rsi, %rdi		# Use 2nd argument as the 1st to call strlen
+  22 000d E8000000 		call asm_strlen		# Call to strlen, measure the length of string
+  22      00
+  23 0012 5F       		popq %rdi		# Restore 1st argument
+  24 0013 50       		pushq %rax		# Save return value of strlen (length) to the stack
+  25 0014 488D1424 		lea (%rsp), %rdx	# Copy a pointer to the length of string (base)
+  26 0018 4531C9   		xorl %r9d, %r9d		# Start/reset our counter to the number of char printed
+  27 001b 89F8     		movl %edi, %eax		# Copy 1st arg to check its sign (positive or negative)
+  28 001d 85C0     		testl %eax, %eax
+  29 001f 7845     		js negative		# If negative jump to subroutine...
+  30              					# Otherwise continue to 'print' subroutine
+  31              	print:				# Subroutine to print each digit
+  32 0021 8B1A     		movl (%rdx), %ebx	# Copy the length of string to ebx
+  33 0023 31C9     		xorl %ecx, %ecx		# Start a counter
+  34 0025 31D2     	iloop:	xorl %edx, %edx		# Reset edx to make the division
+  35 0027 F7F3     		divl %ebx		# Divide the number (in edx:eax) by length of string
+  36 0029 4883EC01 		sub $1, %rsp		# Reserve one byte on stack to put the remainder
+  37 002d 881424   		movb %dl, (%rsp)	# Save the remainder of division (number / length)
+  38 0030 66FFC1   		incw %cx		# Increment our counter
+  39 0033 85C0     		testl %eax, %eax	# Check when we reach zero
+  40 0035 75EE     		jnz iloop		# While not zero, loop
+  41 0037 440FB604 	pstr:	movzbl (%rsp), %r8d 	# After we reach zero start copying bytes from stack
+  41      24
+  42 003c 420FB63C 		movzbl (%rsi, %r8), %edi # in reverse order to be printed
+  42      06
+  43 0041 E8000000 		call asm_putc		# Print each digit
+  43      00
+  44 0046 4100C1   		addb %al, %r9b		# Transfer the result of call to putc to our counter
+  45 0049 4883C401 		add $1, %rsp		# Restore each byte from the stack
+  46 004d 66FFC9   		dec %cx			# Decrement our counter
+  47 0050 6685C9   		test %cx, %cx		# Check when we reach zero
+  48 0053 75E2     		jnz pstr		# While not zero, loop
+  49 0055 4489C8   		mov %r9d, %eax 	   	# When zero, copy the acumulator to return value
+  50              	
+  51              	end:
+  52 0058 4883C408 		addq $8, %rsp		# Remove 8 bytes from stack (used by rax)
+  53 005c 4159     		popq %r9		# Restore GPR (General Purpose Registers)
+GAS LISTING 1001-puti_base.s 			page 3
+
+
+  54 005e 4158     		popq %r8
+  55 0060 5A       		popq %rdx
+  56 0061 4889EC   		movq %rbp, %rsp		# Routine epilogue, return from stack frame
+  57 0064 5D       		popq %rbp
+  58 0065 C3       		retq
+  59              	
+  60              	negative:			# Subroutine to deal with negative numbers
+  61 0066 F7D8     		negl %eax		# Make positive (flip sign)
+  62 0068 50       		pushq %rax		# Preserve the number on stack
+  63 0069 BF2D0000 		movl $'-, %edi		# Define 1st arg to putc
+  63      00
+  64 006e E8000000 		call asm_putc		# Call putc to print the minus sign
+  64      00
+  65 0073 4100C1   		addb %al, %r9b		# Add the return value to r9 to be returned later
+  66 0076 58       		popq %rax		# Restore the number
+  67 0077 89C7     		movl %eax, %edi		# Use the number as 1st argument to next routine
+  68 0079 EBA6     		jmp print		# Jump to 'print' subroutine
+GAS LISTING 1001-puti_base.s 			page 4
+
+
+DEFINED SYMBOLS
+    1001-puti_base.s:14     .text:0000000000000000 asm_puti_base
+    1001-puti_base.s:60     .text:0000000000000066 negative
+    1001-puti_base.s:31     .text:0000000000000021 print
+    1001-puti_base.s:34     .text:0000000000000025 iloop
+    1001-puti_base.s:41     .text:0000000000000037 pstr
+    1001-puti_base.s:51     .text:0000000000000058 end
+
+UNDEFINED SYMBOLS
+asm_strlen
+asm_putc
