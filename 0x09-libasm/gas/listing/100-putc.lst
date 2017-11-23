@@ -1,0 +1,65 @@
+GAS LISTING 100-putc.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/100-putc.lst 
+ input file    	: 100-putc.s
+ output file   	: 100-putc.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T20:13:11.000-0800
+
+GAS LISTING 100-putc.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_putc - prints one character to STOUT
+   4              		 *
+   5              		 * Description: This routine uses the 'write' syscall to print the @c
+   6              		 * integer as a character to the STDOUT.
+   7              		 * The corresponding C implementation is:
+   8              		 *
+   9              		 * size_t putc(int c)
+  10              		 * {
+  11              		 * 	return (write(1, &c, 1));
+  12              		 * }
+  13              		 *
+  14              		 * @c: the character to be printed
+  15              		 * Return: the value return by the 'write' syscall
+  16              		 *
+  17              		 * Prototype: size_t asm_putc(int c);
+  18              		 */
+  19              	
+  20              		.globl asm_putc
+  21              	
+  22              	.text
+  23              	asm_putc:
+  24 0000 55       		pushq %rbp		# Routine prologue, set new stack frame
+  25 0001 4889E5   		movq %rsp, %rbp
+  26 0004 51       		pushq %rcx		# Save registers state/values
+  27 0005 52       		pushq %rdx
+  28 0006 56       		pushq %rsi
+  29 0007 57       		pushq %rdi		# Copy the 1st arg to putc to the stack
+  30 0008 B8010000 		movl $1, %eax		# %eax carry the syscall number (1 for write)
+  30      00
+  31 000d BA010000 		movl $1, %edx		# 3rd arg is the amount of bytes to be written
+  31      00
+  32 0012 488D3424 		leaq (%rsp), %rsi 	# 2nd arg is a pointer to the buffer to be printed
+  33 0016 BF010000 		movl $1, %edi		# 1st arg is the number of file descriptor (1 for STDOUT)
+  33      00
+  34 001b 0F05     		syscall			# Call to 'write'
+  35 001d 5F       		popq %rdi		# Restore registers state/values
+  36 001e 5E       		popq %rsi
+  37 001f 5A       		popq %rdx
+  38 0020 59       		popq %rcx
+  39 0021 4889EC   		movq %rbp, %rsp		# Routine epilogue, take down stack frame
+  40 0024 5D       		popq %rbp
+  41 0025 C3       		ret			# Return
+GAS LISTING 100-putc.s 			page 3
+
+
+DEFINED SYMBOLS
+          100-putc.s:23     .text:0000000000000000 asm_putc
+
+NO UNDEFINED SYMBOLS
