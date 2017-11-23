@@ -1,0 +1,93 @@
+GAS LISTING 1000-puti.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/1000-puti.lst 
+ input file    	: 1000-puti.s
+ output file   	: 1000-puti.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-20T17:07:26.000-0800
+
+GAS LISTING 1000-puti.s 			page 2
+
+
+   1              		/*
+   2              		 * asm_puti - print each digit of a signed base 10 number to STDOUT using
+   3              		 * asm_putc routine (defined in the 100-putc.asm file)
+   4              		 *
+   5              		 * Prototype: size_t asm_puti(int n);
+   6              		 * @n: the base 10 number to be printed
+   7              		 */
+   8              	
+   9              		.text
+  10              		.globl asm_puti		# Define and export asm_puti symbol
+  11              	
+  12              	asm_puti:			# Implement the asm_puti function/routine
+  13 0000 55       		pushq %rbp		# Routine prologue, create new stack frame
+  14 0001 4889E5   		movq %rsp, %rbp
+  15 0004 53       		pushq %rbx		# Save registers to be used
+  16 0005 51       		pushq %rcx
+  17 0006 52       		pushq %rdx
+  18 0007 4150     		pushq %r8
+  19 0009 4531C0   		xorl %r8d, %r8d		# Reset 32 bits version of r8 register, our accumulator
+  20 000c 89F8     		mov %edi, %eax		# Copy 1st arg (number) to %eax
+  21 000e 85C0     		testl %eax, %eax	# Check the number sign
+  22 0010 7842     		js negative		# If negative jump to subroutine
+  23              	num2str:			# Subroutine to convert number to string
+  24 0012 BB0A0000 		mov $10, %ebx		# Copy the divisor to %ebx
+  24      00
+  25 0017 31C9     		xorl %ecx, %ecx		# Start a counter
+  26 0019 31D2     	pushd:	xorl %edx, %edx		# Zero edx register used in the division
+  27 001b F7F3     		divl %ebx		# Divide the number (in eax) by 10
+  28 001d 4883EC01 		sub $1, %rsp		# Reserve on byte on stack
+  29 0021 881424   		movb %dl, (%rsp)	# Save the remainder of the division to this byte
+  30 0024 66FFC1   		incw %cx		# Increment the counter
+  31 0027 85C0     		testl %eax, %eax	# Check when it reach zero
+  32 0029 75EE     		jnz pushd		# While not zero, loop
+  33 002b 0FB63C24 	print:	movzbl (%rsp), %edi	# Start retrieving each byte from stack, reverse order
+  34 002f 4080CF30 		orb $0x30, %dil		# Add 48 to each digit to convert it to an ASCII character
+  35 0033 E8000000 		call asm_putc		# Call the routine to print each digit
+  35      00
+  36 0038 4100C0   		addb %al, %r8b		# Add the return value of function call to the accumulator
+  37 003b 4883C401 		add $1, %rsp		# Remove each byte from stack
+  38 003f 66FFC9   		dec %cx			# Decrease the counter
+  39 0042 6685C9   		testw %cx, %cx		# Check when it reach zero
+  40 0045 75E4     		jnz print		# While not zero, loop
+  41 0047 4489C0   		movl %r8d, %eax		# Transfer the accumulator to eax (return value)
+  42              	end:
+  43 004a 4158     		popq %r8		# Restore registers
+  44 004c 5A       		popq %rdx
+  45 004d 59       		popq %rcx
+  46 004e 5B       		popq %rbx
+  47 004f 4889EC   		movq %rbp, %rsp		# Routine epilogue, take down the stack frame
+  48 0052 5D       		popq %rbp
+  49 0053 C3       		retq
+  50              	
+  51              	negative:			# Subroutine to deal with negative numbers
+  52 0054 F7D8     		negl %eax		# Flip sign
+  53 0056 50       		pushq %rax		# Save the number to the stack
+  54 0057 BF2D0000 		movl $'-, %edi		# Prepare 1st function argument
+  54      00
+GAS LISTING 1000-puti.s 			page 3
+
+
+  55 005c E8000000 		call asm_putc		# Call putc to print the minus sign
+  55      00
+  56 0061 4100C0   		add %al, %r8b	 	# Add the return value to the accumulator
+  57 0064 58       		popq %rax		# Retrieve the number from stack
+  58 0065 89C7     		movl %eax, %edi		# Copy it to edi (1st argument to func call)
+  59 0067 EBA9     		jmp num2str		# Jump to num2str subroutine
+GAS LISTING 1000-puti.s 			page 4
+
+
+DEFINED SYMBOLS
+         1000-puti.s:12     .text:0000000000000000 asm_puti
+         1000-puti.s:51     .text:0000000000000054 negative
+         1000-puti.s:23     .text:0000000000000012 num2str
+         1000-puti.s:26     .text:0000000000000019 pushd
+         1000-puti.s:33     .text:000000000000002b print
+         1000-puti.s:42     .text:000000000000004a end
+
+UNDEFINED SYMBOLS
+asm_putc
