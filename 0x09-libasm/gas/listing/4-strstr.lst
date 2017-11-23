@@ -1,0 +1,80 @@
+GAS LISTING 4-strstr.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/4-strstr.lst 
+ input file    	: 4-strstr.s
+ output file   	: 4-strstr.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T19:49:43.000-0800
+
+GAS LISTING 4-strstr.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_strstr - a clone of strstr function
+   4              		 *
+   5              		 * Description:	the strstr() function finds the first occurrence of the
+   6              		 * substring @sub in the string @s.
+   7              		 *
+   8              		 * @s: the pointer to the string
+   9              		 * @sub: a pointer to the substring to be searched for
+  10              		 * Return: a pointer to the beginning of the substring,
+  11              		 * or NULL if substring is not found.
+  12              		 *
+  13              		 * Prototype: char *asm_strstr(const char *s, char *sub);
+  14              		 */
+  15              	
+  16              		.globl asm_strstr
+  17              	
+  18              	.text
+  19              	asm_strstr:
+  20 0000 55       		pushq %rbp
+  21 0001 4889E5   		movq %rsp, %rbp
+  22 0004 53       		pushq %rbx
+  23 0005 51       		pushq %rcx
+  24 0006 52       		pushq %rdx
+  25              	
+  26              	loop:
+  27 0007 670FB607 		movzxb (%edi), %eax
+  28 000b 673A06   		cmpb (%esi), %al
+  29 000e 7410     		jz match
+  30 0010 FFC7     		inc %edi
+  31 0012 84C0     		test %al, %al
+  32 0014 75F1     		jnz loop
+  33 0016 31C0     		xorl %eax, %eax
+  34              	
+  35              	end:
+  36 0018 5A       		popq %rdx
+  37 0019 59       		popq %rcx
+  38 001a 5B       		popq %rbx
+  39 001b 4889EC   		movq %rbp, %rsp
+  40 001e 5D       		popq %rbp
+  41 001f C3       		ret
+  42              	
+  43              	match:
+  44 0020 89F8     		movl %edi, %eax
+  45 0022 31C9     		xorl %ecx, %ecx
+  46              	substr:
+  47 0024 FFC1     		inc %ecx
+  48 0026 678A1C0F 		movb (%edi, %ecx), %bl
+  49 002a 678A140E 		movb (%esi, %ecx), %dl
+  50 002e 84D2     		test %dl, %dl
+  51 0030 74E6     		jz end
+  52 0032 38D3     		cmpb %dl, %bl
+  53 0034 74EE     		jz substr
+  54 0036 FFC7     		inc %edi
+  55 0038 EBCD     		jmp loop
+GAS LISTING 4-strstr.s 			page 3
+
+
+DEFINED SYMBOLS
+          4-strstr.s:19     .text:0000000000000000 asm_strstr
+          4-strstr.s:26     .text:0000000000000007 loop
+          4-strstr.s:43     .text:0000000000000020 match
+          4-strstr.s:35     .text:0000000000000018 end
+          4-strstr.s:46     .text:0000000000000024 substr
+
+NO UNDEFINED SYMBOLS
