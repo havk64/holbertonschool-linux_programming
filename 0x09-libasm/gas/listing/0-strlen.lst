@@ -1,0 +1,56 @@
+GAS LISTING 0-strlen.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/0-strlen.lst 
+ input file    	: 0-strlen.s
+ output file   	: 0-strlen.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T19:49:43.000-0800
+
+GAS LISTING 0-strlen.s 			page 2
+
+
+   1              		/*
+   2              		 * asm_strlen - clone of strlen function. Find the length of a string
+   3              		 * Gnu Assembler Syntax
+   4              		 *
+   5              		 * Prototype: size_t asm_strlen(const char *str);
+   6              		 * @str: a pointer to the string to be scanned
+   7              		 * Return: the number of bytes of the given string
+   8              		 *
+   9              		 * Implementation using SSE 4.2 text processing instructions where
+  10              		 * the string can be analyzed 16 bytes at a time thanks to the register size
+  11              		 * of 128 bits, granting great performance.
+  12              		 */
+  13              	
+  14              	        .global asm_strlen      # Export the symbol to be used by external files
+  15              	
+  16              	.text                           # Define the beginning of the .text (code) section
+  17              	asm_strlen:                     # Define the asm_strlen routine
+  18 0000 55       	        pushq %rbp              # Routine prologue
+  19 0001 4889E5   	        movq %rsp, %rbp
+  20 0004 660FEFC0 		pxor %xmm0, %xmm0
+  21 0008 B8F0FFFF 	        movl $-16, %eax         # Initialize %eax to -16 to avoid one jmp
+  21      FF
+  22              	
+  23              	loop:
+  24 000d 83C010   	        addl $16,%eax           # Increment the counter by 16 each iteration
+  25 0010 67660F3A 		pcmpistri $0b1000, (%edi, %eax, 1), %xmm0 # Look for the end of string
+  25      63040708 
+  26 0018 75F3     	        jnz loop                           	  # and generates an index on %ecx
+  27              	
+  28 001a 01C8     	        addl %ecx, %eax         # Add the index to the counter to be returned
+  29 001c 4889EC   	        movq %rbp, %rsp         # Routine epilogue
+  30 001f 5D       	        popq %rbp
+  31 0020 C3       	        ret
+  32              	
+GAS LISTING 0-strlen.s 			page 3
+
+
+DEFINED SYMBOLS
+          0-strlen.s:17     .text:0000000000000000 asm_strlen
+          0-strlen.s:23     .text:000000000000000d loop
+
+NO UNDEFINED SYMBOLS
