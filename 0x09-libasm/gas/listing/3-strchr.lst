@@ -1,0 +1,64 @@
+GAS LISTING 3-strchr.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/3-strchr.lst 
+ input file    	: 3-strchr.s
+ output file   	: 3-strchr.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T19:49:43.000-0800
+
+GAS LISTING 3-strchr.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_strchr - clone of strchr (3) function
+   4              		 *
+   5              		 * Description:	The strchr() function returns a pointer to the first
+   6              		 * occurrence of the character @c in the string @s.
+   7              		 *
+   8              		 * @s: a pointer to the string to scanned
+   9              		 * @c: a character to be searched for
+  10              		 * Return: a pointer to the matched character or
+  11              		 * NULL if the character is not found.
+  12              		 * Prototype: char *asm_strchr(const char *s, int c);
+  13              		 */
+  14              	
+  15              		.global asm_strchr
+  16              	
+  17              	.text
+  18              	asm_strchr:
+  19 0000 55       		pushq %bp		# Routine prologue
+  20 0001 4889E5   		movq %rsp, %rbp
+  21 0004 51       		pushq %cx		# Save register to be used
+  22 0005 89F8     		movl %edi, %eax		# Copy the first function argument to %eax register
+  23              	loop:
+  24 0007 670FB608 		movzxb (%eax), %ecx	# Read one byte of the string to low byte of %ecx
+  25 000b 39F1     		cmpl %esi, %ecx		# Compare it agains the second argument
+  26 000d 7408     		jz end			# If they are equal jump to the end (returning %eax)
+  27 000f 84C9     		test %cl, %cl		# Test if the byte/char is NULL (end of string)
+  28 0011 740A     		jz eos			# If NULL jump to 'eos' symbol
+  29 0013 FFC0     		inc %eax		# Otherwise increment the pointer to the string
+  30 0015 EBF0     		jmp loop		# ...and loop again
+  31              	
+  32              	end:
+  33 0017 59       		pop %rcx		# Routine epilogue
+  34 0018 4889EC   		mov %rbp, %rsp
+  35 001b 5D       		pop %rbp
+  36 001c C3       		ret
+  37              	
+  38 001d B8000000 	eos:	mov $0, %eax		# If end of string return 0
+  38      00
+  39 0022 EBF3     		jmp end
+GAS LISTING 3-strchr.s 			page 3
+
+
+DEFINED SYMBOLS
+          3-strchr.s:18     .text:0000000000000000 asm_strchr
+          3-strchr.s:23     .text:0000000000000007 loop
+          3-strchr.s:32     .text:0000000000000017 end
+          3-strchr.s:38     .text:000000000000001d eos
+
+NO UNDEFINED SYMBOLS
