@@ -1,0 +1,80 @@
+GAS LISTING 105-strcspn.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/105-strcspn.lst 
+ input file    	: 105-strcspn.s
+ output file   	: 105-strcspn.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-18T16:25:20.000-0800
+
+GAS LISTING 105-strcspn.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * asm_strcspn - clone of strcsnp in x86 Assembly
+   4              		 *
+   5              		 * Description:	calculates the length of the initial segment of @s which
+   6              		 * consists entirely of bytes not in @reject.
+   7              		 *
+   8              		 * Prototype: size_t asm_strcspn(const char *s, const char *reject);
+   9              		 * @s: a pointer to a string
+  10              		 * @reject: a pointer to a substring
+  11              		 * Return: the number of bytes in the initial segment of @s which are
+  12              		 * not in the string @reject.
+  13              		 */
+  14              	
+  15              		.text
+  16              		.globl asm_strcspn
+  17              	
+  18              	asm_strcspn:
+  19 0000 55       		pushq %rbp
+  20 0001 4889E5   		movq %rsp, %rbp
+  21 0004 53       		pushq %rbx
+  22 0005 51       		pushq %rcx
+  23 0006 52       		pushq %rdx
+  24 0007 31C0     		xorl %eax, %eax
+  25 0009 31C9     		xorl %ecx, %ecx
+  26              	
+  27              	loop:
+  28 000b 670FB61C 		movzbl (%edi, %ecx), %ebx
+  28      0F
+  29 0010 84DB     		testb %bl, %bl
+  30 0012 7408     		jz end
+  31 0014 EB0E     		jmp inner
+  32 0016 FFC0     	outter:	incl %eax
+  33 0018 FFC1     		incl %ecx
+  34 001a EBEF     		jmp loop
+  35              	
+  36              	end:
+  37 001c 5A       		popq %rdx
+  38 001d 59       		popq %rcx
+  39 001e 5B       		popq %rbx
+  40 001f 4889EC   		movq %rbp, %rsp
+  41 0022 5D       		popq %rbp
+  42 0023 C3       		retq
+  43              	
+  44              	inner:
+  45 0024 31D2     		xorl %edx, %edx
+  46 0026 67440FB6 	iloop:	movzbl (%esi, %edx), %r8d
+  46      0416
+  47 002c 4584C0   		testb %r8b, %r8b
+  48 002f 74E5     		jz outter
+  49 0031 FFC2     		incl %edx
+  50 0033 4438C3   		cmp %r8b, %bl
+  51 0036 74E4     		jz end
+  52 0038 EBEC     		jmp iloop
+GAS LISTING 105-strcspn.s 			page 3
+
+
+DEFINED SYMBOLS
+       105-strcspn.s:18     .text:0000000000000000 asm_strcspn
+       105-strcspn.s:27     .text:000000000000000b loop
+       105-strcspn.s:36     .text:000000000000001c end
+       105-strcspn.s:44     .text:0000000000000024 inner
+       105-strcspn.s:32     .text:0000000000000016 outter
+       105-strcspn.s:46     .text:0000000000000026 iloop
+
+NO UNDEFINED SYMBOLS
