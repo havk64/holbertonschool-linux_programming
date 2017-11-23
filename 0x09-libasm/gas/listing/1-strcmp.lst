@@ -1,0 +1,79 @@
+GAS LISTING 1-strcmp.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/1-strcmp.lst 
+ input file    	: 1-strcmp.s
+ output file   	: 1-strcmp.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T19:49:43.000-0800
+
+GAS LISTING 1-strcmp.s 			page 2
+
+
+   1              	
+   2              		/*
+   3              		 * strcmp clone - return the difference between two strings
+   4              		 *
+   5              		 * Prototype: int asm_strcmp(const char *s1, const char *s2);
+   6              		 * @s1: Pointer to the first string
+   7              		 * @s2: Pointer to the second string
+   8              		 * Return: an integer that less than, equal to, or greater than zero if s1  is
+   9              		 * found, respectively, to be less than, to match, or  be greater than s2.
+  10              		 *
+  11              		 * Implementation using just registers instead of variables on stack (memory)
+  12              		 */
+  13              	
+  14              		.global asm_strcmp
+  15              	
+  16              	.text
+  17              	asm_strcmp:
+  18 0000 55       		pushq %rbp		# Routine preamble
+  19 0001 4889E5   		movq %rsp, %rbp
+  20 0004 53       		pushq %rbx		# Save registers to be used
+  21 0005 51       		pushq %rcx
+  22 0006 31C9     		xorl %ecx, %ecx		# Start a counter
+  23              	
+  24              	loop:
+  25 0008 670FB604 		movzxb (%edi, %ecx), %eax # Char from first argument  (@s1)
+  25      0F
+  26 000d 670FB61C 		movzxb (%esi, %ecx), %ebx # Char from second argument (@s2)
+  26      0E
+  27 0012 38D8     		cmpb %bl, %al		# Compare values
+  28 0014 720F     		jb less_than		# If first is less than second skip
+  29 0016 7714     		ja greater_than		# If greater skip
+  30 0018 FFC1     		inc %ecx		# Otherwise increment the counter
+  31              		# Test if the s1 character is NULL (end of string)
+  32 001a 84C0     		testb %al, %al		# 'test' (bitwise &) is lighter than 'cmp'
+  33 001c 75EA     		jnz loop		# If not zero loop, otherwise continue (end)
+  34              	
+  35              	end:
+  36 001e 59       		popq %rcx		# Restore used registers
+  37 001f 5B       		popq %rbx
+  38 0020 4889EC   		movq %rbp, %rsp		# Routine epilogue
+  39 0023 5D       		popq %rbp
+  40 0024 C3       		ret
+  41              	
+  42              	less_than:
+  43 0025 B8FFFFFF 		movl $-0x1, %eax	# If first less than second return -1
+  43      FF
+  44 002a EBF2     		jmp end			# and Return
+  45              	
+  46              	greater_than:
+  47 002c B8010000 		movl $0x1, %eax		# If first is greater return 1 and return
+  47      00
+  48 0031 EBEB     		jmp end
+  49              	
+  50              	
+GAS LISTING 1-strcmp.s 			page 3
+
+
+DEFINED SYMBOLS
+          1-strcmp.s:17     .text:0000000000000000 asm_strcmp
+          1-strcmp.s:24     .text:0000000000000008 loop
+          1-strcmp.s:42     .text:0000000000000025 less_than
+          1-strcmp.s:46     .text:000000000000002c greater_than
+          1-strcmp.s:35     .text:000000000000001e end
+
+NO UNDEFINED SYMBOLS
