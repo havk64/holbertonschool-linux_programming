@@ -1,0 +1,82 @@
+GAS LISTING 2-strncmp.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/2-strncmp.lst 
+ input file    	: 2-strncmp.s
+ output file   	: 2-strncmp.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-11T19:49:43.000-0800
+
+GAS LISTING 2-strncmp.s 			page 2
+
+
+   1              		/*
+   2              		 * strncmp clone - return the difference between two strings
+   3              		 *
+   4              		 * Prototype: int asm_strncmp(const char *s1, const char *s2, size_t n);
+   5              		 * @s1: Pointer to the first string
+   6              		 * @s2: Pointer to the second string
+   7              		 * @n: the only first bytes to be compared
+   8              		 * Return: an integer that less than, equal to, or greater than zero if @s1  is
+   9              		 * found, respectively, to be less than, to match, or  be greater than s2.
+  10              		 *
+  11              		 * Implementation using just registers instead of variables on stack (memory)
+  12              		 */
+  13              	
+  14              		.global asm_strncmp
+  15              	
+  16              	.text
+  17              	asm_strncmp:
+  18 0000 55       		pushq %rbp		# Routine preamble
+  19 0001 4889E5   		movq %rsp, %rbp
+  20 0004 53       		pushq %rbx		# Save registers to be used
+  21 0005 51       		pushq %rcx
+  22 0006 31C9     		xorl %ecx, %ecx		# Start a counter
+  23              	
+  24              	loop:
+  25 0008 39CA     		cmpl %ecx, %edx		# Compare 'n' (3rd arg) with the counter
+  26 000a 7414     		jz equal		# If equal, break
+  27 000c 0FB6040F 		movzxb (%rdi, %rcx), %eax	# Char from first argument  (@s1)
+  28 0010 0FB61C0E 		movzxb (%rsi, %rcx), %ebx	# Char from second argument (@s2)
+  29 0014 38D8     		cmpb %bl, %al		# Compare characters
+  30 0016 7214     		jb less_than		# If less than, break
+  31 0018 7719     		ja greater_than		# If greater than, break
+  32 001a FFC1     		inc %ecx		# Otherwise, increment the counter
+  33              		# Test if the s1 character is NULL (end of string)
+  34 001c 84C0     		test %al, %al		# 'test' (bitwise &) is lighter than 'cmp'
+  35 001e 75E8     		jnz loop		# If not NULL (zero) loop, otherwiser break
+  36              	
+  37              	equal:
+  38 0020 B8000000 		movl $0, %eax		# If equal return zero
+  38      00
+  39              	
+  40              	end:
+  41 0025 59       		popq %rcx		# Restore registers used
+  42 0026 5B       		popq %rbx
+  43 0027 4889EC   		movq %rbp, %rsp		# Routine epilogue
+  44 002a 5D       		popq %rbp
+  45 002b C3       		ret
+  46              	
+  47              	less_than:
+  48 002c B8FFFFFF 		movl $-1, %eax		# If first less than second return -1
+  48      FF
+  49 0031 EBF2     		jmp end
+  50              	
+  51              	greater_than:
+  52 0033 B8010000 		movl $1, %eax		# If first greater return 1
+  52      00
+  53 0038 EBEB     		jmp end
+GAS LISTING 2-strncmp.s 			page 3
+
+
+DEFINED SYMBOLS
+         2-strncmp.s:17     .text:0000000000000000 asm_strncmp
+         2-strncmp.s:24     .text:0000000000000008 loop
+         2-strncmp.s:37     .text:0000000000000020 equal
+         2-strncmp.s:47     .text:000000000000002c less_than
+         2-strncmp.s:51     .text:0000000000000033 greater_than
+         2-strncmp.s:40     .text:0000000000000025 end
+
+NO UNDEFINED SYMBOLS
