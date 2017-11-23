@@ -1,0 +1,45 @@
+GAS LISTING 5-memcpy.s 			page 1
+
+
+ GNU assembler version 2.24 (x86_64-linux-gnu)
+	 using BFD version (GNU Binutils for Ubuntu) 2.24.
+ options passed	: -g -aghls=listing/5-memcpy.lst 
+ input file    	: 5-memcpy.s
+ output file   	: 5-memcpy.o
+ target        	: x86_64-pc-linux-gnu
+ time stamp    	: 2017-11-16T16:15:14.000-0800
+
+GAS LISTING 5-memcpy.s 			page 2
+
+
+   1              		/*
+   2              		 * asm_memcpy - a clone of memcpy in x86 Assembly
+   3              		 *
+   4              		 * Description:	The memcpy() function copies @n bytes from memory area
+   5              		 * @src to memory area @dest.
+   6              		 *
+   7              		 * @dest: a pointer to the destination string
+   8              		 * @src: a pointer to the source string
+   9              		 * @n: the number of bytes to be copied
+  10              		 * Return: a pointer to @dest string
+  11              		 *
+  12              		 * Prototype: void *asm_memcpy(void *dest, const void *src, size_t n);
+  13              		 */
+  14              	
+  15              		.text
+  16              		.globl asm_memcpy
+  17              	
+  18              	asm_memcpy:
+  19 0000 51       		pushq %rcx
+  20 0001 4889F8   		movq %rdi, %rax
+  21 0004 89D1     		movl %edx, %ecx
+  22 0006 F3A4     	rep	movsb
+  23 0008 59       		popq %rcx
+  24 0009 C3       		ret
+GAS LISTING 5-memcpy.s 			page 3
+
+
+DEFINED SYMBOLS
+          5-memcpy.s:18     .text:0000000000000000 asm_memcpy
+
+NO UNDEFINED SYMBOLS
