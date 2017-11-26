@@ -50,7 +50,7 @@ All good!
 The file [1-strcmp.asm](1-strcmp.asm) has a copycat of the function `strcmp(3)`, in
 X86-64 Assembly
 
-- Prototype when used in C: `int asm_strcmp(const char *s1, const char *s2);`
+- Prototype when called from C: `int asm_strcmp(const char *s1, const char *s2);`
 
 ```
 $ cat 2-main.c 
