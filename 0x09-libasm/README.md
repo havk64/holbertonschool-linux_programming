@@ -45,7 +45,7 @@ All good!
 
 ```
 
-### Task 1 - Strcmp
+### Task 1 - strcmp
 
 The file [1-strcmp.asm](1-strcmp.asm) has a copycat of the function `strcmp(3)`, in
 X86-64 Assembly
