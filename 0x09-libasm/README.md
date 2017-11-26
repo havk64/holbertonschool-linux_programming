@@ -37,7 +37,7 @@ int main(void)
     return (EXIT_SUCCESS);
 }
 
-$ make
+$ make 0-strlen
 
 $ ./0-strlen
 
@@ -80,7 +80,7 @@ int main(void)
     return (EXIT_SUCCESS);
 }
 
-$ make
+$ make 1-strcmp
 
 $ ./1-strcmp
 
