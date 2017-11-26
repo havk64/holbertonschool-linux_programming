@@ -355,3 +355,51 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 ```
+
+### Task 8 - strcasecmp
+
+The file [102-strcasecmp.asm](102-strcasecmp.asm) has a copycat of `strcasecmp(3)`
+function in X86-64 Assembly
+
+- Prototype when called from C: `int asm_strcasecmp(const char *s1, const char *s2);`
+
+```
+$ make 102-strcasecmp
+
+$ ./102-strcasecmp
+All good!
+
+$ cat 102-main.c
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "libasm.h"
+
+#define S1  "Holberton School"
+#define S2  "HOLBERTON SCHOOL"
+#define S3  "Holberton SchooL"
+#define S4  "holberton socool"
+#define S5  "@ABCDEFGHIJKLMNOPQRSTXYZ[]"
+#define S6  "@abcdefghijklmnopqrstxyz[]"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	assert(strcasecmp(S1, S1) == asm_strcasecmp(S1, S1));
+	assert(strcasecmp(S1, S2) == asm_strcasecmp(S1, S2));
+	assert(strcasecmp(S1, S3) == asm_strcasecmp(S1, S3));
+	assert(strcasecmp(S1, S4) == asm_strcasecmp(S1, S4));
+	assert(strcasecmp(S4, S1) == asm_strcasecmp(S4, S1));
+	assert(strcasecmp(S5, S6) == asm_strcasecmp(S5, S6));
+	assert(strcasecmp(S6, S6) == asm_strcasecmp(S6, S6));
+
+	printf("All good!\n");
+	return (EXIT_SUCCESS);
+}
+```
