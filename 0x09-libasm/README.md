@@ -53,6 +53,12 @@ X86-64 Assembly
 - Prototype when called from C: `int asm_strcmp(const char *s1, const char *s2);`
 
 ```
+$ make 1-strcmp
+
+$ ./1-strcmp
+
+All good!
+
 $ cat 2-main.c 
 #include <stdlib.h>
 #include <assert.h>
@@ -79,12 +85,6 @@ int main(void)
     printf("All good!\n");
     return (EXIT_SUCCESS);
 }
-
-$ make 1-strcmp
-
-$ ./1-strcmp
-
-All good!
 ```
 
 ### Task 2 - strncmp
