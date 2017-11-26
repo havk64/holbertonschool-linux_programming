@@ -312,7 +312,6 @@ int main(void)
 	assert(asm_putc('t') == 1);
 	assert(asm_putc('n') == 1);
 	assert(asm_putc('\n') == 1);
-	printf("%lu\n", asm_putc(66072));
 
 	printf("All good!\n");
 	return (EXIT_SUCCESS);
