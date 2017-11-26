@@ -267,3 +267,47 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 ```
+
+### Task 6 - putc
+
+The file [100-putc.asm](100-putc.asm) has a function that prints one character at
+a time.
+
+- Prototype when called from C: `size_t asm_putc(int c);`
+
+```
+$ make 100-putc
+
+$ ./100-putc
+
+Hbtn
+1
+All good!
+
+$ cat 100-main.c
+
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "libasm.h"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	assert(asm_putc('H') == 1);
+	assert(asm_putc('b') == 1);
+	assert(asm_putc('t') == 1);
+	assert(asm_putc('n') == 1);
+	assert(asm_putc('\n') == 1);
+	printf("%lu\n", asm_putc(66072));
+
+	printf("All good!\n");
+	return (EXIT_SUCCESS);
+}
+```
