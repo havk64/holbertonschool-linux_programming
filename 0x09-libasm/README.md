@@ -90,7 +90,7 @@ All good!
 ### Task 2 - strncmp
 
 The file [2-strncmp.asm](2-strncmp.asm) has a copycat of the function `strncmp[3]`, in
-X84-64 Assembly
+X86-64 Assembly
 
 - Prototype when called from C: `int asm_strncmp(const char *s1, const char s2, 
 size_t n);`
