@@ -143,6 +143,12 @@ X86-64 Assembly
 - Prototype when called from C: `char *asm_strchr(const char *s, int c);`
 
 ```
+$ make 3-strchr
+
+$ ./3-strchr
+
+All good!
+
 $ cat 3-main.c
 
 #include <stdlib.h>
@@ -172,10 +178,5 @@ int main(void)
 	printf("All good!\n");
 	return (EXIT_SUCCESS);
 }
-
-$ make 3-strchr
-
-$ ./3-strchr
-
-All good!
 ```
+
