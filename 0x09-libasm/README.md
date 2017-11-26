@@ -213,11 +213,6 @@ $ cat 4-main.c
  */
 int main(void)
 {
-	printf("a: %p, b: %p\n", (void *)strstr(S1, S2), (void *)asm_strstr(S1, S2));
-	printf("a: %p, b: %p\n", (void *)strstr(S1, S3), (void *)asm_strstr(S1, S3));
-	printf("a: %p, b: %p\n", (void *)strstr(S1, S1), (void *)asm_strstr(S1, S1));
-	printf("a: %p, b: %p\n", (void *)strstr(S1, "Str"),
-	       (void *)asm_strstr(S1, "Str"));
 	assert(strstr(S1, S2) == asm_strstr(S1, S2));
 	assert(strstr(S1, S3) == asm_strstr(S1, S3));
 	assert(strstr(S1, S1) == asm_strstr(S1, S1));
