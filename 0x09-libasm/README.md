@@ -180,3 +180,49 @@ int main(void)
 }
 ```
 
+### Task 4 - strstr
+
+The file [4-strstr.asm](4-strstr.asm) has a copycat of `strstr[3]` in X86-64 Assembly
+
+- Prototype when called from C: `char *asm_strstr(const char *s, char *sub);`
+
+```
+$ make 4-strstr
+
+$ ./4-strstr
+
+All good!
+
+$ cat 4-main.c
+
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "libasm.h"
+
+#define S1  "Holberton School Socool"
+#define S2  "School"
+#define S3  "Socool"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	printf("a: %p, b: %p\n", (void *)strstr(S1, S2), (void *)asm_strstr(S1, S2));
+	printf("a: %p, b: %p\n", (void *)strstr(S1, S3), (void *)asm_strstr(S1, S3));
+	printf("a: %p, b: %p\n", (void *)strstr(S1, S1), (void *)asm_strstr(S1, S1));
+	printf("a: %p, b: %p\n", (void *)strstr(S1, "Str"),
+	       (void *)asm_strstr(S1, "Str"));
+	assert(strstr(S1, S2) == asm_strstr(S1, S2));
+	assert(strstr(S1, S3) == asm_strstr(S1, S3));
+	assert(strstr(S1, S1) == asm_strstr(S1, S1));
+
+	printf("All good!\n");
+	return (EXIT_SUCCESS);
+}
+```
