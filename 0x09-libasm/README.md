@@ -10,7 +10,14 @@ x86-64 Assembly
 - Prototype when used in C: `size_t asm_strlen(const char *str)`;
 
 ```
+$ make 0-strlen
+
+$ ./0-strlen
+
+All good!
+
 $ cat 0-main.c
+
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -36,13 +43,6 @@ int main(void)
     printf("All good!\n");
     return (EXIT_SUCCESS);
 }
-
-$ make 0-strlen
-
-$ ./0-strlen
-
-All good!
-
 ```
 
 ### Task 1 - strcmp
