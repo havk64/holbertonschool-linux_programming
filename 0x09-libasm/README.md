@@ -288,9 +288,7 @@ a time.
 $ make 100-putc
 
 $ ./100-putc
-
 Hbtn
-1
 All good!
 
 $ cat 100-main.c
