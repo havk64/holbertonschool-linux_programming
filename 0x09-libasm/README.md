@@ -232,7 +232,16 @@ The file [5-memcpy.asm](5-memcpy.asm) has a copycat of `memcpy[3]` in X86-64 Ass
 $ make 5-memcpy
 
 $ ./5-memcpy
-
+......... School
+H........ School
+Ho....... School
+Hol...... School
+Holb..... School
+Holbe.... School
+Holber... School
+Holbert.. School
+Holberto. School
+Holberton School
 All good!
 
 $ cat 5-main.c
