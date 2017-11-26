@@ -449,3 +449,51 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 ```
+
+### Task 10 - strspn
+
+The file [104-strspn.asm](104-strspn.asm) has a copycat of `strspn(3)` in 
+X86-64 Assembly
+
+- Prototype for C: `size_t asm_strspn(const char *s, const char *accept);`
+
+```
+$ make 104-strspn
+
+$ ./104-strspn
+All good!
+
+$ cat 104-main.c
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "libasm.h"
+
+#define S1  "Holberton"
+#define S2  "holberton"
+#define S3  "HOLBERTON"
+
+#define A1  "abcdefghijklmnopqrstuvwxyz"
+#define A2  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	assert(strspn(S2, A1) == asm_strspn(S2, A1));
+	assert(strspn(S2, A2) == asm_strspn(S2, A2));
+	assert(strspn(S3, A1) == asm_strspn(S3, A1));
+	assert(strspn(S3, A2) == asm_strspn(S3, A2));
+	assert(strspn(S1, A1) == asm_strspn(S1, A1));
+	assert(strspn(S1, A2) == asm_strspn(S1, A2));
+	assert(strspn(S1, A1 A2) == asm_strspn(S1, A1 A2));
+
+	printf("All good!\n");
+	return (EXIT_SUCCESS);
+}
+```
