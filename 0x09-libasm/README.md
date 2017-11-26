@@ -96,6 +96,12 @@ X86-64 Assembly
 size_t n);`
 
 ```
+$ make
+
+$ ./2-strncmp
+
+All good!
+
 $ cat 2-main.c
 
 #include <stdlib.h>
@@ -127,12 +133,6 @@ int main(void)
 	printf("All good!\n");
 	return (EXIT_SUCCESS);
 }
-
-$ make
-
-$ ./2-strncmp
-
-All good!
 ```
 
 ### Task 3 - strchr
