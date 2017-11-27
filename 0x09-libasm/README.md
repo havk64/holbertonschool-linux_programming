@@ -2,12 +2,12 @@
 
 System programming & Algorithm ― Linux programming
 
-### Task 0 - Strlen
+### Task 0 - strlen
 
 The file [0-strlen.asm](0-strlen.asm) has a copycat of the function `strlen(3)`, in
 x86-64 Assembly
 
-- Prototype when used in C: `size_t asm_strlen(const char *str)`;
+- Prototype for C: `size_t asm_strlen(const char *str)`;
 
 ```
 $ make 0-strlen
@@ -48,7 +48,7 @@ int main(void)
 The file [1-strcmp.asm](1-strcmp.asm) has a copycat of the function `strcmp(3)`, in
 X86-64 Assembly
 
-- Prototype when called from C: `int asm_strcmp(const char *s1, const char *s2);`
+- Prototype for C: `int asm_strcmp(const char *s1, const char *s2);`
 
 ```
 $ make 1-strcmp
@@ -89,7 +89,7 @@ int main(void)
 The file [2-strncmp.asm](2-strncmp.asm) has a copycat of the function `strncmp[3]`, in
 X86-64 Assembly
 
-- Prototype when called from C: `int asm_strncmp(const char *s1, const char s2, 
+- Prototype for C: `int asm_strncmp(const char *s1, const char s2, 
 size_t n);`
 
 ```
@@ -135,7 +135,7 @@ int main(void)
 The file [3-strchr.asm](3-strchr.asm) has a copycat of the function `strchr[3]` in
 X86-64 Assembly
 
-- Prototype when called from C: `char *asm_strchr(const char *s, int c);`
+- Prototype for C: `char *asm_strchr(const char *s, int c);`
 
 ```
 $ make 3-strchr
@@ -177,7 +177,7 @@ int main(void)
 
 The file [4-strstr.asm](4-strstr.asm) has a copycat of `strstr[3]` in X86-64 Assembly
 
-- Prototype when called from C: `char *asm_strstr(const char *s, char *sub);`
+- Prototype for C: `char *asm_strstr(const char *s, char *sub);`
 
 ```
 $ make 4-strstr
@@ -217,7 +217,7 @@ int main(void)
 
 The file [5-memcpy.asm](5-memcpy.asm) has a copycat of `memcpy[3]` in X86-64 Assembly
 
-- Prototype when called from C: `void *asm_memcpy(void *dest, const void *src, size_t n);`
+- Prototype for C: `void *asm_memcpy(void *dest, const void *src, size_t n);`
 
 ```
 $ make 5-memcpy
@@ -272,7 +272,7 @@ int main(void)
 The file [100-putc.asm](100-putc.asm) has a function that prints one character at
 a time.
 
-- Prototype when called from C: `size_t asm_putc(int c);`
+- Prototype for C: `size_t asm_putc(int c);`
 
 ```
 $ make 100-putc
@@ -312,7 +312,7 @@ int main(void)
 The file [101-puts.asm](101-puts.asm) has a function that prints a string of 
 characters to the standard output, in x86-64 Assembly
 
-- Prototype when called from C: `size_t asm_puts(const char *str);`
+- Prototype for C: `size_t asm_puts(const char *str);`
 
 ```
 $ make ./101-puts
@@ -350,7 +350,7 @@ int main(void)
 The file [102-strcasecmp.asm](102-strcasecmp.asm) has a copycat of `strcasecmp(3)`
 function in X86-64 Assembly
 
-- Prototype when called from C: `int asm_strcasecmp(const char *s1, const char *s2);`
+- Prototype for C: `int asm_strcasecmp(const char *s1, const char *s2);`
 
 ```
 $ make 102-strcasecmp
