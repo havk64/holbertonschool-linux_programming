@@ -651,6 +651,8 @@ lfqqofh
 -80000000
 0
 
+All good!
+
 $ cat 1001-puti_base
 #include <stdlib.h>
 #include <assert.h>
@@ -667,20 +669,21 @@ $ cat 1001-puti_base
  */
 int main(void)
 {
-	printf("\n%lu", asm_puti_base(98, "0123456789"));
+	assert(asm_puti_base(98, "0123456789") == 2);
 	printf("\n");
-	printf("\n%lu", asm_puti_base(-1, "0123456789"));
+	assert(asm_puti_base(-1, "0123456789") == 2);
 	printf("\n");
-	printf("\n%lu", asm_puti_base(129342, "0123456789abcdef"));
+	assert(asm_puti_base(129342, "0123456789abcdef") == 5);
 	printf("\n");
-	printf("\n%lu", asm_puti_base(781532, "01"));
+	assert(asm_puti_base(781532, "01") == 20);
 	printf("\n");
-	printf("\n%lu", asm_puti_base(INT_MAX, "abcdefghijklmnopqrstwxyz"));
+	assert(asm_puti_base(INT_MAX, "abcdefghijklmnopqrstwxyz") == 7);
 	printf("\n");
-	printf("\n%lu", asm_puti_base(INT_MIN, "0123456789ABCDEF"));
+	assert(asm_puti_base(INT_MIN, "0123456789ABCDEF") == 9);
 	printf("\n");
-	printf("\n%lu", asm_puti_base(0, "01234567"));
+	assert(asm_puti_base(0, "01234567") == 1);
 	printf("\n");
+	printf("\nAll good!\n");
 	return (EXIT_SUCCESS);
 }
 ```
