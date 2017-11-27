@@ -642,3 +642,56 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 ```
+
+### Task 14 - puti_base
+
+The file [10001-puti_base.asm](10001-puti_base.asm) has a function that prints 
+a signed integer in a given base on the standard output, in x86-64 Assembly
+
+- Prototype for C: `size_t asm_puti_base(int n, const char *base);`
+
+```
+$ make 10001-puti_base
+
+$ ./1001-puti_base
+98
+-1
+1f93e
+10111110110011011100
+lfqqofh
+-80000000
+0
+
+$ cat 1001-puti_base
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include <limits.h>
+
+#include "libasm.h"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	printf("\n%lu", asm_puti_base(98, "0123456789"));
+	printf("\n");
+	printf("\n%lu", asm_puti_base(-1, "0123456789"));
+	printf("\n");
+	printf("\n%lu", asm_puti_base(129342, "0123456789abcdef"));
+	printf("\n");
+	printf("\n%lu", asm_puti_base(781532, "01"));
+	printf("\n");
+	printf("\n%lu", asm_puti_base(INT_MAX, "abcdefghijklmnopqrstwxyz"));
+	printf("\n");
+	printf("\n%lu", asm_puti_base(INT_MIN, "0123456789ABCDEF"));
+	printf("\n");
+	printf("\n%lu", asm_puti_base(0, "01234567"));
+	printf("\n");
+	return (EXIT_SUCCESS);
+}
+```
