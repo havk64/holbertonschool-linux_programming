@@ -592,3 +592,53 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 ```
+
+### Task 13 - puti
+
+The file [1000-puti.asm](1000-puti.asm) has a function that prints a signed
+integer on the standard output, in x86-64 Assembly.
+
+- Prototype for C: `size_t asm_puti(int n);`
+
+```
+$ make 1000-puti
+
+$ ./1000-puti
+98
+-1
+-1024
+2147483647
+-2147483648
+0
+
+$ cat 1000-main.c
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include <limits.h>
+
+#include "libasm.h"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	assert(asm_puti(98) == 2);
+	printf("\n");
+	assert(asm_puti(-1) == 2);
+	printf("\n");
+	assert(asm_puti(-1024) == 5);
+	printf("\n");
+	assert(asm_puti(INT_MAX) == 10);
+	printf("\n");
+	assert(asm_puti(INT_MIN) == 11);
+	printf("\n");
+	assert(asm_puti(0) == 1);
+	printf("\n");
+	return (EXIT_SUCCESS);
+}
+```
