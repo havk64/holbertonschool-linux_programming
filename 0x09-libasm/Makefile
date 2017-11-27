@@ -62,7 +62,7 @@ $(OBJS)%.o: %.asm | $(OBJS)
 $(OBJS):
 	@mkdir -p $(LST)$(SSE) $@
 
-$(OBJS)%.o: c_interface/%.c
+$(OBJS)%.o: tests/%.c
 	$(CC) -c $(CFLAGS) -I. -o $@ $^
 
 $(T0): $(addprefix $(OBJS), 0-main.o 0-strlen.o)
