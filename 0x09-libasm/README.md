@@ -545,3 +545,50 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 ```
+
+### Task 12 - strpbrk
+
+The file [106-strpbrk.asm](106-strpbrk.asm) has a copycat of `strpbrk(3)` function
+in X86-64 Assembly.
+
+- Prototype for C: `char *asm_strpbrk(const char *s, const char *accept);`
+
+```
+$ make 106-strpbrk
+
+$ ./106-strpbrk
+All good!
+
+$ cat 106-main.c
+#include <stdlib.h>
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "libasm.h"
+
+#define S1  "Holberton"
+#define S2  "holberton"
+#define S3  "HOLBERTON"
+
+#define A1  "abcdefghijklmnopqrstuvwxyz"
+#define A2  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define A3  "()[]{}<>n"
+
+/**
+ * main - Program entry point
+ *
+ * Return: EXIT_SUCCESS or EXIT_FAILURE
+ */
+int main(void)
+{
+	assert(strpbrk(S2, A1) == asm_strpbrk(S2, A1));
+	assert(strpbrk(S2, A2) == asm_strpbrk(S2, A2));
+	assert(strpbrk(S3, A1) == asm_strpbrk(S3, A1));
+	assert(strpbrk(S3, A2) == asm_strpbrk(S3, A2));
+	assert(strpbrk(S1, A3) == asm_strpbrk(S1, A3));
+
+	printf("All good!\n");
+	return (EXIT_SUCCESS);
+}
+```
