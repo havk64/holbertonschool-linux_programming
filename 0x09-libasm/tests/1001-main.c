@@ -13,19 +13,20 @@
  */
 int main(void)
 {
-	asm_puti_base(98, "0123456789");
+	assert(asm_puti_base(98, "0123456789") == 2);
 	printf("\n");
-	asm_puti_base(-1, "0123456789");
+	assert(asm_puti_base(-1, "0123456789") == 2);
 	printf("\n");
-	asm_puti_base(129342, "0123456789abcdef");
+	assert(asm_puti_base(129342, "0123456789abcdef") == 5);
 	printf("\n");
-	asm_puti_base(781532, "01");
+	assert(asm_puti_base(781532, "01") == 20);
 	printf("\n");
-	asm_puti_base(INT_MAX, "abcdefghijklmnopqrstwxyz");
+	assert(asm_puti_base(INT_MAX, "abcdefghijklmnopqrstwxyz") == 7);
 	printf("\n");
-	asm_puti_base(INT_MIN, "0123456789ABCDEF");
+	assert(asm_puti_base(INT_MIN, "0123456789ABCDEF") == 9);
 	printf("\n");
-	asm_puti_base(0, "01234567");
+	assert(asm_puti_base(0, "01234567") == 1);
 	printf("\n");
+	printf("\nAll good!\n");
 	return (EXIT_SUCCESS);
 }
