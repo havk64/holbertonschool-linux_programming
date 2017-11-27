@@ -13,11 +13,9 @@ x86-64 Assembly
 $ make 0-strlen
 
 $ ./0-strlen
-
 All good!
 
 $ cat 0-main.c
-
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -56,7 +54,6 @@ X86-64 Assembly
 $ make 1-strcmp
 
 $ ./1-strcmp
-
 All good!
 
 $ cat 2-main.c 
@@ -99,11 +96,9 @@ size_t n);`
 $ make
 
 $ ./2-strncmp
-
 All good!
 
 $ cat 2-main.c
-
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -146,11 +141,9 @@ X86-64 Assembly
 $ make 3-strchr
 
 $ ./3-strchr
-
 All good!
 
 $ cat 3-main.c
-
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -190,11 +183,9 @@ The file [4-strstr.asm](4-strstr.asm) has a copycat of `strstr[3]` in X86-64 Ass
 $ make 4-strstr
 
 $ ./4-strstr
-
 All good!
 
 $ cat 4-main.c
-
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -245,7 +236,6 @@ Holberton School
 All good!
 
 $ cat 5-main.c
-
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
@@ -292,7 +282,6 @@ Hbtn
 All good!
 
 $ cat 100-main.c
-
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
