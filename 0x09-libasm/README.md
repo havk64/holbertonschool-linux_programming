@@ -634,7 +634,7 @@ int main(void)
 
 ### Task 14 - puti_base
 
-The file [10001-puti_base.asm](10001-puti_base.asm) has a function that prints 
+The file [1001-puti_base.asm](1001-puti_base.asm) has a function that prints
 a signed integer in a given base on the standard output, in x86-64 Assembly
 
 - Prototype for C: `size_t asm_puti_base(int n, const char *base);`
