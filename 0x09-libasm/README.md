@@ -2,6 +2,15 @@
 
 System programming & Algorithm ― Linux programming
 
+## Development environment
+
+The examples were tested/assembled in the following environment:
+- Linux, Ubuntu 14.04LTS
+- GCC 4.8.8
+- Nasm 2.10.09
+- GNU Assembler (as) 2.24 X86_64
+- GNU Make 3.81
+
 ### Task 0 - strlen
 
 The file [0-strlen.asm](0-strlen.asm) has a copycat of the function `strlen(3)`, in
