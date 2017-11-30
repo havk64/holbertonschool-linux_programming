@@ -4,7 +4,7 @@ System programming & Algorithm ― Linux programming
 
 ## Development environment
 
-The examples were tested/assembled in the following environment:
+The routines/examples were tested/assembled in the following environment:
 - Linux, Ubuntu 14.04LTS
 - GCC 4.8.8
 - Nasm 2.10.09
