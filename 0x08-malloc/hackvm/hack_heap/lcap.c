@@ -51,7 +51,6 @@ typedef struct flags
 
 int main(void)
 {
-	pid_t pid;
 	cap_t cap;
 	cap_value_t cap_list[CAP_LAST_CAP + 1];
 	cap_flag_value_t cap_flags_value;
@@ -62,8 +61,7 @@ int main(void)
 		{"INHERITABLE", CAP_INHERITABLE}
 	};
 
-	pid = getpid();
-	cap = cap_get_pid(pid);
+	cap = cap_get_proc();
 	if (cap == NULL)
 	{
 		perror("cap_get_pid");
