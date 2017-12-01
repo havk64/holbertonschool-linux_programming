@@ -1,8 +1,4 @@
-#include <sys/capability.h>
-#include <sys/types.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "lcap.h"
 
 static const char *cap_name[CAP_LAST_CAP + 1] = {
 	"CAP_CHOWN",
@@ -43,11 +39,6 @@ static const char *cap_name[CAP_LAST_CAP + 1] = {
 	"CAP_WAKE_ALARM",
 	"CAP_BLOCK_SUSPEND"
 };
-typedef struct flags
-{
-	const char *str;
-	cap_flag_t flag;
-} flags_t;
 
 void
 dump_it(cap_t cap, cap_flag_value_t *cap_flags_value, cap_value_t cap_list[])
