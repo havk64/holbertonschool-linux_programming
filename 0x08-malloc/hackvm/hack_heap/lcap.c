@@ -49,11 +49,9 @@ typedef struct flags
 	cap_flag_t flag;
 } flags_t;
 
-int main(void)
+void
+dump_it(cap_t cap, cap_flag_value_t *cap_flags_value, cap_value_t cap_list[])
 {
-	cap_t cap;
-	cap_value_t cap_list[CAP_LAST_CAP + 1];
-	cap_flag_value_t cap_flags_value;
 	int i, j;
 	flags_t flags[3] = {
 		{"EFFECTIVE", CAP_EFFECTIVE},
@@ -61,13 +59,35 @@ int main(void)
 		{"INHERITABLE", CAP_INHERITABLE}
 	};
 
+	for (i = 0; i < CAP_LAST_CAP + 1; i++)
+	{
+		cap_from_name(cap_name[i], &cap_list[i]);
+		printf("%-20s %d\t\t", cap_name[i], cap_list[i]);
+		printf("flags: \t\t");
+		for (j = 0; j < 3; j++)
+		{
+			cap_get_flag(cap, cap_list[i], flags[j].flag, cap_flags_value);
+			printf(" %s %-4s ", flags[j].str,
+			       (*cap_flags_value == CAP_SET) ? "OK" : "NOK");
+		}
+		printf("\n");
+	}
+
+	cap_free(cap);
+}
+
+int main(void)
+{
+	cap_t cap;
+	cap_value_t cap_list[CAP_LAST_CAP + 1];
+	cap_flag_value_t cap_flags_value;
+
 	cap = cap_get_proc();
 	if (cap == NULL)
 	{
 		perror("cap_get_pid");
 		exit(-1);
 	}
-
 	/* Effetive Cap */
 	cap_list[0] = CAP_CHOWN;
 	if (cap_set_flag(cap, CAP_EFFECTIVE, 1, cap_list, CAP_SET) == -1)
@@ -76,7 +96,6 @@ int main(void)
 		cap_free(cap);
 		exit(-1);
 	}
-
 	/* Permitted Cap */
 	cap_list[0] = CAP_MAC_ADMIN;
 	if (cap_set_flag(cap, CAP_PERMITTED, 1, cap_list, CAP_SET) == -1)
@@ -85,7 +104,6 @@ int main(void)
 		cap_free(cap);
 		exit(-1);
 	}
-
 	/* Inherit Cap */
 	cap_list[0] = CAP_SETFCAP;
 	if (cap_set_flag(cap, CAP_INHERITABLE, 1, cap_list, CAP_SET) == -1)
@@ -95,19 +113,7 @@ int main(void)
 		exit(-1);
 	}
 
-	/* dump them */
-	for (i = 0; i < CAP_LAST_CAP + 1; i++)
-	{
-		cap_from_name(cap_name[i], &cap_list[i]);
-		printf("%-20s %d\t\t", cap_name[i], cap_list[i]);
-		printf("flags: \t\t");
-		for (j = 0; j < 3; j++) {
-			cap_get_flag(cap, cap_list[i], flags[j].flag, &cap_flags_value);
-			printf(" %s %-4s ", flags[j].str, (cap_flags_value == CAP_SET) ? "OK" : "NOK");
-		}
-		printf("\n");
-	}
-
+	dump_it(cap, &cap_flags_value, cap_list);
 	cap_free(cap);
-	return 0;
+	return (0);
 }
