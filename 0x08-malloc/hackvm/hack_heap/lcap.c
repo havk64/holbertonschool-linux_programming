@@ -41,9 +41,10 @@ static const char *cap_name[CAP_LAST_CAP + 1] = {
 };
 
 void
-dump_it(cap_t cap, cap_flag_value_t *cap_flags_value, cap_value_t cap_list[])
+dump_it(cap_t cap, cap_value_t cap_list[])
 {
 	int i, j;
+	cap_flag_value_t cap_flags_value;
 	flags_t flags[3] = {
 		{"EFFECTIVE", CAP_EFFECTIVE},
 		{"PERMITTED", CAP_PERMITTED},
@@ -57,9 +58,9 @@ dump_it(cap_t cap, cap_flag_value_t *cap_flags_value, cap_value_t cap_list[])
 		printf("flags: \t\t");
 		for (j = 0; j < 3; j++)
 		{
-			cap_get_flag(cap, cap_list[i], flags[j].flag, cap_flags_value);
+			cap_get_flag(cap, cap_list[i], flags[j].flag, &cap_flags_value);
 			printf(" %s %-4s ", flags[j].str,
-			       (*cap_flags_value == CAP_SET) ? "OK" : "NOK");
+			       (cap_flags_value == CAP_SET) ? "OK" : "NOK");
 		}
 		printf("\n");
 	}
@@ -71,7 +72,6 @@ int main(void)
 {
 	cap_t cap;
 	cap_value_t cap_list[CAP_LAST_CAP + 1];
-	cap_flag_value_t cap_flags_value;
 
 	cap = cap_get_proc();
 	if (cap == NULL)
@@ -104,7 +104,7 @@ int main(void)
 		exit(-1);
 	}
 
-	dump_it(cap, &cap_flags_value, cap_list);
+	dump_it(cap, cap_list);
 	cap_free(cap);
 	return (0);
 }
