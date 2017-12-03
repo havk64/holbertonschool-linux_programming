@@ -52,6 +52,8 @@ dump_it(cap_t cap)
 		{"INHERITABLE", CAP_INHERITABLE}
 	};
 
+	printf("%-20s %s\t%-10s %-10s %-10s\n", "CAPABILITY FLAG", "BIT #",
+	       "EFFECTIVE", "PERMITTED", "INHERITABLE");
 	for (i = 0; i < CAP_LAST_CAP + 1; i++)
 	{
 		cap_from_name(cap_name[i], &cap_list[i]);
