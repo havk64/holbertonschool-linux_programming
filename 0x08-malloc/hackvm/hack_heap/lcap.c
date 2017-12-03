@@ -65,8 +65,6 @@ dump_it(cap_t cap)
 		}
 		printf("\n");
 	}
-
-	cap_free(cap);
 }
 
 int main(void)
