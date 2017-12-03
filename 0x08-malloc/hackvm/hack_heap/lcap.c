@@ -58,12 +58,10 @@ dump_it(cap_t cap)
 	{
 		cap_from_name(cap_name[i], &cap_list[i]);
 		printf("%-20s %d\t\t", cap_name[i], cap_list[i]);
-		printf("flags: \t\t");
 		for (j = 0; j < 3; j++)
 		{
 			cap_get_flag(cap, cap_list[i], flags[j].flag, &cap_flags_value);
-			printf(" %s %-4s ", flags[j].str,
-			       (cap_flags_value == CAP_SET) ? "OK" : "NOK");
+			printf("%-10s ", (cap_flags_value == CAP_SET) ? "OK" : "-");
 		}
 		printf("\n");
 	}
