@@ -41,9 +41,10 @@ static const char *cap_name[CAP_LAST_CAP + 1] = {
 };
 
 void
-dump_it(cap_t cap, cap_value_t cap_list[])
+dump_it(cap_t cap)
 {
 	int i, j;
+	cap_value_t cap_list[CAP_LAST_CAP + 1];
 	cap_flag_value_t cap_flags_value;
 	flags_t flags[3] = {
 		{"EFFECTIVE", CAP_EFFECTIVE},
@@ -71,7 +72,7 @@ dump_it(cap_t cap, cap_value_t cap_list[])
 int main(void)
 {
 	cap_t cap;
-	cap_value_t cap_list[CAP_LAST_CAP + 1];
+	cap_value_t cap_list[1];
 
 	cap = cap_get_proc();
 	if (cap == NULL)
@@ -104,7 +105,7 @@ int main(void)
 		exit(-1);
 	}
 
-	dump_it(cap, cap_list);
+	dump_it(cap);
 	cap_free(cap);
 	return (0);
 }
