@@ -1,51 +1,11 @@
 #include "lcap.h"
 
-static const char *cap_name[CAP_LAST_CAP + 1] = {
-	"CAP_CHOWN",
-	"CAP_DAC_OVERRIDE",
-	"CAP_DAC_READ_SEARCH",
-	"CAP_FOWNER",
-	"CAP_FSETID",
-	"CAP_KILL",
-	"CAP_SETGID",
-	"CAP_SETUID",
-	"CAP_SETPCAP",
-	"CAP_LINUX_IMMUTABLE",
-	"CAP_NET_BIND_SERVICE",
-	"CAP_NET_BROADCAST",
-	"CAP_NET_ADMIN",
-	"CAP_NET_RAW",
-	"CAP_IPC_LOCK",
-	"CAP_IPC_OWNER",
-	"CAP_SYS_MODULE",
-	"CAP_SYS_RAWIO",
-	"CAP_SYS_CHROOT",
-	"CAP_SYS_PTRACE",
-	"CAP_SYS_PACCT",
-	"CAP_SYS_ADMIN",
-	"CAP_SYS_BOOT",
-	"CAP_SYS_NICE",
-	"CAP_SYS_RESOURCE",
-	"CAP_SYS_TIME",
-	"CAP_SYS_TTY_CONFIG",
-	"CAP_MKNOD",
-	"CAP_LEASE",
-	"CAP_AUDIT_WRITE",
-	"CAP_AUDIT_CONTROL",
-	"CAP_SETFCAP",
-	"CAP_MAC_OVERRIDE",
-	"CAP_MAC_ADMIN",
-	"CAP_SYSLOG",
-	"CAP_WAKE_ALARM",
-	"CAP_BLOCK_SUSPEND"
-};
-
 void
 dump_it(cap_t cap)
 {
 	int i, j;
-	cap_value_t cap_list[CAP_LAST_CAP + 1];
 	cap_flag_value_t cap_flags_value;
+	char *cap_str;
 	flags_t flags[3] = {
 		{"EFFECTIVE", CAP_EFFECTIVE},
 		{"PERMITTED", CAP_PERMITTED},
@@ -56,11 +16,11 @@ dump_it(cap_t cap)
 	       flags[0].str, flags[1].str, flags[2].str);
 	for (i = 0; i < CAP_LAST_CAP + 1; i++)
 	{
-		cap_from_name(cap_name[i], &cap_list[i]);
-		printf("%-20s %d\t\t", cap_name[i], cap_list[i]);
+		cap_str = cap_to_name(i);
+		printf("%-20s %d\t\t", cap_str, i);
 		for (j = 0; j < 3; j++)
 		{
-			cap_get_flag(cap, cap_list[i], flags[j].flag, &cap_flags_value);
+			cap_get_flag(cap, i, flags[j].flag, &cap_flags_value);
 			printf("%-10s ", (cap_flags_value == CAP_SET) ? "OK" : "-");
 		}
 		printf("\n");
