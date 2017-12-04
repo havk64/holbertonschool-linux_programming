@@ -24,6 +24,7 @@ dump_it(cap_t cap)
 			printf("%-10s ", (cap_flags_value == CAP_SET) ? "OK" : "-");
 		}
 		printf("\n");
+		cap_free(cap_str);
 	}
 }
 
