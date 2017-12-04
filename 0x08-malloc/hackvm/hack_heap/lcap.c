@@ -6,21 +6,16 @@ print_capabilities(cap_t cap)
 	int i, j;
 	cap_flag_value_t cap_flags_value;
 	char *cap_str;
-	flags_t flags[3] = {
-		{"EFFECTIVE", CAP_EFFECTIVE},
-		{"PERMITTED", CAP_PERMITTED},
-		{"INHERITABLE", CAP_INHERITABLE}
-	};
 
 	printf("%-20s %s\t%-10s %-10s %-10s\n", "CAPABILITY FLAG", "BIT #",
-	       flags[0].str, flags[1].str, flags[2].str);
+	       "EFFECTIVE", "PERMITTED", "INHERITABLE");
 	for (i = 0; i < CAP_LAST_CAP + 1; i++)
 	{
 		cap_str = cap_to_name(i);
 		printf("%-20s %d\t\t", cap_str, i);
 		for (j = 0; j < 3; j++)
 		{
-			cap_get_flag(cap, i, flags[j].flag, &cap_flags_value);
+			cap_get_flag(cap, i, j, &cap_flags_value);
 			printf("%-10s ", (cap_flags_value == CAP_SET) ? "OK" : "-");
 		}
 		printf("\n");
