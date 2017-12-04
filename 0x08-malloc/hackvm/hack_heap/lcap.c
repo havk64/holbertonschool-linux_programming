@@ -1,7 +1,7 @@
 #include "lcap.h"
 
 void
-dump_it(cap_t cap)
+print_capabilities(cap_t cap)
 {
 	int i, j;
 	cap_flag_value_t cap_flags_value;
@@ -64,7 +64,7 @@ int main(void)
 		exit(-1);
 	}
 
-	dump_it(cap);
+	print_capabilities(cap);
 	cap_free(cap);
 	return (0);
 }
