@@ -3,7 +3,7 @@ CFLAGS	= -g -Wall -Werror -Wextra -pedantic
 hack	= hack_heap
 loop	= loop
 
-.PHONY: all
+.PHONY: all clean re
 all: $(hack) $(loop)
 
 $(hack): write_heap.o
