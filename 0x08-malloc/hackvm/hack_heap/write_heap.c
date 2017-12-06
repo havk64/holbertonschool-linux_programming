@@ -19,7 +19,7 @@ int main(int ac, char *argv[])
 
 	mem = atoi(argv[2]);
 	lseek(fd, mem, SEEK_SET);
-	n = write(fd, "Holberton", 10);
+	n = write(fd, "Alexandro", 10);
 	if (n == 10)
 		printf("Hacked!\n");
 
