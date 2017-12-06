@@ -19,7 +19,7 @@ int main(void)
 	i = 0;
 	while (s)
 	{
-		printf("PID: %d, [%3lu] %s (%p)\n", pid, i, s, (void *)s);
+		printf("PID: %d [%lu] %s (%p)\n", pid, i, s, (void *)s);
 		sleep(1);
 		i++;
 	}
