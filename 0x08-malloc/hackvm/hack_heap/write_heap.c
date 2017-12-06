@@ -7,7 +7,7 @@ int main(int ac, char *argv[])
 
 	if (ac < 3)
 	{
-		printf("Usage: ./%s <pid> <offset>\n", argv[0]);
+		printf("Usage: %s <pid> <offset>\n", argv[0]);
 		return (EXIT_FAILURE);
 	}
 
