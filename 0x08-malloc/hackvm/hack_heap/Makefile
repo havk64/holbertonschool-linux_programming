@@ -8,8 +8,7 @@ all: $(hack) $(loop)
 
 $(hack): write_heap.o
 	$(CC) $(CFLAGS) -o $@ $<
-	sudo chown root:root $@
-	sudo chmod 4755 $@
+	sudo setcap cap_sys_ptrace=pe $@
 
 $(loop): loop.o
 	$(CC) $(CFLAGS) -o $@ $<
