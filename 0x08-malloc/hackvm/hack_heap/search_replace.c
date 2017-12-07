@@ -36,6 +36,15 @@ char **split_string(char *str)
 	return (s);
 }
 
+void free_array(char **s)
+{
+	int i;
+
+	for (i = 0; i < 6; i++)
+		free(s[i]);
+
+	free(s);
+}
 int main(int argc, char *argv[])
 {
 	pid_t pid;
@@ -72,6 +81,7 @@ int main(int argc, char *argv[])
 
 		}
 	}
+	free_array(s);
 	fclose(maps);
 	return (EXIT_SUCCESS);
 }
