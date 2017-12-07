@@ -30,6 +30,7 @@ char **split_string(char *str)
 			return (NULL);
 
 		strncpy(s[index], (str + i), fsize);
+		s[index][fsize] = 0;
 		i += fsize;
 		index++;
 	}
