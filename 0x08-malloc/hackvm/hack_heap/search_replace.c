@@ -1,11 +1,48 @@
 #include "lcap.h"
-#define msize 128
+#define lsize 128
+
+int fieldlen(char *str)
+{
+	int i = 0;
+
+	while (str[i] != 0 && str[i] != 32)
+		i++;
+
+	return (i);
+}
+char **split_string(char *str)
+{
+	int i = 0, fsize = 0, index = 0;
+	char **s;
+
+	s = malloc(sizeof(char *) * 6);
+	if (s == NULL)
+		return (NULL);
+
+	while (*(str + i))
+	{
+		while (*(str + i) == 32)
+			i++;
+
+		fsize = fieldlen(str + i);
+		s[index] = malloc(fsize + 1);
+		if (s[index] == NULL)
+			return (NULL);
+
+		strncpy(s[index], (str + i), fsize);
+		i += fsize;
+		index++;
+	}
+	return (s);
+}
 
 int main(int argc, char *argv[])
 {
 	pid_t pid;
 	char maps_path[64], maps_line[lsize], mem_path[64], *line;
 	FILE *maps;
+	char **s;
+	int i;
 
 	if (argc < 4)
 	{
@@ -28,7 +65,12 @@ int main(int argc, char *argv[])
 	while ((line = fgets(maps_line, lsize, maps)))
 	{
 		if (strstr(line, "[heap]") != NULL)
-			printf("%s", line);
+		{
+			s = split_string(line);
+			for (i = 0; i < 6; i++)
+				printf("%s\n", s[i]);
+
+		}
 	}
 	fclose(maps);
 	return (EXIT_SUCCESS);
