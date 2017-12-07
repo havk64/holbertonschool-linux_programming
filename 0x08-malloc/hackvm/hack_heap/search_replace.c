@@ -46,13 +46,31 @@ void free_array(char **s)
 
 	free(s);
 }
+void parse_line(char *line)
+{
+	char **s, *addr, *perm, *offset, *device, *inode, *pathname;
+
+	(void)(device);
+	s = split_string(line);
+	printf("[*] Found [heap]:\n");
+	addr = s[0];
+	perm = s[1];
+	offset = s[2];
+	device = s[3];
+	inode = s[4];
+	pathname = s[5];
+	printf("\tpathname = %s", pathname);
+	printf("\tadressesses = %s\n", addr);
+	printf("\tpermissions = %s\n", perm);
+	printf("\toffset = %s\n", offset);
+	printf("\tinode = %s\n", inode);
+	free_array(s);
+}
 int main(int argc, char *argv[])
 {
 	pid_t pid;
 	char maps_path[64], maps_line[lsize], mem_path[64], *line;
 	FILE *maps;
-	char **s;
-	int i;
 
 	if (argc < 4)
 	{
@@ -76,13 +94,9 @@ int main(int argc, char *argv[])
 	{
 		if (strstr(line, "[heap]") != NULL)
 		{
-			s = split_string(line);
-			for (i = 0; i < 6; i++)
-				printf("%s\n", s[i]);
-
+			parse_line(line);
 		}
 	}
-	free_array(s);
 	fclose(maps);
 	return (EXIT_SUCCESS);
 }
