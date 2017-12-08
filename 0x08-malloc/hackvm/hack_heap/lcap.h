@@ -6,4 +6,5 @@
 #include <unistd.h>		/* for close */
 #include <stdlib.h>		/* for atoi */
 #include <string.h>		/* for strstr */
+#define lsize 128
 #endif /* LCAP_H */

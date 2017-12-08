@@ -1,5 +1,4 @@
 #include "lcap.h"
-#define lsize 128
 
 char **tokenize(char *str)
 {
