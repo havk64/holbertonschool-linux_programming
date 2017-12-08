@@ -46,7 +46,7 @@ void free_array(char **s)
 
 	free(s);
 }
-void parse_line(char *line)
+int parse_line(char *line)
 {
 	char **s, *addr, *perm, *offset, *inode, *pathname;
 
@@ -63,6 +63,7 @@ void parse_line(char *line)
 	printf("\toffset = %s\n", offset);
 	printf("\tinode = %s\n", inode);
 	free_array(s);
+	return (EXIT_SUCCESS);
 }
 int main(int argc, char *argv[])
 {
@@ -92,7 +93,11 @@ int main(int argc, char *argv[])
 	{
 		if (strstr(line, "[heap]") != NULL)
 		{
-			parse_line(line);
+			if (parse_line(line) < 0)
+			{
+				fclose(maps);
+				return (EXIT_FAILURE);
+			}
 		}
 	}
 	fclose(maps);
