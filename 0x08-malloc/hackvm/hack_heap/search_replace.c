@@ -73,6 +73,7 @@ int read_heap(int fd, long int start, char *search_string, long int hsize)
 		if (i == hsize)
 		{
 			printf("Can't find '%s'\n", search_string);
+			free(buf);
 			return (-1);
 		}
 	}
