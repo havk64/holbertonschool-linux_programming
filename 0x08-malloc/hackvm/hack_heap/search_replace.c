@@ -1,6 +1,6 @@
 #include "lcap.h"
 
-char **tokenize(char *str)
+static char **tokenize(char *str)
 {
 	char **s;
 	int i;
@@ -17,7 +17,7 @@ char **tokenize(char *str)
 	return (s);
 }
 
-char *parse_line(char *line)
+static char *parse_line(char *line)
 {
 	int n;
 	char **s, *addr, *perm, *offset, *inode, *pathname, *range;
@@ -54,7 +54,7 @@ char *parse_line(char *line)
 	return (range);
 }
 
-int write_heap(char *mem_path, char *addr, char *search_string,
+static int write_heap(char *mem_path, char *addr, char *search_string,
 	       char *replace_string)
 {
 	int fd, n, i;
