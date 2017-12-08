@@ -70,7 +70,7 @@ int read_heap(int fd, long int start, char *search_string, long int hsize)
 	{
 		if (strstr((buf + i), search_string) != NULL)
 			break;
-		if (i == hsize)
+		if (i == (hsize - 1))
 		{
 			printf("Can't find '%s'\n", search_string);
 			free(buf);
