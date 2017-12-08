@@ -48,15 +48,13 @@ void free_array(char **s)
 }
 void parse_line(char *line)
 {
-	char **s, *addr, *perm, *offset, *device, *inode, *pathname;
+	char **s, *addr, *perm, *offset, *inode, *pathname;
 
-	(void)(device);
 	s = split_string(line);
 	printf("[*] Found [heap]:\n");
 	addr = s[0];
 	perm = s[1];
 	offset = s[2];
-	device = s[3];
 	inode = s[4];
 	pathname = s[5];
 	printf("\tpathname = %s", pathname);
