@@ -1,42 +1,6 @@
 #include "lcap.h"
 #define lsize 128
 
-int fieldlen(char *str)
-{
-	int i = 0;
-
-	while (str[i] != 0 && str[i] != 32)
-		i++;
-
-	return (i);
-}
-char **split_string(char *str)
-{
-	int i = 0, fsize = 0, index = 0;
-	char **s;
-
-	s = malloc(sizeof(char *) * 6);
-	if (s == NULL)
-		return (NULL);
-
-	while (*(str + i))
-	{
-		while (*(str + i) == 32)
-			i++;
-
-		fsize = fieldlen(str + i);
-		s[index] = malloc(fsize + 1);
-		if (s[index] == NULL)
-			return (NULL);
-
-		strncpy(s[index], (str + i), fsize);
-		s[index][fsize] = 0;
-		i += fsize;
-		index++;
-	}
-	return (s);
-}
-
 char **tokenize(char *str)
 {
 	char **s;
@@ -54,21 +18,12 @@ char **tokenize(char *str)
 	return (s);
 }
 
-void free_array(char **s)
-{
-	int i;
-
-	for (i = 0; i < 6; i++)
-		free(s[i]);
-
-	free(s);
-}
 int parse_line(char *line)
 {
 	char **s, *addr, *perm, *offset, *inode, *pathname;
 	char *addr_begin, *addr_end;
 
-	s = split_string(line);
+	s = tokenize(line);
 	printf("[*] Found [heap]:\n");
 	addr = s[0];
 	perm = s[1];
@@ -83,14 +38,14 @@ int parse_line(char *line)
 	if (perm[0] != 'r' || perm[1] != 'w')
 	{
 		printf("[*] %s does not have read/write permission", pathname);
-		free_array(s);
+		free(s);
 		return (EXIT_FAILURE);
 	}
 
 	addr_begin = strtok(addr, "-");
 	addr_end = strtok(NULL, "-");
 	printf("\tAddr start [%s] | end [%s]\n", addr_begin, addr_end);
-	free_array(s);
+	free(s);
 	return (EXIT_SUCCESS);
 }
 int main(int argc, char *argv[])
