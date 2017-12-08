@@ -19,8 +19,8 @@ char **tokenize(char *str)
 
 char *parse_line(char *line)
 {
-	char **s, *addr, *perm, *offset, *inode, *pathname;
-	char *addr_begin, *addr_end;
+	int n;
+	char **s, *addr, *perm, *offset, *inode, *pathname, *range;
 
 	s = tokenize(line);
 	printf("[*] Found [heap]:\n");
@@ -38,20 +38,72 @@ char *parse_line(char *line)
 	{
 		printf("[*] %s does not have read/write permission", pathname);
 		free(s);
-		return (EXIT_FAILURE);
+		return (NULL);
 	}
+
+	n = strlen(addr);
+	range = malloc(n + 1);
+	if (range == NULL)
+	{
+		free(s);
+		return (NULL);
+	}
+
+	strcpy(range, addr);
+	free(s);
+	return (range);
+}
+
+int write_heap(char *mem_path, char *addr, char *search_string,
+	       char *replace_string)
+{
+	int fd, n, i;
+	char *addr_begin, *addr_end, *buf;
+	long int start, end, hsize;
 
 	addr_begin = strtok(addr, "-");
 	addr_end = strtok(NULL, "-");
 	printf("\tAddr start [%s] | end [%s]\n", addr_begin, addr_end);
-	free(s);
+	start = strtol(addr_begin, NULL, 16);
+	end = strtol(addr_end, NULL, 16);
+	hsize = end - start;
+	buf = malloc(hsize + 1);
+	fd = open(mem_path, O_RDWR);
+	if (fd < 0)
+	{
+		perror("Cannot open file");
+		return (EXIT_FAILURE);
+	}
+	lseek(fd, start, SEEK_SET);
+	n = read(fd, buf, hsize);
+	for (i = 0; i < hsize; i++)
+	{
+		if (strstr((buf + i), search_string) != NULL)
+			break;
+		if (i == hsize)
+		{
+			printf("Can't find '%s'\n", search_string);
+			return (EXIT_FAILURE);
+		}
+	}
+	printf("[*] Found '%s' at %x\n", (buf + i), i);
+	free(buf);
+	lseek(fd, (start + i), SEEK_SET);
+	printf("[*] Writing '%s' at %p\n", replace_string, (void *)(start + i));
+	n = write(fd, replace_string, 10);
+	close(fd);
+	if (n != 10)
+		return (EXIT_FAILURE);
+
 	return (EXIT_SUCCESS);
 }
+
 int main(int argc, char *argv[])
 {
 	pid_t pid;
 	char maps_path[64], maps_line[lsize], mem_path[64], *line, *range;
 	FILE *maps;
+	int status;
 
 	if (argc < 4)
 	{
@@ -70,9 +122,7 @@ int main(int argc, char *argv[])
 		perror("fopen");
 		return (EXIT_FAILURE);
 	}
-
 	while ((line = fgets(maps_line, lsize, maps)))
-	{
 		if (strstr(line, "[heap]") != NULL)
 		{
 			range = parse_line(line);
@@ -82,6 +132,11 @@ int main(int argc, char *argv[])
 				return (EXIT_FAILURE);
 			}
 		}
+	status = write_heap(mem_path, range, argv[2], argv[3]);
+	if (status < 0)
+	{
+		perror("status");
+		return (status);
 	}
 	fclose(maps);
 	return (EXIT_SUCCESS);
