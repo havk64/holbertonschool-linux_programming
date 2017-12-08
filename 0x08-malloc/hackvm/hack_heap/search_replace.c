@@ -17,7 +17,7 @@ char **tokenize(char *str)
 	return (s);
 }
 
-int parse_line(char *line)
+char *parse_line(char *line)
 {
 	char **s, *addr, *perm, *offset, *inode, *pathname;
 	char *addr_begin, *addr_end;
@@ -50,7 +50,7 @@ int parse_line(char *line)
 int main(int argc, char *argv[])
 {
 	pid_t pid;
-	char maps_path[64], maps_line[lsize], mem_path[64], *line;
+	char maps_path[64], maps_line[lsize], mem_path[64], *line, *range;
 	FILE *maps;
 
 	if (argc < 4)
@@ -75,7 +75,8 @@ int main(int argc, char *argv[])
 	{
 		if (strstr(line, "[heap]") != NULL)
 		{
-			if (parse_line(line) < 0)
+			range = parse_line(line);
+			if (range == NULL)
 			{
 				fclose(maps);
 				return (EXIT_FAILURE);
