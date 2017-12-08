@@ -62,6 +62,13 @@ int parse_line(char *line)
 	printf("\tpermissions = %s\n", perm);
 	printf("\toffset = %s\n", offset);
 	printf("\tinode = %s\n", inode);
+	if (perm[0] != 'r' || perm[1] != 'w')
+	{
+		printf("[*] %s does not have read/write permission", pathname);
+		free_array(s);
+		return (EXIT_FAILURE);
+	}
+
 	free_array(s);
 	return (EXIT_SUCCESS);
 }
