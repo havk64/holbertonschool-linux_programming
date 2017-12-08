@@ -113,13 +113,13 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 	len = strlen(replace_string);
 	lseek(fd, (start + offset), SEEK_SET);
 	printf("[*] Writing '%s' at %p\n", replace_string, (void *)(start + offset));
-	n = write(fd, replace_string, len);
-	if (n < len)
-		perror("write");
-
+	n = write(fd, replace_string, len + 1);
 	close(fd);
-	if (n != 10)
+	if (n < len + 1)
+	{
+		printf("Number of bytes written don't match string size\n");
 		return (EXIT_FAILURE);
+	}
 
 	return (EXIT_SUCCESS);
 }
