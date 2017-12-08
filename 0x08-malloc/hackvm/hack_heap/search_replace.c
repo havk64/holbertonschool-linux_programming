@@ -104,7 +104,10 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 
 	offset = read_heap(fd, start, search_string, hsize);
 	if (offset < 0)
+	{
+		close(fd);
 		return (EXIT_FAILURE);
+	}
 
 	len = strlen(replace_string);
 	lseek(fd, (start + offset), SEEK_SET);
