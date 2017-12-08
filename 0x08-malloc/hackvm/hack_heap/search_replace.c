@@ -37,6 +37,23 @@ char **split_string(char *str)
 	return (s);
 }
 
+char **tokenize(char *str)
+{
+	char **s;
+	int i;
+	char *delim = " ";
+
+	s = malloc(sizeof(char *) * 6);
+	if (s == NULL)
+		return (NULL);
+
+	s[0] = strtok(str, delim);
+	for (i = 1; i < 6; i++)
+		s[i] = strtok(NULL, delim);
+
+	return (s);
+}
+
 void free_array(char **s)
 {
 	int i;
