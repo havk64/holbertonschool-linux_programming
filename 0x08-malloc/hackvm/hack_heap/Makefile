@@ -16,6 +16,7 @@ $(hack): write_heap.o
 
 $(sr): search_replace.o
 	$(CC) $(CFLAGS) -o $@ $<
+	sudo setcap cap_sys_ptrace+ep $@
 
 clean:
 	$(RM) *.o
