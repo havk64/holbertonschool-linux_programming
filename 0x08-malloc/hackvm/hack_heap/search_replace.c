@@ -68,15 +68,14 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 	end = strtol(addr_end, NULL, 16);
 	hsize = end - start;
 	free(addr);
-	buf = malloc(hsize + 1);
 	fd = open(mem_path, O_RDWR);
 	if (fd < 0)
 	{
 		perror("Cannot open file");
-		free(buf);
 		return (EXIT_FAILURE);
 	}
 	lseek(fd, start, SEEK_SET);
+	buf = malloc(hsize + 1);
 	n = read(fd, buf, hsize);
 	for (i = 0; i < hsize; i++)
 	{
