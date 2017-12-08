@@ -67,11 +67,13 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 	start = strtol(addr_begin, NULL, 16);
 	end = strtol(addr_end, NULL, 16);
 	hsize = end - start;
+	free(addr);
 	buf = malloc(hsize + 1);
 	fd = open(mem_path, O_RDWR);
 	if (fd < 0)
 	{
 		perror("Cannot open file");
+		free(buf);
 		return (EXIT_FAILURE);
 	}
 	lseek(fd, start, SEEK_SET);
@@ -133,11 +135,11 @@ int main(int argc, char *argv[])
 			}
 		}
 	status = write_heap(mem_path, range, argv[2], argv[3]);
-	if (status < 0)
+	fclose(maps);
+	if (status != 0)
 	{
 		perror("status");
 		return (status);
 	}
-	fclose(maps);
 	return (EXIT_SUCCESS);
 }
