@@ -54,11 +54,38 @@ static char *parse_line(char *line)
 	return (range);
 }
 
+static
+int read_heap(int fd, long int start, char *search_string, long int hsize)
+{
+	char *buf;
+	int i, n;
+
+	lseek(fd, start, SEEK_SET);
+	buf = malloc(hsize + 1);
+	n = read(fd, buf, hsize);
+	if (n != hsize)
+		perror("read");
+
+	for (i = 0; i < hsize; i++)
+	{
+		if (strstr((buf + i), search_string) != NULL)
+			break;
+		if (i == hsize)
+		{
+			printf("Can't find '%s'\n", search_string);
+			return (-1);
+		}
+	}
+	printf("[*] Found '%s' at %x\n", (buf + i), i);
+	free(buf);
+	return (i);
+}
+
 static int write_heap(char *mem_path, char *addr, char *search_string,
 	       char *replace_string)
 {
-	int fd, n, i;
-	char *addr_begin, *addr_end, *buf;
+	int fd, n, offset, len;
+	char *addr_begin, *addr_end;
 	long int start, end, hsize;
 
 	addr_begin = strtok(addr, "-");
@@ -74,24 +101,18 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 		perror("Cannot open file");
 		return (EXIT_FAILURE);
 	}
-	lseek(fd, start, SEEK_SET);
-	buf = malloc(hsize + 1);
-	n = read(fd, buf, hsize);
-	for (i = 0; i < hsize; i++)
-	{
-		if (strstr((buf + i), search_string) != NULL)
-			break;
-		if (i == hsize)
-		{
-			printf("Can't find '%s'\n", search_string);
-			return (EXIT_FAILURE);
-		}
-	}
-	printf("[*] Found '%s' at %x\n", (buf + i), i);
-	free(buf);
-	lseek(fd, (start + i), SEEK_SET);
-	printf("[*] Writing '%s' at %p\n", replace_string, (void *)(start + i));
-	n = write(fd, replace_string, 10);
+
+	offset = read_heap(fd, start, search_string, hsize);
+	if (offset < 0)
+		return (EXIT_FAILURE);
+
+	len = strlen(replace_string);
+	lseek(fd, (start + offset), SEEK_SET);
+	printf("[*] Writing '%s' at %p\n", replace_string, (void *)(start + offset));
+	n = write(fd, replace_string, len);
+	if (n < len)
+		perror("write");
+
 	close(fd);
 	if (n != 10)
 		return (EXIT_FAILURE);
@@ -136,9 +157,7 @@ int main(int argc, char *argv[])
 	status = write_heap(mem_path, range, argv[2], argv[3]);
 	fclose(maps);
 	if (status != 0)
-	{
-		perror("status");
 		return (status);
-	}
+
 	return (EXIT_SUCCESS);
 }
