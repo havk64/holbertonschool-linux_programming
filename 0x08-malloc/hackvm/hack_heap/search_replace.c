@@ -49,6 +49,7 @@ void free_array(char **s)
 int parse_line(char *line)
 {
 	char **s, *addr, *perm, *offset, *inode, *pathname;
+	char *addr_begin, *addr_end;
 
 	s = split_string(line);
 	printf("[*] Found [heap]:\n");
@@ -69,6 +70,9 @@ int parse_line(char *line)
 		return (EXIT_FAILURE);
 	}
 
+	addr_begin = strtok(addr, "-");
+	addr_end = strtok(NULL, "-");
+	printf("\tAddr start [%s] | end [%s]\n", addr_begin, addr_end);
 	free_array(s);
 	return (EXIT_SUCCESS);
 }
