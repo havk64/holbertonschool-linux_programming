@@ -1,5 +1,11 @@
 #include "lcap.h"
 
+/*
+ * tokenize - split a string in tokens separated by specified delimiter
+ * @str: the string to be tokenized
+ *
+ * Return: a pointer to an array of strings or NULL on failure
+ */
 static char **tokenize(char *str)
 {
 	char **s;
