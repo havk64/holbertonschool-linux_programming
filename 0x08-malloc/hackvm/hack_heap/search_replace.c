@@ -106,6 +106,15 @@ int read_heap(int fd, long int start, char *search_string, long int hsize)
 	return (i);
 }
 
+/*
+ * write_heap - overwrite a given string on the heap
+ * @mem_path: the path to the /proc/<pid>/mem file
+ * @addr: the range address of the heap
+ * @search_string: the string to be overwritten
+ * @replace_string: the string to be written
+ *
+ * Return: On success, EXIT_SUCCESS. On failure, EXIT_FAILURE
+ */
 static int write_heap(char *mem_path, char *addr, char *search_string,
 	       char *replace_string)
 {
