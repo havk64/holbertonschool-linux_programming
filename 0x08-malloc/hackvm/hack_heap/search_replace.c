@@ -157,6 +157,13 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 	return (EXIT_SUCCESS);
 }
 
+/*
+ * main - entry pointer
+ * @argc: the number of parameters
+ * @argv: an array of parameter strings
+ *
+ * Return: On success, EXIT SUCCESS. On failure, EXIT_FAILURE
+ */
 int main(int argc, char *argv[])
 {
 	pid_t pid;
@@ -191,6 +198,7 @@ int main(int argc, char *argv[])
 				return (EXIT_FAILURE);
 			}
 		}
+
 	status = write_heap(mem_path, range, argv[2], argv[3]);
 	fclose(maps);
 	if (status != 0)
