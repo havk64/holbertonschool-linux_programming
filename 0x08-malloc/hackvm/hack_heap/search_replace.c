@@ -23,6 +23,13 @@ static char **tokenize(char *str)
 	return (s);
 }
 
+/*
+ * parse_line - parses the line that contain heap info
+ * @line: a pointer to the string
+ *
+ * Return: On success it return the a pointer to an array of strings
+ * On failure it return NULL
+ */
 static char *parse_line(char *line)
 {
 	int n;
