@@ -67,6 +67,17 @@ static char *parse_line(char *line)
 	return (range);
 }
 
+/*
+ * read_heap - read the heap of the executable and find the address of given
+ * string
+ * @fd: a file descriptor of the /proc/<pid>/mem file
+ * @start: the start address of the heap
+ * @search_string: the string to be searched
+ * @hsize: the size the heap
+ *
+ * Return: On success the offset from the start of the heap where the string is
+ * found. On failure, -1
+ */
 static
 int read_heap(int fd, long int start, char *search_string, long int hsize)
 {
