@@ -1,6 +1,6 @@
 #include "lcap.h"
 
-/*
+/**
  * tokenize - split a string in tokens separated by specified delimiter
  * @str: the string to be tokenized
  *
@@ -23,7 +23,7 @@ static char **tokenize(char *str)
 	return (s);
 }
 
-/*
+/**
  * parse_line - parses the line that contain heap info
  * @line: a pointer to the string
  *
@@ -67,7 +67,7 @@ static char *parse_line(char *line)
 	return (range);
 }
 
-/*
+/**
  * read_heap - read the heap of the executable and find the address of given
  * string
  * @fd: a file descriptor of the /proc/<pid>/mem file
@@ -106,7 +106,7 @@ int read_heap(int fd, long int start, char *search_string, long int hsize)
 	return (i);
 }
 
-/*
+/**
  * write_heap - overwrite a given string on the heap
  * @mem_path: the path to the /proc/<pid>/mem file
  * @addr: the range address of the heap
@@ -157,7 +157,7 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 	return (EXIT_SUCCESS);
 }
 
-/*
+/**
  * main - entry pointer
  * @argc: the number of parameters
  * @argv: an array of parameter strings
