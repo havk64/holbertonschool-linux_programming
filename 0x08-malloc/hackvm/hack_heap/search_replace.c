@@ -42,11 +42,11 @@ static char *parse_line(char *line)
 	offset = s[2];
 	inode = s[4];
 	pathname = s[5];
-	printf("\tpathname = %s", pathname);
-	printf("\tadressesses = %s\n", addr);
-	printf("\tpermissions = %s\n", perm);
-	printf("\toffset = %s\n", offset);
-	printf("\tinode = %s\n", inode);
+	printf("    pathname = %s", pathname);
+	printf("    adressesses = %s\n", addr);
+	printf("    permissions = %s\n", perm);
+	printf("    offset = %s\n", offset);
+	printf("    inode = %s\n", inode);
 	if (perm[0] != 'r' || perm[1] != 'w')
 	{
 		printf("[*] %s does not have read/write permission", pathname);
@@ -124,7 +124,7 @@ static int write_heap(char *mem_path, char *addr, char *search_string,
 
 	addr_begin = strtok(addr, "-");
 	addr_end = strtok(NULL, "-");
-	printf("\tAddr start [%s] | end [%s]\n", addr_begin, addr_end);
+	printf("    Addr start [%s] | end [%s]\n", addr_begin, addr_end);
 	start = strtol(addr_begin, NULL, 16);
 	end = strtol(addr_end, NULL, 16);
 	hsize = end - start;
