@@ -1,7 +1,36 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #define BRK_FAILED ((void *)-1)
+#define bsize 128
+
+
+int print_heap(void)
+{
+
+	FILE *maps;
+	char maps_path[32], *line, buf[bsize];
+	pid_t PID;
+
+	PID = getpid();
+	printf("The heap of this process ");
+	printf("as stated in the /proc/%d/maps file is:\n\n", PID);
+	sprintf(maps_path, "/proc/%d/maps", PID);
+	maps = fopen(maps_path, "r");
+	if (maps == NULL)
+	{
+		perror("fopen");
+	}
+	else
+		while ((line = fgets(buf, bsize, maps)))
+			if (strstr(line, "[heap]"))
+			{
+				printf("%s", line);
+				return (EXIT_SUCCESS);
+			}
+	return (EXIT_FAILURE);
+}
 
 /**
  * main - entry point
