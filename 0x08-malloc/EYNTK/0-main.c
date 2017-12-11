@@ -41,6 +41,7 @@ int main(void)
 {
 	char *h;
 	void *ptr;
+	int n;
 
 	/* Check program break */
 	ptr = sbrk(0);
@@ -58,9 +59,18 @@ int main(void)
 	printf("Break now is: %p\n", ptr);
 	*h = 'H';
 	printf("Value at this address is: '%c'\n", *h);
-	printf("\nOpen another terminal window and type:\n");
+
+	n = print_heap();
+	if (n != 0)
+	{
+		perror("print_heap");
+		return (EXIT_FAILURE);
+	}
+
+	printf("\nTo confirm this info, open another terminal window and type:\n");
 	printf("$ cat /proc/%d/maps\n", getpid());
-	printf("...to inspect the Heap\n");
+	printf("...to see the whole memory map of this process\n");
+	printf("(Press ENTER to quit)\n");
 	getchar();
 	return (EXIT_SUCCESS);
 }
