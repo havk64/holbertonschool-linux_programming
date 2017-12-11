@@ -5,7 +5,7 @@
 Using `/proc` virtual file system to find and modify an ASCII string
 contained inside the virtual memory of a running process.
 
-Listing the source of the target running process:
+- Target process:
 
 ```
 $ cat loop.c
@@ -38,7 +38,7 @@ int main(void)
 }
 ```
 
-The following C program will modify the string "Holberton" in the above running program:
+- Simple Program to overwrite the string "Holberton" of the above running program:
 
 ```
 $ cat write_heap.c
@@ -72,7 +72,7 @@ int main(int ac, char *argv[])
 }
 ```
 
-To be able to modify the heap of the first program we need to call it using sudo or
+To be able to modify the heap of the target program we need to call it using sudo or
 better we can just Linux [Capabilities](https://linux.die.net/man/7/capabilities)
 to give just the access needed that in this case is `CAP_SYS_PTRACE` with the 
 following command:
@@ -97,7 +97,7 @@ And in another terminal:
 $ ./hack_heap 1234 $((0xcc0010))
 ```
 
-Back to previous terminal the output should be:
+Back to first terminal the output should be:
 
 ```
 PID: 1234 [0] Holberton (0xcc0010)
