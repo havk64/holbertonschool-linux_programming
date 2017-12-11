@@ -108,3 +108,23 @@ PID: 1234 [4] Alexandro (0xcc0010)
 PID: 1234 [1] Holberton (0xcc0010)
 ```
 
+- A more elaborated/automated program to overwrite the heap of the target program
+can be found in the file [search_replace.c](search_replace.c) which output would
+be as follows:
+
+```
+$ make
+
+$ ./search_replace 12345 Holberton Alexandro
+[*] maps: /proc/12345/maps
+[*] mem: /proc/12345/mem
+[*] Found [heap]:
+    pathname = [heap]
+    adressesses = 022b2000-022d3000
+    permissions = rw-p
+    offset = 00000000
+    inode = 0
+    Addr start [022b2000] | end [022d3000]
+[*] Found 'Holberton' at 10
+[*] Writing 'Alexandro' at 0x22b2010
+```
