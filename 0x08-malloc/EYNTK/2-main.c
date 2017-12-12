@@ -9,8 +9,8 @@ void *naive_malloc(size_t size);
  */
 int main(void)
 {
-	char *str;
-	int i;
+	char *str, x;
+	int i, status = EXIT_SUCCESS;
 	pid_t pid;
 
 	pid = getpid();
@@ -25,11 +25,11 @@ int main(void)
 	}
 
 	printf("Final break is %p\n", sbrk(0));
-	/*
-	 * Check the output of
-	 * $ cat proc/{pid}/maps
-	 * ...to inspect the Heap
-	 */
-	getchar();
-	return (EXIT_SUCCESS);
+	printf("Print content of /proc/%d/maps? (y/n)\n",
+	       pid);
+	x = getchar();
+	if (x == 'y')
+		status = print_mem_map();
+
+	return (status);
 }
