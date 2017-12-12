@@ -18,8 +18,7 @@ int main(void)
 	for (i = 0; i < 10; i++)
 	{
 		str = naive_malloc(10);
-		strcpy(str, "Holberton");
-		str[9] = '\0';
+		strcpy(str, "Holberton"); /* NULL terminated string */
 		printf("%p: %s\n", (void *)str, str);
 	}
 
