@@ -48,6 +48,12 @@ void set_mode(int want_key)
 	tcsetattr(STDIN_FILENO, TCSANOW, &new);
 }
 
+/**
+ * get_key - get user input keypress y/n
+ * @no_timeout: an integer representing true/false to timeout
+ *
+ * Return: the user input character
+ */
 int get_key(int no_timeout)
 {
 	int c = 0;
