@@ -34,7 +34,7 @@ void set_mode(int want_key)
 
 	tcgetattr(STDIN_FILENO, &old);
 	new = old;
-	new.c_lflag &= ~(ICANON);
+	new.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &new);
 }
 
