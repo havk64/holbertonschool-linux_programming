@@ -38,3 +38,22 @@ void set_mode(int want_key)
 	tcsetattr(STDIN_FILENO, TCSANOW, &new);
 }
 
+int get_key(int no_timeout)
+{
+	int c = 0;
+	struct timeval tv;
+	fd_set fs;
+
+	tv.tv_usec = tv.tv_sec = 0;
+
+	FD_ZERO(&fs);
+	FD_SET(STDIN_FILENO, &fs);
+
+	select(STDIN_FILENO + 1, &fs, 0, 0, no_timeout ? 0 : &tv);
+	if (FD_ISSET(STDIN_FILENO, &fs))
+	{
+		c = getchar();
+		set_mode(0);
+	}
+	return (c);
+}

@@ -11,4 +11,5 @@
 #define bsize 128
 int print_mem_map(void);
 void set_mode(int want_key);
+int get_key(int no_timeout);
 #endif /*NAIVE_H */
