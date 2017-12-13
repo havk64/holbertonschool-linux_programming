@@ -26,7 +26,12 @@ int print_mem_map(void)
 	return (EXIT_SUCCESS);
 }
 
-
+/**
+ * set_mode - set/get terminal attributes
+ * @want_key: an integer representing true/false to get/set attributes
+ *
+ * Return: always void.
+ */
 void set_mode(int want_key)
 {
 	static struct termios old, new;
