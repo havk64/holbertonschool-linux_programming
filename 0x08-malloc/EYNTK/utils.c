@@ -20,3 +20,21 @@ int print_mem_map(void)
 
 	return (EXIT_SUCCESS);
 }
+
+
+void set_mode(int want_key)
+{
+	static struct termios old, new;
+
+	if (!want_key)
+	{
+		tcsetattr(STDIN_FILENO, TCSANOW, &old);
+		return;
+	}
+
+	tcgetattr(STDIN_FILENO, &old);
+	new = old;
+	new.c_lflag &= ~(ICANON);
+	tcsetattr(STDIN_FILENO, TCSANOW, &new);
+}
+
