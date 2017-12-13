@@ -8,7 +8,6 @@ int print_mem_map(void)
 	pid_t PID;
 
 	PID = getpid();
-	printf("Content of /proc/%d/maps file at this time is:\n", PID);
 	sprintf(maps_path, "/proc/%d/maps", PID);
 	maps = fopen(maps_path, "r");
 	if (maps == NULL)
