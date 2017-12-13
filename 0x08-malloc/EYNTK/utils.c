@@ -1,7 +1,7 @@
 #include "naive.h"
 
 /**
- * print_mem_map - prints the file /proc/<pid>/maps of runnin process
+ * print_mem_map - prints the file /proc/<pid>/maps of running process
  *
  * Return: On success, 0. On failure, 1:
  */
