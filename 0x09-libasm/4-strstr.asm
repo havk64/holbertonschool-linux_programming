@@ -23,6 +23,9 @@ asm_strstr:
 	push rbx
 	push rcx
 	push rdx
+	mov cl, BYTE [esi]
+	test cl, cl
+	jz null
 
 loop:
 	movzx eax, BYTE [edi]
@@ -54,3 +57,6 @@ substr:
 	jz substr
 	inc edi
 	jmp loop
+
+null:	mov eax, edi
+	jmp end
