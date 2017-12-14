@@ -9,10 +9,10 @@
      9                                  	;; @n: the base 10 number to be printed
     10                                  	;;
     11                                  
-    12                                  	global asm_puti		; Define and export asm_puti symbol
-    13                                  	extern asm_putc		; Import the asm_putc function/routine
-    14                                  
-    15                                  segment .text
+    12                                  segment .text
+    13                                  	global asm_puti		; Define and export asm_puti symbol
+    14                                  	extern asm_putc		; Import the asm_putc function/routine
+    15                                  
     16                                  asm_puti:			; Implement the asm_puti function/routine
     17 00000000 55                      	push rbp		; Routine prologue, create new stack frame
     18 00000001 4889E5                  	mov rbp, rsp
