@@ -27,8 +27,8 @@
     27 00000004 51                      	push rcx		; Save registers state/values
     28 00000005 52                      	push rdx
     29 00000006 56                      	push rsi
-    30 00000007 57                      	push rdi		; Copy the 1st arg to putc to the stack
-    31 00000008 B801000000              	mov eax, 1		; eax carry the syscall number (1 for write)
+    30 00000007 57                      	push rdi		; Save the 1st arg to putc onto the stack
+    31 00000008 B801000000              	mov eax, 1		; %eax register carries the syscall number (1 for write)
     32 0000000D BA01000000              	mov edx, 1		; 3rd arg is the amount of bytes to be written
     33 00000012 488D3424                	lea rsi, [rsp]		; 2nd arg is a pointer to the buffer to be printed
     34 00000016 BF01000000              	mov edi, 1		; 1st arg is the number of file descriptor (1 for STDOUT)
