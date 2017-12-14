@@ -11,10 +11,10 @@
     11                                  	;; Return: the number of digits printed
     12                                  	;;
     13                                  
-    14                                  	extern asm_putc, asm_strlen	; Import functions from external file
-    15                                  	global asm_puti_base		; Define symbol to routine of the same name
-    16                                  
-    17                                  segment .text
+    14                                  segment .text
+    15                                  	extern asm_putc, asm_strlen	; Import functions from external file
+    16                                  	global asm_puti_base		; Define symbol to routine of the same name
+    17                                  
     18                                  asm_puti_base:			; Implement asm_put_base function/routine
     19 00000000 55                      	push rbp		; Routine prologue, create new stack frame
     20 00000001 4889E5                  	mov rbp, rsp
