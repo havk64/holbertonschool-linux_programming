@@ -7,7 +7,7 @@ GAS LISTING 102-strcasecmp.s 			page 1
  input file    	: 102-strcasecmp.s
  output file   	: 102-strcasecmp.o
  target        	: x86_64-pc-linux-gnu
- time stamp    	: 2017-11-15T06:29:39.000-0800
+ time stamp    	: 2017-11-26T18:21:57.000-0800
 
 GAS LISTING 102-strcasecmp.s 			page 2
 
@@ -27,9 +27,9 @@ GAS LISTING 102-strcasecmp.s 			page 1
   13              		 * greater than s2.
   14              		 */
   15              	
-  16              		.globl asm_strcasecmp
-  17              	
-  18              	.text
+  16              		.text
+  17              		.globl asm_strcasecmp
+  18              	
   19              	asm_strcasecmp:
   20 0000 55       		pushq %rbp		# TODO - add comments, transfer improvements to 103 file
   21 0001 4889E5   		movq %rsp, %rbp
