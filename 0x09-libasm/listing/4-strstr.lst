@@ -23,34 +23,40 @@
     23 00000004 53                      	push rbx
     24 00000005 51                      	push rcx
     25 00000006 52                      	push rdx
-    26                                  
-    27                                  loop:
-    28 00000007 670FB607                	movzx eax, BYTE [edi]
-    29 0000000B 673A06                  	cmp al, BYTE [esi]
-    30 0000000E 7410                    	jz match
-    31 00000010 FFC7                    	inc edi
-    32 00000012 84C0                    	test al, al
-    33 00000014 75F1                    	jnz loop
-    34 00000016 31C0                    	xor eax, eax
-    35                                  
-    36                                  end:
-    37 00000018 5A                      	pop rdx
-    38 00000019 59                      	pop rcx
-    39 0000001A 5B                      	pop rbx
-    40 0000001B 4889EC                  	mov rsp, rbp
-    41 0000001E 5D                      	pop rbp
-    42 0000001F C3                      	ret
-    43                                  
-    44                                  match:
-    45 00000020 89F8                    	mov eax, edi
-    46 00000022 31C9                    	xor ecx, ecx
-    47                                  substr:
-    48 00000024 FFC1                    	inc ecx
-    49 00000026 678A1C0F                	mov bl, BYTE [edi + ecx]
-    50 0000002A 678A140E                	mov dl, BYTE [esi + ecx]
-    51 0000002E 84D2                    	test dl, dl
-    52 00000030 74E6                    	jz end
-    53 00000032 38D3                    	cmp bl, dl
-    54 00000034 74EE                    	jz substr
-    55 00000036 FFC7                    	inc edi
-    56 00000038 EBCD                    	jmp loop
+    26 00000007 678A0E                  	mov cl, BYTE [esi]
+    27 0000000A 84C9                    	test cl, cl
+    28 0000000C 7433                    	jz null
+    29                                  
+    30                                  loop:
+    31 0000000E 670FB607                	movzx eax, BYTE [edi]
+    32 00000012 673A06                  	cmp al, BYTE [esi]
+    33 00000015 7410                    	jz match
+    34 00000017 FFC7                    	inc edi
+    35 00000019 84C0                    	test al, al
+    36 0000001B 75F1                    	jnz loop
+    37 0000001D 31C0                    	xor eax, eax
+    38                                  
+    39                                  end:
+    40 0000001F 5A                      	pop rdx
+    41 00000020 59                      	pop rcx
+    42 00000021 5B                      	pop rbx
+    43 00000022 4889EC                  	mov rsp, rbp
+    44 00000025 5D                      	pop rbp
+    45 00000026 C3                      	ret
+    46                                  
+    47                                  match:
+    48 00000027 89F8                    	mov eax, edi
+    49 00000029 31C9                    	xor ecx, ecx
+    50                                  substr:
+    51 0000002B FFC1                    	inc ecx
+    52 0000002D 678A1C0F                	mov bl, BYTE [edi + ecx]
+    53 00000031 678A140E                	mov dl, BYTE [esi + ecx]
+    54 00000035 84D2                    	test dl, dl
+    55 00000037 74E6                    	jz end
+    56 00000039 38D3                    	cmp bl, dl
+    57 0000003B 74EE                    	jz substr
+    58 0000003D FFC7                    	inc edi
+    59 0000003F EBCD                    	jmp loop
+    60                                  
+    61 00000041 89F8                    null:	mov eax, edi
+    62 00000043 EBDA                    	jmp end
