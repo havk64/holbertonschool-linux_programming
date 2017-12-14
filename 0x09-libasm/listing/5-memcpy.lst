@@ -20,6 +20,6 @@
     20                                  asm_memcpy:
     21 00000000 4889F8                  	mov rax, rdi		; Copy the pointer to @dest string to be returned
     22 00000003 89D1                    	mov ecx, edx		; Copy the length @n to the counter
-    23 00000005 FC                      	cld			; Clear the direction flag, DL
+    23 00000005 FC                      	cld			; Clear the direction flag, DL in %eflags register
     24 00000006 F3A4                    rep	movsb			; Copy @n bytes from ESI (source) to EDI (destination)
     25 00000008 C3                      	ret			; Return
