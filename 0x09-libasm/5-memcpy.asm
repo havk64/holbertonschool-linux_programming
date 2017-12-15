@@ -20,6 +20,6 @@ CPU X64
 asm_memcpy:
 	mov rax, rdi		; Copy the pointer to @dest string to be returned
 	mov ecx, edx		; Copy the length @n to the counter
-	cld			; Clear the direction flag, DL
+	cld			; Clear the direction flag, DL in %eflags register
 rep	movsb			; Copy @n bytes from ESI (source) to EDI (destination)
 	ret			; Return
