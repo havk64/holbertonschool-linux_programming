@@ -18,45 +18,45 @@ CPU X64
 	segment .text
 
 asm_strstr:
-	push rbp
+	push rbp		; Routine preamble
 	mov rbp, rsp
-	push rbx
+	push rbx		; Save register's values/states
 	push rcx
 	push rdx
-	mov cl, BYTE [esi]
-	test cl, cl
-	jz null
+	mov cl, BYTE [esi]	; Read first byte of substring
+	test cl, cl		; Test (bitwise AND) it
+	jz null			; Case is NULL jump to 'null' subroutine
 
 loop:
-	movzx eax, BYTE [edi]
-	cmp al, BYTE [esi]
-	jz match
-	inc edi
-	test al, al
-	jnz loop
-	xor eax, eax
+	movzx eax, BYTE [edi]	; Read one byte from @s
+	cmp al, BYTE [esi]	; Compare with byte from @sub
+	jz match		; If equal jump to 'match' subroutine
+	inc edi			; Otherwise increase the pointer to @s
+	test al, al		; Check for the end of string
+	jnz loop		; While not NULL, loop
+	xor eax, eax		; Otherwise return NULL
 
 end:
-	pop rdx
+	pop rdx			; Restore register's states/values
 	pop rcx
 	pop rbx
-	mov rsp, rbp
+	mov rsp, rbp		; Routine prologue
 	pop rbp
-	ret
+	ret			; Return
 
-match:
-	mov eax, edi
-	xor ecx, ecx
+match:				; When the first character match...
+	mov eax, edi		; Move the pointer of first matched char to eax
+	xor ecx, ecx		; reset the counter
 substr:
-	inc ecx
-	mov bl, BYTE [edi + ecx]
-	mov dl, BYTE [esi + ecx]
-	test dl, dl
-	jz end
-	cmp bl, dl
-	jz substr
-	inc edi
-	jmp loop
+	inc ecx			; ...and increase the counter by one on each iteration
+	mov bl, BYTE [edi + ecx] ; Read one byte from @s...
+	mov dl, BYTE [esi + ecx] ; ...and one from @sub.
+	test dl, dl		 ; Check for the end of @sub
+	jz end			 ; If end of string, jump to end
+	cmp bl, dl		 ; Otherwise compare both chars
+	jz substr		 ; Loop while equal
+	inc edi			 ; Otherwise increase the pointer
+	jmp loop		 ; and jump back to outer loop
 
-null:	mov eax, edi
-	jmp end
+null:	mov eax, edi		; When @sub is NULL move pointer to eax
+	jmp end			; and jump to end
