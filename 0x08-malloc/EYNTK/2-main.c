@@ -8,7 +8,7 @@
 int main(void)
 {
 	char *str;
-	int i, c, status = EXIT_SUCCESS;
+	int i, status;
 	pid_t pid;
 
 	pid = getpid();
@@ -25,25 +25,7 @@ int main(void)
 	printf("Final break is %p\n", sbrk(0));
 	printf("Print content of /proc/%d/maps? (y/n)\n",
 	       pid);
-	fflush(stdout);
-	while (1)
-	{
-		set_mode(1);
 
-		c = get_key(1);
-		if (c == 'y' || c == 'Y')
-		{
-			printf("\n");
-			status = print_mem_map();
-			break;
-		}
-
-		if (c == 'n' || c == 'N')
-		{
-			printf("\nDone!\n");
-			break;
-		}
-		printf("Yes or no? (y/n)\n");
-	}
+	status = prompt_mem_map();
 	return (status);
 }

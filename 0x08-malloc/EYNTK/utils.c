@@ -73,3 +73,29 @@ int get_key(int no_timeout)
 	}
 	return (c);
 }
+
+int prompt_mem_map(void)
+{
+	int c, status = EXIT_SUCCESS;
+
+	while (1)
+	{
+		set_mode(1);
+
+		c = get_key(1);
+		if (c == 'y' || c == 'Y')
+		{
+			printf("\n");
+			status = print_mem_map();
+			break;
+		}
+
+		if (c == 'n' || c == 'N')
+		{
+			printf("\nDone!\n");
+			break;
+		}
+		printf("Yes or no? (y/n)\n");
+	}
+	return (status);
+}
