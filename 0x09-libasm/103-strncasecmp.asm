@@ -16,9 +16,9 @@ CPU X64
 	;; greater than s2.compare two strings ignoring case
 	;;
 
+segment .text
 	global asm_strncasecmp
 
-segment .text
 asm_strncasecmp:
 	push rbp		; Routine preamble
 	mov rbp, rsp
