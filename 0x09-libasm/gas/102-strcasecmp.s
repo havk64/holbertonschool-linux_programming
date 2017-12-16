@@ -13,9 +13,9 @@
 	 * greater than s2.
 	 */
 
+	.text
 	.globl asm_strcasecmp
 
-.text
 asm_strcasecmp:
 	pushq %rbp
 	movq %rsp, %rbp
