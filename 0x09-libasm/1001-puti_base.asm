@@ -11,10 +11,10 @@ CPU X64
 	;; Return: the number of digits printed
 	;;
 
+segment .text
 	extern asm_putc, asm_strlen	; Import functions from external file
 	global asm_puti_base		; Define symbol to routine of the same name
 
-segment .text
 asm_puti_base:			; Implement asm_put_base function/routine
 	push rbp		; Routine prologue, create new stack frame
 	mov rbp, rsp
