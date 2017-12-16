@@ -9,10 +9,10 @@ CPU X64
 	;; @n: the base 10 number to be printed
 	;;
 
+segment .text
 	global asm_puti		; Define and export asm_puti symbol
 	extern asm_putc		; Import the asm_putc function/routine
 
-segment .text
 asm_puti:			; Implement the asm_puti function/routine
 	push rbp		; Routine prologue, create new stack frame
 	mov rbp, rsp
