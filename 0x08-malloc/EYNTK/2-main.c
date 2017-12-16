@@ -23,9 +23,7 @@ int main(void)
 	}
 
 	printf("Final break is %p\n", sbrk(0));
-	printf("Print content of /proc/%d/maps? (y/n)\n",
-	       pid);
 
-	status = prompt_mem_map();
+	status = prompt_mem_map(pid);
 	return (status);
 }

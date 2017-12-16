@@ -12,6 +12,6 @@
 int print_mem_map(void);
 void set_mode(int want_key);
 int get_key(int no_timeout);
-int prompt_mem_map(void);
+int prompt_mem_map(pid_t pid);
 void *naive_malloc(size_t size);
 #endif /*NAIVE_H */

@@ -79,10 +79,12 @@ int get_key(int no_timeout)
  *
  * Return: always void
  */
-int prompt_mem_map(void)
+int prompt_mem_map(pid_t pid)
 {
 	int c, status = EXIT_SUCCESS;
 
+	printf("Print content of /proc/%d/maps? (y/n)\n",
+	       pid);
 	while (1)
 	{
 		set_mode(1);
