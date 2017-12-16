@@ -20,7 +20,6 @@ int main(void)
 	{
 		str = malloc(10);
 		strcpy(str, "Holberton");
-		str[9] = '\0';
 		printf("%p: %s, ", (void *)str, str);
 		printf("program break: %p\n", sbrk(0));
 
