@@ -74,6 +74,11 @@ int get_key(int no_timeout)
 	return (c);
 }
 
+/*
+ * prompt_mem_map - prompt user to show mem map
+ *
+ * Return: always void
+ */
 int prompt_mem_map(void)
 {
 	int c, status = EXIT_SUCCESS;
