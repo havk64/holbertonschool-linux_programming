@@ -9,8 +9,10 @@ int main(void)
 {
 	char *str;
 	int i;
+	pid_t pid;
 
-	printf("PID: %d\n", getpid());
+	pid = getpid();
+	printf("PID: %d\n", pid);
 	printf("Starting break is %p\n", sbrk(0));
 
 	for (i = 0; i < 10; i++)
