@@ -39,7 +39,7 @@ loop:
 	movzx ebx, BYTE [esi + ecx] ; Do the same with the second string @s2
 	lea r8d, [ebx - 'A']
 	cmp r8b, 'Z' - 'A'
-	lea r8d, [ebx + 0x20]	; This time, instead of setxx I'm using LEA...
+	lea r8d, [ebx + 0x20]	; This time, instead of setcc I'm using LEA...
 	cmovbe ebx, r8d		; and conditional move to lower the case (when upper)
 cmp:	cmp al, bl		; Check if they diff
 	jnz diff		; If different jump
