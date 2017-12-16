@@ -1,7 +1,5 @@
 #include "naive.h"
 
-void *naive_malloc(size_t size);
-
 /**
  * main - Program entry point
  *
