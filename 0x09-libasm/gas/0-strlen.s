@@ -1,4 +1,3 @@
-
 	/*
 	 * asm_strlen - clone of strlen function. Find the length of a string
 	 * Gnu Assembler Syntax

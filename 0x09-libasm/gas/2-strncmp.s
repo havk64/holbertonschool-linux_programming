@@ -1,4 +1,3 @@
-
 	/*
 	 * strncmp clone - return the difference between two strings
 	 *

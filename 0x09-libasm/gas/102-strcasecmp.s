@@ -17,39 +17,40 @@
 	.globl asm_strcasecmp
 
 asm_strcasecmp:
-	pushq %rbp
+	pushq %rbp		# Routine preamble
 	movq %rsp, %rbp
-	pushq %rbx
+	pushq %rbx		# Preserve register's state
 	pushq %rcx
 	pushq %r8
-	xorl %ecx, %ecx
+	xorl %ecx, %ecx		# Reset the counter
 
 loop:
-	movzxb (%edi, %ecx), %eax
-	leal -'A(%eax), %r9d
-	cmpb $('Z - 'A), %r9b
-	setbe %r8b
-	shlb $5, %r8b
-	orb %r8b, %al
-	movzxb (%esi, %ecx), %ebx
+	movzxb (%edi, %ecx), %eax #  Read @s1 character and start case checking
+	leal -'A(%eax), %r9d	  #  By subt the lower bound we skip one comparison
+	cmpb $('Z - 'A), %r9b	  #  The only comparison needed  now is with max - min
+	setbe %r8b		  #  Using setxx we avoid unnecessary jumps
+	shlb $5, %r8b		  #  Activate the 6th bit, if uppercase
+	orb %r8b, %al		  #  Use *or* to activate it and lower the case
+	movzxb (%esi, %ecx), %ebx # 	 Do the same with the second string @s2
 	leal -'A(%ebx), %r8d
 	cmpb $('Z - 'A), %r8b
-	leal 0x20(%ebx), %r8d
-	cmovbel %r8d, %ebx
-	cmpb %bl, %al
-	jnz diff
-	inc %ecx
-	test %al, %al
-	jnz loop
+	leal 0x20(%ebx), %r8d	# This time, instead of setxx I'm using LEA...
+	cmovbel %r8d, %ebx	# and conditional move to lower the case (when upper)
+	cmpb %bl, %al		# Check if they diff (after converted to lower case)
+	jnz diff		# If different jump
+	inc %ecx		# Otherwise increase the counter...
+	test %al, %al		# While the char is not end of string (0)...
+	jnz loop		# ...loop
 
 end:
-	popq %r8
+	popq %r8		# Restore register's state       Restore register's state
+
 	popq %rcx
 	popq %rbx
-	movq %rbp, %rsp
+	movq %rbp, %rsp		# Routine prologue
 	popq %rbp
-	retq
+	retq			# Return
 
 diff:
-	subl %ebx, %eax
+	subl %ebx, %eax		# Check the difference to return
 	jmp end
