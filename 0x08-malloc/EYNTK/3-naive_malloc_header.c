@@ -1,5 +1,11 @@
 #include "naive.h"
 
+/**
+ * naive_malloc_header - naive malloc, version 3
+ * @size: the size of block memory to be allocated
+ *
+ * Return: always void.
+ */
 void *naive_malloc_header(size_t size)
 {
 	char *ptr;
