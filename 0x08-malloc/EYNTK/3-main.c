@@ -20,7 +20,6 @@ int main(void)
 
 		str = naive_malloc_header(10);
 		strcpy(str, "Holberton");
-		str[9] = '\0';
 		printf("%p: %s, ", (void *)str, str);
 		chunk = (void *)(str - sizeof(size_t));
 		printf("chunk starting at address %p, ", (void *)chunk);
