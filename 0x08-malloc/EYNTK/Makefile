@@ -18,10 +18,10 @@ $(T0): 0-main.o
 $(T1): 1-main.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(T2): 2-main.o 2-naive_malloc.o
+$(T2): 2-main.o 2-naive_malloc.o utils.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(T2a): 2-main_malloc.o
+$(T2a): 2-main_malloc.o utils.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(T3): 3-main.o 3-naive_malloc_header.o
