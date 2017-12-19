@@ -1,9 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-
-void *naive_malloc_page(size_t size);
+#include "naive.h"
 
 /**
  * main - Program entry point
