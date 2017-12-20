@@ -1,8 +1,5 @@
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 #define BRK_FAILED ((void *)-1)
+#include "naive.h"
 
 void *naive_malloc_page(size_t size)
 {
