@@ -27,7 +27,7 @@ $(T2a): 2-main_malloc.o utils.o
 $(T3): 3-main.o 3-naive_malloc_header.o utils.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(T4): 4-main.o 4-naive_malloc_page.o
+$(T4): 4-main.o 4-naive_malloc_page.o utils.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(T4a): 4-main_beyond.o 4-naive_malloc_page.o
