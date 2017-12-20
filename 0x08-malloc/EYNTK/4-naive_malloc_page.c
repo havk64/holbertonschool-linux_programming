@@ -1,4 +1,3 @@
-#define BRK_FAILED ((void *)-1)
 #include "naive.h"
 
 void *naive_malloc_page(size_t size)
