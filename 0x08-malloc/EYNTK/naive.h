@@ -21,4 +21,6 @@ void *naive_malloc_align(size_t size);
 void *bootstrap(size_t *unused, size_t *header);
 #define BRK_FAILED ((void *)-1)
 #define PAGESIZE (1 << 12)
+#define MSIZE 8
+#define ALIGN(size) ((size + (MSIZE - 1)) & -MSIZE)
 #endif /*NAIVE_H */

@@ -1,11 +1,3 @@
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#define BRK_FAILED ((void *)-1)
-#define PAGESIZE (1 << 12)
-#define MSIZE 8
-#define ALIGN(size) ((size + (MSIZE - 1)) & -MSIZE)
 
 void *bootstrap(size_t *unused, size_t *header)
 {
@@ -20,6 +12,7 @@ void *bootstrap(size_t *unused, size_t *header)
 	*header = *unused;
 	return (brk);
 }
+#include "naive.h"
 
 void *naive_malloc_align(size_t size)
 {
