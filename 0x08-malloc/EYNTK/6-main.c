@@ -27,7 +27,7 @@ int main(void)
 		printf("break: %p\n", sbrk(0));
 	}
 
-	status = prompt_mem_map(pid);
 	printf("Final break is %p\n", sbrk(0));
+	status = prompt_mem_map(pid);
 	return (status);
 }
