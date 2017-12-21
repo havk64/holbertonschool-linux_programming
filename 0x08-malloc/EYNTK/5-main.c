@@ -18,7 +18,6 @@ int main(void)
 
 		str = naive_malloc_extend(1016);
 		strcpy(str, "Holberton");
-		str[9] = '\0';
 		printf("%p: %s, ", (void *)str, str);
 		chunk = (void *)(str - sizeof(size_t));
 		printf("chunk addr: %p, ", (void *)chunk);
