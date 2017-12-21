@@ -1,9 +1,4 @@
-#include <string.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#define BRK_FAILED ((void *)-1)
-#define PAGESIZE (1 << 12)
+#include "naive.h"
 
 void *bootstrap(size_t *unused, size_t *header)
 {
