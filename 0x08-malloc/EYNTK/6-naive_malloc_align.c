@@ -1,17 +1,3 @@
-
-void *bootstrap(size_t *unused, size_t *header)
-{
-	void *brk;
-
-	brk = sbrk(PAGESIZE);
-	if (brk == BRK_FAILED)
-		return (NULL);
-
-	*unused = PAGESIZE;
-	header = (size_t *)brk;
-	*header = *unused;
-	return (brk);
-}
 #include "naive.h"
 
 void *naive_malloc_align(size_t size)
