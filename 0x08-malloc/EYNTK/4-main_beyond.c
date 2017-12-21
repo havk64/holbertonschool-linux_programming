@@ -8,8 +8,10 @@
 int main(void)
 {
 	char *str;
-	int i;
+	int i, status;
+	pid_t pid;
 
+	pid = getpid();
 	printf("Starting break is %p\n", sbrk(0));
 
 	for (i = 0; i < 10; i++)
@@ -25,6 +27,7 @@ int main(void)
 		printf("break: %p\n", sbrk(0));
 	}
 
+	status = prompt_mem_map(pid);
 	printf("Final break is %p\n", sbrk(0));
-	return (EXIT_SUCCESS);
+	return (status);
 }
