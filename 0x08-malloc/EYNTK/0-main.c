@@ -1,9 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#define BRK_FAILED ((void *)-1)
-#define bsize 128
+#include "naive.h"
 
 
 int print_heap(void)
