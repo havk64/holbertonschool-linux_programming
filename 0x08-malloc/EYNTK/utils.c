@@ -106,3 +106,17 @@ int prompt_mem_map(pid_t pid)
 	}
 	return (status);
 }
+
+void *bootstrap(size_t *unused, size_t *header)
+{
+	void *brk;
+
+	brk = sbrk(PAGESIZE);
+	if (brk == BRK_FAILED)
+		return (NULL);
+
+	*unused = PAGESIZE;
+	header = (size_t *)brk;
+	*header = *unused;
+	return (brk);
+}

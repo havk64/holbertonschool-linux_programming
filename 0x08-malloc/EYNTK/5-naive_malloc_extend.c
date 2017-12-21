@@ -1,19 +1,5 @@
 #include "naive.h"
 
-void *bootstrap(size_t *unused, size_t *header)
-{
-	void *brk;
-
-	brk = sbrk(PAGESIZE);
-	if (brk == BRK_FAILED)
-		return (NULL);
-
-	*unused = PAGESIZE;
-	header = (size_t *)brk;
-	*header = *unused;
-	return (brk);
-}
-
 void *naive_malloc_extend(size_t size)
 {
 	static void *start_brk;
