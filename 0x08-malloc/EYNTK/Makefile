@@ -36,5 +36,5 @@ $(T4a): 4-main_beyond.o 4-naive_malloc_page.o utils.o
 $(T5): 5-main.o 5-naive_malloc_extend.o utils.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(T6): 6-main.o 6-naive_malloc_align.o
+$(T6): 6-main.o 6-naive_malloc_align.o utils.o
 	$(CC) $(CFLAGS) $^ -o $@
