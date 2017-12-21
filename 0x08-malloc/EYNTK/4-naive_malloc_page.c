@@ -21,7 +21,7 @@ void *naive_malloc_page(size_t size)
 	pagesize = sysconf(_SC_PAGESIZE);
 	if (pagesize < 0)
 	{
-		perror("sysconf error");
+		perror("sysconf");
 		return (NULL);
 	}
 
