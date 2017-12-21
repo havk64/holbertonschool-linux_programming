@@ -17,6 +17,7 @@ void *naive_malloc(size_t size);
 void *naive_malloc_header(size_t size);
 void *naive_malloc_page(size_t size);
 void *naive_malloc_extend(size_t size);
+void *naive_malloc_align(size_t size);
 #define BRK_FAILED ((void *)-1)
 #define PAGESIZE (1 << 12)
 #endif /*NAIVE_H */
