@@ -1,6 +1,12 @@
 #include "naive.h"
 
 
+
+/**
+ * print_heap - print the heap info from a /prov/<pid>/maps file
+ *
+ * Return: On success, EXIT_SUCCESS. On failure, EXIT_FAILURE
+ */
 int print_heap(void)
 {
 
