@@ -1,5 +1,12 @@
 #include "naive.h"
 
+/**
+ * naive_malloc_extend - a naive malloc-like function
+ * @size: the size to be allocated
+ *
+ * Return: On success, a void pointer to beginning of allocated space on memory
+ * On failure, it returns NULL
+ */
 void *naive_malloc_extend(size_t size)
 {
 	static void *start_brk;
