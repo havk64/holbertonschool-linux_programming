@@ -1,11 +1,8 @@
 /* Private anonymous mapping example using mmap syscall */
-#include <stdio.h>
+#include "naive.h"
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 static inline void errExit(const char *msg)
 {
