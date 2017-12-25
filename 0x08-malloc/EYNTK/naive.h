@@ -7,6 +7,9 @@
 #include <termios.h>
 #include <fcntl.h>
 #include <sys/time.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #define BRK_FAILED ((void *)-1)
 #define bsize 128
 #define PAGESIZE (1 << 12)
