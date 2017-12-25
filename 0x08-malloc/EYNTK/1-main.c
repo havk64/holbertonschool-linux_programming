@@ -1,5 +1,11 @@
 #include "naive.h"
 
+/**
+ * errExit - print ERRNO and exit
+ * @msg: a string to be printed before the error msg
+ *
+ * Return: Always void.
+ */
 static inline void errExit(const char *msg)
 {
 	perror(msg);
