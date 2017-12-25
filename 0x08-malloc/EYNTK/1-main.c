@@ -1,4 +1,3 @@
-/* Private anonymous mapping example using mmap syscall */
 #include "naive.h"
 
 static inline void errExit(const char *msg)
@@ -7,6 +6,10 @@ static inline void errExit(const char *msg)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * main - Private anonymous mapping example using mmap syscall
+ * Return: On success, EXIT_SUCCESS. On failure EXIT_FAILURE
+ */
 int main(void)
 {
 	int ret = -1;
