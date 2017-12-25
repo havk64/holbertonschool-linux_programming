@@ -46,5 +46,5 @@ int main(void)
 	printf("(Once more...)\n");
 	getchar();
 	printf("Bye!\n");
-	return (0);
+	return (EXIT_SUCCESS);
 }
