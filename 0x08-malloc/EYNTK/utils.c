@@ -107,6 +107,13 @@ int prompt_mem_map(pid_t pid)
 	return (status);
 }
 
+/**
+ * bootstrap - Extends the heap by PAGESIZE
+ * @unused: pointer to a size_t number
+ * @header: pointer to a size_t number
+ *
+ * Return: a void pointer to the beginning of heap
+ */
 void *bootstrap(size_t *unused, size_t *header)
 {
 	void *brk;
