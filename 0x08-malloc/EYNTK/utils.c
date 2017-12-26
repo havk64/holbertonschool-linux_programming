@@ -74,8 +74,9 @@ int get_key(int no_timeout)
 	return (c);
 }
 
-/*
+/**
  * prompt_mem_map - prompt user to show mem map
+ * @pid: the pid of related process
  *
  * Return: always void
  */
