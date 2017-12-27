@@ -1,6 +1,20 @@
 #include "naive.h"
 
+void *getbrk(void *ptr)
+{
+	int i;
+	char *h;
 
+	printf("Before: %p\n", ptr);
+	ptr = sbrk(10);
+	printf("After: %p\n", ptr);
+	h = sbrk(0);
+	printf("New break(h): %p\n", (void *)h);
+	for (i = 0; i < 26; i++)
+		*(h + i) = 'a' + i;
+	*(h + i) = '\0';
+	return (sbrk(0));
+}
 
 /**
  * print_heap - print the heap info from a /prov/<pid>/maps file
