@@ -1,5 +1,11 @@
 #include "naive.h"
 
+/**
+ * getbrk - retrieve the current program break
+ * @ptr: a void pointer with current program break
+ *
+ * Return: a void pointer to the current program break
+ */
 void *getbrk(void *ptr)
 {
 	int i;
