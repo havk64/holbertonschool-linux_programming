@@ -1,0 +1,183 @@
+GAS LISTING ../cpuid.s 			page 1
+
+
+   1              		.file	"cpuid.c"
+   2              		.section	.rodata
+   3              	.LC0:
+   4 0000 6561783A 		.string	"eax: %08x\n"
+   4      20253038 
+   4      780A00
+   5              	.LC1:
+   6 000b 6562783A 		.string	"ebx: %08x\n"
+   6      20253038 
+   6      780A00
+   7              	.LC2:
+   8 0016 6563783A 		.string	"ecx: %08x\n"
+   8      20253038 
+   8      780A00
+   9              	.LC3:
+  10 0021 6564783A 		.string	"edx: %08x\n"
+  10      20253038 
+  10      780A00
+  11              	.LC4:
+  12 002c 0A50726F 		.string	"\nProcessor type: "
+  12      63657373 
+  12      6F722074 
+  12      7970653A 
+  12      2000
+  13              	.LC5:
+  14 003e 252E3473 		.string	"%.4s"
+  14      00
+  15              	.LC6:
+  16 0043 252E3473 		.string	"%.4s\n"
+  16      0A00
+  17              	.LC7:
+  18 0049 45647820 		.string	"Edx register as binary: "
+  18      72656769 
+  18      73746572 
+  18      20617320 
+  18      62696E61 
+  19              	.LC8:
+  20 0062 303100   		.string	"01"
+  21              		.text
+  22              		.globl	main
+  23              		.type	main, @function
+  24              	main:
+  25              	.LFB2:
+  26              		.cfi_startproc
+  27 0000 55       		pushq	%rbp
+  28              		.cfi_def_cfa_offset 16
+  29              		.cfi_offset 6, -16
+  30 0001 4889E5   		movq	%rsp, %rbp
+  31              		.cfi_def_cfa_register 6
+  32 0004 53       		pushq	%rbx
+  33 0005 4883EC18 		subq	$24, %rsp
+  34              		.cfi_offset 3, -24
+  35 0009 B8000000 		movl	$0, %eax
+  35      00
+  36              	#APP
+  37              	# 12 "utils/cpuid.c" 1
+   0              	
+GAS LISTING ../cpuid.s 			page 2
+
+
+  38              		cpuid
+  39              		
+  40              	# 0 "" 2
+  41              	#NO_APP
+  42 0010 89DE     		movl	%ebx, %esi
+  43 0012 8945EC   		movl	%eax, -20(%rbp)
+  44 0015 8975E0   		movl	%esi, -32(%rbp)
+  45 0018 894DE4   		movl	%ecx, -28(%rbp)
+  46 001b 8955E8   		movl	%edx, -24(%rbp)
+  47 001e 8B45EC   		movl	-20(%rbp), %eax
+  48 0021 89C6     		movl	%eax, %esi
+  49 0023 BF000000 		movl	$.LC0, %edi
+  49      00
+  50 0028 B8000000 		movl	$0, %eax
+  50      00
+  51 002d E8000000 		call	printf
+  51      00
+  52 0032 8B45E0   		movl	-32(%rbp), %eax
+  53 0035 89C6     		movl	%eax, %esi
+  54 0037 BF000000 		movl	$.LC1, %edi
+  54      00
+  55 003c B8000000 		movl	$0, %eax
+  55      00
+  56 0041 E8000000 		call	printf
+  56      00
+  57 0046 8B45E4   		movl	-28(%rbp), %eax
+  58 0049 89C6     		movl	%eax, %esi
+  59 004b BF000000 		movl	$.LC2, %edi
+  59      00
+  60 0050 B8000000 		movl	$0, %eax
+  60      00
+  61 0055 E8000000 		call	printf
+  61      00
+  62 005a 8B45E8   		movl	-24(%rbp), %eax
+  63 005d 89C6     		movl	%eax, %esi
+  64 005f BF000000 		movl	$.LC3, %edi
+  64      00
+  65 0064 B8000000 		movl	$0, %eax
+  65      00
+  66 0069 E8000000 		call	printf
+  66      00
+  67 006e BF000000 		movl	$.LC4, %edi
+  67      00
+  68 0073 B8000000 		movl	$0, %eax
+  68      00
+  69 0078 E8000000 		call	printf
+  69      00
+  70 007d 488D45E0 		leaq	-32(%rbp), %rax
+  71 0081 4889C6   		movq	%rax, %rsi
+  72 0084 BF000000 		movl	$.LC5, %edi
+  72      00
+  73 0089 B8000000 		movl	$0, %eax
+  73      00
+  74 008e E8000000 		call	printf
+  74      00
+  75 0093 488D45E8 		leaq	-24(%rbp), %rax
+  76 0097 4889C6   		movq	%rax, %rsi
+GAS LISTING ../cpuid.s 			page 3
+
+
+  77 009a BF000000 		movl	$.LC5, %edi
+  77      00
+  78 009f B8000000 		movl	$0, %eax
+  78      00
+  79 00a4 E8000000 		call	printf
+  79      00
+  80 00a9 488D45E4 		leaq	-28(%rbp), %rax
+  81 00ad 4889C6   		movq	%rax, %rsi
+  82 00b0 BF000000 		movl	$.LC6, %edi
+  82      00
+  83 00b5 B8000000 		movl	$0, %eax
+  83      00
+  84 00ba E8000000 		call	printf
+  84      00
+  85 00bf BF000000 		movl	$.LC7, %edi
+  85      00
+  86 00c4 B8000000 		movl	$0, %eax
+  86      00
+  87 00c9 E8000000 		call	printf
+  87      00
+  88 00ce 488B0500 		movq	stdout(%rip), %rax
+  88      000000
+  89 00d5 4889C7   		movq	%rax, %rdi
+  90 00d8 E8000000 		call	fflush
+  90      00
+  91 00dd 8B45E8   		movl	-24(%rbp), %eax
+  92 00e0 BE000000 		movl	$.LC8, %esi
+  92      00
+  93 00e5 89C7     		movl	%eax, %edi
+  94 00e7 E8000000 		call	asm_puti_base
+  94      00
+  95 00ec BF0A0000 		movl	$10, %edi
+  95      00
+  96 00f1 E8000000 		call	putchar
+  96      00
+  97 00f6 B8000000 		movl	$0, %eax
+  97      00
+  98 00fb 4883C418 		addq	$24, %rsp
+  99 00ff 5B       		popq	%rbx
+ 100 0100 5D       		popq	%rbp
+ 101              		.cfi_def_cfa 7, 8
+ 102 0101 C3       		ret
+ 103              		.cfi_endproc
+ 104              	.LFE2:
+ 105              		.size	main, .-main
+ 106              		.ident	"GCC: (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4"
+ 107              		.section	.note.GNU-stack,"",@progbits
+GAS LISTING ../cpuid.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 cpuid.c
+          ../cpuid.s:24     .text:0000000000000000 main
+
+UNDEFINED SYMBOLS
+printf
+stdout
+fflush
+asm_puti_base
+putchar
