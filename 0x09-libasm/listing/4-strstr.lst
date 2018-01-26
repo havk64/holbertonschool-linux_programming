@@ -18,45 +18,45 @@
     18                                  	segment .text
     19                                  
     20                                  asm_strstr:
-    21 00000000 55                      	push rbp
+    21 00000000 55                      	push rbp		; Routine preamble
     22 00000001 4889E5                  	mov rbp, rsp
-    23 00000004 53                      	push rbx
+    23 00000004 53                      	push rbx		; Save register's values/states
     24 00000005 51                      	push rcx
     25 00000006 52                      	push rdx
-    26 00000007 678A0E                  	mov cl, BYTE [esi]
-    27 0000000A 84C9                    	test cl, cl
-    28 0000000C 7433                    	jz null
+    26 00000007 678A0E                  	mov cl, BYTE [esi]	; Read first byte of substring
+    27 0000000A 84C9                    	test cl, cl		; Test (bitwise AND) it
+    28 0000000C 7433                    	jz null			; Case is NULL jump to 'null' subroutine
     29                                  
     30                                  loop:
-    31 0000000E 670FB607                	movzx eax, BYTE [edi]
-    32 00000012 673A06                  	cmp al, BYTE [esi]
-    33 00000015 7410                    	jz match
-    34 00000017 FFC7                    	inc edi
-    35 00000019 84C0                    	test al, al
-    36 0000001B 75F1                    	jnz loop
-    37 0000001D 31C0                    	xor eax, eax
+    31 0000000E 670FB607                	movzx eax, BYTE [edi]	; Read one byte from @s
+    32 00000012 673A06                  	cmp al, BYTE [esi]	; Compare with byte from @sub
+    33 00000015 7410                    	jz match		; If equal jump to 'match' subroutine
+    34 00000017 FFC7                    	inc edi			; Otherwise increase the pointer to @s
+    35 00000019 84C0                    	test al, al		; Check for the end of string
+    36 0000001B 75F1                    	jnz loop		; While not NULL, loop
+    37 0000001D 31C0                    	xor eax, eax		; Otherwise return NULL
     38                                  
     39                                  end:
-    40 0000001F 5A                      	pop rdx
+    40 0000001F 5A                      	pop rdx			; Restore register's states/values
     41 00000020 59                      	pop rcx
     42 00000021 5B                      	pop rbx
-    43 00000022 4889EC                  	mov rsp, rbp
+    43 00000022 4889EC                  	mov rsp, rbp		; Routine prologue
     44 00000025 5D                      	pop rbp
-    45 00000026 C3                      	ret
+    45 00000026 C3                      	ret			; Return
     46                                  
-    47                                  match:
-    48 00000027 89F8                    	mov eax, edi
-    49 00000029 31C9                    	xor ecx, ecx
+    47                                  match:				; When the first character match...
+    48 00000027 89F8                    	mov eax, edi		; Move the pointer of first matched char to eax
+    49 00000029 31C9                    	xor ecx, ecx		; reset the counter
     50                                  substr:
-    51 0000002B FFC1                    	inc ecx
-    52 0000002D 678A1C0F                	mov bl, BYTE [edi + ecx]
-    53 00000031 678A140E                	mov dl, BYTE [esi + ecx]
-    54 00000035 84D2                    	test dl, dl
-    55 00000037 74E6                    	jz end
-    56 00000039 38D3                    	cmp bl, dl
-    57 0000003B 74EE                    	jz substr
-    58 0000003D FFC7                    	inc edi
-    59 0000003F EBCD                    	jmp loop
+    51 0000002B FFC1                    	inc ecx			; ...and increase the counter by one on each iteration
+    52 0000002D 678A1C0F                	mov bl, BYTE [edi + ecx] ; Read one byte from @s...
+    53 00000031 678A140E                	mov dl, BYTE [esi + ecx] ; ...and one from @sub.
+    54 00000035 84D2                    	test dl, dl		 ; Check for the end of @sub
+    55 00000037 74E6                    	jz end			 ; If end of string, jump to end
+    56 00000039 38D3                    	cmp bl, dl		 ; Otherwise compare both chars
+    57 0000003B 74EE                    	jz substr		 ; Loop while equal
+    58 0000003D FFC7                    	inc edi			 ; Otherwise increase the pointer
+    59 0000003F EBCD                    	jmp loop		 ; and jump back to outer loop
     60                                  
-    61 00000041 89F8                    null:	mov eax, edi
-    62 00000043 EBDA                    	jmp end
+    61 00000041 89F8                    null:	mov eax, edi		; When @sub is NULL move pointer to eax
+    62 00000043 EBDA                    	jmp end			; and jump to end
