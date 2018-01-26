@@ -41,11 +41,11 @@ diff:				# Replace conditional jumps with 'setcc' instruction
 	movzbl (%edi, %ecx), %eax	# Read the two strings at index (ecx)
 	cmpb (%esi, %ecx), %al	# Compare the characters
 	setbb %bl		# Set 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
-	negl %ebx		# Two's complement: ebx = (al < dl) ? 0xffff : 0
-	movl %ebx, %eax		# eax = (al < dl) ? 0xffff : 0
-	andl $-1, %eax		# eax = (al < dl) ? 0xffff : 0
-	notl %ebx		# ebx = (al < dl) ? 0 : 0xffff
+	negl %ebx		# Two's complement: ebx = (al < dl) ? 0xffffff : 0
+	movl %ebx, %eax		# eax = (al < dl) ? 0xffffff : 0
+	andl $-1, %eax		# eax = (al < dl) ? 0xffffff : 0
+	notl %ebx		# ebx = (al < dl) ? 0 : 0xffffff
 	andl $1, %ebx		# ebx = (al < dl) ? 0 : 1
-	orl %ebx, %eax		# eax = (al < dl) ? 0xffff : 1 (-1 or 1)
+	orl %ebx, %eax		# eax = (al < dl) ? 0xffffff : 1 (-1 or 1)
 	jmp end			# Go to the end and return
 
