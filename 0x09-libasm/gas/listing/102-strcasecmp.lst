@@ -7,7 +7,7 @@ GAS LISTING 102-strcasecmp.s 			page 1
  input file    	: 102-strcasecmp.s
  output file   	: 102-strcasecmp.o
  target        	: x86_64-pc-linux-gnu
- time stamp    	: 2017-11-26T18:21:57.000-0800
+ time stamp    	: 2018-01-26T14:08:24.000-0800
 
 GAS LISTING 102-strcasecmp.s 			page 2
 
@@ -31,57 +31,58 @@ GAS LISTING 102-strcasecmp.s 			page 1
   17              		.globl asm_strcasecmp
   18              	
   19              	asm_strcasecmp:
-  20 0000 55       		pushq %rbp		# TODO - add comments, transfer improvements to 103 file
+  20 0000 55       		pushq %rbp		# Routine preamble
   21 0001 4889E5   		movq %rsp, %rbp
-  22 0004 53       		pushq %rbx
+  22 0004 53       		pushq %rbx		# Preserve register's state
   23 0005 51       		pushq %rcx
   24 0006 4150     		pushq %r8
-  25 0008 31C9     		xorl %ecx, %ecx
+  25 0008 31C9     		xorl %ecx, %ecx		# Reset the counter
   26              	
   27              	loop:
-  28 000a 670FB604 		movzxb (%edi, %ecx), %eax
+  28 000a 670FB604 		movzxb (%edi, %ecx), %eax #  Read @s1 character and start case checking
   28      0F
-  29 000f 67448D48 		leal -'A(%eax), %r9d
+  29 000f 67448D48 		leal -'A(%eax), %r9d	  #  By subt the lower bound we skip one comparison
   29      BF
-  30 0014 4180F919 		cmpb $('Z - 'A), %r9b
-  31 0018 410F96C0 		setbe %r8b
-  32 001c 41C0E005 		shlb $5, %r8b
-  33 0020 4408C0   		orb %r8b, %al
-  34 0023 670FB61C 		movzxb (%esi, %ecx), %ebx
+  30 0014 4180F919 		cmpb $('Z - 'A), %r9b	  #  The only comparison needed  now is with max - min
+  31 0018 410F96C0 		setbe %r8b		  #  Using setxx we avoid unnecessary jumps
+  32 001c 41C0E005 		shlb $5, %r8b		  #  Activate the 6th bit, if uppercase
+  33 0020 4408C0   		orb %r8b, %al		  #  Use *or* to activate it and lower the case
+  34 0023 670FB61C 		movzxb (%esi, %ecx), %ebx # 	 Do the same with the second string @s2
   34      0E
   35 0028 67448D43 		leal -'A(%ebx), %r8d
   35      BF
   36 002d 4180F819 		cmpb $('Z - 'A), %r8b
-  37 0031 67448D43 		leal 0x20(%ebx), %r8d
+  37 0031 67448D43 		leal 0x20(%ebx), %r8d	# This time, instead of setxx I'm using LEA...
   37      20
-  38 0036 410F46D8 		cmovbel %r8d, %ebx
-  39 003a 38D8     		cmpb %bl, %al
-  40 003c 750F     		jnz diff
-  41 003e FFC1     		inc %ecx
-  42 0040 84C0     		test %al, %al
-  43 0042 75C6     		jnz loop
+  38 0036 410F46D8 		cmovbel %r8d, %ebx	# and conditional move to lower the case (when upper)
+  39 003a 38D8     		cmpb %bl, %al		# Check if they diff (after converted to lower case)
+  40 003c 750F     		jnz diff		# If different jump
+  41 003e FFC1     		inc %ecx		# Otherwise increase the counter...
+  42 0040 84C0     		test %al, %al		# While the char is not end of string (0)...
+  43 0042 75C6     		jnz loop		# ...loop
   44              	
   45              	end:
-  46 0044 4158     		popq %r8
-  47 0046 59       		popq %rcx
-  48 0047 5B       		popq %rbx
-  49 0048 4889EC   		movq %rbp, %rsp
-  50 004b 5D       		popq %rbp
-  51 004c C3       		retq
-  52              	
+  46 0044 4158     		popq %r8		# Restore register's state       Restore register's state
+  47              	
+  48 0046 59       		popq %rcx
+  49 0047 5B       		popq %rbx
+  50 0048 4889EC   		movq %rbp, %rsp		# Routine prologue
+  51 004b 5D       		popq %rbp
+  52 004c C3       		retq			# Return
 GAS LISTING 102-strcasecmp.s 			page 3
 
 
-  53              	diff:
-  54 004d 29D8     		subl %ebx, %eax
-  55 004f EBF3     		jmp end
+  53              	
+  54              	diff:
+  55 004d 29D8     		subl %ebx, %eax		# Check the difference to return
+  56 004f EBF3     		jmp end
 GAS LISTING 102-strcasecmp.s 			page 4
 
 
 DEFINED SYMBOLS
     102-strcasecmp.s:19     .text:0000000000000000 asm_strcasecmp
     102-strcasecmp.s:27     .text:000000000000000a loop
-    102-strcasecmp.s:53     .text:000000000000004d diff
+    102-strcasecmp.s:54     .text:000000000000004d diff
     102-strcasecmp.s:45     .text:0000000000000044 end
 
 NO UNDEFINED SYMBOLS
