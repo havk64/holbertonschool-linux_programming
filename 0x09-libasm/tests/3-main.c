@@ -20,6 +20,7 @@ int main(void)
 	assert(strchr(S1, C1) == asm_strchr(S1, C1));
 	assert(strchr(S1, C2) == asm_strchr(S1, C2));
 	assert(strchr(S1, C3) == asm_strchr(S1, C3));
+	assert(strchr(S1, 0) == asm_strchr(S1, 0));
 
 	printf("All good!\n");
 	return (EXIT_SUCCESS);
