@@ -1,0 +1,67 @@
+GAS LISTING 1-strcmp_sse.s 			page 1
+
+
+   1              		/*
+   2              		 * strcmp clone - return the difference between two strings
+   3              		 *
+   4              		 * Implementation: Using SSE 4.2 text processing instructions where
+   5              		 * the string are analyzed 16 bytes at a time thanks to the register size
+   6              		 * of 128 bits, granting great performance.
+   7              		 * Also avoid conditional jump to allow 'Speculative Execution', a feature
+   8              		 * available in modern processors that uses its parallel processing
+   9              		 * capabilities.
+  10              		 *
+  11              		 * Prototype: int asm_strcmp(const char *s1, const char *s2);
+  12              		 * @s1: Pointer to the first string
+  13              		 * @s2: Pointer to the second string
+  14              		 * Return: an integer that less than, equal to, or greater than zero if s1  is
+  15              		 * found, respectively, to be less than, to match, or  be greater than s2.
+  16              		 */
+  17              	
+  18              		.global asm_strcmp_sse
+  19              	
+  20              	.text
+  21              	asm_strcmp_sse:
+  22 0000 55       		pushq %rbp		# Routine prologue
+  23 0001 4889E5   		movq %rsp, %rbp
+  24 0004 4829F7   		subq %rsi, %rdi		# Reduce effectively to just one index (rsi)
+  25 0007 83EE10   		subl $0x10, %esi	# Sub 16 bytes, avoid jump first `add` instruction
+  26              	
+  27              	loop:
+  28 000a 83C610   		addl $0x10, %esi	# Increment 16 bytes (128 bits) at a time
+  29 000d 67F30F6F 		movdqu (%esi), %xmm0	# Load 16 bytes from addr in esi into xmm0 (unaligned)
+  29      06
+  30 0012 67660F3A 		pcmpistri $0b11000, (%esi, %edi, 1), %xmm0 # Compare the two strings
+  30      63043E18 
+  31 001a 77EE     		ja loop			# While equal keep iterating
+  32 001c 7207     		jc diff			# If they differ return the index in ecx and jump
+  33 001e 31C0     		xorl %eax, %eax		# Otherwise they are equal, return 0
+  34              	end:
+  35 0020 4889EC   		movq %rbp, %rsp		# Routine epilogue
+  36 0023 5D       		popq %rbp
+  37 0024 C3       		ret			# Return
+  38              	
+  39              	diff:				# Replace conditional jumps with 'setcc' instruction
+  40 0025 01F7     		addl %esi, %edi		# Add back the address of edi
+  41 0027 670FB604 		movzbl (%edi, %ecx), %eax	# Read the two strings at index (ecx)
+  41      0F
+  42 002c 673A040E 		cmpb (%esi, %ecx), %al	# Compare the characters
+  43 0030 0F92C3   		setbb %bl		# Set 1 into bl case al < dl => bl = (al < dl) ? 1 : 0
+  44 0033 F7DB     		negl %ebx		# Two's complement: ebx = (al < dl) ? 0xffff : 0
+  45 0035 89D8     		movl %ebx, %eax		# eax = (al < dl) ? 0xffff : 0
+  46 0037 83E0FF   		andl $-1, %eax		# eax = (al < dl) ? 0xffff : 0
+  47 003a F7D3     		notl %ebx		# ebx = (al < dl) ? 0 : 0xffff
+  48 003c 83E301   		andl $1, %ebx		# ebx = (al < dl) ? 0 : 1
+  49 003f 09D8     		orl %ebx, %eax		# eax = (al < dl) ? 0xffff : 1 (-1 or 1)
+  50 0041 EBDD     		jmp end			# Go to the end and return
+  51              	
+GAS LISTING 1-strcmp_sse.s 			page 2
+
+
+DEFINED SYMBOLS
+      1-strcmp_sse.s:21     .text:0000000000000000 asm_strcmp_sse
+      1-strcmp_sse.s:27     .text:000000000000000a loop
+      1-strcmp_sse.s:39     .text:0000000000000025 diff
+      1-strcmp_sse.s:34     .text:0000000000000020 end
+
+NO UNDEFINED SYMBOLS
