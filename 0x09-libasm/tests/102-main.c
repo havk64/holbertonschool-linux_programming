@@ -9,6 +9,8 @@
 #define S2  "HOLBERTON SCHOOL"
 #define S3  "Holberton SchooL"
 #define S4  "holberton socool"
+#define S5  "@ABCDEFGHIJKLMNOPQRSTXYZ[]"
+#define S6  "@abcdefghijklmnopqrstxyz[]"
 
 /**
  * main - Program entry point
@@ -21,6 +23,7 @@ int main(void)
 	assert(strcasecmp(S1, S2) == asm_strcasecmp(S1, S2));
 	assert(strcasecmp(S1, S3) == asm_strcasecmp(S1, S3));
 	assert(strcasecmp(S1, S4) == asm_strcasecmp(S1, S4));
+	assert(strcasecmp(S5, S6) == asm_strcasecmp(S5, S6));
 
 	printf("All good!\n");
 	return (EXIT_SUCCESS);
