@@ -1,6 +1,7 @@
 CC	:= gcc
 CFLAGS	:= -g -Wall -Wextra -Werror -pedantic
 T0	:= 0-handler
+T0a	:= 0-test
 T1	:= 1-current_handler_signal
 T2	:= 2-handle_sigaction
 T3	:= 3-current_handler_sigaction
@@ -11,9 +12,12 @@ T7	:= 7-signal_send
 T7t	:= 7-wait_for_it
 T10	:= 10-pid_exist
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10) $(T0a)
 
 $(T0): 0-main.o 0-handle_signal.o
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(T0a): main_0.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(T1): 1-main.o 1-current_handler_signal.o print_hello.o
