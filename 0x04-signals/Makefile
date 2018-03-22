@@ -12,8 +12,9 @@ T7	:= 7-signal_send
 T7t	:= 7-wait_for_it
 T10	:= 10-pid_exist
 T10a	:= 10-own_pid
+T10b	:= 10-pid_one
 
-all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10) $(T0a) $(T10a)
+all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10) $(T0a) $(T10a) $(T10b)
 
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -49,6 +50,9 @@ $(T10): 10-pid_exist.o 10-main.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 $(T10a): 10-pid_exist.o 10-main_0.o
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(10b): 10-pid_exist.o 10-main_1.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
