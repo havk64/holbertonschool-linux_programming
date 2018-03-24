@@ -52,7 +52,7 @@ $(T10): 10-pid_exist.o 10-main.o
 $(T10a): 10-pid_exist.o 10-main_0.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(10b): 10-pid_exist.o 10-main_1.o
+$(T10b): 10-pid_exist.o 10-main_1.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
