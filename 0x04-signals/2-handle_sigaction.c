@@ -19,10 +19,10 @@ void _sa_handler(int signum)
  */
 int handle_sigaction(void)
 {
-	struct sigaction act;
+	struct sigaction action;
 
-	act.sa_handler = _sa_handler;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
-	return (sigaction(SIGINT, &act, NULL));
+	action.sa_handler = _sa_handler;
+	sigemptyset(&action.sa_mask);
+	action.sa_flags = 0;
+	return (sigaction(SIGINT, &action, NULL));
 }
