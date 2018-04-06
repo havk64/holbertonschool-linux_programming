@@ -8,7 +8,7 @@
  */
 void (*current_handler_signal(void))(int)
 {
-	void (*handler)(int);
+	sighandler_t handler;
 
 	handler = signal(SIGINT, print_hello);
 	if (handler == SIG_ERR)
