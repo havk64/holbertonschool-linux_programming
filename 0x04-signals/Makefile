@@ -14,9 +14,10 @@ T10	:= 10-pid_exist
 T10a	:= 10-own_pid
 T10b	:= 10-pid_one
 T12	:= 100-all_in_one
+T13	:= 101-sigset_init
 
 all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10) $(T0a) \
-$(T10a) $(T10b) $(T12)
+$(T10a) $(T10b) $(T12) $(T13)
 
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -60,6 +61,8 @@ $(T10b): 10-pid_exist.o 10-main_1.o
 $(T12): 100-all_in_one.o 100-main.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+$(T13): 101-sigset_init.o 101-main.o
+	$(CC) $(CFLAGS) -o $@ $^
 clean:
 	$(RM) *.o all
 
