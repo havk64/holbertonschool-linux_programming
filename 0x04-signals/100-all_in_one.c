@@ -10,6 +10,10 @@ void sigaction_handler(int signum, siginfo_t *info, void *context)
 	fflush(stdout);
 }
 
+/**
+ * all_in_one - it sets up a single handler for all the signals
+ * Return: Always void
+ */
 void all_in_one(void)
 {
 	int i;
