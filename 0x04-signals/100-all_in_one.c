@@ -26,16 +26,9 @@ void all_in_one(void)
 	int i;
 	struct sigaction action;
 
+	action.sa_sigaction = sigaction_handler;
+	sigemptyset(&action.sa_mask);
+	action.sa_flags = SA_SIGINFO;
 	for (i = 1; i < SIGNUM; i++)
-	{
-		if (i != 9 && i != 19)
-		{
-			action.sa_sigaction = sigaction_handler;
-			sigemptyset(&action.sa_mask);
-			action.sa_flags = SA_SIGINFO;
-			if (sigaction(i, &action, NULL) < 0)
-				continue;
-		}
-	}
-
+		sigaction(i, &action, NULL);
 }
