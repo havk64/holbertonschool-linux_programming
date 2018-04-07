@@ -1,6 +1,7 @@
 #ifndef SIGNALS_H
 #define SIGNALS_H
 #define UNUSED(x) (void)(x)
+#define SIGNUM 32
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,4 +19,5 @@ void (*current_handler_sigaction(void))(int);
 int trace_signal_sender(void);
 void sigquit_handler(int signum, siginfo_t *info, void *);
 int pid_exist(pid_t pid);
+void all_in_one(void);
 #endif /* SIGNALS_H */
