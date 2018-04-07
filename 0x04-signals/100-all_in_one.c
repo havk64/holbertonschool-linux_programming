@@ -1,5 +1,12 @@
 #include "signals.h"
 
+/**
+ * sigaction_handler - act as handler for sigaction syscall
+ * @signum: an integer representing a signal
+ * @info: a pointer to a siginfo_t with info about the signal
+ * @context: a void pointer to a user context (getcontext(3))
+ * Return: Always void
+ */
 void sigaction_handler(int signum, siginfo_t *info, void *context)
 {
 	char *msg = "Caught";
