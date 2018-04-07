@@ -4,7 +4,9 @@ int sigset_init(sigset_t *set, int *signals)
 {
 	int i;
 
-	sigemptyset(set);
+	if (sigemptyset(set) < 0)
+		return (EXIT_FAILURE);
+
 	for (i = 0; signals[i] != 0; i++)
 	{
 		if (sigaddset(set, signals[i]) < 0)
