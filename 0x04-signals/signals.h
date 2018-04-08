@@ -23,4 +23,5 @@ void all_in_one(void);
 int sigset_init(sigset_t *set, int *signals);
 int signals_block(int *signals);
 int signals_unblock(int *signals);
+int handle_pending(void (*handler)(int));
 #endif /* SIGNALS_H */
