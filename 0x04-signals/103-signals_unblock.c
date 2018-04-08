@@ -1,5 +1,11 @@
 #include "signals.h"
 
+/**
+ * signals_unblock - unblocks a given set of signals from being delivered to
+ * the current process
+ * @signals: a pointer to a zero terminated array of integers (signals)
+ * Return: On success, 0. On failure, -1
+ */
 int signals_unblock(int *signals)
 {
 	int i, how;
