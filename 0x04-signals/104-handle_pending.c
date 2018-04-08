@@ -1,5 +1,11 @@
 #include "signals.h"
 
+/**
+ * handle_pending - sets up a handler for all the pending signals of the
+ * current process
+ * @handler: a pointer to a handler function
+ * Return: On success, 0. On failure, -1
+ */
 int handle_pending(void (*handler)(int))
 {
 	int i;
