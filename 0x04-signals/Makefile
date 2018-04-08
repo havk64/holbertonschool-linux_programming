@@ -17,9 +17,10 @@ T12	:= 100-all_in_one
 T13	:= 101-sigset_init
 T14	:= 102-signals_block
 T15	:= 103-signals_unbock
+T16	:= 104-handle_pending
 
 all: $(T0) $(T1) $(T2) $(T3) $(T4) $(T5) $(T6) $(T7) $(T7t) $(T10) $(T0a) \
-$(T10a) $(T10b) $(T12) $(T13) $(T14) $(T15)
+$(T10a) $(T10b) $(T12) $(T13) $(T14) $(T15) $(T16)
 
 $(T0): 0-main.o 0-handle_signal.o
 	$(CC) $(CFLAGS) -o $@ $^
@@ -69,7 +70,10 @@ $(T13): 101-sigset_init.o 101-main.o
 $(T14): 102-signals_block.o 102-main.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(T15): 103-signals_unblock.o 103-main.o 102-signals_block.o utils.o
+$(T15): 103-signals_unblock.o 103-main.o utils.o
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(T16): 104-handle_pending.o 104-main.o utils.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
