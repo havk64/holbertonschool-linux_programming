@@ -8,18 +8,30 @@
  */
 int handle_pending(void (*handler)(int))
 {
-	int i;
+	int i, ismember;
 	sigset_t set;
+	struct sigaction action;
 
 	if (sigemptyset(&set) < 0)
 		return (EXIT_FAILURE);
+
+	action.sa_handler = handler;
+	action.sa_flags = 0;
+	action.sa_mask = set;
 
 	if (sigpending(&set) < 0)
 		return (EXIT_FAILURE);
 
 	for (i = 1; i < NSIG; i++)
-		if (sigismember(&set, i))
-			handler(i);
-
+	{
+		ismember = sigismember(&set, i);
+		if (ismember)
+		{
+			if (sigaction(i, &action, NULL) < 0)
+				return (EXIT_FAILURE);
+		}
+		else if (ismember < 0)
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
